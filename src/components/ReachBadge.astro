@@ -1,0 +1,100 @@
+---
+import { Icon } from 'astro-icon/components'
+
+type ReachItem = {
+  platform: string
+  metric: string
+  value: number
+}
+
+type ReachBadgeProps = {
+  total: number
+  updatedAt: string
+  items: ReachItem[]
+}
+
+const { total, updatedAt, items } = Astro.props as ReachBadgeProps
+
+const formatNumber = (value: number) => {
+  const formatter = new Intl.NumberFormat('en-US', {
+    maximumFractionDigits: value >= 1000000 ? 1 : 0,
+  })
+
+  if (value >= 1000000) return `${formatter.format(value / 1000000)}M`
+  if (value >= 1000) return `${formatter.format(value / 1000)}K`
+  return formatter.format(value)
+}
+
+const updatedDate = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+}).format(new Date(updatedAt))
+
+const platformTotals = Object.values(
+  items.reduce<Record<string, { platform: string; total: number }>>(
+    (totals, item) => {
+      totals[item.platform] ??= { platform: item.platform, total: 0 }
+      totals[item.platform].total += item.value
+      return totals
+    },
+    {},
+  ),
+)
+---
+
+<aside
+  class="animate-fade-in-up mx-auto mt-6 w-full max-w-[592px] px-4 delay-300 sm:max-w-[608px] sm:px-6"
+  aria-label="Total people reached"
+>
+  <div
+    class="bg-surface-container-high text-on-surface elevation-2 border-outline/20 overflow-hidden rounded-xl border"
+  >
+    <div class="px-5 py-5 sm:px-6">
+      <div class="mb-4 flex items-center justify-center gap-2">
+        <span
+          class="bg-primary-container text-on-primary-container grid h-10 w-10 shrink-0 place-items-center rounded-full"
+          aria-hidden="true"
+        >
+          <Icon name="heroicons:globe-americas" class="h-5 w-5" />
+        </span>
+        <span class="text-left">
+          <span class="text-on-surface-variant block text-sm font-semibold">
+            People reached
+          </span>
+          <span class="text-on-surface-variant block text-xs">
+            Updated {updatedDate}
+          </span>
+        </span>
+      </div>
+
+      <p
+        class="text-center text-5xl leading-none font-black tracking-normal sm:text-6xl"
+      >
+        {formatNumber(total)}<span class="text-primary">+</span>
+      </p>
+      <p
+        class="text-on-surface-variant mx-auto mt-3 max-w-sm text-center text-sm leading-snug"
+      >
+        Across YouTube, TikTok, Instagram, and Facebook
+      </p>
+    </div>
+
+    <dl
+      class="border-outline/20 bg-surface-container-low/70 grid grid-cols-2 border-t sm:grid-cols-4"
+    >
+      {
+        platformTotals.map((item) => (
+          <div class="border-outline/20 px-3 py-3 text-center not-last:border-r">
+            <dt class="text-on-surface-variant truncate text-xs font-semibold">
+              {item.platform}
+            </dt>
+            <dd class="text-on-surface mt-1 text-base font-bold">
+              {formatNumber(item.total)}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</aside>

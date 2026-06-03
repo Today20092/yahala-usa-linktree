@@ -6,8 +6,10 @@ import { Icon } from 'astro-icon/components'
 import LatestChannelVideo from '../components/LatestChannelVideo.astro'
 import Link from '../components/Link.astro'
 import QrCodeButton from '../components/QrCodeButton.astro'
+import ReachBadge from '../components/ReachBadge.astro'
 import heroCover from '../assets/yahala-hero-cover.png'
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
+import socialReach from '../data/social-reach.json'
 import youtubeChannels from '../data/youtube-channels.json'
 
 const pageTitle = 'Ya Hala with Haithum ياهلا مع هيثم'
@@ -26,6 +28,7 @@ const heroImageUrl = new URL(heroImagePath, Astro.site).toString()
 const latestVideoChannels = youtubeChannels.filter((channel) =>
   Boolean(latestYoutubeVideos[channel.id]),
 )
+const totalReach = socialReach.items.reduce((sum, item) => sum + item.value, 0)
 
 const channelBranding = {
   yahala: {
@@ -212,7 +215,11 @@ const socialLinks = [
           data-share-text={pageDescription}
           data-share-url={canonicalUrl}
         >
-          <Icon name="heroicons:arrow-up-tray" class="h-5 w-5" aria-hidden="true" />
+          <Icon
+            name="heroicons:arrow-up-tray"
+            class="h-5 w-5"
+            aria-hidden="true"
+          />
         </button>
         <img
           src={heroImagePath}
@@ -226,17 +233,24 @@ const socialLinks = [
 
       <h1
         id="profile-title"
-        class="animate-fade-in-up text-on-surface mx-auto mt-5 mb-3 max-w-xl text-2xl leading-tight font-bold delay-100 sm:text-3xl"
+        class="animate-fade-in-up text-on-surface mx-auto mt-5 mb-3 w-full max-w-[560px] px-4 text-2xl leading-tight font-bold delay-100 sm:px-6 sm:text-3xl"
       >
         {pageTitle}
       </h1>
       <p
-        class="animate-fade-in-up text-on-surface-variant mx-auto mb-4 max-w-prose text-center text-base delay-200"
+        class="animate-fade-in-up text-on-surface-variant mx-auto mb-4 w-full max-w-[560px] px-4 text-center text-base delay-200 sm:px-6"
       >
-        Real stories, field interviews, and community highlights from Arabs building life, work, and impact across America.
+        Real stories, field interviews, and community highlights from Arabs
+        building life, work, and impact across America.
       </p>
 
       <QrCodeButton />
+
+      <ReachBadge
+        total={totalReach}
+        updatedAt={socialReach.updatedAt}
+        items={socialReach.items}
+      />
 
       <section
         class="animate-fade-in-up mt-8 mb-5 flex flex-col gap-4 px-4 delay-400 sm:px-6"
@@ -287,7 +301,13 @@ const socialLinks = [
               linkcolor=""
               id={social.id}
               border="border border-solid"
-              style={`--brand-color: ${social.color}; --brand-color-2: ${social.color2}; --brand-color-3: ${social.color3}; --brand-color-dark: ${social.darkColor ?? social.color}; --brand-color-dark-2: ${social.darkColor2 ?? social.color2}; --brand-color-dark-3: ${social.darkColor3 ?? social.color3};`}
+              style={`--brand-color: ${social.color}; --brand-color-2: ${
+                social.color2
+              }; --brand-color-3: ${social.color3}; --brand-color-dark: ${
+                social.darkColor ?? social.color
+              }; --brand-color-dark-2: ${
+                social.darkColor2 ?? social.color2
+              }; --brand-color-dark-3: ${social.darkColor3 ?? social.color3};`}
               extraClasses="text-lg font-bold"
             >
               <Icon
@@ -304,7 +324,10 @@ const socialLinks = [
       <footer
         class="text-on-surface-variant mt-auto w-full px-4 pt-12 pb-4 text-center text-sm"
       >
-        <p class="mb-1">&copy; {currentYear} {pageTitle}. All rights reserved.</p>
+        <p class="mb-1">
+          &copy; {currentYear}
+          {pageTitle}. All rights reserved.
+        </p>
         <p>
           Built with
           <a
