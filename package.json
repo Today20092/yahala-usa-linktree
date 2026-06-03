@@ -1,5 +1,5 @@
 {
-  "name": "ayoub-linktree-project",
+  "name": "yahala-usa-linktree",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -17,6 +17,7 @@
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.18.0",
     "astro-icon": "^1.1.5",
+    "qrcode": "^1.5.4",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {

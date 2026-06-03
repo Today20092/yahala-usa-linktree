@@ -4,7 +4,8 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://ayoubabed.xyz",
+  site: "https://today20092.github.io",
+  base: "/yahala-usa-linktree",
   integrations: [icon()],
   vite: {
     plugins: [tailwindcss()],

@@ -1,0 +1,171 @@
+---
+import { Icon } from 'astro-icon/components'
+---
+
+<div class="mx-auto mt-5 flex justify-center lg:hidden">
+  <button
+    type="button"
+    id="qr-open"
+    class="text-on-surface bg-surface-container-high elevation-2 hover:elevation-4 focus-visible:ring-primary/70 inline-flex items-center gap-2 rounded-xl px-4 py-3 text-base font-semibold transition-all duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:outline-none"
+    aria-haspopup="dialog"
+    aria-controls="qr-dialog"
+  >
+    <Icon name="heroicons:qr-code" class="h-5 w-5" aria-hidden="true" />
+    <span>QR code</span>
+  </button>
+</div>
+
+<aside
+  class="qr-desktop-panel fixed right-7 bottom-7 z-40 hidden rounded-2xl border border-outline/30 bg-surface-container-high/95 p-3 text-center shadow-lg backdrop-blur-sm lg:block"
+  aria-label="View on mobile QR code"
+>
+  <p class="text-on-surface mb-2 text-sm font-semibold">View on mobile</p>
+  <div class="bg-surface-container-lowest elevation-3 rounded-2xl border border-outline/20 p-3">
+    <canvas
+      id="qr-canvas-desktop"
+      width="168"
+      height="168"
+      class="size-42"
+      aria-hidden="true"
+    ></canvas>
+  </div>
+</aside>
+
+<div
+  id="qr-dialog"
+  class="fixed inset-0 z-50 hidden items-center justify-center overflow-y-auto bg-black/70 px-4 py-6 backdrop-blur-sm sm:py-8"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="qr-title"
+>
+  <div
+    class="bg-surface text-on-surface elevation-4 max-h-[calc(100dvh-3rem)] w-full max-w-[22rem] overflow-y-auto rounded-2xl p-4 text-center sm:p-5"
+  >
+    <div class="mb-4 flex items-center justify-between gap-4">
+      <h2 id="qr-title" class="text-lg font-bold">Share this page</h2>
+      <button
+        type="button"
+        id="qr-close"
+        class="hover:bg-surface-container-high focus-visible:ring-primary/70 grid h-10 w-10 place-items-center rounded-xl transition-colors focus-visible:ring-2 focus-visible:outline-none"
+        aria-label="Close QR code"
+      >
+        <Icon name="heroicons:x-mark" class="h-6 w-6" aria-hidden="true" />
+      </button>
+    </div>
+    <div
+      class="bg-surface-container-lowest mx-auto grid aspect-square w-full max-w-64 place-items-center rounded-xl p-4"
+    >
+      <canvas
+        id="qr-canvas"
+        width="224"
+        height="224"
+        class="h-full w-full max-w-56"
+        aria-hidden="true"
+      ></canvas>
+    </div>
+    <p
+      id="qr-url"
+      class="text-on-surface-variant mt-4 overflow-hidden text-ellipsis break-all text-sm"
+    >
+    </p>
+  </div>
+</div>
+
+<script>
+  import QRCode from 'qrcode'
+
+  const dialog = document.getElementById('qr-dialog')
+  const openButton = document.getElementById('qr-open')
+  const closeButton = document.getElementById('qr-close')
+  const canvas = document.getElementById('qr-canvas')
+  const desktopCanvas = document.getElementById('qr-canvas-desktop')
+  const urlText = document.getElementById('qr-url')
+  let previousFocus = null
+
+  const focusableSelector =
+    'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+
+  const renderQrCode = async (
+    target,
+    currentUrl,
+    width,
+  ) => {
+    if (!(target instanceof HTMLCanvasElement)) return
+
+    await QRCode.toCanvas(target, currentUrl, {
+      width,
+      margin: 1,
+      color: {
+        dark: '#111827',
+        light: '#ffffff',
+      },
+    })
+  }
+
+  const currentUrl = window.location.href
+  void renderQrCode(desktopCanvas, currentUrl, 168)
+
+  const openDialog = async () => {
+    if (!dialog || !canvas || !urlText) return
+
+    previousFocus = document.activeElement
+    urlText.textContent = currentUrl
+
+    await renderQrCode(canvas, currentUrl, 224)
+
+    dialog.classList.remove('hidden')
+    dialog.classList.add('flex')
+    document.documentElement.classList.add('overflow-hidden')
+    closeButton?.focus()
+  }
+
+  const closeDialog = () => {
+    if (!dialog) return
+
+    dialog.classList.add('hidden')
+    dialog.classList.remove('flex')
+    document.documentElement.classList.remove('overflow-hidden')
+
+    if (previousFocus instanceof HTMLElement) {
+      previousFocus.focus()
+    }
+  }
+
+  openButton?.addEventListener('click', () => {
+    void openDialog()
+  })
+
+  closeButton?.addEventListener('click', closeDialog)
+
+  dialog?.addEventListener('click', (event) => {
+    if (event.target === dialog) closeDialog()
+  })
+
+  document.addEventListener('keydown', (event) => {
+    if (!dialog || dialog.classList.contains('hidden')) return
+
+    if (event.key === 'Escape') {
+      closeDialog()
+      return
+    }
+
+    if (event.key !== 'Tab') return
+
+    const focusable = [
+      ...dialog.querySelectorAll(focusableSelector),
+    ].filter((element) => element instanceof HTMLElement)
+
+    if (focusable.length === 0) return
+
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault()
+      last.focus()
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault()
+      first.focus()
+    }
+  })
+</script>

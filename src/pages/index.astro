@@ -1,143 +1,97 @@
 ---
 import '../styles.css'
-import { Image } from 'astro:assets'
 
-// Import the Icon component
 import { Icon } from 'astro-icon/components'
 
-import AlphaBravoPreviewCard from '../components/AlphaBravoPreviewCard.astro'
-import Link from '../components/Link.astro'
 import LatestChannelVideo from '../components/LatestChannelVideo.astro'
-import Section from '../components/Section.astro'
+import Link from '../components/Link.astro'
+import QrCodeButton from '../components/QrCodeButton.astro'
+import heroCover from '../assets/yahala-hero-cover.png'
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
 import youtubeChannels from '../data/youtube-channels.json'
 
-// Images
-import Ayoub from '../image/AyoubBayaan.jpg'
-import AlphaBravoMediaLogo from '../image/ABM.webp'
-import IslamicTampaTvLogo from '../image/IslamicTampaTV Logo.png'
-
-// Site Data
-const siteUrl = 'https://www.ayoubabed.xyz/'
-const ayoubImageUrl = Ayoub.src
+const pageTitle = 'Ya Hala with Haithum ياهلا مع هيثم'
+const pageDescription =
+  'Real stories, field interviews, and community highlights from Arabs building life, work, and impact across America.'
+const siteName = 'Ya Hala with Haithum'
+const heroImageAlt = 'Ya Hala with Haithum cover'
+const profileImageUrl =
+  'https://yt3.ggpht.com/A7Pzl8HOLqu5YpPOwpvvejLe_ZS-MSk0rv_Wxq1rW9gLLPXv2jifNVX1Y3Ry1qhgDQiaDzDXQQ=s176-c-k-c0x00ffffff-no-rj'
 const currentYear = new Date().getFullYear()
+const baseUrl = import.meta.env.BASE_URL
+const canonicalUrl = new URL(baseUrl, Astro.site).toString()
+const heroImagePath = heroCover.src
+const heroImageUrl = new URL(heroImagePath, Astro.site).toString()
+
 const latestVideoChannels = youtubeChannels.filter((channel) =>
   Boolean(latestYoutubeVideos[channel.id]),
 )
+
 const channelBranding = {
-  alphabravomedia: {
-    logoSrc: AlphaBravoMediaLogo.src,
-    accentColor: '#8f3f37',
-    darkAccentColor: '#f0a097',
-    cardBackground: '#fffafa',
-    darkCardBackground: '#211211',
-    cardTint: '#f7ece8',
-    darkCardTint: '#341a17',
-    logoBackgroundColor: '#15110d',
-    darkLogoBackgroundColor: '#15110d',
-    logoFit: 'contain',
-    logoPaddingClass: 'p-2',
-  },
-  personal: {
-    logoSrc: Ayoub.src,
-    accentColor: '#765247',
-    darkAccentColor: '#d9b5a9',
-    cardBackground: '#fbf6ee',
-    darkCardBackground: '#201816',
-    cardTint: '#eee5db',
-    darkCardTint: '#332620',
-    logoBackgroundColor: '#d8ccc6',
-    darkLogoBackgroundColor: '#4a3933',
-    logoFit: 'cover',
-    logoPaddingClass: '',
-  },
-  'islamic-tampa-tv': {
-    logoSrc: IslamicTampaTvLogo.src,
-    accentColor: '#776a32',
-    darkAccentColor: '#d9c56c',
-    cardBackground: '#fbf8ef',
-    darkCardBackground: '#1d1b12',
-    cardTint: '#efe8d2',
-    darkCardTint: '#302b18',
-    logoBackgroundColor: '#10120c',
-    darkLogoBackgroundColor: '#10120c',
+  yahala: {
+    logoSrc: profileImageUrl,
+    accentColor: '#ff0033',
+    darkAccentColor: '#ff6b7f',
+    cardBackground: '#fff7f7',
+    darkCardBackground: '#251112',
+    cardTint: '#ffe6e9',
+    darkCardTint: '#3a171a',
+    logoBackgroundColor: '#ffffff',
+    darkLogoBackgroundColor: '#1f1f1f',
     logoFit: 'cover',
     logoPaddingClass: '',
   },
 }
 
-// Social Media Data Map
-// FIX 1: Corrected names to remove the extra "fa-" prefix
 const socialLinks = [
   {
-    id: 'instagram',
-    url: 'https://instagram.com/alphabravomedia',
-    icon: 'simple-icons:instagram',
-    label: 'Instagram: @AlphaBravoMedia',
-    color: '#FF0069',
-  },
-  {
-    id: 'discord',
-    url: 'https://discordapp.com/users/279467079990640641',
-    icon: 'simple-icons:discord',
-    label: 'Discord profile',
-    color: '#5865F2',
-  },
-  {
-    id: 'linkedin',
-    url: 'https://www.linkedin.com/in/ayoubabedrabbo/',
-    icon: 'simple-icons:linkedin',
-    label: 'LinkedIn',
-    color: '#0A66C2',
-  },
-  /*
-  {
-    id: 'mastodon',
-    url: 'https://mastodon.social/@ayoubabedrabbo',
-    icon: 'fa-brands:mastodon',
-    label: 'Mastodon',
-    rel: 'me noopener noreferrer'
-  },
-  */
-  {
-    id: 'github',
-    url: 'https://github.com/Today20092',
-    icon: 'simple-icons:github',
-    label: 'GitHub',
-    color: '#181717',
-    darkColor: '#ffffff',
-  },
-  {
-    id: 'telegram',
-    url: 'https://t.me/AyoubAb1',
-    icon: 'simple-icons:telegram',
-    label: 'Telegram',
-    color: '#26A5E4',
-  },
-  /*
-  {
     id: 'youtube',
-    url: 'https://www.youtube.com/channel/UCQ5YfTwU5n_khZx-WJEkZKQ',
-    icon: 'fa-brands:youtube',
-    label: 'YouTube channel'
+    url: 'https://www.youtube.com/channel/UC26OIuJ19EH6HF6uRJ-N_2A',
+    icon: 'simple-icons:youtube',
+    label: 'Ya Hala YouTube',
+    color: '#ff0000',
+    color2: '#ff5f5f',
+    color3: '#ffffff',
+    darkColor: '#ff3131',
+    darkColor2: '#7a0000',
+    darkColor3: '#1f0000',
   },
-  */
   {
     id: 'tiktok',
-    url: 'https://www.tiktok.com/@ayoubabedrabbo',
-    icon: 'logos:tiktok-icon',
-    label: 'TikTok',
-    color: '#000000',
-    darkColor: '#ffffff',
+    url: 'https://www.tiktok.com/@yahala.usa?_t=zt-8yso6coegid&_r=1',
+    icon: 'simple-icons:tiktok',
+    label: 'Ya Hala TikTok',
+    color: '#010101',
+    color2: '#25f4ee',
+    color3: '#fe2c55',
+    darkColor: '#010101',
+    darkColor2: '#25f4ee',
+    darkColor3: '#fe2c55',
   },
-  /*
   {
-    id: 'substack',
-    url: 'https://www.substack.com/@ayoubabedrabbo1',
-    icon: 'simple-icons:substack',
-    label: 'Substack'
-  }
-  */
+    id: 'instagram',
+    url: 'https://instagram.com/yahala_usa?igshid=YmMyMTA2M2Y=',
+    icon: 'simple-icons:instagram',
+    label: 'Ya Hala Instagram',
+    color: '#e4405f',
+    color2: '#f77737',
+    color3: '#833ab4',
+    darkColor: '#e4405f',
+    darkColor2: '#f77737',
+    darkColor3: '#833ab4',
+  },
+  {
+    id: 'facebook',
+    url: 'https://www.facebook.com/YaHala.USA/',
+    icon: 'simple-icons:facebook',
+    label: 'Ya Hala Facebook',
+    color: '#1877f2',
+    color2: '#74a7ff',
+    color3: '#0b5fcc',
+    darkColor: '#74a7ff',
+    darkColor2: '#1877f2',
+    darkColor3: '#052f7f',
+  },
 ]
 ---
 
@@ -150,19 +104,29 @@ const socialLinks = [
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>Ayoub Abedrabbo</title>
-    <meta
-      name="description"
-      content="Ayoub Abedrabbo is an event photographer and videographer in Tampa, Florida. Photos and videos for all budgets. Find all links, contact, and support options here."
-    />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
 
-    <!-- Favicons -->
-    <link rel="icon" href="/favicon.ico" sizes="32x32" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href={`${baseUrl}favicon.ico`} sizes="32x32" />
+    <link rel="icon" href={`${baseUrl}favicon.svg`} type="image/svg+xml" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href={`${baseUrl}favicon-16x16.png`}
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href={`${baseUrl}favicon-32x32.png`}
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href={`${baseUrl}apple-touch-icon.png`}
+    />
+    <link rel="manifest" href={`${baseUrl}site.webmanifest`} />
     <meta
       name="theme-color"
       content="oklch(0.987 0.008 82)"
@@ -212,20 +176,19 @@ const socialLinks = [
       })()
     </script>
 
-    <meta
-      property="og:title"
-      content="Ayoub Abedrabbo – Photographer & Videographer"
-    />
-    <meta
-      property="og:description"
-      content="Tampa-based event photographer & videographer. Book or support me here."
-    />
-    <meta property="og:image" content={ayoubImageUrl} />
-    <meta property="og:type" content="profile" />
-    <meta property="og:url" content={siteUrl} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={heroImageUrl} />
+    <meta property="og:image:alt" content={heroImageAlt} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={siteName} />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="canonical" href={siteUrl} />
-    <meta name="robots" content="noindex,nofollow" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={heroImageUrl} />
+    <meta name="twitter:image:alt" content={heroImageAlt} />
+    <link rel="canonical" href={canonicalUrl} />
 
     <link rel="preconnect" href="https://rsms.me/" />
     <link rel="preload" href="https://rsms.me/inter/inter.css" as="style" />
@@ -233,174 +196,52 @@ const socialLinks = [
   </head>
 
   <body
-    class="bg-surface mx-auto my-0 min-h-screen max-w-[90%] justify-center pt-10 pb-6 text-center text-lg subpixel-antialiased lg:max-w-3xl"
+    class="linktree-page my-0 min-h-screen text-center text-lg subpixel-antialiased"
   >
-    <main>
-      <div class="mb-6 flex justify-center">
-        <div
-          class="theme-toggle animate-fade-in-up"
-          role="group"
-          aria-label="Theme preference"
-        >
-          <button
-            type="button"
-            class="theme-toggle__button"
-            data-theme-option="system"
-            aria-label="Use system theme"
-            aria-pressed="true"
-            title="System"
-          >
-            <Icon
-              name="heroicons:computer-desktop"
-              class="h-5 w-5"
-              aria-hidden="true"
-            />
-          </button>
-          <button
-            type="button"
-            class="theme-toggle__button"
-            data-theme-option="light"
-            aria-label="Use light theme"
-            aria-pressed="false"
-            title="Light"
-          >
-            <Icon name="heroicons:sun" class="h-5 w-5" aria-hidden="true" />
-          </button>
-          <button
-            type="button"
-            class="theme-toggle__button"
-            data-theme-option="dark"
-            aria-label="Use dark theme"
-            aria-pressed="false"
-            title="Dark"
-          >
-            <Icon name="heroicons:moon" class="h-5 w-5" aria-hidden="true" />
-          </button>
-        </div>
-      </div>
-
-      <div
-        class="animate-float animate-fade-in-up ring-primary-container elevation-3 mx-auto size-40 overflow-hidden rounded-full ring-4"
+    <main class="linktree-shell mx-auto flex w-full flex-col pb-6">
+      <section
+        class="linktree-hero animate-fade-in-up"
+        aria-labelledby="profile-title"
       >
-        <Image
-          src={Ayoub}
-          alt="Portrait of Ayoub Abedrabbo"
-          class="h-44 w-full object-cover object-center"
+        <button
+          type="button"
+          class="linktree-hero__share"
+          aria-label="Share Ya Hala with Haithum"
+          data-share-page
+          data-share-title={pageTitle}
+          data-share-text={pageDescription}
+          data-share-url={canonicalUrl}
+        >
+          <Icon name="heroicons:arrow-up-tray" class="h-5 w-5" aria-hidden="true" />
+        </button>
+        <img
+          src={heroImagePath}
+          alt={heroImageAlt}
+          class="linktree-hero__image"
           decoding="async"
           loading="eager"
         />
-      </div>
+        <div class="linktree-hero__fade" aria-hidden="true"></div>
+      </section>
 
       <h1
-        class="animate-fade-in-up text-on-surface my-5 text-2xl font-bold delay-100"
+        id="profile-title"
+        class="animate-fade-in-up text-on-surface mx-auto mt-5 mb-3 max-w-xl text-2xl leading-tight font-bold delay-100 sm:text-3xl"
       >
-        Ayoub Abedrabbo
+        {pageTitle}
       </h1>
       <p
-        class="animate-fade-in-up text-on-surface-variant mx-auto my-5 max-w-prose text-center delay-200"
+        class="animate-fade-in-up text-on-surface-variant mx-auto mb-4 max-w-prose text-center text-base delay-200"
       >
-        Digital Media Specialist.<br />I create educational content about media
-        production/videography and support the Islamic community through local
-        journalism.
+        Real stories, field interviews, and community highlights from Arabs building life, work, and impact across America.
       </p>
 
-      <nav aria-label="Social media links">
-        <div
-          class="animate-fade-in-up text-on-surface my-6 flex flex-wrap items-center justify-center gap-1 text-3xl delay-300"
-        >
-          {
-            socialLinks.map((social) => (
-              <a
-                id={social.id}
-                target="_blank"
-                rel={social.rel || 'noopener noreferrer'}
-                aria-label={social.label}
-                title={social.label}
-                class:list={[
-                  'flex h-14 w-14 items-center justify-center rounded-xl transition-all duration-200',
-                  'hover:bg-surface-container-high hover:scale-110',
-                  'focus-visible:ring-primary/70 focus-visible:ring-2 focus-visible:outline-none',
-                  '[color:var(--social-color)] dark:[color:var(--social-color-dark)]',
-                ]}
-                style={`--social-color: ${social.color}; --social-color-dark: ${
-                  social.darkColor ?? social.color
-                };`}
-                href={social.url}
-              >
-                {social.id === 'tiktok' ? (
-                  <svg
-                    class="h-9 w-8"
-                    viewBox="0 0 256 290"
-                    role="img"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill="#ff004f"
-                      d="M189.72 104.421c18.678 13.345 41.56 21.197 66.273 21.197v-47.53a67 67 0 0 1-13.918-1.456v37.413c-24.711 0-47.59-7.851-66.272-21.195v96.996c0 48.523-39.356 87.855-87.9 87.855c-18.113 0-34.949-5.473-48.934-14.86c15.962 16.313 38.222 26.432 62.848 26.432c48.548 0 87.905-39.332 87.905-87.857v-96.995zm17.17-47.952c-9.546-10.423-15.814-23.893-17.17-38.785v-6.113h-13.189c3.32 18.927 14.644 35.097 30.358 44.898M69.673 225.607a40 40 0 0 1-8.203-24.33c0-22.192 18.001-40.186 40.21-40.186a40.3 40.3 0 0 1 12.197 1.883v-48.593c-4.61-.631-9.262-.9-13.912-.801v37.822a40.3 40.3 0 0 0-12.203-1.882c-22.208 0-40.208 17.992-40.208 40.187c0 15.694 8.997 29.281 22.119 35.9"
-                    />
-                    <path d="M175.803 92.849c18.683 13.344 41.56 21.195 66.272 21.195V76.631c-13.794-2.937-26.005-10.141-35.186-20.162c-15.715-9.802-27.038-25.972-30.358-44.898h-34.643v189.843c-.079 22.132-18.049 40.052-40.21 40.052c-13.058 0-24.66-6.221-32.007-15.86c-13.12-6.618-22.118-20.206-22.118-35.898c0-22.193 18-40.187 40.208-40.187c4.255 0 8.356.662 12.203 1.882v-37.822c-47.692.985-86.047 39.933-86.047 87.834c0 23.912 9.551 45.589 25.053 61.428c13.985 9.385 30.82 14.86 48.934 14.86c48.545 0 87.9-39.335 87.9-87.857z" />
-                    <path
-                      fill="#00f2ea"
-                      d="M242.075 76.63V66.516a66.3 66.3 0 0 1-35.186-10.047a66.47 66.47 0 0 0 35.186 20.163M176.53 11.57a68 68 0 0 1-.728-5.457V0h-47.834v189.845c-.076 22.13-18.046 40.05-40.208 40.05a40.06 40.06 0 0 1-18.09-4.287c7.347 9.637 18.949 15.857 32.007 15.857c22.16 0 40.132-17.918 40.21-40.05V11.571zM99.966 113.58v-10.769a89 89 0 0 0-12.061-.818C39.355 101.993 0 141.327 0 189.845c0 30.419 15.467 57.227 38.971 72.996c-15.502-15.838-25.053-37.516-25.053-61.427c0-47.9 38.354-86.848 86.048-87.833"
-                    />
-                  </svg>
-                ) : (
-                  <Icon name={social.icon} class="h-8 w-8" aria-hidden="true" />
-                )}
-              </a>
-            ))
-          }
-        </div>
-      </nav>
+      <QrCodeButton />
 
-      <div class="animate-fade-in-up mb-8 flex flex-col gap-4 delay-400">
-        <Link
-          linktxt="1. Download my contact card"
-          bgcolor="brand-action-link"
-          link="https://www.ayoubabed.xyz/AyoubA-Contact-Card.vcf"
-          linkcolor=""
-          id="contact"
-          border="border border-solid"
-          style="--brand-color: oklch(0.76 0.13 238); --brand-color-dark: oklch(0.74 0.14 238); --brand-text-color: oklch(0.13 0.02 255);"
-          extraClasses="py-3 text-xl font-bold animate-button-pulse"
-        >
-          <Icon
-            slot="icon"
-            name="heroicons:identification"
-            class="h-7 w-7"
-            aria-hidden="true"
-          />
-        </Link>
-
-        <Link
-          linktxt="2. Send me a text"
-          bgcolor="brand-action-link"
-          link="sms:+18134240606?body=Hello Ayoub from AlphaBravoMedia, It was nice to meet you."
-          linkcolor=""
-          id="sms"
-          border="border border-solid"
-          style="--brand-color: oklch(0.78 0.15 38); --brand-color-dark: oklch(0.74 0.16 38); --brand-text-color: oklch(0.14 0.02 255);"
-          extraClasses="py-3 text-xl font-bold"
-        >
-          <Icon
-            slot="icon"
-            name="heroicons:chat-bubble-left-ellipsis"
-            class="h-7 w-7"
-            aria-hidden="true"
-          />
-        </Link>
-      </div>
-
-      <Section
-        title="My video & photo company"
-        description="Monthly content retainers, video production, photography, editing, and repurposing for Tampa businesses that need consistent, credible media. You can find my pricing, work, portfolio, and who we have worked with on this page."
-        class="animate-fade-in-up delay-400"
+      <section
+        class="animate-fade-in-up mt-8 mb-5 flex flex-col gap-4 px-4 delay-400 sm:px-6"
+        aria-label="Latest YouTube video"
       >
-        <AlphaBravoPreviewCard />
-      </Section>
-
-      <Section title="Watch on YouTube" class="animate-fade-in-up delay-400">
         {
           latestVideoChannels.map((channel) => (
             <LatestChannelVideo
@@ -431,157 +272,61 @@ const socialLinks = [
             />
           ))
         }
+      </section>
 
+      <nav
+        class="animate-fade-in-up flex flex-col gap-4 px-4 delay-500 sm:px-6"
+        aria-label="Official social links"
+      >
         {
-          /*
-        Temporarily hidden while latest channel video cards are featured.
-
-        <Link
-          linktxt="Subscribe to my YouTube Channel"
-          bgcolor="bg-youtube-container"
-          link="https://www.youtube.com/channel/UCQ5YfTwU5n_khZx-WJEkZKQ"
-          linkcolor="text-youtube"
-          id="youtube-personal"
-        >
-          <Icon
-            slot="icon"
-            name="heroicons:play-circle"
-            class="h-6 w-6"
-            aria-hidden="true"
-          />
-        </Link>
-
-        <Link
-          linktxt="Visit AlphaBravoMedia YouTube"
-          bgcolor="bg-youtube-container"
-          link="https://youtube.com/@alphabravomedia"
-          linkcolor="text-youtube"
-          id="youtube-alphabravomedia"
-        >
-          <Icon
-            slot="icon"
-            name="heroicons:play-circle"
-            class="h-6 w-6"
-            aria-hidden="true"
-          />
-        </Link>
-
-        <Link
-          linktxt="Visit Islamic Tampa TV YouTube"
-          bgcolor="bg-youtube-container"
-          link="https://www.youtube.com/@islamicTampaTV"
-          linkcolor="text-youtube"
-          id="youtube-islamic"
-        >
-          <Icon
-            slot="icon"
-            name="heroicons:play-circle"
-            class="h-6 w-6"
-            aria-hidden="true"
-          />
-        </Link>
-      */
+          socialLinks.map((social) => (
+            <Link
+              linktxt={social.label}
+              bgcolor="brand-social-link"
+              link={social.url}
+              linkcolor=""
+              id={social.id}
+              border="border border-solid"
+              style={`--brand-color: ${social.color}; --brand-color-2: ${social.color2}; --brand-color-3: ${social.color3}; --brand-color-dark: ${social.darkColor ?? social.color}; --brand-color-dark-2: ${social.darkColor2 ?? social.color2}; --brand-color-dark-3: ${social.darkColor3 ?? social.color3};`}
+              extraClasses="text-lg font-bold"
+            >
+              <Icon
+                slot="icon"
+                name={social.icon}
+                class="h-7 w-7"
+                aria-hidden="true"
+              />
+            </Link>
+          ))
         }
-      </Section>
+      </nav>
 
-      <Section title="Support My Work" class="animate-fade-in-up delay-400">
-        <Link
-          linktxt="Ko-fi"
-          bgcolor="brand-support-link"
-          link="https://ko-fi.com/ayoubab1"
-          linkcolor=""
-          id="kofi"
-          border="border border-solid"
-          style="--brand-color: #ff5e5b; --brand-color-dark: #ff8a87;"
-        >
-          <Icon
-            slot="icon"
-            name="simple-icons:kofi"
-            class="h-6 w-6"
-            aria-hidden="true"
-          />
-        </Link>
-
-        <Link
-          linktxt="CashApp"
-          bgcolor="brand-support-link"
-          link="https://cash.app/ayoubab1"
-          linkcolor=""
-          id="cash-app"
-          border="border border-solid"
-          style="--brand-color: #00cf31;"
-        >
-          <Icon
-            slot="icon"
-            name="simple-icons:cashapp"
-            class="h-6 w-6"
-            aria-hidden="true"
-          />
-        </Link>
-
-        <Link
-          linktxt="Venmo"
-          bgcolor="brand-support-link"
-          link="https://venmo.com/u/Ayoub-Abedrabbo"
-          linkcolor=""
-          id="venmo"
-          border="border border-solid"
-          style="--brand-color: #008cff;"
-        >
-          <Icon
-            slot="icon"
-            name="simple-icons:venmo"
-            class="h-6 w-6"
-            aria-hidden="true"
-          />
-        </Link>
-
-        <Link
-          linktxt="Paypal"
-          bgcolor="brand-support-link"
-          link="https://paypal.me/AyoubAbedrabbo"
-          linkcolor=""
-          id="paypal"
-          border="border border-solid"
-          style="--brand-color: #003087; --brand-color-dark: #009cde;"
-        >
-          <Icon
-            slot="icon"
-            name="simple-icons:paypal"
-            class="h-6 w-6"
-            aria-hidden="true"
-          />
-        </Link>
-      </Section>
+      <footer
+        class="text-on-surface-variant mt-auto w-full px-4 pt-12 pb-4 text-center text-sm"
+      >
+        <p class="mb-1">&copy; {currentYear} {pageTitle}. All rights reserved.</p>
+        <p>
+          Built with
+          <a
+            href="https://astro.build"
+            target="_blank"
+            rel="noopener"
+            class="text-primary hover:text-on-primary-container underline transition-colors"
+          >
+            Astro
+          </a>
+          &amp;
+          <a
+            href="https://tailwindcss.com"
+            target="_blank"
+            rel="noopener"
+            class="text-primary hover:text-on-primary-container underline transition-colors"
+          >
+            Tailwind CSS
+          </a>.
+        </p>
+      </footer>
     </main>
-
-    <footer
-      class="text-on-surface-variant mt-12 w-full max-w-3xl px-4 pt-6 pb-4 text-center text-sm"
-    >
-      <p class="mb-1">
-        &copy; {currentYear} Ayoub Abedrabbo. All rights reserved.
-      </p>
-      <p>
-        Built with
-        <a
-          href="https://astro.build"
-          target="_blank"
-          rel="noopener"
-          class="text-primary hover:text-on-primary-container underline transition-colors"
-        >
-          Astro
-        </a>
-        &amp;
-        <a
-          href="https://tailwindcss.com"
-          target="_blank"
-          rel="noopener"
-          class="text-primary hover:text-on-primary-container underline transition-colors"
-        >
-          Tailwind CSS
-        </a>.
-      </p>
-    </footer>
 
     <script is:inline>
       ;(() => {
@@ -652,6 +397,55 @@ const socialLinks = [
         })
 
         applyTheme(getPreference())
+      })()
+    </script>
+
+    <script is:inline>
+      ;(() => {
+        const shareButton = document.querySelector('[data-share-page]')
+        if (!shareButton) return
+
+        const defaultLabel =
+          shareButton.getAttribute('aria-label') || 'Share Ya Hala with Haithum'
+        const shareData = {
+          title: shareButton.dataset.shareTitle,
+          text: shareButton.dataset.shareText,
+          url: shareButton.dataset.shareUrl,
+        }
+
+        const restoreLabel = () => {
+          window.setTimeout(() => {
+            shareButton.setAttribute('aria-label', defaultLabel)
+          }, 2200)
+        }
+
+        const copyLink = async () => {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(shareData.url)
+            shareButton.setAttribute('aria-label', 'Link copied')
+            restoreLabel()
+            return
+          }
+
+          window.location.href = shareData.url
+        }
+
+        shareButton.addEventListener('click', async () => {
+          if (navigator.share) {
+            try {
+              await navigator.share(shareData)
+              return
+            } catch (error) {
+              if (error?.name === 'AbortError') return
+            }
+          }
+
+          try {
+            await copyLink()
+          } catch {
+            window.location.href = shareData.url
+          }
+        })
       })()
     </script>
   </body>
