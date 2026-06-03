@@ -1,0 +1,2 @@
+- gallery of the interiew photos, the best clips or images from the 
+- 
