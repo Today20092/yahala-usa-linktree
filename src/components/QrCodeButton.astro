@@ -16,18 +16,21 @@ import { Icon } from 'astro-icon/components'
 </div>
 
 <aside
-  class="qr-desktop-panel fixed right-7 bottom-7 z-40 hidden rounded-2xl border border-outline/30 bg-surface-container-high/95 p-3 text-center shadow-lg backdrop-blur-sm lg:block"
+  class="qr-desktop-panel border-outline/30 bg-surface-container-high/95 fixed right-7 bottom-7 z-40 hidden rounded-2xl border p-3 text-center shadow-lg backdrop-blur-sm lg:block"
   aria-label="View on mobile QR code"
 >
   <p class="text-on-surface mb-2 text-sm font-semibold">View on mobile</p>
-  <div class="bg-surface-container-lowest elevation-3 rounded-2xl border border-outline/20 p-3">
+  <div
+    class="elevation-3 rounded-[1.75rem] bg-gradient-to-br from-white via-white to-primary/10 p-2 shadow-[0_18px_45px_rgb(15_23_42_/_0.16)]"
+  >
     <canvas
       id="qr-canvas-desktop"
       width="168"
       height="168"
-      class="size-42"
+      class="size-42 rounded-[1.35rem] bg-white p-1"
       aria-hidden="true"
-    ></canvas>
+    >
+    </canvas>
   </div>
 </aside>
 
@@ -53,19 +56,20 @@ import { Icon } from 'astro-icon/components'
       </button>
     </div>
     <div
-      class="bg-surface-container-lowest mx-auto grid aspect-square w-full max-w-64 place-items-center rounded-xl p-4"
+      class="mx-auto grid aspect-square w-full max-w-64 place-items-center rounded-[2rem] bg-gradient-to-br from-white via-white to-primary/10 p-3 shadow-[0_18px_55px_rgb(15_23_42_/_0.14)]"
     >
       <canvas
         id="qr-canvas"
         width="224"
         height="224"
-        class="h-full w-full max-w-56"
+        class="h-full w-full max-w-56 rounded-[1.6rem] bg-white p-1"
         aria-hidden="true"
-      ></canvas>
+      >
+      </canvas>
     </div>
     <p
       id="qr-url"
-      class="text-on-surface-variant mt-4 overflow-hidden text-ellipsis break-all text-sm"
+      class="text-on-surface-variant mx-auto mt-4 max-w-full overflow-hidden text-[clamp(0.75rem,3.6vw,0.875rem)] font-medium text-ellipsis whitespace-nowrap"
     >
     </p>
   </div>
@@ -85,31 +89,116 @@ import { Icon } from 'astro-icon/components'
   const focusableSelector =
     'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
 
-  const renderQrCode = async (
-    target,
-    currentUrl,
-    width,
-  ) => {
+  const roundedRect = (context, x, y, width, height, radius) => {
+    const safeRadius = Math.min(radius, width / 2, height / 2)
+
+    context.beginPath()
+    context.moveTo(x + safeRadius, y)
+    context.lineTo(x + width - safeRadius, y)
+    context.quadraticCurveTo(x + width, y, x + width, y + safeRadius)
+    context.lineTo(x + width, y + height - safeRadius)
+    context.quadraticCurveTo(x + width, y + height, x + width - safeRadius, y + height)
+    context.lineTo(x + safeRadius, y + height)
+    context.quadraticCurveTo(x, y + height, x, y + height - safeRadius)
+    context.lineTo(x, y + safeRadius)
+    context.quadraticCurveTo(x, y, x + safeRadius, y)
+    context.closePath()
+    context.fill()
+  }
+
+  const isFinderCell = (row, column, moduleCount) => {
+    const inTop = row < 7
+    const inLeft = column < 7
+    const inRight = column >= moduleCount - 7
+    const inBottom = row >= moduleCount - 7
+
+    return (inTop && inLeft) || (inTop && inRight) || (inBottom && inLeft)
+  }
+
+  const drawFinderEye = (context, x, y, moduleSize) => {
+    roundedRect(context, x, y, moduleSize * 7, moduleSize * 7, moduleSize * 1.65)
+
+    context.fillStyle = '#ffffff'
+    roundedRect(
+      context,
+      x + moduleSize,
+      y + moduleSize,
+      moduleSize * 5,
+      moduleSize * 5,
+      moduleSize * 1.15
+    )
+
+    context.fillStyle = '#020617'
+    roundedRect(
+      context,
+      x + moduleSize * 2,
+      y + moduleSize * 2,
+      moduleSize * 3,
+      moduleSize * 3,
+      moduleSize * 0.72
+    )
+  }
+
+  const renderQrCode = (target, currentUrl, width) => {
     if (!(target instanceof HTMLCanvasElement)) return
 
-    await QRCode.toCanvas(target, currentUrl, {
-      width,
-      margin: 1,
-      color: {
-        dark: '#111827',
-        light: '#ffffff',
-      },
+    const qr = QRCode.create(currentUrl, {
+      errorCorrectionLevel: 'L',
     })
+    const context = target.getContext('2d')
+    if (!context) return
+
+    const margin = 2
+    const moduleCount = qr.modules.size
+    const moduleSize = width / (moduleCount + margin * 2)
+    const offset = margin * moduleSize
+
+    target.width = width
+    target.height = width
+    context.clearRect(0, 0, width, width)
+    context.fillStyle = '#ffffff'
+    roundedRect(context, 0, 0, width, width, width * 0.09)
+
+    context.fillStyle = '#020617'
+
+    for (let row = 0; row < moduleCount; row += 1) {
+      for (let column = 0; column < moduleCount; column += 1) {
+        if (
+          !qr.modules.data[row * moduleCount + column] ||
+          isFinderCell(row, column, moduleCount)
+        ) {
+          continue
+        }
+
+        const x = offset + column * moduleSize
+        const y = offset + row * moduleSize
+
+        context.fillRect(x, y, moduleSize, moduleSize)
+      }
+    }
+
+    drawFinderEye(context, offset, offset, moduleSize)
+    drawFinderEye(context, offset + (moduleCount - 7) * moduleSize, offset, moduleSize)
+    drawFinderEye(context, offset, offset + (moduleCount - 7) * moduleSize, moduleSize)
   }
 
   const currentUrl = window.location.href
+  const displayUrl = (() => {
+    try {
+      const url = new URL(currentUrl)
+      return `${url.host}${url.pathname}${url.search}${url.hash}`
+    } catch {
+      return currentUrl.replace(/^https?:\/\//, '')
+    }
+  })()
   void renderQrCode(desktopCanvas, currentUrl, 168)
 
   const openDialog = async () => {
     if (!dialog || !canvas || !urlText) return
 
     previousFocus = document.activeElement
-    urlText.textContent = currentUrl
+    urlText.textContent = displayUrl
+    urlText.title = currentUrl
 
     await renderQrCode(canvas, currentUrl, 224)
 
@@ -151,9 +240,9 @@ import { Icon } from 'astro-icon/components'
 
     if (event.key !== 'Tab') return
 
-    const focusable = [
-      ...dialog.querySelectorAll(focusableSelector),
-    ].filter((element) => element instanceof HTMLElement)
+    const focusable = [...dialog.querySelectorAll(focusableSelector)].filter(
+      (element) => element instanceof HTMLElement,
+    )
 
     if (focusable.length === 0) return
 
