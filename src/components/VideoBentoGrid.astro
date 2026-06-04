@@ -16,6 +16,10 @@ type StatTile = {
   metric: string
   value: string
   icon: string
+  accent: string
+  darkAccent: string
+  tint: string
+  darkTint: string
 }
 
 type BentoTile = BentoImage | StatTile
@@ -46,6 +50,41 @@ const platformIcons: Record<string, string> = {
   Facebook: 'simple-icons:facebook',
 }
 
+const platformColors: Record<
+  string,
+  {
+    accent: string
+    darkAccent: string
+    tint: string
+    darkTint: string
+  }
+> = {
+  YouTube: {
+    accent: '#ff0000',
+    darkAccent: '#ff5f5f',
+    tint: '#fff1f1',
+    darkTint: '#2a1010',
+  },
+  TikTok: {
+    accent: '#010101',
+    darkAccent: '#25f4ee',
+    tint: '#f3f4f6',
+    darkTint: '#0b1f20',
+  },
+  Instagram: {
+    accent: '#e4405f',
+    darkAccent: '#ff7a9a',
+    tint: '#fff1f6',
+    darkTint: '#2a101b',
+  },
+  Facebook: {
+    accent: '#1877f2',
+    darkAccent: '#74a7ff',
+    tint: '#eef5ff',
+    darkTint: '#0b1a2e',
+  },
+}
+
 const statMetricPriority = ['Views', 'Likes', 'Followers', 'Subscribers']
 const statTiles = socialReach.items
   .filter((item) => statMetricPriority.includes(item.metric))
@@ -55,13 +94,23 @@ const statTiles = socialReach.items
     )
   })
   .slice(0, 6)
-  .map((item) => ({
-    type: 'stat' as const,
-    platform: item.platform,
-    metric: item.metric,
-    value: formatStat(item.value),
-    icon: platformIcons[item.platform] ?? 'heroicons:chart-bar',
-  }))
+  .map((item) => {
+    const colors = platformColors[item.platform] ?? {
+      accent: 'var(--color-primary)',
+      darkAccent: 'var(--color-primary)',
+      tint: 'var(--color-surface-container-high)',
+      darkTint: 'var(--color-surface-container-highest)',
+    }
+
+    return {
+      type: 'stat' as const,
+      platform: item.platform,
+      metric: item.metric,
+      value: formatStat(item.value),
+      icon: platformIcons[item.platform] ?? 'heroicons:chart-bar',
+      ...colors,
+    }
+  })
 
 const bentoImages = Object.entries(bentoImageModules)
   .filter(([path]) => !path.includes('.DS_Store'))
@@ -92,15 +141,16 @@ const bentoImages = Object.entries(bentoImageModules)
     return (seedA % 997) - (seedB % 997)
   })
 
-const railTiles = bentoImages.flatMap((image, index): BentoTile[] => {
-  const statTile = statTiles[Math.floor(index / 2) % statTiles.length]
+const rowCount = 3
+const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
+  const rowImages = bentoImages.filter((_, index) => index % rowCount === rowIndex)
 
-  if (index % 2 === 1 && statTile) return [image, statTile]
-  return [image]
-})
+  return rowImages.flatMap((image, index): BentoTile[] => {
+    const shouldInsertStat = index === 1 || (index > 1 && (index + rowIndex) % 4 === 1)
+    const statTile = statTiles[(index + rowIndex * 2) % statTiles.length]
 
-const bentoRows = Array.from({ length: 3 }, (_, rowIndex) => {
-  return railTiles.filter((_, index) => index % 3 === rowIndex)
+    return shouldInsertStat && statTile ? [image, statTile] : [image]
+  })
 })
 ---
 
@@ -139,12 +189,13 @@ const bentoRows = Array.from({ length: 3 }, (_, rowIndex) => {
                     </a>
                   ) : (
                     <div
-                      class="flex aspect-video w-[252px] shrink-0 flex-col justify-between overflow-hidden rounded-lg border border-outline-variant/80 bg-surface-container-high p-3 text-left shadow-sm sm:w-[274px] sm:p-4 dark:border-outline-variant dark:bg-surface-container-highest"
+                      style={`--platform-accent: ${item.accent}; --platform-accent-dark: ${item.darkAccent}; --platform-tint: ${item.tint}; --platform-tint-dark: ${item.darkTint};`}
+                      class="flex aspect-video w-[252px] shrink-0 flex-col justify-between overflow-hidden rounded-lg border border-[color-mix(in_srgb,var(--platform-active-accent)_28%,var(--color-border))] bg-[linear-gradient(135deg,color-mix(in_srgb,var(--platform-active-tint)_36%,var(--color-card))_0%,var(--color-surface-container-high)_72%)] p-3 text-left shadow-sm ring-1 ring-[color-mix(in_srgb,var(--platform-active-accent)_10%,transparent)] [--platform-active-accent:var(--platform-accent)] [--platform-active-tint:var(--platform-tint)] sm:w-[274px] sm:p-4 dark:bg-[linear-gradient(135deg,color-mix(in_srgb,var(--platform-active-tint)_42%,var(--color-card))_0%,var(--color-surface-container-highest)_76%)] dark:[--platform-active-accent:var(--platform-accent-dark)] dark:[--platform-active-tint:var(--platform-tint-dark)]"
                     >
                       <div class="flex items-center gap-2 text-on-surface-variant">
                         <Icon
                           name={item.icon}
-                          class="h-4 w-4 shrink-0"
+                          class="h-4 w-4 shrink-0 text-[var(--platform-active-accent)]"
                           aria-hidden="true"
                         />
                         <p class="truncate text-xs font-medium">

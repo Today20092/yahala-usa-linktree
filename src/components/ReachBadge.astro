@@ -15,6 +15,48 @@ type ReachBadgeProps = {
 
 const { total, updatedAt, items } = Astro.props as ReachBadgeProps
 
+const platformIcons: Record<string, string> = {
+  YouTube: 'simple-icons:youtube',
+  TikTok: 'simple-icons:tiktok',
+  Instagram: 'simple-icons:instagram',
+  Facebook: 'simple-icons:facebook',
+}
+
+const platformColors: Record<
+  string,
+  {
+    accent: string
+    darkAccent: string
+    tint: string
+    darkTint: string
+  }
+> = {
+  YouTube: {
+    accent: '#ff0000',
+    darkAccent: '#ff5f5f',
+    tint: '#fff1f1',
+    darkTint: '#2a1010',
+  },
+  TikTok: {
+    accent: '#010101',
+    darkAccent: '#25f4ee',
+    tint: '#f3f4f6',
+    darkTint: '#0b1f20',
+  },
+  Instagram: {
+    accent: '#e4405f',
+    darkAccent: '#ff7a9a',
+    tint: '#fff1f6',
+    darkTint: '#2a101b',
+  },
+  Facebook: {
+    accent: '#1877f2',
+    darkAccent: '#74a7ff',
+    tint: '#eef5ff',
+    darkTint: '#0b1a2e',
+  },
+}
+
 const formatNumber = (value: number) => {
   const formatter = new Intl.NumberFormat('en-US', {
     maximumFractionDigits: value >= 1000000 ? 1 : 0,
@@ -40,7 +82,20 @@ const platformTotals = Object.values(
     },
     {},
   ),
-)
+).map((item) => {
+  const colors = platformColors[item.platform] ?? {
+    accent: 'var(--color-primary)',
+    darkAccent: 'var(--color-primary)',
+    tint: 'var(--color-card)',
+    darkTint: 'var(--color-card)',
+  }
+
+  return {
+    ...item,
+    icon: platformIcons[item.platform] ?? 'heroicons:chart-bar',
+    ...colors,
+  }
+})
 ---
 
 <aside
@@ -49,57 +104,69 @@ const platformTotals = Object.values(
   aria-label="Total people reached"
 >
   <div
-    class="text-on-surface overflow-hidden rounded-xl border border-[oklch(0.86_0.032_88)] bg-[linear-gradient(135deg,oklch(0.99_0.016_86),oklch(0.965_0.024_145)_48%,oklch(0.975_0.026_32))] shadow-[0_20px_45px_oklch(0.35_0.045_70_/_0.16)] dark:border-[oklch(0.34_0.028_250)] dark:bg-[linear-gradient(135deg,oklch(0.18_0.018_248),oklch(0.205_0.026_165)_48%,oklch(0.19_0.028_35))] dark:shadow-[0_24px_52px_oklch(0_0_0_/_0.34)]"
+    class="text-on-surface overflow-hidden rounded-xl border border-border bg-card shadow-[0_20px_45px_color-mix(in_srgb,var(--color-shadow)_12%,transparent)] dark:bg-card dark:shadow-[0_24px_52px_oklch(0_0_0_/_0.34)]"
   >
     <div class="px-5 py-5 sm:px-6">
       <div class="mb-4 flex items-center justify-center gap-2">
         <span
-          class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[oklch(0.91_0.08_145)] text-[oklch(0.31_0.085_150)] ring-1 ring-[oklch(0.79_0.07_145)] dark:bg-[oklch(0.3_0.07_150)] dark:text-[oklch(0.87_0.09_145)] dark:ring-[oklch(0.42_0.075_150)]"
+          class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary-container text-primary ring-1 ring-primary/25 dark:bg-primary-container dark:text-primary"
           aria-hidden="true"
         >
           <Icon name="heroicons:globe-americas" class="h-5 w-5" />
         </span>
         <span class="text-left">
-          <span
-            class="block text-sm font-semibold text-[oklch(0.24_0.018_255)] dark:text-[oklch(0.94_0.018_82)]"
-          >
+          <span class="block text-sm font-semibold text-on-surface">
             People reached
           </span>
-          <span
-            class="block text-xs text-[oklch(0.48_0.03_255)] dark:text-[oklch(0.76_0.03_82)]"
-          >
+          <span class="block text-xs text-on-surface-variant">
             Updated {updatedDate}
           </span>
         </span>
       </div>
 
       <p
-        class="text-center text-5xl leading-none font-black tracking-normal text-[oklch(0.16_0.02_255)] tabular-nums sm:text-6xl dark:text-[oklch(0.98_0.01_82)]"
+        class="text-on-surface text-center text-5xl leading-none font-black tracking-normal tabular-nums sm:text-6xl"
       >
-        <span data-count-value={total}>{formatNumber(total)}</span><span
-          class="text-[oklch(0.38_0.11_145)] dark:text-[oklch(0.75_0.12_145)]"
-        >
+        <span data-count-value={total} data-growing-reach>
+          {formatNumber(total)}
+        </span><span class="text-primary">
           +
         </span>
       </p>
       <p
-        class="mx-auto mt-3 max-w-sm text-center text-sm leading-snug text-[oklch(0.38_0.028_255)] dark:text-[oklch(0.8_0.028_82)]"
+        class="text-on-surface-variant mx-auto mt-3 max-w-sm text-center text-sm leading-snug"
       >
         Across YouTube, TikTok, Instagram, and Facebook
+      </p>
+      <p
+        class="text-primary mt-2 text-center text-xs font-bold tracking-normal tabular-nums"
+        aria-live="off"
+      >
+        <span data-growing-reach-detail>
+          {new Intl.NumberFormat('en-US').format(total)}
+        </span> and growing
       </p>
     </div>
 
     <dl
-      class="grid grid-cols-2 border-t border-[oklch(0.86_0.032_88)] bg-[oklch(0.97_0.018_82_/_0.78)] sm:grid-cols-4 dark:border-[oklch(0.34_0.028_250)] dark:bg-[oklch(0.15_0.014_250_/_0.58)]"
+      class="grid grid-cols-2 gap-px border-t border-border bg-border p-px sm:grid-cols-4"
     >
       {
         platformTotals.map((item) => (
-          <div class="border-[oklch(0.86_0.032_88)] px-3 py-3 text-center not-last:border-r dark:border-[oklch(0.34_0.028_250)]">
-            <dt class="truncate text-xs font-semibold text-[oklch(0.43_0.032_255)] dark:text-[oklch(0.77_0.03_82)]">
-              {item.platform}
+          <div
+            style={`--platform-accent: ${item.accent}; --platform-accent-dark: ${item.darkAccent}; --platform-tint: ${item.tint}; --platform-tint-dark: ${item.darkTint};`}
+            class="bg-[linear-gradient(135deg,color-mix(in_srgb,var(--platform-active-tint)_34%,var(--color-card))_0%,var(--color-card)_76%)] px-3 py-3 text-center ring-1 ring-inset ring-[color-mix(in_srgb,var(--platform-active-accent)_18%,transparent)] [--platform-active-accent:var(--platform-accent)] [--platform-active-tint:var(--platform-tint)] dark:bg-[linear-gradient(135deg,color-mix(in_srgb,var(--platform-active-tint)_42%,var(--color-card))_0%,var(--color-card)_78%)] dark:[--platform-active-accent:var(--platform-accent-dark)] dark:[--platform-active-tint:var(--platform-tint-dark)]"
+          >
+            <dt class="flex min-w-0 items-center justify-center gap-1.5 truncate text-xs font-semibold text-on-surface-variant">
+              <Icon
+                name={item.icon}
+                class="h-3.5 w-3.5 shrink-0 text-[var(--platform-active-accent)]"
+                aria-hidden="true"
+              />
+              <span class="truncate">{item.platform}</span>
             </dt>
             <dd
-              class="mt-1 text-base font-bold text-[oklch(0.17_0.018_255)] tabular-nums dark:text-[oklch(0.96_0.012_82)]"
+              class="text-on-surface mt-1 text-base font-bold tabular-nums"
               data-count-value={item.total}
             >
               {formatNumber(item.total)}
@@ -114,6 +181,11 @@ const platformTotals = Object.values(
 <script>
   const reachCard = document.querySelector('[data-reach-card]')
   const animatedNumbers = reachCard?.querySelectorAll('[data-count-value]')
+  const growingReachNumber = reachCard?.querySelector('[data-growing-reach]')
+  const growingReachDetail = reachCard?.querySelector(
+    '[data-growing-reach-detail]',
+  )
+  const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
 
   const formatAnimatedNumber = (value, target) => {
     const formatter = new Intl.NumberFormat('en-US', {
@@ -126,6 +198,32 @@ const platformTotals = Object.values(
     return formatter.format(value)
   }
 
+  const growReachNumber = (element, baseValue) => {
+    if (!(element instanceof HTMLElement) || reduceMotionQuery.matches) return
+
+    const visibleStep = baseValue >= 1000000 ? 100000 : 1000
+    const incrementPerSecond = visibleStep / 12
+    const maxVisibleGrowth = visibleStep * 12
+    const fullFormatter = new Intl.NumberFormat('en-US')
+    const startedAt = performance.now()
+
+    const tick = (now) => {
+      const elapsedSeconds = (now - startedAt) / 1000
+      const addedReach = (elapsedSeconds * incrementPerSecond) % maxVisibleGrowth
+      const displayValue = baseValue + addedReach
+
+      element.textContent = formatAnimatedNumber(displayValue, baseValue)
+      if (growingReachDetail instanceof HTMLElement) {
+        growingReachDetail.textContent = fullFormatter.format(
+          Math.floor(displayValue),
+        )
+      }
+      requestAnimationFrame(tick)
+    }
+
+    requestAnimationFrame(tick)
+  }
+
   const animateNumber = (element) => {
     if (!(element instanceof HTMLElement) || element.dataset.counted) return
 
@@ -134,7 +232,7 @@ const platformTotals = Object.values(
 
     element.dataset.counted = 'true'
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (reduceMotionQuery.matches) {
       element.textContent = formatAnimatedNumber(target, target)
       return
     }
@@ -153,6 +251,7 @@ const platformTotals = Object.values(
       }
 
       element.textContent = formatAnimatedNumber(target, target)
+      if (element === growingReachNumber) growReachNumber(element, target)
     }
 
     element.textContent = formatAnimatedNumber(0, target)
