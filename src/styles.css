@@ -922,6 +922,44 @@
   }
 }
 
+.bento-scroll-mask {
+  mask-image: none;
+}
+
+.bento-scroll-track {
+  animation: bento-scroll 80s linear infinite;
+}
+
+.bento-scroll-track-1 {
+  animation-duration: 76s;
+  animation-delay: -12s;
+}
+
+.bento-scroll-track-2 {
+  animation-duration: 92s;
+  animation-delay: -36s;
+}
+
+.bento-scroll-track-3 {
+  animation-duration: 84s;
+  animation-delay: -24s;
+}
+
+.bento-scroll-mask:hover .bento-scroll-track,
+.bento-scroll-mask:focus-within .bento-scroll-track {
+  animation-play-state: paused;
+}
+
+@keyframes bento-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 /* Respect user's motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -933,7 +971,8 @@
   }
 
   .animate-float,
-  .animate-fade-in-up {
+  .animate-fade-in-up,
+  .bento-scroll-track {
     animation: none !important;
   }
 }

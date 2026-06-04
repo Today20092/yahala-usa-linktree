@@ -1,0 +1,170 @@
+---
+import { Icon } from 'astro-icon/components'
+
+import socialReach from '../data/social-reach.json'
+
+type BentoImage = {
+  type: 'video'
+  src: string
+  alt: string
+  href: string
+}
+
+type StatTile = {
+  type: 'stat'
+  platform: string
+  metric: string
+  value: string
+  icon: string
+}
+
+type BentoTile = BentoImage | StatTile
+
+const bentoImageModules = import.meta.glob('../bento/*.{png,jpg,jpeg,webp}', {
+  eager: true,
+  import: 'default',
+})
+
+const youtubeChannelUrl = 'https://www.youtube.com/channel/UC26OIuJ19EH6HF6uRJ-N_2A'
+const youtubeVideoUrl = (videoId: string) =>
+  `https://www.youtube.com/watch?v=${videoId}`
+
+const formatStat = (value: number) => {
+  const formatter = new Intl.NumberFormat('en-US', {
+    maximumFractionDigits: value >= 1000000 ? 1 : 0,
+  })
+
+  if (value >= 1000000) return `${formatter.format(value / 1000000)}M`
+  if (value >= 1000) return `${formatter.format(value / 1000)}K`
+  return formatter.format(value)
+}
+
+const platformIcons: Record<string, string> = {
+  YouTube: 'simple-icons:youtube',
+  TikTok: 'simple-icons:tiktok',
+  Instagram: 'simple-icons:instagram',
+  Facebook: 'simple-icons:facebook',
+}
+
+const statMetricPriority = ['Views', 'Likes', 'Followers', 'Subscribers']
+const statTiles = socialReach.items
+  .filter((item) => statMetricPriority.includes(item.metric))
+  .sort((a, b) => {
+    return (
+      statMetricPriority.indexOf(a.metric) - statMetricPriority.indexOf(b.metric)
+    )
+  })
+  .slice(0, 6)
+  .map((item) => ({
+    type: 'stat' as const,
+    platform: item.platform,
+    metric: item.metric,
+    value: formatStat(item.value),
+    icon: platformIcons[item.platform] ?? 'heroicons:chart-bar',
+  }))
+
+const bentoImages = Object.entries(bentoImageModules)
+  .filter(([path]) => !path.includes('.DS_Store'))
+  .map(([path, image]): BentoImage => {
+    const filename = decodeURIComponent(path.split('/').pop() ?? '')
+    const videoId = filename.match(/\[([A-Za-z0-9_-]{11})\b/)?.[1]
+    const title = filename
+      .replace(/\.[^.]+$/, '')
+      .replace(/\s*\[[^\]]+\](?:\s*\(\d+\))?$/, '')
+      .replace(/^Ya Hala with Haithum ياهلا مع هيثم\s*-\s*/, '')
+      .trim()
+
+    return {
+      type: 'video',
+      src: (image as { src: string }).src,
+      alt: title || 'Ya Hala YouTube video screenshot',
+      href: videoId ? youtubeVideoUrl(videoId) : youtubeChannelUrl,
+    }
+  })
+  .sort((a, b) => {
+    const seedA = Array.from(a.alt).reduce((sum, char) => {
+      return sum + char.charCodeAt(0)
+    }, 0)
+    const seedB = Array.from(b.alt).reduce((sum, char) => {
+      return sum + char.charCodeAt(0)
+    }, 0)
+
+    return (seedA % 997) - (seedB % 997)
+  })
+
+const railTiles = bentoImages.flatMap((image, index): BentoTile[] => {
+  const statTile = statTiles[Math.floor(index / 2) % statTiles.length]
+
+  if (index % 2 === 1 && statTile) return [image, statTile]
+  return [image]
+})
+
+const bentoRows = Array.from({ length: 3 }, (_, rowIndex) => {
+  return railTiles.filter((_, index) => index % 3 === rowIndex)
+})
+---
+
+{
+  bentoImages.length > 0 && (
+    <section
+      class="animate-fade-in-up mx-auto mt-6 w-full max-w-[592px] px-4 delay-300 sm:max-w-[608px] sm:px-6"
+      aria-label="Ya Hala videos and social reach"
+    >
+      <div class="overflow-hidden rounded-xl border border-outline-variant/70 bg-surface-container-low text-on-surface shadow-[0_18px_42px_oklch(0.35_0.045_70_/_0.14)] dark:border-outline-variant dark:bg-surface-container">
+        <div class="bento-scroll-mask space-y-2 overflow-hidden p-3 sm:space-y-3">
+          {bentoRows.map((row, rowIndex) => (
+            <div class="overflow-hidden">
+              <div
+                class:list={[
+                  'bento-scroll-track flex w-max gap-2 sm:gap-3',
+                  `bento-scroll-track-${rowIndex + 1}`,
+                ]}
+              >
+                {[...row, ...row].map((item) => (
+                  item.type === 'video' ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Watch on YouTube: ${item.alt}`}
+                      class="group relative isolate block aspect-video w-[252px] shrink-0 overflow-hidden rounded-lg border border-black/10 bg-surface-container-high text-left shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-primary sm:w-[274px] dark:border-white/10 dark:bg-surface-container-high"
+                    >
+                      <img
+                        src={item.src}
+                        alt={item.alt}
+                        class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                        loading="eager"
+                        decoding="async"
+                      />
+                    </a>
+                  ) : (
+                    <div
+                      class="flex aspect-video w-[252px] shrink-0 flex-col justify-between overflow-hidden rounded-lg border border-outline-variant/80 bg-surface-container-high p-3 text-left shadow-sm sm:w-[274px] sm:p-4 dark:border-outline-variant dark:bg-surface-container-highest"
+                    >
+                      <div class="flex items-center gap-2 text-on-surface-variant">
+                        <Icon
+                          name={item.icon}
+                          class="h-4 w-4 shrink-0"
+                          aria-hidden="true"
+                        />
+                        <p class="truncate text-xs font-medium">
+                          {item.platform}
+                        </p>
+                      </div>
+                      <p class="text-3xl leading-none font-semibold tracking-tight text-on-surface tabular-nums sm:text-4xl">
+                        {item.value}
+                      </p>
+                      <p class="truncate text-xs font-medium text-on-surface-variant">
+                        {item.metric}
+                      </p>
+                    </div>
+                  )
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

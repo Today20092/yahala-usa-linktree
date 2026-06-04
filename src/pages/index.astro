@@ -7,6 +7,7 @@ import LatestChannelVideo from '../components/LatestChannelVideo.astro'
 import Link from '../components/Link.astro'
 import QrCodeButton from '../components/QrCodeButton.astro'
 import ReachBadge from '../components/ReachBadge.astro'
+import VideoBentoGrid from '../components/VideoBentoGrid.astro'
 import heroCover from '../assets/yahala-hero-cover.png'
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
 import socialReach from '../data/social-reach.json'
@@ -245,6 +246,8 @@ const socialLinks = [
       </p>
 
       <QrCodeButton />
+
+      <VideoBentoGrid />
 
       <ReachBadge
         total={totalReach}
