@@ -19,12 +19,11 @@ const pageDescription =
 const siteName = 'Ya Hala with Haithum'
 const profileName = 'Haithum'
 const heroImageAlt = 'Ya Hala with Haithum ياهلا مع هيثم social cover'
-const profileImageUrl =
-  'https://yt3.ggpht.com/A7Pzl8HOLqu5YpPOwpvvejLe_ZS-MSk0rv_Wxq1rW9gLLPXv2jifNVX1Y3Ry1qhgDQiaDzDXQQ=s176-c-k-c0x00ffffff-no-rj'
-const currentYear = new Date().getFullYear()
 const baseUrl = import.meta.env.BASE_URL.endsWith('/')
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`
+const profileImageUrl = `${baseUrl}yahala-channel-logo.png`
+const currentYear = new Date().getFullYear()
 const canonicalUrl = new URL(baseUrl, Astro.site).toString()
 const sitemapUrl = new URL(`${baseUrl}sitemap-index.xml`, Astro.site).toString()
 const heroImagePath = heroCover.src
