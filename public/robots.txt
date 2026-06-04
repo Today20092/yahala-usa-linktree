@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://today20092.github.io/yahala-usa-linktree/sitemap-index.xml

@@ -1,4 +1,4 @@
-@import url(https://rsms.me/inter/inter.css);
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap');
 @import 'tailwindcss';
 
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
@@ -45,11 +45,13 @@
 
   --color-primary: var(--color-sage-700);
   --color-on-primary: var(--color-sand-50);
+  --color-primary-foreground: var(--color-on-primary);
   --color-primary-container: var(--color-sage-100);
   --color-on-primary-container: var(--color-ink-950);
 
   --color-secondary: var(--color-ink-900);
   --color-on-secondary: var(--color-sand-50);
+  --color-secondary-foreground: var(--color-on-secondary);
   --color-secondary-container: var(--color-ink-100);
   --color-on-secondary-container: var(--color-ink-900);
 
@@ -62,10 +64,17 @@
   --color-on-error: oklch(0.18 0.03 28);
   --color-error-container: oklch(0.27 0.08 28);
   --color-on-error-container: oklch(0.97 0.02 28);
+  --color-destructive: var(--color-error);
 
   /* Surface colors - the core background system */
+  --color-background: var(--color-surface);
+  --color-foreground: var(--color-on-surface);
   --color-surface: var(--color-sand-50);
   --color-on-surface: var(--color-ink-950);
+  --color-card: var(--color-surface);
+  --color-card-foreground: var(--color-on-surface);
+  --color-popover: var(--color-surface);
+  --color-popover-foreground: var(--color-on-surface);
   --color-surface-dim: var(--color-sand-100);
   --color-surface-bright: oklch(1 0 0);
   --color-surface-container-lowest: var(--color-sand-50);
@@ -79,6 +88,13 @@
 
   --color-outline: var(--color-ink-400);
   --color-outline-variant: var(--color-sand-300);
+  --color-border: var(--color-outline-variant);
+  --color-input: var(--color-outline-variant);
+  --color-ring: var(--color-primary);
+  --color-muted: var(--color-surface-container);
+  --color-muted-foreground: var(--color-on-surface-variant);
+  --color-accent: var(--color-surface-container-high);
+  --color-accent-foreground: var(--color-on-surface);
 
   --color-inverse-surface: var(--color-ink-900);
   --color-inverse-on-surface: var(--color-sand-50);
@@ -109,10 +125,13 @@
   --radius-sm: 0.5rem;
   --radius-md: 0.875rem;
   --radius-lg: 1rem;
-  --radius-xl: 1.25rem;
-  --radius-2xl: 1.5rem;
-  --radius-full: 9999px;
-}
+    --radius-xl: 1.25rem;
+    --radius-2xl: 1.5rem;
+    --radius-full: 9999px;
+
+    --font-sans: 'Inter', system-ui, sans-serif;
+    --font-display: 'Playfair Display', Georgia, serif;
+  }
 
 @layer base {
   html {
@@ -124,7 +143,7 @@
       auto,
       auto,
       6px 6px;
-    font-family: 'Inter Variable', 'Inter', system-ui, sans-serif;
+    font-family: var(--font-sans);
     font-feature-settings:
       'liga' 1,
       'calt' 1;
@@ -149,6 +168,12 @@
       auto,
       6px 6px;
     color: var(--color-on-surface);
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: 0;
   }
 
   :root[data-theme='dark'] {
@@ -468,8 +493,7 @@
   .linktree-page {
     min-height: 100vh;
     min-height: 100dvh;
-    background:
-      radial-gradient(
+    background: radial-gradient(
         ellipse at 50% 4rem,
         oklch(0.74 0.032 82 / 0.24),
         transparent 30rem
@@ -507,12 +531,11 @@
     place-items: center;
     border: 1px solid oklch(0.9 0.045 155 / 0.32);
     border-radius: var(--radius-full);
-    background:
-      linear-gradient(
-        145deg,
-        oklch(0.95 0.02 155 / 0.14),
-        oklch(0.08 0.02 160 / 0.3)
-      );
+    background: linear-gradient(
+      145deg,
+      oklch(0.95 0.02 155 / 0.14),
+      oklch(0.08 0.02 160 / 0.3)
+    );
     color: oklch(1 0 0);
     cursor: pointer;
     font: inherit;
@@ -550,8 +573,7 @@
     position: absolute;
     inset: 0;
     z-index: 1;
-    background:
-      linear-gradient(
+    background: linear-gradient(
         180deg,
         transparent 45%,
         color-mix(in srgb, var(--color-surface) 28%, transparent) 68%,
@@ -565,8 +587,7 @@
   }
 
   :root[data-theme='dark'] .linktree-hero__fade {
-    background:
-      linear-gradient(
+    background: linear-gradient(
         180deg,
         transparent 45%,
         color-mix(in srgb, var(--color-surface) 30%, transparent) 68%,
@@ -780,7 +801,12 @@
     );
     color: white;
     box-shadow:
-      0 18px 48px color-mix(in srgb, var(--brand-color-dark, var(--brand-color)) 34%, transparent),
+      0 18px 48px
+        color-mix(
+          in srgb,
+          var(--brand-color-dark, var(--brand-color)) 34%,
+          transparent
+        ),
       0 1px 0 oklch(1 0 0 / 0.18) inset,
       0 -20px 44px oklch(1 0 0 / 0.06) inset;
   }
@@ -788,8 +814,7 @@
   :root[data-theme='dark'] .brand-social-link:hover {
     background: linear-gradient(
       128deg,
-      var(--brand-color-dark-2, var(--brand-color-dark, var(--brand-color)))
-        0%,
+      var(--brand-color-dark-2, var(--brand-color-dark, var(--brand-color))) 0%,
       var(--brand-color-dark, var(--brand-color)) 48%,
       color-mix(
           in oklch,
@@ -878,7 +903,10 @@
         128deg,
         color-mix(
             in oklch,
-            var(--brand-color-dark-2, var(--brand-color-dark, var(--brand-color)))
+            var(
+                --brand-color-dark-2,
+                var(--brand-color-dark, var(--brand-color))
+              )
               76%,
             black
           )
@@ -886,7 +914,10 @@
         var(--brand-color-dark, var(--brand-color)) 48%,
         color-mix(
             in oklch,
-            var(--brand-color-dark-3, var(--brand-color-dark, var(--brand-color)))
+            var(
+                --brand-color-dark-3,
+                var(--brand-color-dark, var(--brand-color))
+              )
               86%,
             black
           )
@@ -894,12 +925,18 @@
       );
       border-color: color-mix(
         in oklch,
-        var(--brand-color-dark-2, var(--brand-color-dark, var(--brand-color))) 72%,
+        var(--brand-color-dark-2, var(--brand-color-dark, var(--brand-color)))
+          72%,
         white
       );
       color: white;
       box-shadow:
-        0 18px 48px color-mix(in srgb, var(--brand-color-dark, var(--brand-color)) 34%, transparent),
+        0 18px 48px
+          color-mix(
+            in srgb,
+            var(--brand-color-dark, var(--brand-color)) 34%,
+            transparent
+          ),
         0 1px 0 oklch(1 0 0 / 0.18) inset,
         0 -20px 44px oklch(1 0 0 / 0.06) inset;
     }
@@ -912,7 +949,10 @@
         var(--brand-color-dark, var(--brand-color)) 48%,
         color-mix(
             in oklch,
-            var(--brand-color-dark-3, var(--brand-color-dark, var(--brand-color)))
+            var(
+                --brand-color-dark-3,
+                var(--brand-color-dark, var(--brand-color))
+              )
               92%,
             black
           )
