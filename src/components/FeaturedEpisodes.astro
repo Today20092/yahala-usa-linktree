@@ -106,15 +106,15 @@ const episodes = (
 
       <div class="grid gap-3">
         {episodes.map((episode) => (
-          <article class="bg-card text-card-foreground ring-outline-variant/80 overflow-hidden rounded-xl text-left shadow-[0_12px_32px_color-mix(in_oklch,var(--color-shadow)_10%,transparent)] ring-1">
+          <article class="bg-card text-card-foreground ring-outline-variant/80 overflow-hidden rounded-lg text-left shadow-[0_8px_22px_color-mix(in_oklch,var(--color-shadow)_8%,transparent)] ring-1">
             <a
               href={episode.href}
               target="_blank"
               rel="noopener noreferrer"
-              class="group focus-visible:ring-brand-500 focus-visible:ring-offset-surface grid grid-cols-[104px_minmax(0,1fr)] gap-3 p-3 transition-transform duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:grid-cols-[128px_minmax(0,1fr)]"
+              class="group focus-visible:ring-brand-500 focus-visible:ring-offset-surface grid grid-cols-[116px_minmax(0,1fr)] items-center gap-3 px-3 py-3 transition-transform duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:grid-cols-[144px_minmax(0,1fr)] sm:gap-4 sm:px-4"
               aria-label={`Watch on YouTube: ${episode.title}`}
             >
-              <span class="bg-surface-container relative aspect-video overflow-hidden rounded-lg">
+              <span class="bg-surface-container relative aspect-video w-full overflow-hidden rounded-md">
                 <img
                   src={episode.thumbnail}
                   alt=""
@@ -135,18 +135,18 @@ const episodes = (
                 </span>
               </span>
 
-              <span class="min-w-0 self-center">
-                <span class="text-brand-600 dark:text-brand-400 text-xs font-bold uppercase">
+              <span class="min-w-0">
+                <span class="text-brand-600 dark:text-brand-400 text-xs leading-none font-bold uppercase">
                   {episode.category}
                 </span>
                 <h3
                   lang="ar"
                   dir="rtl"
-                  class="text-on-surface mt-1 line-clamp-2 text-base leading-snug font-bold"
+                  class="text-on-surface mt-2 line-clamp-2 text-base leading-snug font-bold sm:text-lg"
                 >
                   {episode.title}
                 </h3>
-                <span class="text-on-surface-variant mt-2 inline-flex items-center gap-1.5 text-sm font-semibold">
+                <span class="text-on-surface-variant mt-2 inline-flex items-center gap-1.5 text-sm leading-none font-semibold">
                   YouTube
                   <Icon
                     name="heroicons:arrow-up-right"
