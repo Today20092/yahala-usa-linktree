@@ -3,10 +3,12 @@ import '../styles.css'
 
 import { Icon } from 'astro-icon/components'
 
+import FeaturedEpisodes from '../components/FeaturedEpisodes.astro'
 import LatestChannelVideo from '../components/LatestChannelVideo.astro'
 import Link from '../components/Link.astro'
 import QrCodeButton from '../components/QrCodeButton.astro'
 import ReachBadge from '../components/ReachBadge.astro'
+import TopicCards from '../components/TopicCards.astro'
 import VideoBentoGrid from '../components/VideoBentoGrid.astro'
 import heroCover from '../assets/yahala-hero-cover.png'
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
@@ -101,6 +103,7 @@ const socialLinks = [
   },
 ]
 
+const instagramLink = socialLinks.find((link) => link.id === 'instagram')
 const sameAsUrls = socialLinks.map((link) => link.url)
 
 const structuredData = {
@@ -282,10 +285,11 @@ const structuredData = {
         class="font-display animate-fade-in-up text-on-surface mx-auto mt-5 mb-4 w-full max-w-xl px-4 text-4xl leading-none font-extrabold delay-100 [text-shadow:0_2px_12px_color-mix(in_oklch,var(--color-shadow)_18%,transparent)] sm:px-6 sm:text-5xl"
       >
         <span class="block">
-          <span class="text-brand-600 dark:text-brand-400">Ya Hala</span> with
-          Haithum
+          <span class="text-brand-600 dark:text-brand-400">Ya Hala</span> with Haithum
         </span>
-        <span class="text-brand-700 dark:text-brand-300 mt-2 block text-3xl leading-tight font-semibold [text-shadow:0_1px_8px_color-mix(in_oklch,var(--color-brand-600)_18%,transparent)] sm:mt-3 sm:text-4xl">
+        <span
+          class="text-brand-700 dark:text-brand-300 mt-2 block text-3xl leading-tight font-semibold [text-shadow:0_1px_8px_color-mix(in_oklch,var(--color-brand-600)_18%,transparent)] sm:mt-3 sm:text-4xl"
+        >
           ياهلا مع هيثم
         </span>
       </h1>
@@ -305,6 +309,8 @@ const structuredData = {
         updatedAt={socialReach.updatedAt}
         items={socialReach.items}
       />
+
+      <FeaturedEpisodes />
 
       <section
         class="animate-fade-in-up mt-8 mb-5 flex flex-col gap-4 px-4 delay-400 sm:px-6"
@@ -342,8 +348,10 @@ const structuredData = {
         }
       </section>
 
+      <TopicCards />
+
       <nav
-        class="animate-fade-in-up flex flex-col gap-4 px-4 delay-500 sm:px-6"
+        class="animate-fade-in-up mt-8 flex flex-col gap-4 px-4 delay-500 sm:px-6"
         aria-label="Official social links"
       >
         {
@@ -374,6 +382,44 @@ const structuredData = {
           ))
         }
       </nav>
+
+      <section
+        class="collaboration-cta animate-fade-in-up mx-4 mt-8 rounded-xl px-5 py-6 text-left delay-500 sm:mx-6 sm:px-6"
+        aria-labelledby="collaboration-title"
+      >
+        <p
+          class="text-brand-600 dark:text-brand-300 text-xs font-bold tracking-[0.18em] uppercase"
+        >
+          For collaborations
+        </p>
+        <h2
+          id="collaboration-title"
+          class="text-on-surface mt-2 text-2xl font-extrabold"
+        >
+          Sponsor, interview, or feature your story.
+        </h2>
+        <p class="text-on-surface-variant mt-2 text-base leading-relaxed">
+          Reach Arab communities across America through episodes, interviews,
+          field visits, and social-first features.
+        </p>
+        {
+          instagramLink && (
+            <a
+              href={instagramLink.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="bg-brand-600 text-on-primary hover:bg-brand-700 focus-visible:ring-brand-500 focus-visible:ring-offset-surface dark:bg-brand-500 dark:hover:bg-brand-400 mt-5 inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-5 text-base font-bold transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+            >
+              <Icon
+                name="simple-icons:instagram"
+                class="h-5 w-5"
+                aria-hidden="true"
+              />
+              DM on Instagram
+            </a>
+          )
+        }
+      </section>
 
       <footer
         class="text-on-surface-variant mt-auto w-full px-4 pt-12 pb-4 text-center text-sm"

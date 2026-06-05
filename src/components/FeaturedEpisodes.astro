@@ -1,0 +1,164 @@
+---
+import { Icon } from 'astro-icon/components'
+
+type Episode = {
+  thumbnail: string
+  title: string
+  href: string
+  category: string
+}
+
+type FeaturedEpisodeLink = {
+  url: string
+  category: string
+  title?: string
+}
+
+type YoutubeOembed = {
+  title?: string
+  thumbnail_url?: string
+}
+
+// Edit this list to change the Featured Episodes section.
+// Paste any YouTube watch URL or youtu.be URL. The thumbnail updates from the
+// video ID automatically. Add title only if you want to override YouTube's title.
+const featuredEpisodeLinks: FeaturedEpisodeLink[] = [
+  {
+    url: 'https://youtu.be/DYlYA2eo46Q?si=LajIGA3xN9IUbFq_',
+    category: 'Food business',
+  },
+  {
+    url: 'https://youtu.be/lV-edL64sbA',
+    category: 'Arab business',
+  },
+  {
+    url: 'https://youtu.be/x1h4ueJ33g8',
+    category: 'Community story',
+  },
+]
+
+const getYoutubeVideoId = (url: string) => {
+  try {
+    const parsedUrl = new URL(url)
+    if (parsedUrl.hostname.includes('youtu.be')) {
+      return parsedUrl.pathname.split('/').filter(Boolean)[0]
+    }
+    return parsedUrl.searchParams.get('v')
+  } catch {
+    return null
+  }
+}
+
+const youtubeThumbnailUrl = (videoId: string) =>
+  `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
+
+const getYoutubeMetadata = async (url: string): Promise<YoutubeOembed> => {
+  try {
+    const metadataUrl = new URL('https://www.youtube.com/oembed')
+    metadataUrl.searchParams.set('url', url)
+    metadataUrl.searchParams.set('format', 'json')
+
+    const response = await fetch(metadataUrl)
+    if (!response.ok) return {}
+
+    return (await response.json()) as YoutubeOembed
+  } catch {
+    return {}
+  }
+}
+
+const episodes = (
+  await Promise.all(
+    featuredEpisodeLinks.map(async (episode): Promise<Episode | null> => {
+      const videoId = getYoutubeVideoId(episode.url)
+      if (!videoId) return null
+
+      const metadata = await getYoutubeMetadata(episode.url)
+
+      return {
+        thumbnail: metadata.thumbnail_url ?? youtubeThumbnailUrl(videoId),
+        title: episode.title ?? metadata.title ?? 'Watch this episode',
+        href: episode.url,
+        category: episode.category,
+      }
+    }),
+  )
+).filter((episode): episode is Episode => Boolean(episode))
+---
+
+{
+  episodes.length > 0 && (
+    <section
+      class="animate-fade-in-up mx-auto mt-8 w-full max-w-[560px] px-4 text-left delay-400 sm:px-6"
+      aria-labelledby="featured-episodes-title"
+    >
+      <div class="mb-4 text-center">
+        <p class="text-brand-600 dark:text-brand-400 text-xs font-bold tracking-[0.18em] uppercase">
+          Watch next
+        </p>
+        <h2
+          id="featured-episodes-title"
+          class="text-on-surface mt-1 text-2xl font-extrabold"
+        >
+          Featured Episodes
+        </h2>
+      </div>
+
+      <div class="grid gap-3">
+        {episodes.map((episode) => (
+          <article class="bg-card text-card-foreground ring-outline-variant/80 overflow-hidden rounded-xl text-left shadow-[0_12px_32px_color-mix(in_oklch,var(--color-shadow)_10%,transparent)] ring-1">
+            <a
+              href={episode.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group focus-visible:ring-brand-500 focus-visible:ring-offset-surface grid grid-cols-[104px_minmax(0,1fr)] gap-3 p-3 transition-transform duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:grid-cols-[128px_minmax(0,1fr)]"
+              aria-label={`Watch on YouTube: ${episode.title}`}
+            >
+              <span class="bg-surface-container relative aspect-video overflow-hidden rounded-lg">
+                <img
+                  src={episode.thumbnail}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <span
+                  class="absolute inset-0 grid place-items-center bg-black/10 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+                  aria-hidden="true"
+                >
+                  <span class="text-brand-600 grid h-8 w-8 place-items-center rounded-full bg-white shadow-lg">
+                    <Icon
+                      name="heroicons:play-solid"
+                      class="h-4 w-4 translate-x-px"
+                    />
+                  </span>
+                </span>
+              </span>
+
+              <span class="min-w-0 self-center">
+                <span class="text-brand-600 dark:text-brand-400 text-xs font-bold uppercase">
+                  {episode.category}
+                </span>
+                <h3
+                  lang="ar"
+                  dir="rtl"
+                  class="text-on-surface mt-1 line-clamp-2 text-base leading-snug font-bold"
+                >
+                  {episode.title}
+                </h3>
+                <span class="text-on-surface-variant mt-2 inline-flex items-center gap-1.5 text-sm font-semibold">
+                  YouTube
+                  <Icon
+                    name="heroicons:arrow-up-right"
+                    class="h-4 w-4"
+                    aria-hidden="true"
+                  />
+                </span>
+              </span>
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}

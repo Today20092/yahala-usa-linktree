@@ -1020,6 +1020,27 @@
   animation-play-state: paused;
 }
 
+.collaboration-cta {
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklch, var(--color-brand-50) 78%, white),
+    var(--color-card)
+  );
+  box-shadow: 0 14px 36px
+    color-mix(in oklch, var(--color-shadow) 10%, transparent);
+  border: 1px solid
+    color-mix(in oklch, var(--color-brand-500) 18%, var(--color-border));
+}
+
+:root[data-theme='dark'] .collaboration-cta {
+  background: radial-gradient(
+      circle at top right,
+      color-mix(in oklch, var(--color-brand-500) 18%, transparent),
+      transparent 55%
+    ),
+    var(--color-card);
+}
+
 @keyframes bento-scroll {
   from {
     transform: translateX(0);

@@ -1,0 +1,68 @@
+---
+import { Icon } from 'astro-icon/components'
+
+const topics = [
+  {
+    title: 'Arab businesses',
+    description: 'Shops, founders, markets, and the work behind local success.',
+    icon: 'heroicons:building-storefront',
+  },
+  {
+    title: 'Food and community',
+    description: 'Restaurants, food trucks, recipes, and gathering places.',
+    icon: 'heroicons:heart',
+  },
+  {
+    title: 'Immigration stories',
+    description: 'Journeys, family choices, first wins, and hard lessons.',
+    icon: 'heroicons:map',
+  },
+  {
+    title: 'Life across America',
+    description:
+      'Everyday Arab American life from city streets to small towns.',
+    icon: 'heroicons:globe-americas',
+  },
+]
+---
+
+<section
+  class="animate-fade-in-up mx-auto mt-8 w-full max-w-[560px] px-4 text-left delay-500 sm:px-6"
+  aria-labelledby="topics-title"
+>
+  <div class="mb-4 text-center">
+    <p
+      class="text-brand-600 dark:text-brand-400 text-xs font-bold tracking-[0.18em] uppercase"
+    >
+      What we cover
+    </p>
+    <h2 id="topics-title" class="text-on-surface mt-1 text-2xl font-extrabold">
+      Stories From the Community
+    </h2>
+  </div>
+
+  <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+    {
+      topics.map((topic) => (
+        <article class="bg-card text-card-foreground ring-outline-variant/80 rounded-xl p-4 shadow-[0_10px_28px_color-mix(in_oklch,var(--color-shadow)_8%,transparent)] ring-1">
+          <div class="flex items-start gap-3">
+            <span
+              class="bg-brand-50 text-brand-600 dark:bg-brand-950 dark:text-brand-300 grid h-10 w-10 shrink-0 place-items-center rounded-lg"
+              aria-hidden="true"
+            >
+              <Icon name={topic.icon} class="h-5 w-5" />
+            </span>
+            <div class="min-w-0">
+              <h3 class="text-on-surface text-base leading-tight font-bold">
+                {topic.title}
+              </h3>
+              <p class="text-on-surface-variant mt-1 text-sm leading-snug">
+                {topic.description}
+              </p>
+            </div>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>
