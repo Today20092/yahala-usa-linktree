@@ -9,6 +9,7 @@ import Link from '../components/Link.astro'
 import QrCodeButton from '../components/QrCodeButton.astro'
 import ReachBadge from '../components/ReachBadge.astro'
 import TopicCards from '../components/TopicCards.astro'
+import SocialLinkButton from '../components/SocialLinkButton'
 import VideoBentoGrid from '../components/VideoBentoGrid.astro'
 import heroCover from '../assets/yahala-hero-cover.png'
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
@@ -356,29 +357,25 @@ const structuredData = {
       >
         {
           socialLinks.map((social) => (
-            <Link
-              linktxt={social.label}
-              bgcolor="brand-social-link"
-              link={social.url}
-              linkcolor=""
+            <SocialLinkButton
+              label={social.label}
+              href={social.url}
               id={social.id}
-              border="border border-solid"
-              style={`--brand-color: ${social.color}; --brand-color-2: ${
-                social.color2
-              }; --brand-color-3: ${social.color3}; --brand-color-dark: ${
-                social.darkColor ?? social.color
-              }; --brand-color-dark-2: ${
-                social.darkColor2 ?? social.color2
-              }; --brand-color-dark-3: ${social.darkColor3 ?? social.color3};`}
-              extraClasses="text-lg font-bold"
+              style={{
+                '--brand-color': social.color,
+                '--brand-color-2': social.color2,
+                '--brand-color-3': social.color3,
+                '--brand-color-dark': social.darkColor ?? social.color,
+                '--brand-color-dark-2': social.darkColor2 ?? social.color2,
+                '--brand-color-dark-3': social.darkColor3 ?? social.color3,
+              }}
             >
               <Icon
-                slot="icon"
                 name={social.icon}
                 class="h-7 w-7"
                 aria-hidden="true"
               />
-            </Link>
+            </SocialLinkButton>
           ))
         }
       </nav>
