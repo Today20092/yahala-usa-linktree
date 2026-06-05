@@ -2,12 +2,253 @@
   "yahala": {
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum  ياهلا مع هيثم",
-    "videoId": "Xyp-m7OvF64",
-    "title": "هل إبر التنحيف آمنة فعلًا؟ الحقيقة التي لا يخبرك بها أحد!",
-    "url": "https://www.youtube.com/watch?v=Xyp-m7OvF64",
-    "thumbnail": "https://i1.ytimg.com/vi/Xyp-m7OvF64/hqdefault.jpg",
-    "published": "2026-06-04T15:00:25+00:00",
-    "updated": "2026-06-04T23:57:43+00:00",
-    "videos": []
+    "videoId": "gDbn5G3zuZU",
+    "title": "كيف تصل المنتجات العربية إلى أمريكا؟ لماذا أسعارها مرتفعة؟",
+    "url": "https://www.youtube.com/watch?v=gDbn5G3zuZU",
+    "thumbnail": "https://i4.ytimg.com/vi/gDbn5G3zuZU/hqdefault.jpg",
+    "published": "2026-06-01T16:00:21+00:00",
+    "updated": "2026-06-01T17:11:29+00:00",
+    "videos": [
+      {
+        "videoId": "gDbn5G3zuZU",
+        "title": "كيف تصل المنتجات العربية إلى أمريكا؟ لماذا أسعارها مرتفعة؟",
+        "url": "https://www.youtube.com/watch?v=gDbn5G3zuZU",
+        "thumbnail": "https://i4.ytimg.com/vi/gDbn5G3zuZU/hqdefault.jpg",
+        "published": "2026-06-01T16:00:21+00:00",
+        "updated": "2026-06-01T17:11:29+00:00"
+      },
+      {
+        "videoId": "M6TQFZpcX64",
+        "title": "دخلنا شرطة نيويورك واكتشفنا الحضور العربي المفاجئ!",
+        "url": "https://www.youtube.com/watch?v=M6TQFZpcX64",
+        "thumbnail": "https://i.ytimg.com/vi/M6TQFZpcX64/maxresdefault.jpg",
+        "published": "2026-05-22T09:54:21-07:00",
+        "updated": "2026-05-22T09:54:21-07:00"
+      },
+      {
+        "videoId": "59h9IqbY9Dk",
+        "title": "سوق القهوة في أمريكا بمليارات الدولارات… أين العرب من هذه الفرصة؟",
+        "url": "https://www.youtube.com/watch?v=59h9IqbY9Dk",
+        "thumbnail": "https://i.ytimg.com/vi/59h9IqbY9Dk/maxresdefault.jpg",
+        "published": "2026-05-19T09:00:31-07:00",
+        "updated": "2026-05-19T09:00:31-07:00"
+      },
+      {
+        "videoId": "8nf0_ZKJJj4",
+        "title": "عراقية بدأت من كراج البيت… واليوم تملك أكاديمية تجميل بثلاثة فروع في أمريكا",
+        "url": "https://www.youtube.com/watch?v=8nf0_ZKJJj4",
+        "thumbnail": "https://i.ytimg.com/vi/8nf0_ZKJJj4/hqdefault.jpg",
+        "published": "2026-05-15T12:00:18-07:00",
+        "updated": "2026-05-15T12:00:18-07:00"
+      },
+      {
+        "videoId": "l3bRUbBIh8w",
+        "title": "هل إبر التنحيف آمنة فعلًا؟ تجربتي بعد سنة كاملة + الحقيقة التي لا يخبرك بها أحد!",
+        "url": "https://www.youtube.com/watch?v=l3bRUbBIh8w",
+        "thumbnail": "https://i.ytimg.com/vi/l3bRUbBIh8w/maxresdefault.jpg",
+        "published": "2026-05-11T11:00:44-07:00",
+        "updated": "2026-05-11T11:00:44-07:00"
+      },
+      {
+        "videoId": "3TutPXW79aY",
+        "title": "هل يمكن لهذه اللصقة أن تحسن التنفس وتوقف الشخير؟ قصة رجل أعمال عربي وبراءة اختراع",
+        "url": "https://www.youtube.com/watch?v=3TutPXW79aY",
+        "thumbnail": "https://i.ytimg.com/vi/3TutPXW79aY/maxresdefault.jpg",
+        "published": "2026-04-29T09:00:06-07:00",
+        "updated": "2026-04-29T09:00:06-07:00"
+      },
+      {
+        "videoId": "06LJ9AaClLs",
+        "title": "أكبر خطر في أمريكا ليس الفقر… بل ضياع الأبناء!",
+        "url": "https://www.youtube.com/watch?v=06LJ9AaClLs",
+        "thumbnail": "https://i.ytimg.com/vi/06LJ9AaClLs/maxresdefault.jpg",
+        "published": "2026-04-25T09:00:00-07:00",
+        "updated": "2026-04-25T09:00:00-07:00"
+      },
+      {
+        "videoId": "uO35D6Gw6Xg",
+        "title": "هل انتهى حلم الهجرة إلى أمريكا؟ الحقيقة الصادمة عن الترحيل واللجوء",
+        "url": "https://www.youtube.com/watch?v=uO35D6Gw6Xg",
+        "thumbnail": "https://i.ytimg.com/vi/uO35D6Gw6Xg/hqdefault.jpg",
+        "published": "2026-04-21T09:01:36-07:00",
+        "updated": "2026-04-21T09:01:36-07:00"
+      },
+      {
+        "videoId": "Psn0QTLw7eA",
+        "title": "من بين كل مدن أمريكا… اخترت دالاس! ليش؟",
+        "url": "https://www.youtube.com/watch?v=Psn0QTLw7eA",
+        "thumbnail": "https://i.ytimg.com/vi/Psn0QTLw7eA/maxresdefault.jpg",
+        "published": "2026-04-17T09:00:49-07:00",
+        "updated": "2026-04-17T09:00:49-07:00"
+      },
+      {
+        "videoId": "3sNCePfZJ0o",
+        "title": "أخطاء في التأمين ممكن تكلفك كل شيء في أمريكا!",
+        "url": "https://www.youtube.com/watch?v=3sNCePfZJ0o",
+        "thumbnail": "https://i.ytimg.com/vi/3sNCePfZJ0o/hqdefault.jpg",
+        "published": "2026-04-08T09:00:07-07:00",
+        "updated": "2026-04-08T09:00:07-07:00"
+      },
+      {
+        "videoId": "48Kjbl5DB4w",
+        "title": "ماهو دخل عربات الطعام في أمريكا؟ معلومات كاملة مع ابو عمر حلال",
+        "url": "https://www.youtube.com/watch?v=48Kjbl5DB4w",
+        "thumbnail": "https://i.ytimg.com/vi/48Kjbl5DB4w/maxresdefault.jpg",
+        "published": "2026-04-04T09:00:05-07:00",
+        "updated": "2026-04-04T09:00:05-07:00"
+      },
+      {
+        "videoId": "Aml_gBJ06ms",
+        "title": "الحقيقة وراء أرخص منزل في أمريكا… جولة داخل سوق العقارات في هيوستن",
+        "url": "https://www.youtube.com/watch?v=Aml_gBJ06ms",
+        "thumbnail": "https://i.ytimg.com/vi/Aml_gBJ06ms/maxresdefault.jpg",
+        "published": "2026-03-30T15:30:59-07:00",
+        "updated": "2026-03-30T15:30:59-07:00"
+      },
+      {
+        "videoId": "LKOcmr_DhZU",
+        "title": "محامية عربية تكشف أسرار الهجرة في أمريكا: أخطاء تدمر مستقبلك بدون ما تعرف",
+        "url": "https://www.youtube.com/watch?v=LKOcmr_DhZU",
+        "thumbnail": "https://i.ytimg.com/vi/LKOcmr_DhZU/maxresdefault.jpg",
+        "published": "2026-03-26T09:00:26-07:00",
+        "updated": "2026-03-26T09:00:26-07:00"
+      },
+      {
+        "videoId": "-_Z11UKbp8g",
+        "title": "من الحلبة إلى العمل الخيري… بطل UFC بلال محمد في أكبر منظمة إغاثية إسلامية في أمريكا",
+        "url": "https://www.youtube.com/watch?v=-_Z11UKbp8g",
+        "thumbnail": "https://i.ytimg.com/vi/-_Z11UKbp8g/hqdefault.jpg",
+        "published": "2026-03-15T09:00:00-07:00",
+        "updated": "2026-03-15T09:00:00-07:00"
+      },
+      {
+        "videoId": "RMyWIYvGEB4",
+        "title": "داخل أكبر إفطار رمضاني للجالية المسلمة قرب العاصمة واشنطن",
+        "url": "https://www.youtube.com/watch?v=RMyWIYvGEB4",
+        "thumbnail": "https://i.ytimg.com/vi/RMyWIYvGEB4/hqdefault.jpg",
+        "published": "2026-03-12T09:00:45-07:00",
+        "updated": "2026-03-12T09:00:45-07:00"
+      },
+      {
+        "videoId": "UbAplNdj-fw",
+        "title": "عالم الفيزياء الفلسطيني الذي ترك شركات النفط العالمية… لماذا؟",
+        "url": "https://www.youtube.com/watch?v=UbAplNdj-fw",
+        "thumbnail": "https://i.ytimg.com/vi/UbAplNdj-fw/hqdefault.jpg",
+        "published": "2026-03-09T09:00:46-07:00",
+        "updated": "2026-03-09T09:00:46-07:00"
+      },
+      {
+        "videoId": "smU2_DmMU6I",
+        "title": "دخلنا أكبر منظمة إغاثة إسلامية في أمريكا… أين تذهب التبرعات؟ | Islamic Relief USA",
+        "url": "https://www.youtube.com/watch?v=smU2_DmMU6I",
+        "thumbnail": "https://i.ytimg.com/vi/smU2_DmMU6I/hqdefault.jpg",
+        "published": "2026-03-06T09:01:35-08:00",
+        "updated": "2026-03-06T09:01:35-08:00"
+      },
+      {
+        "videoId": "XVzFBTyl64c",
+        "title": "البضاعة العربية في أمريكا؟",
+        "url": "https://www.youtube.com/watch?v=XVzFBTyl64c",
+        "thumbnail": "https://i.ytimg.com/vi/XVzFBTyl64c/hqdefault.jpg",
+        "published": "2026-03-02T09:00:48-08:00",
+        "updated": "2026-03-02T09:00:48-08:00"
+      },
+      {
+        "videoId": "_xG6zgOZSLU",
+        "title": "لن تصدق أجواء رمضان في أمريكا 😍 | مهرجان فرحة رمضان في دالاس",
+        "url": "https://www.youtube.com/watch?v=_xG6zgOZSLU",
+        "thumbnail": "https://i.ytimg.com/vi/_xG6zgOZSLU/hqdefault.jpg",
+        "published": "2026-02-16T09:01:01-08:00",
+        "updated": "2026-02-16T09:01:01-08:00"
+      },
+      {
+        "videoId": "Z29_fT0gwm8",
+        "title": "كيف ساهمت شابة مصرية في رفع الأذان علنًا في نيويورك؟ | قصة رنا عبدالحميد",
+        "url": "https://www.youtube.com/watch?v=Z29_fT0gwm8",
+        "thumbnail": "https://i.ytimg.com/vi/Z29_fT0gwm8/hqdefault.jpg",
+        "published": "2026-02-14T10:00:39-08:00",
+        "updated": "2026-02-14T10:00:39-08:00"
+      },
+      {
+        "videoId": "Dv6t2UQd8_Y",
+        "title": "هل ينجح البرغر الحلال في أمريكا؟ | قصة Beef N Buns",
+        "url": "https://www.youtube.com/watch?v=Dv6t2UQd8_Y",
+        "thumbnail": "https://i.ytimg.com/vi/Dv6t2UQd8_Y/hqdefault.jpg",
+        "published": "2026-02-11T10:00:13-08:00",
+        "updated": "2026-02-11T10:00:13-08:00"
+      },
+      {
+        "videoId": "x1h4ueJ33g8",
+        "title": "كيف تحوّل أخطر حي في نيويورك إلى اليمن الصغرى؟ | Bronx Little Yemen",
+        "url": "https://www.youtube.com/watch?v=x1h4ueJ33g8",
+        "thumbnail": "https://i.ytimg.com/vi/x1h4ueJ33g8/maxresdefault.jpg",
+        "published": "2026-02-06T13:01:12-08:00",
+        "updated": "2026-02-06T13:01:12-08:00"
+      },
+      {
+        "videoId": "jOczHqEoOec",
+        "title": "من عامل محطة وقود… إلى إمبراطور اللوحات الإعلانية في أمريكا",
+        "url": "https://www.youtube.com/watch?v=jOczHqEoOec",
+        "thumbnail": "https://i.ytimg.com/vi/jOczHqEoOec/hqdefault.jpg",
+        "published": "2026-02-03T12:00:38-08:00",
+        "updated": "2026-02-03T12:00:38-08:00"
+      },
+      {
+        "videoId": "WWdyNe_4xGs",
+        "title": "بازار مؤتمر ماس السنوي في شيكاغو -  MasCon",
+        "url": "https://www.youtube.com/watch?v=WWdyNe_4xGs",
+        "thumbnail": "https://i.ytimg.com/vi/WWdyNe_4xGs/hqdefault.jpg",
+        "published": "2026-01-30T09:01:01-08:00",
+        "updated": "2026-01-30T09:01:01-08:00"
+      },
+      {
+        "videoId": "jS7epPXlfcs",
+        "title": "مؤتمر ماس السنوي في شيكاغو  MasCon",
+        "url": "https://www.youtube.com/watch?v=jS7epPXlfcs",
+        "thumbnail": "https://i.ytimg.com/vi/jS7epPXlfcs/hqdefault.jpg",
+        "published": "2026-01-26T12:00:38-08:00",
+        "updated": "2026-01-26T12:00:38-08:00"
+      },
+      {
+        "videoId": "nZmPAhjmfAg",
+        "title": "تحالف بمليار دولار… كيف غيّرت Octave وVantico قواعد الاستثمار في أمريكا؟",
+        "url": "https://www.youtube.com/watch?v=nZmPAhjmfAg",
+        "thumbnail": "https://i.ytimg.com/vi/nZmPAhjmfAg/hqdefault.jpg",
+        "published": "2026-01-19T09:01:31-08:00",
+        "updated": "2026-01-19T09:01:31-08:00"
+      },
+      {
+        "videoId": "47W5hPOBNGA",
+        "title": "قصة براند عربي ينافس في أصعب موقع بأمريكا | موكافيه  MOKAFE",
+        "url": "https://www.youtube.com/watch?v=47W5hPOBNGA",
+        "thumbnail": "https://i.ytimg.com/vi/47W5hPOBNGA/maxresdefault.jpg",
+        "published": "2026-01-13T09:00:11-08:00",
+        "updated": "2026-01-13T09:00:11-08:00"
+      },
+      {
+        "videoId": "ueLDlCSc7CU",
+        "title": "مطعم عربي للأسماك يهزّ نيويورك | مطعم مرجان",
+        "url": "https://www.youtube.com/watch?v=ueLDlCSc7CU",
+        "thumbnail": "https://i.ytimg.com/vi/ueLDlCSc7CU/hqdefault.jpg",
+        "published": "2026-01-05T09:01:26-08:00",
+        "updated": "2026-01-05T09:01:26-08:00"
+      },
+      {
+        "videoId": "nLFHA4Z61n8",
+        "title": "هل يوجد تمويل حلال فعلاً في أمريكا؟ | التمويل الإسلامي في العقارات",
+        "url": "https://www.youtube.com/watch?v=nLFHA4Z61n8",
+        "thumbnail": "https://i.ytimg.com/vi/nLFHA4Z61n8/maxresdefault.jpg",
+        "published": "2025-12-31T09:01:33-08:00",
+        "updated": "2025-12-31T09:01:33-08:00"
+      },
+      {
+        "videoId": "EDzKxXUQp9Y",
+        "title": "من عامل صيانة إلى وكيل وزير في أمريكا | قصة المهندس محمد عبداللطيف",
+        "url": "https://www.youtube.com/watch?v=EDzKxXUQp9Y",
+        "thumbnail": "https://i.ytimg.com/vi/EDzKxXUQp9Y/maxresdefault.jpg",
+        "published": "2025-12-24T09:00:32-08:00",
+        "updated": "2025-12-24T09:00:32-08:00"
+      }
+    ]
   }
 }

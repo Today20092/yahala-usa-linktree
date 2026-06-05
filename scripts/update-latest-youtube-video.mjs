@@ -179,34 +179,35 @@ const fetchLatestVideo = async (channel, previousLatestVideo) => {
 
       const latestEntry =
         feedEntries.find((entry) => entry.videoId === latestVideoId) ??
-        videosWithFallbackThumbnails(videosTabEntries)[0] ??
-        feedEntries[0]
+        videosWithFallbackThumbnails(videosTabEntries)[0]
 
-      const videos = videosWithFallbackThumbnails(
-        videosTabEntries.map((video) => {
-          const feedEntry = feedEntries.find(
-            (entry) => entry.videoId === video.videoId,
-          )
+      if (latestEntry) {
+        const videos = videosWithFallbackThumbnails(
+          videosTabEntries.map((video) => {
+            const feedEntry = feedEntries.find(
+              (entry) => entry.videoId === video.videoId,
+            )
 
-          return {
-            ...video,
-            title: feedEntry?.title || video.title,
-            thumbnail: feedEntry?.thumbnail || video.thumbnail,
-            published: feedEntry?.published || video.published,
-            updated: feedEntry?.updated || video.updated,
-          }
-        }),
-      )
+            return {
+              ...video,
+              title: feedEntry?.title || video.title,
+              thumbnail: feedEntry?.thumbnail || video.thumbnail,
+              published: feedEntry?.published || video.published,
+              updated: feedEntry?.updated || video.updated,
+            }
+          }),
+        )
 
-      return [
-        id,
-        {
-          channelId,
-          channelTitle,
-          ...latestEntry,
-          videos,
-        },
-      ]
+        return [
+          id,
+          {
+            channelId,
+            channelTitle,
+            ...latestEntry,
+            videos,
+          },
+        ]
+      }
     }
   }
 
@@ -222,7 +223,7 @@ const fetchLatestVideo = async (channel, previousLatestVideo) => {
     const latestVideoId = await latestVideoIdFromVideosTab(videosUrl)
     const latestVideo = await videoMetadataFromWatchPage(latestVideoId)
 
-    if (latestVideo) {
+    if (latestVideo && !latestVideo.isShort) {
       const { isShort, ...latestVideoData } = latestVideo
 
       return [
@@ -234,6 +235,10 @@ const fetchLatestVideo = async (channel, previousLatestVideo) => {
           videos: videosWithFallbackThumbnails([latestVideoData]),
         },
       ]
+    }
+
+    if (latestVideo?.isShort) {
+      console.warn(`Skipping short video for ${name}`)
     }
   } catch (error) {
     console.warn(error.message)

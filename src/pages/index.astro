@@ -199,17 +199,41 @@ const structuredData = {
         const lightThemeColor = '#fafafa'
         const darkThemeColor = '#18181b'
         const storageKey = 'theme-preference'
+        const storageVersionKey = 'theme-preference-version'
+        const storageVersion = '2'
+        const preferences = ['light', 'dark', 'system']
         const systemQuery = window.matchMedia('(prefers-color-scheme: dark)')
-        const savedPreference = (() => {
+        const getStoredValue = (key) => {
           try {
-            return localStorage.getItem(storageKey)
+            return localStorage.getItem(key)
           } catch {
             return null
           }
-        })()
-        const preference = ['light', 'dark', 'system'].includes(savedPreference)
-          ? savedPreference
-          : 'system'
+        }
+        const setStoredValue = (key, value) => {
+          try {
+            localStorage.setItem(key, value)
+          } catch {}
+        }
+        const normalizePreference = () => {
+          const savedPreference = getStoredValue(storageKey)
+          const savedVersion = getStoredValue(storageVersionKey)
+
+          if (savedVersion !== storageVersion && savedPreference === 'light') {
+            setStoredValue(storageKey, 'system')
+            setStoredValue(storageVersionKey, storageVersion)
+            return 'system'
+          }
+
+          if (savedVersion !== storageVersion) {
+            setStoredValue(storageVersionKey, storageVersion)
+          }
+
+          return preferences.includes(savedPreference)
+            ? savedPreference
+            : 'system'
+        }
+        const preference = normalizePreference()
         const theme =
           preference === 'system'
             ? systemQuery.matches
@@ -466,19 +490,42 @@ const structuredData = {
     <script is:inline>
       ;(() => {
         const storageKey = 'theme-preference'
+        const storageVersionKey = 'theme-preference-version'
+        const storageVersion = '2'
         const preferences = ['system', 'light', 'dark']
         const lightThemeColor = '#fafafa'
         const darkThemeColor = '#18181b'
         const systemQuery = window.matchMedia('(prefers-color-scheme: dark)')
         const buttons = [...document.querySelectorAll('[data-theme-option]')]
 
-        const getPreference = () => {
-          let savedPreference = null
+        const getStoredValue = (key) => {
           try {
-            savedPreference = localStorage.getItem(storageKey)
+            return localStorage.getItem(key)
           } catch {
-            savedPreference = null
+            return null
           }
+        }
+
+        const setStoredValue = (key, value) => {
+          try {
+            localStorage.setItem(key, value)
+          } catch {}
+        }
+
+        const getPreference = () => {
+          const savedPreference = getStoredValue(storageKey)
+          const savedVersion = getStoredValue(storageVersionKey)
+
+          if (savedVersion !== storageVersion && savedPreference === 'light') {
+            setStoredValue(storageKey, 'system')
+            setStoredValue(storageVersionKey, storageVersion)
+            return 'system'
+          }
+
+          if (savedVersion !== storageVersion) {
+            setStoredValue(storageVersionKey, storageVersion)
+          }
+
           return preferences.includes(savedPreference)
             ? savedPreference
             : 'system'
@@ -518,9 +565,8 @@ const structuredData = {
             const preference = button.dataset.themeOption
             if (!preferences.includes(preference)) return
 
-            try {
-              localStorage.setItem(storageKey, preference)
-            } catch {}
+            setStoredValue(storageKey, preference)
+            setStoredValue(storageVersionKey, storageVersion)
             applyTheme(preference)
           })
         })
