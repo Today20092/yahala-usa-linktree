@@ -28,7 +28,7 @@ export default function SocialLinkButton({
       variant="outline"
       size="lg"
       className={cn(
-        'brand-social-link elevation-2 hover:elevation-4 mx-auto h-auto w-full max-w-[560px] cursor-pointer rounded-xl border border-solid px-5 py-4 text-lg font-bold text-on-surface transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl hover:brightness-110 focus-visible:ring-primary/70 focus-visible:ring-offset-surface focus-visible:ring-2 focus-visible:ring-offset-2 active:translate-y-0 active:scale-[0.98]',
+        'brand-social-link elevation-2 hover:elevation-4 mx-auto h-auto w-full cursor-pointer rounded-xl border border-solid px-5 py-4 text-lg font-bold text-on-surface transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl hover:brightness-110 focus-visible:ring-primary/70 focus-visible:ring-offset-surface focus-visible:ring-2 focus-visible:ring-offset-2 active:translate-y-0 active:scale-[0.98]',
         className,
       )}
     >
@@ -41,13 +41,13 @@ export default function SocialLinkButton({
         style={style}
       >
         <span className="flex w-full items-center">
-          <span className="flex w-7 shrink-0 items-center justify-center">
+          <span className="flex w-8 shrink-0 items-center justify-center">
             {children}
           </span>
           <span className="flex-1 pl-2 text-center leading-snug font-medium wrap-break-word whitespace-normal">
             {label}
           </span>
-          <span className="w-7 shrink-0" />
+          <span className="w-8 shrink-0" />
         </span>
       </a>
     </Button>
