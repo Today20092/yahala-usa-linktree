@@ -1,15 +1,25 @@
 import { readFile, writeFile } from 'node:fs/promises'
 
-const channelsPath = new URL('../src/data/youtube-channels.json', import.meta.url)
-const outputPath = new URL('../src/data/latest-youtube-videos.json', import.meta.url)
+const channelsPath = new URL(
+  '../src/data/youtube-channels.json',
+  import.meta.url,
+)
+const outputPath = new URL(
+  '../src/data/latest-youtube-videos.json',
+  import.meta.url,
+)
 
 const textFrom = (xml, tagName) => {
-  const match = xml.match(new RegExp(`<${tagName}(?:\\s[^>]*)?>([\\s\\S]*?)<\\/${tagName}>`))
+  const match = xml.match(
+    new RegExp(`<${tagName}(?:\\s[^>]*)?>([\\s\\S]*?)<\\/${tagName}>`),
+  )
   return match ? decodeXml(match[1].trim()) : ''
 }
 
 const attrFrom = (xml, tagName, attrName) => {
-  const match = xml.match(new RegExp(`<${tagName}[^>]*\\s${attrName}="([^"]+)"`))
+  const match = xml.match(
+    new RegExp(`<${tagName}[^>]*\\s${attrName}="([^"]+)"`),
+  )
   return match ? decodeXml(match[1]) : ''
 }
 
@@ -20,6 +30,16 @@ const decodeXml = (value) =>
     .replaceAll('&apos;', "'")
     .replaceAll('&lt;', '<')
     .replaceAll('&gt;', '>')
+
+const decodeJsonString = (value) => {
+  if (!value) return ''
+
+  try {
+    return JSON.parse(`"${value.replaceAll('"', '\\"')}"`)
+  } catch {
+    return decodeXml(value.replaceAll('\\u0026', '&'))
+  }
+}
 
 const entriesFromFeed = (feed) =>
   [...feed.matchAll(/<entry>([\s\S]*?)<\/entry>/g)].map((match) => {
@@ -36,8 +56,18 @@ const entriesFromFeed = (feed) =>
     }
   })
 
-const latestVideoIdFromVideosTab = async (videosUrl) => {
-  if (!videosUrl) return ''
+const uniqueVideos = (videos) => {
+  const seen = new Set()
+
+  return videos.filter((video) => {
+    if (!video.videoId || seen.has(video.videoId)) return false
+    seen.add(video.videoId)
+    return true
+  })
+}
+
+const videosFromVideosTab = async (videosUrl) => {
+  if (!videosUrl) return []
 
   const response = await fetch(videosUrl, {
     headers: {
@@ -54,14 +84,25 @@ const latestVideoIdFromVideosTab = async (videosUrl) => {
 
   const html = await response.text()
   const videoIds = [
-    ...html.matchAll(/"videoRenderer":\{"videoId":"([a-zA-Z0-9_-]{11})"/g),
-    ...html.matchAll(/watch\?v=([a-zA-Z0-9_-]{11})/g),
-  ].map((match) => match[1])
+    ...new Set(
+      [...html.matchAll(/watch\?v=([a-zA-Z0-9_-]{11})/g)].map(
+        (match) => match[1],
+      ),
+    ),
+  ]
+  const videos = (
+    await Promise.all(
+      videoIds.map((videoId) => videoMetadataFromWatchPage(videoId)),
+    )
+  ).filter((video) => video && !video.isShort)
 
-  return [...new Set(videoIds)][0] ?? ''
+  return uniqueVideos(videos)
 }
 
-const latestVideoMetadataFromWatchPage = async (videoId) => {
+const latestVideoIdFromVideosTab = async (videosUrl) =>
+  (await videosFromVideosTab(videosUrl))[0]?.videoId ?? ''
+
+const videoMetadataFromWatchPage = async (videoId) => {
   if (!videoId) return null
 
   const response = await fetch(`https://www.youtube.com/watch?v=${videoId}`, {
@@ -85,18 +126,34 @@ const latestVideoMetadataFromWatchPage = async (videoId) => {
   const thumbnail =
     html.match(/"thumbnailUrl":"([^"]+)"/)?.[1] ??
     `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
+  const isShort =
+    html.includes(`/shorts/${videoId}`) ||
+    html.includes(`\\/shorts\\/${videoId}`)
 
   if (!title) return null
 
   return {
     videoId,
-    title: decodeXml(title),
+    title: decodeJsonString(title),
     url: `https://www.youtube.com/watch?v=${videoId}`,
     thumbnail: decodeXml(thumbnail),
     published,
     updated: published,
+    isShort,
   }
 }
+
+const videosWithFallbackThumbnails = (videos) =>
+  uniqueVideos(videos).map((video) => {
+    const { isShort, ...videoData } = video
+
+    return {
+      ...videoData,
+      thumbnail:
+        video.thumbnail ||
+        `https://i.ytimg.com/vi/${video.videoId}/hqdefault.jpg`,
+    }
+  })
 
 const fetchLatestVideo = async (channel, previousLatestVideo) => {
   const { id, channelId, videosUrl, name } = channel
@@ -112,17 +169,34 @@ const fetchLatestVideo = async (channel, previousLatestVideo) => {
     if (feedEntries.length > 0) {
       channelTitle = feedChannelTitle || channelTitle
 
-      let latestVideoId = ''
-
-      try {
-        latestVideoId = await latestVideoIdFromVideosTab(videosUrl)
-      } catch (error) {
-        console.warn(error.message)
-      }
+      const videosTabEntries = await videosFromVideosTab(videosUrl).catch(
+        (error) => {
+          console.warn(error.message)
+          return []
+        },
+      )
+      const latestVideoId = videosTabEntries[0]?.videoId ?? ''
 
       const latestEntry =
         feedEntries.find((entry) => entry.videoId === latestVideoId) ??
+        videosWithFallbackThumbnails(videosTabEntries)[0] ??
         feedEntries[0]
+
+      const videos = videosWithFallbackThumbnails(
+        videosTabEntries.map((video) => {
+          const feedEntry = feedEntries.find(
+            (entry) => entry.videoId === video.videoId,
+          )
+
+          return {
+            ...video,
+            title: feedEntry?.title || video.title,
+            thumbnail: feedEntry?.thumbnail || video.thumbnail,
+            published: feedEntry?.published || video.published,
+            updated: feedEntry?.updated || video.updated,
+          }
+        }),
+      )
 
       return [
         id,
@@ -130,6 +204,7 @@ const fetchLatestVideo = async (channel, previousLatestVideo) => {
           channelId,
           channelTitle,
           ...latestEntry,
+          videos,
         },
       ]
     }
@@ -145,15 +220,18 @@ const fetchLatestVideo = async (channel, previousLatestVideo) => {
 
   try {
     const latestVideoId = await latestVideoIdFromVideosTab(videosUrl)
-    const latestVideo = await latestVideoMetadataFromWatchPage(latestVideoId)
+    const latestVideo = await videoMetadataFromWatchPage(latestVideoId)
 
     if (latestVideo) {
+      const { isShort, ...latestVideoData } = latestVideo
+
       return [
         id,
         {
           channelId,
           channelTitle,
-          ...latestVideo,
+          ...latestVideoData,
+          videos: videosWithFallbackThumbnails([latestVideoData]),
         },
       ]
     }

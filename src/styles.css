@@ -57,7 +57,11 @@
 
   --color-tertiary: var(--color-sage-600);
   --color-on-tertiary: oklch(1 0 0);
-  --color-tertiary-container: color-mix(in oklch, var(--color-sage-50) 60%, white);
+  --color-tertiary-container: color-mix(
+    in oklch,
+    var(--color-sage-50) 60%,
+    white
+  );
   --color-on-tertiary-container: var(--color-sage-950);
 
   --color-error: oklch(0.68 0.15 28);
@@ -108,7 +112,11 @@
   --color-company: var(--color-neutral-900);
   --color-company-container: var(--color-neutral-100);
   --color-support: var(--color-sage-600);
-  --color-support-container: color-mix(in oklch, var(--color-sage-50) 60%, white);
+  --color-support-container: color-mix(
+    in oklch,
+    var(--color-sage-50) 60%,
+    white
+  );
 
   /* Shadow and scrim */
   --color-shadow: var(--color-neutral-950);
@@ -976,6 +984,20 @@
 
 .bento-scroll-track {
   animation: bento-scroll 80s linear infinite;
+  will-change: transform;
+}
+
+.bento-scroll-mask.is-drag-ready .bento-scroll-track {
+  animation: none;
+}
+
+.bento-scroll-row {
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.bento-scroll-row:active {
+  cursor: grabbing;
 }
 
 .bento-scroll-track-1 {

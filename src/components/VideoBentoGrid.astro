@@ -1,11 +1,14 @@
 ---
+import type { ImageMetadata } from 'astro'
+import { Image } from 'astro:assets'
 import { Icon } from 'astro-icon/components'
 
+import latestYoutubeVideos from '../data/latest-youtube-videos.json'
 import socialReach from '../data/social-reach.json'
 
 type BentoImage = {
   type: 'video'
-  src: string
+  src: string | ImageMetadata
   alt: string
   href: string
 }
@@ -24,12 +27,20 @@ type StatTile = {
 
 type BentoTile = BentoImage | StatTile
 
+type GeneratedYoutubeVideo = {
+  videoId: string
+  title: string
+  url: string
+  thumbnail: string
+}
+
 const bentoImageModules = import.meta.glob('../bento/*.{png,jpg,jpeg,webp}', {
   eager: true,
   import: 'default',
 })
 
-const youtubeChannelUrl = 'https://www.youtube.com/channel/UC26OIuJ19EH6HF6uRJ-N_2A'
+const youtubeChannelUrl =
+  'https://www.youtube.com/channel/UC26OIuJ19EH6HF6uRJ-N_2A'
 const youtubeVideoUrl = (videoId: string) =>
   `https://www.youtube.com/watch?v=${videoId}`
 
@@ -90,7 +101,8 @@ const statTiles = socialReach.items
   .filter((item) => statMetricPriority.includes(item.metric))
   .sort((a, b) => {
     return (
-      statMetricPriority.indexOf(a.metric) - statMetricPriority.indexOf(b.metric)
+      statMetricPriority.indexOf(a.metric) -
+      statMetricPriority.indexOf(b.metric)
     )
   })
   .slice(0, 6)
@@ -125,7 +137,7 @@ const bentoImages = Object.entries(bentoImageModules)
 
     return {
       type: 'video',
-      src: (image as { src: string }).src,
+      src: image as ImageMetadata,
       alt: title || 'Ya Hala YouTube video screenshot',
       href: videoId ? youtubeVideoUrl(videoId) : youtubeChannelUrl,
     }
@@ -141,12 +153,36 @@ const bentoImages = Object.entries(bentoImageModules)
     return (seedA % 997) - (seedB % 997)
   })
 
+const generatedYoutubeImages = Object.values(latestYoutubeVideos)
+  .flatMap(
+    (channel) => (channel as { videos?: GeneratedYoutubeVideo[] }).videos ?? [],
+  )
+  .map(
+    (video): BentoImage => ({
+      type: 'video',
+      src: video.thumbnail,
+      alt: video.title || 'Ya Hala YouTube video thumbnail',
+      href: video.url || youtubeVideoUrl(video.videoId),
+    }),
+  )
+
+const bentoImageHrefs = new Set(
+  generatedYoutubeImages.map((image) => image.href),
+)
+const carouselImages = [
+  ...generatedYoutubeImages,
+  ...bentoImages.filter((image) => !bentoImageHrefs.has(image.href)),
+]
+
 const rowCount = 3
 const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
-  const rowImages = bentoImages.filter((_, index) => index % rowCount === rowIndex)
+  const rowImages = carouselImages.filter(
+    (_, index) => index % rowCount === rowIndex,
+  )
 
   return rowImages.flatMap((image, index): BentoTile[] => {
-    const shouldInsertStat = index === 1 || (index > 1 && (index + rowIndex) % 4 === 1)
+    const shouldInsertStat =
+      index === 1 || (index > 1 && (index + rowIndex) % 4 === 1)
     const statTile = statTiles[(index + rowIndex * 2) % statTiles.length]
 
     return shouldInsertStat && statTile ? [image, statTile] : [image]
@@ -155,33 +191,35 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
 ---
 
 {
-  bentoImages.length > 0 && (
+  carouselImages.length > 0 && (
     <section
       class="animate-fade-in-up mx-auto mt-6 w-full max-w-[592px] px-4 delay-300 sm:max-w-[608px] sm:px-6"
       aria-label="Ya Hala videos and social reach"
     >
-      <div class="overflow-hidden rounded-xl border border-outline-variant/70 bg-surface-container-low text-on-surface shadow-[0_18px_42px_oklch(0.35_0.045_70_/_0.14)] dark:border-outline-variant dark:bg-surface-container">
+      <div class="border-outline-variant/70 bg-surface-container-low text-on-surface dark:border-outline-variant dark:bg-surface-container overflow-hidden rounded-xl border shadow-[0_18px_42px_oklch(0.35_0.045_70_/_0.14)]">
         <div class="bento-scroll-mask space-y-2 overflow-hidden p-3 sm:space-y-3">
           {bentoRows.map((row, rowIndex) => (
-            <div class="overflow-hidden">
+            <div class="bento-scroll-row overflow-hidden">
               <div
                 class:list={[
                   'bento-scroll-track flex w-max gap-2 sm:gap-3',
                   `bento-scroll-track-${rowIndex + 1}`,
                 ]}
               >
-                {[...row, ...row].map((item) => (
+                {[...row, ...row].map((item) =>
                   item.type === 'video' ? (
                     <a
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Watch on YouTube: ${item.alt}`}
-                      class="group relative isolate block aspect-video w-[252px] shrink-0 overflow-hidden rounded-lg border border-black/10 bg-surface-container-high text-left shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-primary sm:w-[274px] dark:border-white/10 dark:bg-surface-container-high"
+                      class="group bg-surface-container-high focus-visible:outline-primary dark:bg-surface-container-high relative isolate block aspect-video w-[252px] shrink-0 overflow-hidden rounded-lg border border-black/10 text-left shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-3 focus-visible:outline-offset-2 sm:w-[274px] dark:border-white/10"
                     >
-                      <img
+                      <Image
                         src={item.src}
                         alt={item.alt}
+                        width={480}
+                        height={270}
                         class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
                         loading="eager"
                         decoding="async"
@@ -192,7 +230,7 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
                       style={`--platform-accent: ${item.accent}; --platform-accent-dark: ${item.darkAccent}; --platform-tint: ${item.tint}; --platform-tint-dark: ${item.darkTint};`}
                       class="flex aspect-video w-[252px] shrink-0 flex-col justify-between overflow-hidden rounded-lg border border-[color-mix(in_srgb,var(--platform-active-accent)_28%,var(--color-border))] bg-[linear-gradient(135deg,color-mix(in_srgb,var(--platform-active-tint)_36%,var(--color-card))_0%,var(--color-surface-container-high)_72%)] p-3 text-left shadow-sm ring-1 ring-[color-mix(in_srgb,var(--platform-active-accent)_10%,transparent)] [--platform-active-accent:var(--platform-accent)] [--platform-active-tint:var(--platform-tint)] sm:w-[274px] sm:p-4 dark:bg-[linear-gradient(135deg,color-mix(in_srgb,var(--platform-active-tint)_42%,var(--color-card))_0%,var(--color-surface-container-highest)_76%)] dark:[--platform-active-accent:var(--platform-accent-dark)] dark:[--platform-active-tint:var(--platform-tint-dark)]"
                     >
-                      <div class="flex items-center gap-2 text-on-surface-variant">
+                      <div class="text-on-surface-variant flex items-center gap-2">
                         <Icon
                           name={item.icon}
                           class="h-4 w-4 shrink-0 text-[var(--platform-active-accent)]"
@@ -202,15 +240,15 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
                           {item.platform}
                         </p>
                       </div>
-                      <p class="text-3xl leading-none font-semibold tracking-tight text-on-surface tabular-nums sm:text-4xl">
+                      <p class="text-on-surface text-3xl leading-none font-semibold tracking-tight tabular-nums sm:text-4xl">
                         {item.value}
                       </p>
-                      <p class="truncate text-xs font-medium text-on-surface-variant">
+                      <p class="text-on-surface-variant truncate text-xs font-medium">
                         {item.metric}
                       </p>
                     </div>
-                  )
-                ))}
+                  ),
+                )}
               </div>
             </div>
           ))}
@@ -219,3 +257,114 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
     </section>
   )
 }
+
+<script>
+  const marqueeMask = document.querySelector('.bento-scroll-mask')
+  const prefersReducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)',
+  ).matches
+
+  if (marqueeMask instanceof HTMLElement && !prefersReducedMotion) {
+    const rows = [...marqueeMask.querySelectorAll('.bento-scroll-row')].map(
+      (row, index) => {
+        const track = row.querySelector('.bento-scroll-track')
+        const baseDurations = [76, 92, 84]
+        const width =
+          track instanceof HTMLElement ? track.scrollWidth / 2 : 274 * 8
+
+        return {
+          row,
+          track,
+          x: 0,
+          speed: -width / baseDurations[index % baseDurations.length],
+          dragVelocity: 0,
+        }
+      },
+    )
+
+    let lastFrame = performance.now()
+    let activeRow = null
+    let activePointer = null
+    let lastPointerX = 0
+    let lastPointerTime = 0
+    let dragDistance = 0
+
+    const wrap = (value, width) => {
+      if (!width) return value
+      while (value <= -width) value += width
+      while (value > 0) value -= width
+      return value
+    }
+
+    const animate = (time) => {
+      const delta = Math.min((time - lastFrame) / 1000, 0.05)
+      lastFrame = time
+
+      for (const state of rows) {
+        if (!(state.track instanceof HTMLElement)) continue
+
+        const width = state.track.scrollWidth / 2
+        if (state !== activeRow) {
+          state.x += (state.speed + state.dragVelocity) * delta
+          state.dragVelocity *= Math.pow(0.08, delta)
+        }
+
+        state.x = wrap(state.x, width)
+        state.track.style.transform = `translate3d(${state.x}px, 0, 0)`
+      }
+
+      requestAnimationFrame(animate)
+    }
+
+    marqueeMask.classList.add('is-drag-ready')
+    requestAnimationFrame(animate)
+
+    for (const state of rows) {
+      state.row.addEventListener('pointerdown', (event) => {
+        activeRow = state
+        activePointer = event.pointerId
+        lastPointerX = event.clientX
+        lastPointerTime = performance.now()
+        dragDistance = 0
+        state.dragVelocity = 0
+        state.row.setPointerCapture(event.pointerId)
+      })
+
+      state.row.addEventListener('pointermove', (event) => {
+        if (activeRow !== state || activePointer !== event.pointerId) return
+
+        const now = performance.now()
+        const deltaX = event.clientX - lastPointerX
+        const deltaTime = Math.max(now - lastPointerTime, 1)
+
+        state.x += deltaX
+        state.dragVelocity = (deltaX / deltaTime) * 1000
+        dragDistance += Math.abs(deltaX)
+        lastPointerX = event.clientX
+        lastPointerTime = now
+      })
+
+      state.row.addEventListener('pointerup', (event) => {
+        if (activeRow !== state || activePointer !== event.pointerId) return
+        activeRow = null
+        activePointer = null
+      })
+
+      state.row.addEventListener('pointercancel', () => {
+        activeRow = null
+        activePointer = null
+      })
+
+      state.row.addEventListener(
+        'click',
+        (event) => {
+          if (dragDistance > 12) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+        },
+        true,
+      )
+    }
+  }
+</script>
