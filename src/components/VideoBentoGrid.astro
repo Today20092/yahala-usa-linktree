@@ -4,7 +4,7 @@ import { Image } from 'astro:assets'
 import { Icon } from 'astro-icon/components'
 
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
-import socialReach from '../data/social-reach.json'
+import { siteConfig } from '../lib/site-config'
 
 type BentoImage = {
   type: 'video'
@@ -39,8 +39,11 @@ const bentoImageModules = import.meta.glob('../bento/*.{png,jpg,jpeg,webp}', {
   import: 'default',
 })
 
+const socialReach = siteConfig.socialReach
 const youtubeChannelUrl =
-  'https://www.youtube.com/channel/UC26OIuJ19EH6HF6uRJ-N_2A'
+  siteConfig.socialLinks.find((link) => link.id === 'youtube')?.url ??
+  siteConfig.youtubeChannels[0]?.videosUrl ??
+  'https://www.youtube.com/'
 const youtubeVideoUrl = (videoId: string) =>
   `https://www.youtube.com/watch?v=${videoId}`
 

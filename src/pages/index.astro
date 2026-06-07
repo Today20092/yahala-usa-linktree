@@ -13,96 +13,50 @@ import SocialLinkButton from '../components/SocialLinkButton'
 import VideoBentoGrid from '../components/VideoBentoGrid.astro'
 import heroCover from '../assets/yahala-hero-cover.png'
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
-import socialReach from '../data/social-reach.json'
-import youtubeChannels from '../data/youtube-channels.json'
+import {
+  getBaseUrl,
+  resolveSiteAsset,
+  siteConfig,
+} from '../lib/site-config'
 
-const pageTitle = 'Ya Hala with Haithum ياهلا مع هيثم'
-const pageDescription =
-  'Stories, interviews, and community highlights from Arabs building life, work, and impact across America.'
-const siteName = 'Ya Hala with Haithum'
-const profileName = 'Haithum'
-const heroImageAlt = 'Ya Hala with Haithum ياهلا مع هيثم social cover'
-const baseUrl = import.meta.env.BASE_URL.endsWith('/')
-  ? import.meta.env.BASE_URL
-  : `${import.meta.env.BASE_URL}/`
-const profileImageUrl = `${baseUrl}yahala-channel-logo.png`
+const {
+  pageTitle,
+  pageDescription,
+  siteName,
+  profileName,
+  twitterHandle,
+  heroImageAlt,
+  profileImage,
+  ogImage,
+} = siteConfig.site
+const { socialLinks, youtubeChannels, socialReach } = siteConfig
+const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
+const profileImageUrl = resolveSiteAsset(baseUrl, profileImage)
 const currentYear = new Date().getFullYear()
 const canonicalUrl = new URL(baseUrl, Astro.site).toString()
 const sitemapUrl = new URL(`${baseUrl}sitemap-index.xml`, Astro.site).toString()
 const heroImagePath = heroCover.src
-const heroImageUrl = new URL(`${baseUrl}og-image.png`, Astro.site).toString()
+const heroImageUrl = new URL(
+  resolveSiteAsset(baseUrl, ogImage),
+  Astro.site,
+).toString()
 
 const latestVideoChannels = youtubeChannels.filter((channel) =>
   Boolean(latestYoutubeVideos[channel.id]),
 )
 const totalReach = socialReach.items.reduce((sum, item) => sum + item.value, 0)
-
-const channelBranding = {
-  yahala: {
-    logoSrc: profileImageUrl,
-    accentColor: 'var(--color-brand-600)',
-    darkAccentColor: 'var(--color-brand-400)',
-    cardBackground: 'var(--card)',
-    darkCardBackground: 'var(--card)',
-    cardTint: 'var(--muted)',
-    darkCardTint: 'var(--muted)',
-    logoBackgroundColor: '#ffffff',
-    darkLogoBackgroundColor: '#ffffff',
-    logoFit: 'contain',
-    logoPaddingClass: 'p-1.5',
-  },
-}
-
-const socialLinks = [
-  {
-    id: 'youtube',
-    url: 'https://www.youtube.com/channel/UC26OIuJ19EH6HF6uRJ-N_2A',
-    icon: 'simple-icons:youtube',
-    label: 'Ya Hala YouTube',
-    color: '#ff0000',
-    color2: '#ff5f5f',
-    color3: '#ffffff',
-    darkColor: '#ff3131',
-    darkColor2: '#7a0000',
-    darkColor3: '#1f0000',
-  },
-  {
-    id: 'tiktok',
-    url: 'https://www.tiktok.com/@yahala.usa?_t=zt-8yso6coegid&_r=1',
-    icon: 'simple-icons:tiktok',
-    label: 'Ya Hala TikTok',
-    color: '#010101',
-    color2: '#25f4ee',
-    color3: '#fe2c55',
-    darkColor: '#010101',
-    darkColor2: '#25f4ee',
-    darkColor3: '#fe2c55',
-  },
-  {
-    id: 'instagram',
-    url: 'https://instagram.com/yahala_usa?igshid=YmMyMTA2M2Y=',
-    icon: 'simple-icons:instagram',
-    label: 'Ya Hala Instagram',
-    color: '#e4405f',
-    color2: '#f77737',
-    color3: '#833ab4',
-    darkColor: '#e4405f',
-    darkColor2: '#f77737',
-    darkColor3: '#833ab4',
-  },
-  {
-    id: 'facebook',
-    url: 'https://www.facebook.com/YaHala.USA/',
-    icon: 'simple-icons:facebook',
-    label: 'Ya Hala Facebook',
-    color: '#1877f2',
-    color2: '#74a7ff',
-    color3: '#0b5fcc',
-    darkColor: '#74a7ff',
-    darkColor2: '#1877f2',
-    darkColor3: '#052f7f',
-  },
-]
+const channelBranding = Object.fromEntries(
+  youtubeChannels.map((channel) => [
+    channel.id,
+    {
+      ...channel.branding,
+      logoSrc:
+        channel.branding?.logoSrc === 'profileImage'
+          ? profileImageUrl
+          : (channel.branding?.logoSrc ?? profileImageUrl),
+    },
+  ]),
+)
 
 const instagramLink = socialLinks.find((link) => link.id === 'instagram')
 const sameAsUrls = socialLinks.map((link) => link.url)
@@ -228,8 +182,8 @@ const structuredData = {
     <meta property="og:site_name" content={siteName} />
     <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@yahala_usa" />
-    <meta name="twitter:creator" content="@yahala_usa" />
+    <meta name="twitter:site" content={twitterHandle} />
+    <meta name="twitter:creator" content={twitterHandle} />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:image" content={heroImageUrl} />
@@ -294,8 +248,7 @@ const structuredData = {
       <p
         class="animate-fade-in-up text-muted-foreground mx-auto mb-4 w-full max-w-xl px-4 text-center text-lg leading-relaxed delay-200 sm:px-6 sm:text-xl"
       >
-        Stories, interviews, and community highlights from Arabs building life,
-        work, and impact across America.
+        {pageDescription}
       </p>
 
       <QrCodeButton />

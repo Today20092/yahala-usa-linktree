@@ -1,0 +1,109 @@
+site:
+  pageTitle: Ya Hala with Haithum ياهلا مع هيثم
+  pageDescription: Stories, interviews, and community highlights from Arabs building life, work, and impact across America.
+  siteName: Ya Hala with Haithum
+  profileName: Haithum
+  twitterHandle: "@yahala_usa"
+  heroImageAlt: Ya Hala with Haithum ياهلا مع هيثم social cover
+  profileImage: yahala-channel-logo.png
+  ogImage: og-image.png
+
+socialLinks:
+  - id: youtube
+    url: https://www.youtube.com/channel/UC26OIuJ19EH6HF6uRJ-N_2A
+    icon: simple-icons:youtube
+    label: Ya Hala YouTube
+    color: "#ff0000"
+    color2: "#ff5f5f"
+    color3: "#ffffff"
+    darkColor: "#ff3131"
+    darkColor2: "#7a0000"
+    darkColor3: "#1f0000"
+  - id: tiktok
+    url: https://www.tiktok.com/@yahala.usa?_t=zt-8yso6coegid&_r=1
+    icon: simple-icons:tiktok
+    label: Ya Hala TikTok
+    color: "#010101"
+    color2: "#25f4ee"
+    color3: "#fe2c55"
+    darkColor: "#010101"
+    darkColor2: "#25f4ee"
+    darkColor3: "#fe2c55"
+  - id: instagram
+    url: https://instagram.com/yahala_usa?igshid=YmMyMTA2M2Y=
+    icon: simple-icons:instagram
+    label: Ya Hala Instagram
+    color: "#e4405f"
+    color2: "#f77737"
+    color3: "#833ab4"
+    darkColor: "#e4405f"
+    darkColor2: "#f77737"
+    darkColor3: "#833ab4"
+  - id: facebook
+    url: https://www.facebook.com/YaHala.USA/
+    icon: simple-icons:facebook
+    label: Ya Hala Facebook
+    color: "#1877f2"
+    color2: "#74a7ff"
+    color3: "#0b5fcc"
+    darkColor: "#74a7ff"
+    darkColor2: "#1877f2"
+    darkColor3: "#052f7f"
+
+youtubeChannels:
+  - id: yahala
+    channelId: UC26OIuJ19EH6HF6uRJ-N_2A
+    videosUrl: https://www.youtube.com/@YaHalaUSA/videos
+    name: Ya Hala with Haithum
+    description: Latest from Ya Hala with Haithum
+    branding:
+      logoSrc: profileImage
+      accentColor: var(--color-brand-600)
+      darkAccentColor: var(--color-brand-400)
+      cardBackground: var(--card)
+      darkCardBackground: var(--card)
+      cardTint: var(--muted)
+      darkCardTint: var(--muted)
+      logoBackgroundColor: "#ffffff"
+      darkLogoBackgroundColor: "#ffffff"
+      logoFit: contain
+      logoPaddingClass: p-1.5
+
+featuredEpisodes:
+  - url: https://youtu.be/DYlYA2eo46Q?si=LajIGA3xN9IUbFq_
+    category: Food business
+  - url: https://youtu.be/lV-edL64sbA
+    category: Arab business
+  - url: https://youtu.be/x1h4ueJ33g8
+    category: Community story
+
+socialReach:
+  updatedAt: "2026-06-03"
+  items:
+    - platform: YouTube
+      metric: Subscribers
+      value: 166000
+    - platform: YouTube
+      metric: Views
+      value: 22100000
+    - platform: TikTok
+      metric: Followers
+      value: 457000
+    - platform: TikTok
+      metric: Likes
+      value: 2900000
+    - platform: Instagram
+      metric: Followers
+      value: 445000
+    - platform: Instagram
+      metric: Posts
+      value: 3884
+    - platform: Facebook
+      metric: Followers
+      value: 360000
+    - platform: Facebook
+      metric: Likes
+      value: 360000
+    - platform: Facebook
+      metric: Posts
+      value: 3800

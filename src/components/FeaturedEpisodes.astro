@@ -1,6 +1,8 @@
 ---
 import { Icon } from 'astro-icon/components'
 
+import { siteConfig } from '../lib/site-config'
+
 type Episode = {
   thumbnail: string
   title: string
@@ -19,23 +21,7 @@ type YoutubeOembed = {
   thumbnail_url?: string
 }
 
-// Edit this list to change the Featured Episodes section.
-// Paste any YouTube watch URL or youtu.be URL. The thumbnail updates from the
-// video ID automatically. Add title only if you want to override YouTube's title.
-const featuredEpisodeLinks: FeaturedEpisodeLink[] = [
-  {
-    url: 'https://youtu.be/DYlYA2eo46Q?si=LajIGA3xN9IUbFq_',
-    category: 'Food business',
-  },
-  {
-    url: 'https://youtu.be/lV-edL64sbA',
-    category: 'Arab business',
-  },
-  {
-    url: 'https://youtu.be/x1h4ueJ33g8',
-    category: 'Community story',
-  },
-]
+const featuredEpisodeLinks: FeaturedEpisodeLink[] = siteConfig.featuredEpisodes
 
 const getYoutubeVideoId = (url: string) => {
   try {

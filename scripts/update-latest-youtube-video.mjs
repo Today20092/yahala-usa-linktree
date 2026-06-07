@@ -1,7 +1,8 @@
 import { readFile, writeFile } from 'node:fs/promises'
+import { parse } from 'yaml'
 
-const channelsPath = new URL(
-  '../src/data/youtube-channels.json',
+const siteConfigPath = new URL(
+  '../src/data/site.yaml',
   import.meta.url,
 )
 const outputPath = new URL(
@@ -252,7 +253,8 @@ const fetchLatestVideo = async (channel, previousLatestVideo) => {
   return null
 }
 
-const channels = JSON.parse(await readFile(channelsPath, 'utf8'))
+const siteConfig = parse(await readFile(siteConfigPath, 'utf8'))
+const channels = siteConfig.youtubeChannels ?? []
 const previousLatestVideos = JSON.parse(
   await readFile(outputPath, 'utf8').catch(() => '{}'),
 )

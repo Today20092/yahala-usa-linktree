@@ -2,3 +2,4 @@
 - single page landing site
 - built with astro & tailwind & shadcn
 - hosted on github pages staticly
+- uses shadcn components and color tokens
