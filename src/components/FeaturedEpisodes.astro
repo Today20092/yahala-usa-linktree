@@ -93,12 +93,12 @@ const episodes = (
       aria-labelledby="featured-episodes-title"
     >
       <div class="mb-4 text-center">
-        <p class="text-brand-600 dark:text-brand-400 text-xs font-bold tracking-[0.18em] uppercase">
+        <p class="text-primary text-xs font-bold tracking-[0.18em] uppercase">
           Watch next
         </p>
         <h2
           id="featured-episodes-title"
-          class="text-on-surface mt-1 text-2xl font-extrabold"
+          class="text-foreground mt-1 text-2xl font-extrabold"
         >
           Featured Episodes
         </h2>
@@ -106,15 +106,15 @@ const episodes = (
 
       <div class="grid gap-3">
         {episodes.map((episode) => (
-          <article class="bg-card text-card-foreground ring-outline-variant/80 dark:bg-surface-container dark:text-on-surface dark:ring-outline overflow-hidden rounded-lg text-left shadow-[0_8px_22px_color-mix(in_oklch,var(--color-shadow)_8%,transparent)] ring-1 dark:shadow-[0_14px_34px_oklch(0_0_0_/_0.32)]">
+          <article class="bg-card text-card-foreground ring-border/80 dark:bg-muted dark:text-foreground dark:ring-border overflow-hidden rounded-lg text-left shadow-[0_8px_22px_color-mix(in_oklch,var(--color-shadow)_8%,transparent)] ring-1 dark:shadow-[0_14px_34px_oklch(0_0_0_/_0.32)]">
             <a
               href={episode.href}
               target="_blank"
               rel="noopener noreferrer"
-              class="group focus-visible:ring-brand-500 focus-visible:ring-offset-surface grid grid-cols-[124px_minmax(0,1fr)] items-center gap-3 px-3 py-2.5 transition-transform duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:grid-cols-[156px_minmax(0,1fr)] sm:gap-4 sm:px-4 sm:py-3"
+              class="group focus-visible:ring-ring/30 focus-visible:ring-offset-background grid grid-cols-[124px_minmax(0,1fr)] items-center gap-3 px-3 py-2.5 transition-transform duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:grid-cols-[156px_minmax(0,1fr)] sm:gap-4 sm:px-4 sm:py-3"
               aria-label={`Watch on YouTube: ${episode.title}`}
             >
-              <span class="bg-surface-container relative aspect-video w-full overflow-hidden rounded-md">
+              <span class="bg-muted relative aspect-video w-full overflow-hidden rounded-md">
                 <img
                   src={episode.thumbnail}
                   alt=""
@@ -123,34 +123,34 @@ const episodes = (
                   class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 <span
-                  class="absolute inset-0 grid place-items-center bg-black/10 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+                  class="absolute inset-0 grid place-items-center bg-foreground/10 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
                   aria-hidden="true"
                 >
-                  <span class="text-brand-600 grid h-8 w-8 place-items-center rounded-full bg-white shadow-lg">
+                  <span class="text-primary grid size-8 place-items-center rounded-full bg-background shadow-lg">
                     <Icon
                       name="heroicons:play-solid"
-                      class="h-4 w-4 translate-x-px"
+                      class="size-4 translate-x-px"
                     />
                   </span>
                 </span>
               </span>
 
               <span class="min-w-0">
-                <span class="text-brand-600 dark:text-brand-400 text-xs leading-none font-bold uppercase">
+                <span class="text-primary text-xs leading-none font-bold uppercase">
                   {episode.category}
                 </span>
                 <h3
                   lang="ar"
                   dir="rtl"
-                  class="text-on-surface mt-1.5 line-clamp-2 text-base leading-snug font-bold sm:text-lg"
+                  class="text-foreground mt-1.5 line-clamp-2 text-base leading-snug font-bold sm:text-lg"
                 >
                   {episode.title}
                 </h3>
-                <span class="text-on-surface-variant mt-1.5 inline-flex items-center gap-1.5 text-sm leading-none font-semibold">
+                <span class="text-muted-foreground mt-1.5 inline-flex items-center gap-1.5 text-sm leading-none font-semibold">
                   YouTube
                   <Icon
                     name="heroicons:arrow-up-right"
-                    class="h-4 w-4"
+                    class="size-4"
                     aria-hidden="true"
                   />
                 </span>

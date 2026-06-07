@@ -32,11 +32,11 @@ const topics = [
 >
   <div class="mb-4 text-center">
     <p
-      class="text-brand-600 dark:text-brand-400 text-xs font-bold tracking-[0.18em] uppercase"
+      class="text-primary text-xs font-bold tracking-[0.18em] uppercase"
     >
       What we cover
     </p>
-    <h2 id="topics-title" class="text-on-surface mt-1 text-2xl font-extrabold">
+    <h2 id="topics-title" class="text-foreground mt-1 text-2xl font-extrabold">
       Stories From the Community
     </h2>
   </div>
@@ -44,19 +44,19 @@ const topics = [
   <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
     {
       topics.map((topic) => (
-        <article class="bg-card text-card-foreground ring-outline-variant/80 dark:bg-surface-container dark:text-on-surface dark:ring-outline rounded-xl p-4 shadow-[0_10px_28px_color-mix(in_oklch,var(--color-shadow)_8%,transparent)] ring-1 dark:shadow-[0_14px_34px_oklch(0_0_0_/_0.32)]">
+        <article class="bg-card text-card-foreground ring-border/80 dark:bg-muted dark:text-foreground dark:ring-border rounded-xl p-4 shadow-[0_10px_28px_color-mix(in_oklch,var(--color-shadow)_8%,transparent)] ring-1 dark:shadow-[0_14px_34px_oklch(0_0_0_/_0.32)]">
           <div class="flex items-start gap-3">
             <span
-              class="bg-brand-50 text-brand-600 dark:bg-brand-950 dark:text-brand-300 grid h-10 w-10 shrink-0 place-items-center rounded-lg"
+              class="bg-primary/10 text-primary grid size-10 shrink-0 place-items-center rounded-lg"
               aria-hidden="true"
             >
-              <Icon name={topic.icon} class="h-5 w-5" />
+              <Icon name={topic.icon} class="size-5" />
             </span>
             <div class="min-w-0">
-              <h3 class="text-on-surface text-base leading-tight font-bold">
+              <h3 class="text-foreground text-base leading-tight font-bold">
                 {topic.title}
               </h3>
-              <p class="text-on-surface-variant mt-1 text-sm leading-snug">
+              <p class="text-muted-foreground mt-1 text-sm leading-snug">
                 {topic.description}
               </p>
             </div>
