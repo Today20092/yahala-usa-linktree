@@ -490,6 +490,9 @@ const structuredData = {
           text: shareButton.dataset.shareText,
           url: shareButton.dataset.shareUrl,
         }
+        const fallbackShareText = [shareData.title, shareData.text, shareData.url]
+          .filter(Boolean)
+          .join('\n')
 
         const restoreLabel = () => {
           window.setTimeout(() => {
@@ -499,8 +502,8 @@ const structuredData = {
 
         const copyLink = async () => {
           if (navigator.clipboard?.writeText) {
-            await navigator.clipboard.writeText(shareData.url)
-            shareButton.setAttribute('aria-label', 'Link copied')
+            await navigator.clipboard.writeText(fallbackShareText)
+            shareButton.setAttribute('aria-label', 'Share text copied')
             restoreLabel()
             return
           }
@@ -509,7 +512,10 @@ const structuredData = {
         }
 
         shareButton.addEventListener('click', async () => {
-          if (navigator.share) {
+          if (
+            navigator.share &&
+            (!navigator.canShare || navigator.canShare(shareData))
+          ) {
             try {
               await navigator.share(shareData)
               return
