@@ -42,12 +42,12 @@ const channelBranding = {
     logoSrc: profileImageUrl,
     accentColor: 'var(--color-brand-600)',
     darkAccentColor: 'var(--color-brand-400)',
-    cardBackground: 'var(--color-card)',
-    darkCardBackground: 'var(--color-card)',
-    cardTint: 'var(--color-brand-50)',
-    darkCardTint: 'var(--color-brand-950)',
-    logoBackgroundColor: 'var(--color-card)',
-    darkLogoBackgroundColor: 'var(--color-white)',
+    cardBackground: 'var(--card)',
+    darkCardBackground: 'var(--card)',
+    cardTint: 'var(--muted)',
+    darkCardTint: 'var(--muted)',
+    logoBackgroundColor: '#ffffff',
+    darkLogoBackgroundColor: '#ffffff',
     logoFit: 'contain',
     logoPaddingClass: 'p-1.5',
   },
@@ -185,72 +185,35 @@ const structuredData = {
       name="theme-color"
       content="#fafafa"
       media="(prefers-color-scheme: light)"
-      data-theme-color="light"
     />
     <meta
       name="theme-color"
       content="#18181b"
       media="(prefers-color-scheme: dark)"
-      data-theme-color="dark"
     />
 
     <script is:inline>
       ;(() => {
-        const lightThemeColor = '#fafafa'
-        const darkThemeColor = '#18181b'
-        const storageKey = 'theme-preference'
-        const storageVersionKey = 'theme-preference-version'
-        const storageVersion = '2'
-        const preferences = ['light', 'dark', 'system']
+        const lightThemeColor = '#ffffff'
+        const darkThemeColor = '#1c1917'
         const systemQuery = window.matchMedia('(prefers-color-scheme: dark)')
-        const getStoredValue = (key) => {
-          try {
-            return localStorage.getItem(key)
-          } catch {
-            return null
-          }
+
+        const applyTheme = () => {
+          const isDark = systemQuery.matches
+          const theme = isDark ? 'dark' : 'light'
+
+          document.documentElement.classList.toggle('dark', isDark)
+          document.documentElement.style.colorScheme = theme
+
+          document
+            .querySelectorAll('meta[name="theme-color"]')
+            .forEach((meta) => {
+              meta.content = isDark ? darkThemeColor : lightThemeColor
+              meta.media = ''
+            })
         }
-        const setStoredValue = (key, value) => {
-          try {
-            localStorage.setItem(key, value)
-          } catch {}
-        }
-        const normalizePreference = () => {
-          const savedPreference = getStoredValue(storageKey)
-          const savedVersion = getStoredValue(storageVersionKey)
 
-          if (savedVersion !== storageVersion && savedPreference === 'light') {
-            setStoredValue(storageKey, 'system')
-            setStoredValue(storageVersionKey, storageVersion)
-            return 'system'
-          }
-
-          if (savedVersion !== storageVersion) {
-            setStoredValue(storageVersionKey, storageVersion)
-          }
-
-          return preferences.includes(savedPreference)
-            ? savedPreference
-            : 'system'
-        }
-        const preference = normalizePreference()
-        const theme =
-          preference === 'system'
-            ? systemQuery.matches
-              ? 'dark'
-              : 'light'
-            : preference
-
-        document.documentElement.dataset.theme = theme
-        document.documentElement.dataset.themePreference = preference
-        document.documentElement.style.colorScheme = theme
-
-        document
-          .querySelectorAll('meta[name="theme-color"]')
-          .forEach((meta) => {
-            meta.content = theme === 'dark' ? darkThemeColor : lightThemeColor
-            meta.media = ''
-          })
+        applyTheme()
       })()
     </script>
 
@@ -301,7 +264,7 @@ const structuredData = {
         >
           <Icon
             name="heroicons:arrow-up-tray"
-            class="h-5 w-5"
+            class="size-5"
             aria-hidden="true"
           />
         </button>
@@ -317,19 +280,19 @@ const structuredData = {
 
       <h1
         id="profile-title"
-        class="font-display animate-fade-in-up text-on-surface mx-auto mt-5 mb-4 w-full max-w-xl px-4 text-4xl leading-none font-extrabold delay-100 [text-shadow:0_2px_12px_color-mix(in_oklch,var(--color-shadow)_18%,transparent)] sm:px-6 sm:text-5xl"
+        class="font-display animate-fade-in-up text-foreground mx-auto mt-5 mb-4 w-full max-w-xl px-4 text-4xl leading-none font-extrabold delay-100 [text-shadow:0_2px_12px_color-mix(in_oklch,var(--color-shadow)_18%,transparent)] sm:px-6 sm:text-5xl"
       >
         <span class="block">
-          <span class="text-brand-600 dark:text-brand-400">Ya Hala</span> with Haithum
+          <span class="text-primary">Ya Hala</span> with Haithum
         </span>
         <span
-          class="text-brand-700 dark:text-brand-300 mt-2 block text-3xl leading-tight font-semibold [text-shadow:0_1px_8px_color-mix(in_oklch,var(--color-brand-600)_18%,transparent)] sm:mt-3 sm:text-4xl"
+          class="text-primary mt-2 block text-3xl leading-tight font-semibold [text-shadow:0_1px_8px_color-mix(in_oklch,var(--color-brand-600)_18%,transparent)] sm:mt-3 sm:text-4xl"
         >
           ياهلا مع هيثم
         </span>
       </h1>
       <p
-        class="animate-fade-in-up text-on-surface-variant mx-auto mb-4 w-full max-w-xl px-4 text-center text-lg leading-relaxed delay-200 sm:px-6 sm:text-xl"
+        class="animate-fade-in-up text-muted-foreground mx-auto mb-4 w-full max-w-xl px-4 text-center text-lg leading-relaxed delay-200 sm:px-6 sm:text-xl"
       >
         Stories, interviews, and community highlights from Arabs building life,
         work, and impact across America.
@@ -423,17 +386,17 @@ const structuredData = {
           aria-labelledby="collaboration-title"
         >
           <p
-            class="text-brand-600 dark:text-brand-300 text-xs font-bold tracking-[0.18em] uppercase"
+            class="text-primary text-xs font-bold tracking-[0.18em] uppercase"
           >
             For collaborations
           </p>
           <h2
             id="collaboration-title"
-            class="text-on-surface mt-2 text-2xl font-extrabold"
+            class="text-foreground mt-2 text-2xl font-extrabold"
           >
             Sponsor, interview, or feature your story.
           </h2>
-          <p class="text-on-surface-variant mt-2 text-base leading-relaxed">
+          <p class="text-muted-foreground mt-2 text-base leading-relaxed">
             Reach Arab communities across America through episodes, interviews,
             field visits, and social-first features.
           </p>
@@ -443,11 +406,11 @@ const structuredData = {
                 href={instagramLink.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="bg-brand-600 text-on-primary hover:bg-brand-700 focus-visible:ring-brand-500 focus-visible:ring-offset-surface dark:bg-brand-500 dark:hover:bg-brand-400 mt-5 inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-5 text-base font-bold transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+                class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring/30 focus-visible:ring-offset-background mt-5 inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-5 text-base font-bold transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
               >
                 <Icon
                   name="simple-icons:instagram"
-                  class="h-5 w-5"
+                  class="size-5"
                   aria-hidden="true"
                 />
                 DM on Instagram
@@ -458,7 +421,7 @@ const structuredData = {
       </div>
 
       <footer
-        class="text-on-surface-variant mt-auto w-full px-4 pt-12 pb-4 text-center text-sm"
+        class="text-muted-foreground mt-auto w-full px-4 pt-12 pb-4 text-center text-sm"
       >
         <p class="mb-1">
           &copy; {currentYear}
@@ -470,7 +433,7 @@ const structuredData = {
             href="https://astro.build"
             target="_blank"
             rel="noopener"
-            class="text-brand-400 hover:text-brand-300 dark:text-brand-300 dark:hover:text-brand-200 underline transition-colors"
+            class="text-primary hover:text-primary/80 underline transition-colors"
           >
             Astro
           </a>
@@ -479,7 +442,7 @@ const structuredData = {
             href="https://tailwindcss.com"
             target="_blank"
             rel="noopener"
-            class="text-brand-400 hover:text-brand-300 dark:text-brand-300 dark:hover:text-brand-200 underline transition-colors"
+            class="text-primary hover:text-primary/80 underline transition-colors"
           >
             Tailwind CSS
           </a>.
@@ -489,47 +452,31 @@ const structuredData = {
 
     <script is:inline>
       ;(() => {
-        const storageKey = 'theme-preference'
-        const storageVersionKey = 'theme-preference-version'
-        const storageVersion = '2'
         const preferences = ['system', 'light', 'dark']
-        const lightThemeColor = '#fafafa'
-        const darkThemeColor = '#18181b'
+        const lightThemeColor = '#ffffff'
+        const darkThemeColor = '#1c1917'
         const systemQuery = window.matchMedia('(prefers-color-scheme: dark)')
         const buttons = [...document.querySelectorAll('[data-theme-option]')]
+        const hasThemeControls = buttons.length > 0
 
-        const getStoredValue = (key) => {
+        const getStoredTheme = () => {
+          if (!hasThemeControls) return null
+
           try {
-            return localStorage.getItem(key)
+            return localStorage.getItem('theme')
           } catch {
             return null
           }
         }
 
-        const setStoredValue = (key, value) => {
+        const setStoredTheme = (theme) => {
           try {
-            localStorage.setItem(key, value)
+            if (theme === 'system') localStorage.removeItem('theme')
+            else localStorage.setItem('theme', theme)
           } catch {}
         }
 
-        const getPreference = () => {
-          const savedPreference = getStoredValue(storageKey)
-          const savedVersion = getStoredValue(storageVersionKey)
-
-          if (savedVersion !== storageVersion && savedPreference === 'light') {
-            setStoredValue(storageKey, 'system')
-            setStoredValue(storageVersionKey, storageVersion)
-            return 'system'
-          }
-
-          if (savedVersion !== storageVersion) {
-            setStoredValue(storageVersionKey, storageVersion)
-          }
-
-          return preferences.includes(savedPreference)
-            ? savedPreference
-            : 'system'
-        }
+        const getPreference = () => getStoredTheme() ?? 'system'
 
         const resolveTheme = (preference) =>
           preference === 'system'
@@ -538,11 +485,10 @@ const structuredData = {
               : 'light'
             : preference
 
-        const applyTheme = (preference) => {
+        const applyTheme = (preference = 'system') => {
           const theme = resolveTheme(preference)
 
-          document.documentElement.dataset.theme = theme
-          document.documentElement.dataset.themePreference = preference
+          document.documentElement.classList.toggle('dark', theme === 'dark')
           document.documentElement.style.colorScheme = theme
 
           document
@@ -565,18 +511,16 @@ const structuredData = {
             const preference = button.dataset.themeOption
             if (!preferences.includes(preference)) return
 
-            setStoredValue(storageKey, preference)
-            setStoredValue(storageVersionKey, storageVersion)
+            setStoredTheme(preference)
             applyTheme(preference)
           })
         })
 
-        systemQuery.addEventListener('change', () => {
-          if (getPreference() === 'system') {
-            applyTheme('system')
-          }
-        })
+        const handleSystemChange = () => {
+          if (getPreference() === 'system') applyTheme('system')
+        }
 
+        systemQuery.addEventListener('change', handleSystemChange)
         applyTheme(getPreference())
       })()
     </script>
