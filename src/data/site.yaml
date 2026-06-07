@@ -13,42 +13,42 @@ socialLinks:
     url: https://www.youtube.com/channel/UC26OIuJ19EH6HF6uRJ-N_2A
     icon: simple-icons:youtube
     label: Ya Hala YouTube
-    color: "#ff0000"
-    color2: "#ff5f5f"
-    color3: "#ffffff"
-    darkColor: "#ff3131"
-    darkColor2: "#7a0000"
-    darkColor3: "#1f0000"
+    color: var(--social-youtube)
+    color2: var(--social-youtube-2)
+    color3: var(--social-youtube-3)
+    darkColor: var(--social-youtube-dark)
+    darkColor2: var(--social-youtube-dark-2)
+    darkColor3: var(--social-youtube-dark-3)
   - id: tiktok
     url: https://www.tiktok.com/@yahala.usa?_t=zt-8yso6coegid&_r=1
     icon: simple-icons:tiktok
     label: Ya Hala TikTok
-    color: "#010101"
-    color2: "#25f4ee"
-    color3: "#fe2c55"
-    darkColor: "#010101"
-    darkColor2: "#25f4ee"
-    darkColor3: "#fe2c55"
+    color: var(--social-tiktok)
+    color2: var(--social-tiktok-2)
+    color3: var(--social-tiktok-3)
+    darkColor: var(--social-tiktok-dark)
+    darkColor2: var(--social-tiktok-dark-2)
+    darkColor3: var(--social-tiktok-dark-3)
   - id: instagram
     url: https://instagram.com/yahala_usa?igshid=YmMyMTA2M2Y=
     icon: simple-icons:instagram
     label: Ya Hala Instagram
-    color: "#e4405f"
-    color2: "#f77737"
-    color3: "#833ab4"
-    darkColor: "#e4405f"
-    darkColor2: "#f77737"
-    darkColor3: "#833ab4"
+    color: var(--social-instagram)
+    color2: var(--social-instagram-2)
+    color3: var(--social-instagram-3)
+    darkColor: var(--social-instagram-dark)
+    darkColor2: var(--social-instagram-dark-2)
+    darkColor3: var(--social-instagram-dark-3)
   - id: facebook
     url: https://www.facebook.com/YaHala.USA/
     icon: simple-icons:facebook
     label: Ya Hala Facebook
-    color: "#1877f2"
-    color2: "#74a7ff"
-    color3: "#0b5fcc"
-    darkColor: "#74a7ff"
-    darkColor2: "#1877f2"
-    darkColor3: "#052f7f"
+    color: var(--social-facebook)
+    color2: var(--social-facebook-2)
+    color3: var(--social-facebook-3)
+    darkColor: var(--social-facebook-dark)
+    darkColor2: var(--social-facebook-dark-2)
+    darkColor3: var(--social-facebook-dark-3)
 
 youtubeChannels:
   - id: yahala
