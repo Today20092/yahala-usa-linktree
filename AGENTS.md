@@ -3,3 +3,4 @@
 - built with astro & tailwind & shadcn
 - hosted on github pages staticly
 - uses shadcn components and color tokens
+- site variables are are at `src/data/site.yaml`
