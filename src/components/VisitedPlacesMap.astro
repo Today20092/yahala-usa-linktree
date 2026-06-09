@@ -1,6 +1,4 @@
 ---
-import { MapPin } from 'lucide-react'
-
 import VisitedPlacesExplorer from './VisitedPlacesExplorer'
 import type { VisitedPlaces } from '../lib/site-config'
 
@@ -155,19 +153,19 @@ const getPlacePosition = (place: (typeof places)[number]) => {
 
             return (
               <span
-                class="group absolute grid size-3.5 -translate-x-1/2 -translate-y-full place-items-center rounded-full text-foreground/75"
+                class="group absolute grid size-5 -translate-x-1/2 -translate-y-full place-items-center"
                 style={`left: ${position.x}%; top: ${position.y}%;`}
                 title={label}
               >
                 <span
-                  class="grid size-3.5 place-items-center rounded-full bg-background/95 shadow-[0_5px_14px_color-mix(in_oklch,var(--color-shadow)_20%,transparent)] ring-1 ring-border backdrop-blur-sm dark:bg-card/95"
+                  class="absolute left-1/2 top-full h-1 w-3 -translate-x-1/2 -translate-y-1 rounded-full bg-foreground/20 blur-[1px] dark:bg-black/45"
+                  aria-hidden="true"
+                />
+                <span
+                  class="relative grid size-4 -rotate-45 place-items-center rounded-[50%_50%_50%_0] bg-primary shadow-[0_4px_10px_color-mix(in_oklch,var(--color-shadow)_22%,transparent),0_0_0_1px_color-mix(in_oklch,var(--background)_85%,transparent)] ring-1 ring-primary/35 transition duration-200 group-hover:-translate-y-0.5 group-hover:shadow-[0_6px_14px_color-mix(in_oklch,var(--color-shadow)_28%,transparent),0_0_0_1px_color-mix(in_oklch,var(--background)_85%,transparent)] dark:ring-background/80 dark:shadow-[0_5px_12px_oklch(0_0_0_/_0.42),0_0_10px_color-mix(in_oklch,var(--primary)_28%,transparent)]"
                   aria-hidden="true"
                 >
-                  <MapPin
-                    size={10}
-                    strokeWidth={3}
-                    fill="currentColor"
-                  />
+                  <span class="size-1.5 rounded-full bg-primary-foreground shadow-[0_0_0_1px_color-mix(in_oklch,var(--primary)_18%,transparent)] dark:bg-background" />
                 </span>
                 <span class="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 rounded-md bg-foreground px-2 py-1 text-xs font-semibold whitespace-nowrap text-background opacity-0 shadow-lg transition group-hover:opacity-100">
                   {label}
