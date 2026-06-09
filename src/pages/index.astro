@@ -14,11 +14,13 @@ import VideoBentoGrid from '../components/VideoBentoGrid.astro'
 import VisitedPlacesMap from '../components/VisitedPlacesMap.astro'
 import heroCover from '../assets/yahala-hero-cover.png'
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
+import { resolveVisitedPlaces } from '../lib/visited-places'
 import {
   getBaseUrl,
   resolveSiteAsset,
   siteConfig,
 } from '../lib/site-config'
+import { resolveYoutubeVideo } from '../lib/youtube-videos'
 
 const {
   pageTitle,
@@ -42,8 +44,19 @@ const heroImageUrl = new URL(
   Astro.site,
 ).toString()
 
+const resolvedVisitedPlaces = resolveVisitedPlaces(visitedPlaces)
+const latestVideoByChannel = Object.fromEntries(
+  youtubeChannels
+    .map((channel) => {
+      const latestVideoId = latestYoutubeVideos[channel.id]?.latestVideoId
+      const video = resolveYoutubeVideo({ videoId: latestVideoId })
+
+      return video ? [channel.id, video] : null
+    })
+    .filter(Boolean),
+)
 const latestVideoChannels = youtubeChannels.filter((channel) =>
-  Boolean(latestYoutubeVideos[channel.id]),
+  Boolean(latestVideoByChannel[channel.id]),
 )
 const totalReach = socialReach.items.reduce((sum, item) => sum + item.value, 0)
 const channelBranding = Object.fromEntries(
@@ -264,7 +277,7 @@ const structuredData = {
 
       <FeaturedEpisodes />
 
-      <VisitedPlacesMap visitedPlaces={visitedPlaces} />
+      <VisitedPlacesMap visitedPlaces={resolvedVisitedPlaces} />
 
       <section
         class="animate-fade-in-up mt-8 mb-5 flex flex-col gap-4 delay-400"
@@ -296,7 +309,7 @@ const structuredData = {
               channelLogoPaddingClass={
                 channelBranding[channel.id].logoPaddingClass
               }
-              video={latestYoutubeVideos[channel.id]}
+              video={latestVideoByChannel[channel.id]}
             />
           ))
         }

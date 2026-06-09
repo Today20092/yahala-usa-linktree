@@ -1,285 +1,161 @@
 import { readFile, writeFile } from 'node:fs/promises'
 import { parse } from 'yaml'
 
-const siteConfigPath = new URL(
-  '../src/data/site.yaml',
-  import.meta.url,
-)
-const outputPath = new URL(
+import {
+  entriesFromFeed,
+  mergeVideoCache,
+  normalizeVideoMetadata,
+  uniqueVideos,
+  videosFromVideosTab,
+  videosWithFallbackThumbnails,
+} from './youtube-video-utils.mjs'
+
+const siteConfigPath = new URL('../src/data/site.yaml', import.meta.url)
+const latestOutputPath = new URL(
   '../src/data/latest-youtube-videos.json',
   import.meta.url,
 )
+const videoCachePath = new URL('../src/data/youtube-videos.json', import.meta.url)
 
-const textFrom = (xml, tagName) => {
-  const match = xml.match(
-    new RegExp(`<${tagName}(?:\\s[^>]*)?>([\\s\\S]*?)<\\/${tagName}>`),
-  )
-  return match ? decodeXml(match[1].trim()) : ''
-}
-
-const attrFrom = (xml, tagName, attrName) => {
-  const match = xml.match(
-    new RegExp(`<${tagName}[^>]*\\s${attrName}="([^"]+)"`),
-  )
-  return match ? decodeXml(match[1]) : ''
-}
-
-const decodeXml = (value) =>
-  value
-    .replaceAll('&amp;', '&')
-    .replaceAll('&quot;', '"')
-    .replaceAll('&apos;', "'")
-    .replaceAll('&lt;', '<')
-    .replaceAll('&gt;', '>')
-
-const decodeJsonString = (value) => {
-  if (!value) return ''
-
+const readJson = async (path, fallback) => {
   try {
-    return JSON.parse(`"${value.replaceAll('"', '\\"')}"`)
+    return JSON.parse(await readFile(path, 'utf8'))
   } catch {
-    return decodeXml(value.replaceAll('\\u0026', '&'))
+    return fallback
   }
 }
 
-const entriesFromFeed = (feed) =>
-  [...feed.matchAll(/<entry>([\s\S]*?)<\/entry>/g)].map((match) => {
-    const entry = match[1]
-    const videoId = textFrom(entry, 'yt:videoId')
-
-    return {
-      videoId,
-      title: textFrom(entry, 'title'),
-      url: `https://www.youtube.com/watch?v=${videoId}`,
-      thumbnail: attrFrom(entry, 'media:thumbnail', 'url'),
-      published: textFrom(entry, 'published'),
-      updated: textFrom(entry, 'updated'),
-    }
-  })
-
-const uniqueVideos = (videos) => {
-  const seen = new Set()
-
-  return videos.filter((video) => {
-    if (!video.videoId || seen.has(video.videoId)) return false
-    seen.add(video.videoId)
-    return true
-  })
-}
-
-const videosFromVideosTab = async (videosUrl) => {
-  if (!videosUrl) return []
-
-  const response = await fetch(videosUrl, {
-    headers: {
-      'User-Agent':
-        'Mozilla/5.0 (compatible; YaHalaLinktree/1.0; +https://today20092.github.io/yahala-usa-linktree/)',
-    },
-  })
-
-  if (!response.ok) {
-    throw new Error(
-      `YouTube videos tab request failed for ${videosUrl}: ${response.status} ${response.statusText}`,
-    )
-  }
-
-  const html = await response.text()
-  const videoIds = [
-    ...new Set(
-      [...html.matchAll(/watch\?v=([a-zA-Z0-9_-]{11})/g)].map(
-        (match) => match[1],
-      ),
-    ),
-  ]
-  const videos = (
-    await Promise.all(
-      videoIds.map((videoId) => videoMetadataFromWatchPage(videoId)),
-    )
-  ).filter((video) => video && !video.isShort)
-
-  return uniqueVideos(videos)
-}
-
-const latestVideoIdFromVideosTab = async (videosUrl) =>
-  (await videosFromVideosTab(videosUrl))[0]?.videoId ?? ''
-
-const videoMetadataFromWatchPage = async (videoId) => {
-  if (!videoId) return null
-
-  const response = await fetch(`https://www.youtube.com/watch?v=${videoId}`, {
-    headers: {
-      'User-Agent':
-        'Mozilla/5.0 (compatible; YaHalaLinktree/1.0; +https://today20092.github.io/yahala-usa-linktree/)',
-    },
-  })
-
-  if (!response.ok) {
-    throw new Error(
-      `YouTube watch page request failed for ${videoId}: ${response.status} ${response.statusText}`,
-    )
-  }
-
-  const html = await response.text()
-  const title = html.match(
-    /"videoDetails":\{"videoId":"[^"]+","title":"([^"]+)"/,
-  )?.[1]
-  const published = html.match(/"publishDate":"([^"]+)"/)?.[1] ?? ''
-  const thumbnail =
-    html.match(/"thumbnailUrl":"([^"]+)"/)?.[1] ??
-    `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
-  const isShort =
-    html.includes(`/shorts/${videoId}`) ||
-    html.includes(`\\/shorts\\/${videoId}`)
-
-  if (!title) return null
-
-  return {
-    videoId,
-    title: decodeJsonString(title),
-    url: `https://www.youtube.com/watch?v=${videoId}`,
-    thumbnail: decodeXml(thumbnail),
-    published,
-    updated: published,
-    isShort,
-  }
-}
-
-const videosWithFallbackThumbnails = (videos) =>
-  uniqueVideos(videos).map((video) => {
-    const { isShort, ...videoData } = video
-
-    return {
-      ...videoData,
-      thumbnail:
-        video.thumbnail ||
-        `https://i.ytimg.com/vi/${video.videoId}/hqdefault.jpg`,
-    }
-  })
-
-const fetchLatestVideo = async (channel, previousLatestVideo) => {
+const fetchLatestVideo = async (channel, previousLatestVideo, videoCache) => {
   const { id, channelId, videosUrl, name } = channel
   const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`
-  const response = await fetch(feedUrl)
+  const previousVideoIds =
+    previousLatestVideo?.videoIds ??
+    [
+      previousLatestVideo?.latestVideoId,
+      previousLatestVideo?.videoId,
+      ...(previousLatestVideo?.videos ?? []).map((video) => video.videoId),
+    ].filter(Boolean)
+
   let channelTitle = previousLatestVideo?.channelTitle ?? name
-
-  if (response.ok) {
-    const feed = await response.text()
-    const feedEntries = entriesFromFeed(feed)
-    const feedChannelTitle = textFrom(feed, 'title')
-
-    if (feedEntries.length > 0) {
-      channelTitle = feedChannelTitle || channelTitle
-
-      const videosTabEntries = await videosFromVideosTab(videosUrl).catch(
-        (error) => {
-          console.warn(error.message)
-          return []
-        },
-      )
-      const latestVideoId = videosTabEntries[0]?.videoId ?? ''
-
-      const latestEntry =
-        feedEntries.find((entry) => entry.videoId === latestVideoId) ??
-        videosWithFallbackThumbnails(videosTabEntries)[0]
-
-      if (latestEntry) {
-        const videos = videosWithFallbackThumbnails(
-          videosTabEntries.map((video) => {
-            const feedEntry = feedEntries.find(
-              (entry) => entry.videoId === video.videoId,
-            )
-
-            return {
-              ...video,
-              title: feedEntry?.title || video.title,
-              thumbnail: feedEntry?.thumbnail || video.thumbnail,
-              published: feedEntry?.published || video.published,
-              updated: feedEntry?.updated || video.updated,
-            }
-          }),
-        )
-
-        return [
-          id,
-          {
-            channelId,
-            channelTitle,
-            ...latestEntry,
-            videos,
-          },
-        ]
-      }
-    }
-  }
-
-  if (!response.ok) {
-    console.warn(
-      `YouTube feed request failed for ${channelId}: ${response.status} ${response.statusText}`,
-    )
-  } else {
-    console.warn(`No videos found in YouTube feed for ${channelId}`)
-  }
+  let videos = []
 
   try {
-    const latestVideoId = await latestVideoIdFromVideosTab(videosUrl)
-    const latestVideo = await videoMetadataFromWatchPage(latestVideoId)
+    const feedResponse = await fetch(feedUrl)
 
-    if (latestVideo && !latestVideo.isShort) {
-      const { isShort, ...latestVideoData } = latestVideo
+    if (!feedResponse.ok) {
+      throw new Error(
+        `YouTube feed request failed for ${channelId}: ${feedResponse.status} ${feedResponse.statusText}`,
+      )
+    }
 
-      return [
-        id,
-        {
+    const feed = await feedResponse.text()
+    const feedChannelTitle =
+      feed.match(/<title>([\s\S]*?)<\/title>/)?.[1]?.trim() ?? ''
+    if (feedChannelTitle) channelTitle = feedChannelTitle
+
+    const feedEntries = entriesFromFeed(feed).map((video) => ({
+      ...video,
+      channelId,
+      channelTitle,
+    }))
+    const videosTabEntries = await videosFromVideosTab(videosUrl).catch(
+      (error) => {
+        console.warn(error.message)
+        return []
+      },
+    )
+
+    videos = videosWithFallbackThumbnails(
+      uniqueVideos([...videosTabEntries, ...feedEntries]).map((video) => {
+        const feedEntry = feedEntries.find(
+          (entry) => entry.videoId === video.videoId,
+        )
+
+        return {
+          ...video,
+          title: feedEntry?.title || video.title,
+          thumbnail: feedEntry?.thumbnail || video.thumbnail,
+          published: feedEntry?.published || video.published,
+          updated: feedEntry?.updated || video.updated,
           channelId,
           channelTitle,
-          ...latestVideoData,
-          videos: videosWithFallbackThumbnails([latestVideoData]),
-        },
-      ]
-    }
-
-    if (latestVideo?.isShort) {
-      console.warn(`Skipping short video for ${name}`)
-    }
+        }
+      }),
+    )
   } catch (error) {
     console.warn(error.message)
   }
 
-  if (previousLatestVideo) {
-    console.warn(`Using cached YouTube data for ${name}`)
-    return [id, previousLatestVideo]
+  if (videos.length === 0) {
+    videos = previousVideoIds
+      .map((videoId) =>
+        normalizeVideoMetadata(
+          { videoId, channelId, channelTitle },
+          videoCache[videoId],
+        ),
+      )
+      .filter(Boolean)
   }
 
-  return null
+  if (videos.length === 0) {
+    console.warn(`Skipped ${name} - unable to fetch latest video`)
+    return null
+  }
+
+  const videoIds = videos.map((video) => video.videoId)
+  const latestVideoId =
+    videos[0]?.videoId ??
+    previousLatestVideo?.latestVideoId ??
+    previousLatestVideo?.videoId ??
+    ''
+
+  return [
+    id,
+    {
+      channelId,
+      channelTitle,
+      latestVideoId,
+      videoIds,
+    },
+    videos,
+  ]
 }
 
 const siteConfig = parse(await readFile(siteConfigPath, 'utf8'))
 const channels = siteConfig.youtubeChannels ?? []
-const previousLatestVideos = JSON.parse(
-  await readFile(outputPath, 'utf8').catch(() => '{}'),
-)
+const previousLatestVideos = await readJson(latestOutputPath, {})
+let videoCache = await readJson(videoCachePath, {})
 
-const entries = await Promise.allSettled(
-  channels.map((channel) =>
-    fetchLatestVideo(channel, previousLatestVideos[channel.id]),
-  ),
-)
-
-const latestVideos = { ...previousLatestVideos }
-
-for (const entry of entries) {
-  if (entry.status === 'fulfilled' && entry.value) {
-    const [id, video] = entry.value
-    latestVideos[id] = video
-  }
+for (const channelLatest of Object.values(previousLatestVideos)) {
+  const oldVideos = [
+    channelLatest,
+    ...(channelLatest?.videos ?? []),
+  ].filter((video) => video?.videoId)
+  videoCache = mergeVideoCache(videoCache, oldVideos)
 }
 
-await writeFile(outputPath, `${JSON.stringify(latestVideos, null, 2)}\n`)
+const latestEntries = (
+  await Promise.all(
+    channels.map((channel) =>
+      fetchLatestVideo(channel, previousLatestVideos[channel.id], videoCache),
+    ),
+  )
+).filter(Boolean)
+
+const latestVideos = Object.fromEntries(
+  latestEntries.map(([id, latestVideo]) => [id, latestVideo]),
+)
+
+for (const [, , videos] of latestEntries) {
+  videoCache = mergeVideoCache(videoCache, videos)
+}
+
+await writeFile(latestOutputPath, `${JSON.stringify(latestVideos, null, 2)}\n`)
+await writeFile(videoCachePath, `${JSON.stringify(videoCache, null, 2)}\n`)
 
 for (const channel of channels) {
-  if (latestVideos[channel.id]) {
-    console.log(`${channel.name}: ${latestVideos[channel.id].title}`)
-  } else {
-    console.warn(`Skipped ${channel.name} - unable to fetch latest video`)
+  const latestVideoId = latestVideos[channel.id]?.latestVideoId
+  if (latestVideoId) {
+    console.log(`${channel.name}: ${videoCache[latestVideoId]?.title}`)
   }
 }

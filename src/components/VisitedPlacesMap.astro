@@ -1,10 +1,8 @@
 ---
 import { MapPin } from 'lucide-react'
-import { parse } from 'yaml'
 
 import VisitedPlacesExplorer from './VisitedPlacesExplorer'
-import type { CityVideo, VisitedPlaces } from '../lib/site-config'
-import visitedVideosYaml from '../data/visited-videos.yaml?raw'
+import type { VisitedPlaces } from '../lib/site-config'
 
 type Props = {
   visitedPlaces: VisitedPlaces
@@ -12,10 +10,6 @@ type Props = {
 
 const { visitedPlaces } = Astro.props
 const places = visitedPlaces.places ?? []
-const stateVideoGroups = visitedPlaces.stateVideos ?? []
-const visitedVideoCatalog = parse(visitedVideosYaml) as {
-  videos?: Array<CityVideo & { state?: string | null; city?: string | null }>
-}
 const tileZoom = 4
 const tileColumns = [2, 3, 4, 5]
 const tileRows = [5, 6]
@@ -78,159 +72,8 @@ const stateAbbreviations = new Map([
   ['Wisconsin', 'WI'],
   ['Wyoming', 'WY'],
 ])
-const statesByAbbreviation = new Map(
-  [...stateAbbreviations.entries()].map(([state, abbreviation]) => [
-    abbreviation.toLowerCase(),
-    state,
-  ]),
-)
-
 const formatPlace = (city: string, state: string) =>
   `${city}, ${stateAbbreviations.get(state) ?? state}`
-
-const normalizeState = (state?: string | null) => {
-  const normalized = state?.trim()
-  if (!normalized) return ''
-
-  return (
-    statesByAbbreviation.get(normalized.toLowerCase()) ?? normalized
-  ).toLowerCase()
-}
-
-const normalizeCity = (city?: string | null) => city?.trim().toLowerCase() ?? ''
-
-type YoutubeOembed = {
-  title?: string
-  thumbnail_url?: string
-}
-
-const getYoutubeVideoId = (url: string) => {
-  try {
-    const parsedUrl = new URL(url)
-
-    if (parsedUrl.hostname.includes('youtu.be')) {
-      return parsedUrl.pathname.split('/').filter(Boolean)[0]
-    }
-
-    if (parsedUrl.searchParams.has('v')) {
-      return parsedUrl.searchParams.get('v')
-    }
-
-    return parsedUrl.pathname.match(/\/embed\/([^/?]+)/)?.[1] ?? null
-  } catch {
-    return null
-  }
-}
-
-const getVideoKey = (url: string) => {
-  const videoId = getYoutubeVideoId(url)
-  if (videoId) return `youtube:${videoId}`
-
-  try {
-    const parsedUrl = new URL(url)
-    parsedUrl.search = ''
-    parsedUrl.hash = ''
-    return parsedUrl.toString()
-  } catch {
-    return url
-  }
-}
-
-const youtubeThumbnailUrl = (url: string) => {
-  const videoId = getYoutubeVideoId(url)
-  return videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : undefined
-}
-
-const getYoutubeMetadata = async (url: string): Promise<YoutubeOembed> => {
-  try {
-    const response = await fetch(
-      `https://www.youtube.com/oembed?url=${encodeURIComponent(url)}&format=json`,
-    )
-
-    if (!response.ok) return {}
-
-    return (await response.json()) as YoutubeOembed
-  } catch {
-    return {}
-  }
-}
-
-const resolveVideo = async (video: CityVideo): Promise<CityVideo> => {
-  if (video.title && video.thumbnail) return video
-
-  const metadata = await getYoutubeMetadata(video.url)
-
-  return {
-    ...video,
-    title: video.title ?? metadata.title ?? 'Watch on YouTube',
-    thumbnail: video.thumbnail ?? metadata.thumbnail_url ?? youtubeThumbnailUrl(video.url),
-  }
-}
-
-const dedupeVideos = (videos: CityVideo[]) => {
-  const seen = new Set<string>()
-
-  return videos.filter((video) => {
-    const key = getVideoKey(video.url)
-    if (seen.has(key)) return false
-
-    seen.add(key)
-    return true
-  })
-}
-
-const videosByState = new Map<string, CityVideo[]>()
-const videosByPlace = new Map<string, CityVideo[]>()
-
-const addVideoToMap = (map: Map<string, CityVideo[]>, key: string, video: CityVideo) => {
-  const videos = map.get(key) ?? []
-  videos.push(video)
-  map.set(key, videos)
-}
-
-for (const group of stateVideoGroups) {
-  videosByState.set(normalizeState(group.state), group.videos ?? [])
-}
-
-for (const video of visitedVideoCatalog.videos ?? []) {
-  const state = normalizeState(video.state)
-  if (!state) continue
-
-  const city = normalizeCity(video.city)
-  const catalogVideo = {
-    title: video.title,
-    url: video.url,
-    thumbnail: video.thumbnail,
-  }
-
-  if (city) {
-    addVideoToMap(videosByPlace, `${state}:${city}`, catalogVideo)
-  } else {
-    addVideoToMap(videosByState, state, catalogVideo)
-  }
-}
-
-const resolvedPlaces = await Promise.all(
-  places.map(async (place) => {
-    const state = normalizeState(place.state)
-    const city = normalizeCity(place.city)
-    const inheritedVideos = videosByState.get(state) ?? []
-    const assignedCityVideos = videosByPlace.get(`${state}:${city}`) ?? []
-    const mergedVideos = dedupeVideos([
-      ...inheritedVideos,
-      ...assignedCityVideos,
-      ...(place.videos ?? []),
-    ])
-
-    return {
-      ...place,
-      videos:
-        mergedVideos.length > 0
-          ? await Promise.all(mergedVideos.map((video) => resolveVideo(video)))
-          : undefined,
-    }
-  }),
-)
 
 const getPlacePosition = (place: (typeof places)[number]) => {
   if (
@@ -343,7 +186,7 @@ const getPlacePosition = (place: (typeof places)[number]) => {
           </a>
         </div>
 
-        <VisitedPlacesExplorer client:load places={resolvedPlaces} />
+        <VisitedPlacesExplorer client:load places={places} />
       </div>
     </section>
   )

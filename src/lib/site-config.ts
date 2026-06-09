@@ -67,8 +67,9 @@ export type SocialReach = {
 }
 
 export type CityVideo = {
+  videoId?: string
   title?: string
-  url: string
+  url?: string
   thumbnail?: string
 }
 

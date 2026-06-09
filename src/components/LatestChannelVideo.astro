@@ -5,7 +5,7 @@ type Video = {
   title: string
   url: string
   thumbnail: string
-  published: string
+  published?: string
 }
 
 type LatestChannelVideoProps = {
@@ -42,11 +42,15 @@ const {
   video,
 } = Astro.props as LatestChannelVideoProps
 
-const publishedDate = new Intl.DateTimeFormat('en-US', {
-  month: 'short',
-  day: 'numeric',
-  year: 'numeric',
-}).format(new Date(video.published))
+const publishedAt = video.published ? new Date(video.published) : null
+const publishedDate =
+  publishedAt && !Number.isNaN(publishedAt.getTime())
+    ? new Intl.DateTimeFormat('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      }).format(publishedAt)
+    : ''
 ---
 
 <div class="mx-auto w-full max-w-xl px-4 sm:px-6">
@@ -129,11 +133,13 @@ const publishedDate = new Intl.DateTimeFormat('en-US', {
       {channelDescription}
     </span>
 
-    <span
-      class="text-muted-foreground/75 block text-xs leading-none font-normal"
-    >
-      Published {publishedDate}
-    </span>
+    {
+      publishedDate && (
+        <span class="text-muted-foreground/75 block text-xs leading-none font-normal">
+          Published {publishedDate}
+        </span>
+      )
+    }
   </span>
   </a>
 </div>

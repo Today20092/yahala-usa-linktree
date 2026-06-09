@@ -30,9 +30,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Refresh visited video catalog
-        run: npm run update:visited-videos
+        run: |
+          npm run update:visited-videos
+          npm run validate:data
       - name: Commit updated visited video catalog
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update visited video catalog
-          file_pattern: src/data/visited-videos.yaml
+          file_pattern: src/data/visited-videos.yaml src/data/youtube-videos.json

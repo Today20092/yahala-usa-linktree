@@ -183,6 +183,8 @@ export default function VisitedPlacesExplorer({ places }: Props) {
             {selectedVideos.length > 0 ? (
               <div className="grid gap-3">
                 {selectedVideos.map((video) => {
+                  if (!video.url) return null
+
                   const thumbnail = getThumbnail(video.url, video.thumbnail)
 
                   return (
