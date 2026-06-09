@@ -1,0 +1,880 @@
+# Assign videos by filling state and optional city.
+# State-only videos appear in every visited city for that state.
+# City videos appear only in the matching city drawer.
+videos:
+  - url: https://www.youtube.com/watch?v=wVzeEOyjWEM
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=gDbn5G3zuZU
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=M6TQFZpcX64
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=59h9IqbY9Dk
+    state: "New York"
+    city: ""
+  - url: https://www.youtube.com/watch?v=8nf0_ZKJJj4
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=l3bRUbBIh8w
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=3TutPXW79aY
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=06LJ9AaClLs
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=uO35D6Gw6Xg
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=Psn0QTLw7eA
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=3sNCePfZJ0o
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=48Kjbl5DB4w
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=Aml_gBJ06ms
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=LKOcmr_DhZU
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=-_Z11UKbp8g
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=RMyWIYvGEB4
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=UbAplNdj-fw
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=smU2_DmMU6I
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=XVzFBTyl64c
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=_xG6zgOZSLU
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=Z29_fT0gwm8
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=Dv6t2UQd8_Y
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=x1h4ueJ33g8
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=jOczHqEoOec
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=WWdyNe_4xGs
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=jS7epPXlfcs
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=nZmPAhjmfAg
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=47W5hPOBNGA
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=ueLDlCSc7CU
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=nLFHA4Z61n8
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=EDzKxXUQp9Y
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=Dt8N8S3ZPP4
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=f8sotkFQcrc
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=ahR0yuK44YY
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=9-o6O6YHZ48
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=BJqL1XguzgM
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=1YfXQSqjYsk
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=vcWGQcMlF1s
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=rQBXqlLE9Mk
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=39ZoH4dMfls
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=gY2IuAZ_gJg
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=UYw4AMNyTiE
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=yqaissIYvus
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=udil1yyELEc
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=KIEaTAMGXaw
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=DYlYA2eo46Q
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=uiXWP_5iyFs
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=YKIO-4IgCgk
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=xzuofrJn3_4
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=rTCYWgjZRdE
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=oQ43WhkZbII
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=zg8xW3fTMJw
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=nRdhwaluBEQ
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=z-b4CHPFHEk
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=SLZS1jtuNeE
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=Usk7dPheZs0
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=l2xk_1BzUi8
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=o-0Y6Wt39F4
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=7Wp58bcElf0
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=9pf1lVvyuDY
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=vo3Rf9yEl3o
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=hIV9teRIwog
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=tVZDgwHwY9Y
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=ab1s4Dt0rGs
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=FzRhnPF0wh4
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=t__Tt9LO1R0
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=C5Yst7w3RYs
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=mvw_Dy3Vozk
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=GbnDO868OTE
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=K_I4j068Ig4
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=ioznXPWxXVI
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=24MvBqhBnfs
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=9rXXspVoAEU
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=77FTGA25LKk
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=pl2EjvZarIc
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=sUtgyXSoqzQ
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=JarD6GxBhZ4
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=_jbeoI4XD0M
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=lLPTEyAHQro
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=eoFhCpWN8yw
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=CjKsOWw4ZaU
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=Wl2Oi6MrXbU
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=PDDIrJeqX8s
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=7D6aPRdFp0k
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=qfdYSd4oujc
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=lautMBip1Mg
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=zA3C10YQ5BA
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=MC5dRVNjZYg
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=jiVfFC3z7tw
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=mlSXRCHXpaw
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=T3kQ0gAQMf0
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=3EsfHZrseL8
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=t9pYusgNiJo
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=VRw-a69KQ6k
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=qGOo4P7F3RQ
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=9szs9yYYx4w
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=xUE7uFSocSk
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=U_MP-lAzxrg
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=pP52MX0uiNc
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=N5QQkk--GeI
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=EubaNzI8jqw
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=4tw19sZ2tl0
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=Gs2PUO71VXE
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=cA25lO8mCVw
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=tlx1aujSDfc
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=0sCcSFA9ZMs
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=ym9_3X3plE4
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=NXj6gpd4MI0
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=XoJB2kuuK1o
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=imXmGMIo8VM
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=pM-Ev0bn-z8
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=HJAfi1wGgOE
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=PeeqnVA8BP0
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=AqmqG_2T1Bg
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=E2H1HMGjfbk
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=onbINvDqoPQ
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=1bRqpe_aSz0
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=FvavTRKJ7P8
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=f02rtsNqRJ4
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=E4qRx8GBJt4
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=voBySK59lyw
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=_st4dhD22ww
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=D6schY1EeUk
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=MRSNTkMS_Wo
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=t8we6Sv6zRU
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=SOAcYBGB74M
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=WahSxoiTwgA
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=4hqTfKMY9SM
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=voZw2fVa5pM
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=JCyJ5QIdlck
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=X2jND0SaISU
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=cxst_VOviaA
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=2aMFUa4JrNA
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=KY31dUY6trg
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=TQ6f1zsfp0U
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=bepMZR_e7JU
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=XjkeQvkHHDs
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=aaYMLasAa6s
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=qbM9qUFzJ10
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=HT1XtocZfRE
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=VsI3KT8rJH4
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=U_pG0dFM7vY
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=m-Y6ekkbPsI
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=5yC8zRPu9NU
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=e9G86rMrQkk
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=fTK8Y7tYF2k
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=rWlKenIlpcA
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=7OnryHjLVgk
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=hlyS8IRKVnk
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=MBGuLR-Ge60
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=0RJ9g0tT4WQ
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=fwfQjakTf2s
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=4B0Oioh7i7k
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=KRxUKic2iZw
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=jN9P1zpFqvQ
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=giCpFQZ_Df4
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=lTF4lyUN3G8
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=fbMo-hfa_q0
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=WwutM56thRk
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=9IOEGrsy3WY
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=1jbWjBu2QS4
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=Vzjpp2o8mo4
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=Ngph7vZSaUU
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=CpOMg4ZzlH8
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=vaCnoJid7hM
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=6-zAo6dm7uE
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=J1Sz9IiYz1M
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=7toYHgoQ6C8
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=NA9O_Um60cY
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=SGeFKuYaQ7E
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=w55mjLcSzWg
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=HDPSHadUEa4
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=Iq9a-dHH0-4
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=BkiiwPbVTlA
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=bH3o5SHHqH4
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=fXo2zvvZoBg
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=ouZ6HvJwhic
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=ridWyirOV7w
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=ClusI2_AO2Y
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=Gma5rGyTa9k
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=8X0Q0CcD9Vc
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=WCP2DGL9mJE
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=rsWWixRf334
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=75j1XJmH6-k
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=wjNJy9KY020
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=0L-9R66QalE
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=lFxJzTPaVFE
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=rrSdEibrzX0
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=2MN1WD9Ltmc
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=G0rD9_bzcUU
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=vw6N2Zgmw-E
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=NoJLE4niIuQ
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=pk5Y4YuXE6M
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=XegNm157CkQ
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=JzpaA0f8qUQ
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=HDEeFMZYy1Q
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=hmmBS40CEAU
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=2z7GEH4FUwQ
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=AVQJj-Kg-gY
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=cl6GUVdNlx0
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=s3bC0sYqzsQ
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=FpsgvcRTUQY
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=OJDYRk1idYQ
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=GDXaOkPkgoc
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=XywzxVLE3vU
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=seoJL6YbYjA
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=eiEhXohQE8k
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=-gTta9F8M80
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=GVnW4AUYAAI
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=ygQ5gbS5MeI
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=G4-pQM4o52Q
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=RplSBzrUjX0
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=IzJ8IYAkSuA
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=MhntIoH-nt8
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=lV-edL64sbA
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=ZZt6-3Jb5Pw
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=yDsuaA5SOcA
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=dcJtK8p9mjc
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=Y1maCW9dssg
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=UiV2JEC9Ezg
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=liy-GwrPI88
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=ZDjm6DNSc5Q
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=qANSj6xz5fg
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=PDNTtJ1HBHQ
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=hSPjCURL7UA
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=2utCKSa0p9o
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=Vph741V_PBI
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=VHLXS5DNpg8
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=t67__kAwjto
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=i-l33pWFy0E
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=n7Mip7bXzbY
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=fbNKx42wpXY
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=ZIczMWxpBwo
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=_4vW-u1e8NE
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=wsTmDUTwjko
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=7sFFtuiGtVQ
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=WgoaCa6qMuA
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=gDh87Yt9-EM
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=Ik_sbvUYdRU
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=Q8oTcl7WnqU
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=grNmU4DWwCE
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=5yCgosRYO8w
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=KRhxlfjGNfg
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=KUoA3hwEMVo
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=lBPqW4EMzmw
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=nP4GL4L-_w8
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=-Mo6WVOH_Hc
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=WmVC1ZUw1J0
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=PP9Gup9l8ag
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=hRWTj2HdNjQ
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=yQ1BbxpyGoI
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=QlQurRkAX78
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=aBRTDnLvfL4
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=jN-jwJpCthk
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=ACBu5IH1eeQ
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=caDdVPhh020
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=K_d-tJSGzqc
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=R9KQ4_EDnB4
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=qCjFYQH9Q7I
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=YUyccm3Se80
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=DSF3qqGI36Q
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=DjVQEgpusoc
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=hX7HV4HtEO0
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=0gs3SMozHwQ
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=g0RK5nznWxs
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=d03WW8xe8vA
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=wIUyrrMpB5I
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=cd9mPKBvubo
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=q8SUVvX8tKA
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=Hm_3LjGali0
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=g60RL7bnPoE
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=u2K-Xo15eWU
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=Cjwc2TqBFyk
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=owo3i4tc6gs
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=oqyz_vTcTIY
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=qVqAzgWzucU
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=fmoXDJrd1NY
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=-XEyPSmD1dg
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=gEWUlMRVR4w
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=e1P3tr-I7fI
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=4SwOChVQV_0
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=zn_SorGh7ZE
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=npCDab9zjcU
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=ru57j4FUcpM
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=EeCa_1aolfg
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=atj7kZh9SOo
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=QWvkx0DcWpc
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=QCzBqc51RwI
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=G6RkhnjpBcw
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=PiUMx7rg9To
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=u6ODZxlT-m0
+    state: ""
+    city: ""
+  - url: https://www.youtube.com/watch?v=zRRJDipButE
+    state: ""
+    city: ""

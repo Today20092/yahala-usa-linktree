@@ -81,10 +81,6 @@ visitedPlaces:
   title: Places Ya Hala Has Visited
   eyebrow: Across America
   description: Cities and communities we have visited while sharing Arab American stories.
-  stateVideos:
-    - state: New York
-      videos:
-        - url: https://youtu.be/59h9IqbY9Dk?si=izOTJb5T2Ji7PoIg
   places:
     - city: Chicago
       state: Illinois

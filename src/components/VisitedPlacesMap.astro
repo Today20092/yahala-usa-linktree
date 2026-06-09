@@ -1,8 +1,10 @@
 ---
 import { MapPin } from 'lucide-react'
+import { parse } from 'yaml'
 
 import VisitedPlacesExplorer from './VisitedPlacesExplorer'
 import type { CityVideo, VisitedPlaces } from '../lib/site-config'
+import visitedVideosYaml from '../data/visited-videos.yaml?raw'
 
 type Props = {
   visitedPlaces: VisitedPlaces
@@ -11,6 +13,9 @@ type Props = {
 const { visitedPlaces } = Astro.props
 const places = visitedPlaces.places ?? []
 const stateVideoGroups = visitedPlaces.stateVideos ?? []
+const visitedVideoCatalog = parse(visitedVideosYaml) as {
+  videos?: Array<CityVideo & { state?: string | null; city?: string | null }>
+}
 const tileZoom = 4
 const tileColumns = [2, 3, 4, 5]
 const tileRows = [5, 6]
@@ -73,9 +78,26 @@ const stateAbbreviations = new Map([
   ['Wisconsin', 'WI'],
   ['Wyoming', 'WY'],
 ])
+const statesByAbbreviation = new Map(
+  [...stateAbbreviations.entries()].map(([state, abbreviation]) => [
+    abbreviation.toLowerCase(),
+    state,
+  ]),
+)
 
 const formatPlace = (city: string, state: string) =>
   `${city}, ${stateAbbreviations.get(state) ?? state}`
+
+const normalizeState = (state?: string | null) => {
+  const normalized = state?.trim()
+  if (!normalized) return ''
+
+  return (
+    statesByAbbreviation.get(normalized.toLowerCase()) ?? normalized
+  ).toLowerCase()
+}
+
+const normalizeCity = (city?: string | null) => city?.trim().toLowerCase() ?? ''
 
 type YoutubeOembed = {
   title?: string
@@ -158,16 +180,45 @@ const dedupeVideos = (videos: CityVideo[]) => {
 }
 
 const videosByState = new Map<string, CityVideo[]>()
+const videosByPlace = new Map<string, CityVideo[]>()
+
+const addVideoToMap = (map: Map<string, CityVideo[]>, key: string, video: CityVideo) => {
+  const videos = map.get(key) ?? []
+  videos.push(video)
+  map.set(key, videos)
+}
 
 for (const group of stateVideoGroups) {
-  videosByState.set(group.state, group.videos ?? [])
+  videosByState.set(normalizeState(group.state), group.videos ?? [])
+}
+
+for (const video of visitedVideoCatalog.videos ?? []) {
+  const state = normalizeState(video.state)
+  if (!state) continue
+
+  const city = normalizeCity(video.city)
+  const catalogVideo = {
+    title: video.title,
+    url: video.url,
+    thumbnail: video.thumbnail,
+  }
+
+  if (city) {
+    addVideoToMap(videosByPlace, `${state}:${city}`, catalogVideo)
+  } else {
+    addVideoToMap(videosByState, state, catalogVideo)
+  }
 }
 
 const resolvedPlaces = await Promise.all(
   places.map(async (place) => {
-    const inheritedVideos = videosByState.get(place.state) ?? []
+    const state = normalizeState(place.state)
+    const city = normalizeCity(place.city)
+    const inheritedVideos = videosByState.get(state) ?? []
+    const assignedCityVideos = videosByPlace.get(`${state}:${city}`) ?? []
     const mergedVideos = dedupeVideos([
       ...inheritedVideos,
+      ...assignedCityVideos,
       ...(place.videos ?? []),
     ])
 

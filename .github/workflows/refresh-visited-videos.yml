@@ -1,0 +1,38 @@
+name: Refresh Visited Video Catalog
+
+on:
+  schedule:
+    - cron: '23 10 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-visited-videos:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install yt-dlp
+        run: |
+          python -m pip install --user --upgrade yt-dlp
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Install dependencies
+        run: npm ci
+      - name: Refresh visited video catalog
+        run: npm run update:visited-videos
+      - name: Commit updated visited video catalog
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update visited video catalog
+          file_pattern: src/data/visited-videos.yaml
