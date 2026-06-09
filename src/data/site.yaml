@@ -142,6 +142,10 @@ visitedPlaces:
       state: New York
       latitude: 40.8448
       longitude: -73.8648
+    - city: Dublin
+      state: Ohio
+      latitude: 40.1091109
+      longitude: -83.0910391
 
 socialReach:
   updatedAt: "2026-06-03"

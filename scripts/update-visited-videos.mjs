@@ -3,7 +3,14 @@ import { readFile, writeFile } from 'node:fs/promises'
 import { promisify } from 'node:util'
 import { parse } from 'yaml'
 
-import { inferLocationForVideo } from './location-utils.mjs'
+import { inferLocationForVideo, isConfidentNewPlace } from './location-utils.mjs'
+import {
+  addVisitedPlaces,
+  getVisitedPlaceKeys,
+  readSiteConfig,
+  visitedPlaceKey,
+  writeSiteConfig,
+} from './site-places-utils.mjs'
 import {
   getYoutubeVideoId,
   mergeVideoCache,
@@ -19,7 +26,6 @@ const geocodeCachePath = new URL(
   '../src/data/geocoded-locations.json',
   import.meta.url,
 )
-const siteConfigPath = new URL('../src/data/site.yaml', import.meta.url)
 const latestPath = new URL('../src/data/latest-youtube-videos.json', import.meta.url)
 const refreshDescriptions = process.argv.includes('--refresh-descriptions')
 
@@ -146,8 +152,8 @@ const serializeAssignments = (assignments) => {
   return `${lines.join('\n')}\n`
 }
 
-const siteConfig = await readYaml(siteConfigPath, {})
-const places = siteConfig.visitedPlaces?.places ?? []
+const siteConfig = await readSiteConfig()
+let places = siteConfig.visitedPlaces?.places ?? []
 const latestVideos = await readJson(latestPath, {})
 const latestVideoIds = new Set(
   Object.values(latestVideos)
@@ -195,7 +201,10 @@ const fullMetadataVideos = (
 videoCache = mergeVideoCache(videoCache, playlistVideos)
 videoCache = mergeVideoCache(videoCache, fullMetadataVideos)
 
-const mergedAssignments = []
+const processedVideos = []
+const newPlacesToAdd = []
+const knownPlaceKeys = getVisitedPlaceKeys(siteConfig)
+const pendingPlaceKeys = new Set()
 
 for (const key of allKeys) {
   const playlistVideo = playlistByKey.get(key)
@@ -225,12 +234,54 @@ for (const key of allKeys) {
   }
   videoCache = mergeVideoCache(videoCache, [nextCachedVideo])
 
-  mergedAssignments.push({
+  if (isConfidentNewPlace(locationHints)) {
+    const place = {
+      city: locationHints.city,
+      state: locationHints.state,
+      latitude: Number(locationHints.latitude),
+      longitude: Number(locationHints.longitude),
+    }
+    const key = visitedPlaceKey(place)
+    if (!knownPlaceKeys.has(key) && !pendingPlaceKeys.has(key)) {
+      pendingPlaceKeys.add(key)
+      newPlacesToAdd.push(place)
+    }
+  }
+
+  processedVideos.push({
     videoId,
-    state: locationHints?.state ?? existingAssignment?.state ?? '',
-    city: locationHints?.city ?? existingAssignment?.city ?? '',
+    locationHints,
+    existingAssignment,
   })
 }
+
+const addedPlaces = addVisitedPlaces(siteConfig, newPlacesToAdd)
+if (addedPlaces.length > 0) {
+  await writeSiteConfig(siteConfig)
+  places = siteConfig.visitedPlaces?.places ?? []
+  console.log(`Added ${addedPlaces.length} new visited places to site.yaml.`)
+}
+
+const updatedPlaceKeys = new Set(places.map(visitedPlaceKey))
+const mergedAssignments = processedVideos.map(
+  ({ videoId, locationHints, existingAssignment }) => {
+    const hintedPlaceKey = visitedPlaceKey(locationHints)
+    const canUseHintedCity = locationHints?.city
+      ? updatedPlaceKeys.has(hintedPlaceKey)
+      : Boolean(locationHints?.state)
+
+    return {
+      videoId,
+      state:
+        canUseHintedCity || locationHints?.state
+          ? locationHints?.state ?? ''
+          : existingAssignment?.state ?? '',
+      city: canUseHintedCity
+        ? locationHints?.city ?? ''
+        : existingAssignment?.city ?? '',
+    }
+  },
+)
 
 await writeFile(outputPath, serializeAssignments(mergedAssignments))
 await writeFile(videoCachePath, `${JSON.stringify(videoCache, null, 2)}\n`)

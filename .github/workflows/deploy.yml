@@ -42,4 +42,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update YouTube video data
-          file_pattern: src/data/latest-youtube-videos.json src/data/visited-videos.yaml src/data/youtube-videos.json src/data/geocoded-locations.json
+          file_pattern: src/data/site.yaml src/data/latest-youtube-videos.json src/data/visited-videos.yaml src/data/youtube-videos.json src/data/geocoded-locations.json

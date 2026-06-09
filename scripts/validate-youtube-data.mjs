@@ -82,6 +82,15 @@ for (const [videoId, video] of Object.entries(youtubeVideos)) {
     if (state && city && !placeKeys.has(`${state}:${city}`)) {
       errors.push(`${videoId} has locationHints for unknown place ${video.locationHints.state}/${video.locationHints.city}`)
     }
+    if (
+      state &&
+      city &&
+      Number.isFinite(Number(video.locationHints.latitude)) &&
+      Number.isFinite(Number(video.locationHints.longitude)) &&
+      !placeKeys.has(`${state}:${city}`)
+    ) {
+      errors.push(`${videoId} has geocoded locationHints that do not map to a site.yaml place`)
+    }
     if (state && !city && !stateKeys.has(state)) {
       errors.push(`${videoId} has locationHints for unknown state ${video.locationHints.state}`)
     }
@@ -117,9 +126,19 @@ for (const assignment of visitedVideos.videos ?? []) {
   if (state && !city && !stateKeys.has(state)) {
     errors.push(`Visited assignment ${videoId} references unknown state ${assignment.state}`)
   }
+
+  if (state && !city && stateKeys.has(state)) {
+    warnings.push(`Visited assignment ${videoId} is state-only for ${assignment.state}`)
+  }
 }
 
 for (const place of siteConfig.visitedPlaces?.places ?? []) {
+  const latitude = Number(place.latitude)
+  const longitude = Number(place.longitude)
+  if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) {
+    errors.push(`Visited place ${place.city}, ${place.state} is missing numeric latitude/longitude`)
+  }
+
   for (const video of place.videos ?? []) {
     const videoId = videoIdFromRef(video)
     if (!videoId) {
