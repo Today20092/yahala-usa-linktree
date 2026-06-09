@@ -66,11 +66,29 @@ export type SocialReach = {
   items: SocialReachItem[]
 }
 
+export type VisitedPlace = {
+  city: string
+  state: string
+  latitude?: number
+  longitude?: number
+  x?: number
+  y?: number
+  featured?: boolean
+}
+
+export type VisitedPlaces = {
+  title: string
+  eyebrow?: string
+  description?: string
+  places: VisitedPlace[]
+}
+
 export type SiteConfig = {
   site: SiteInfo
   socialLinks: SocialLink[]
   youtubeChannels: YoutubeChannel[]
   featuredEpisodes: FeaturedEpisode[]
+  visitedPlaces: VisitedPlaces
   socialReach: SocialReach
 }
 

@@ -11,6 +11,7 @@ import ReachBadge from '../components/ReachBadge.astro'
 import TopicCards from '../components/TopicCards.astro'
 import SocialLinkButton from '../components/SocialLinkButton'
 import VideoBentoGrid from '../components/VideoBentoGrid.astro'
+import VisitedPlacesMap from '../components/VisitedPlacesMap.astro'
 import heroCover from '../assets/yahala-hero-cover.png'
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
 import {
@@ -29,7 +30,7 @@ const {
   profileImage,
   ogImage,
 } = siteConfig.site
-const { socialLinks, youtubeChannels, socialReach } = siteConfig
+const { socialLinks, youtubeChannels, socialReach, visitedPlaces } = siteConfig
 const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
 const profileImageUrl = resolveSiteAsset(baseUrl, profileImage)
 const currentYear = new Date().getFullYear()
@@ -262,6 +263,8 @@ const structuredData = {
       />
 
       <FeaturedEpisodes />
+
+      <VisitedPlacesMap visitedPlaces={visitedPlaces} />
 
       <section
         class="animate-fade-in-up mt-8 mb-5 flex flex-col gap-4 delay-400"

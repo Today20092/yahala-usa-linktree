@@ -77,6 +77,72 @@ featuredEpisodes:
   - url: https://youtu.be/x1h4ueJ33g8
     category: Community story
 
+visitedPlaces:
+  title: Places Ya Hala Has Visited
+  eyebrow: Across America
+  description: Cities and communities we have visited while sharing Arab American stories.
+  places:
+    - city: Chicago
+      state: Illinois
+      latitude: 41.8781
+      longitude: -87.6298
+    - city: Tampa
+      state: Florida
+      latitude: 27.9506
+      longitude: -82.4572
+    - city: Miami
+      state: Florida
+      latitude: 25.7617
+      longitude: -80.1918
+    - city: Dearborn
+      state: Michigan
+      latitude: 42.3223
+      longitude: -83.1763
+    - city: San Francisco
+      state: California
+      latitude: 37.7749
+      longitude: -122.4194
+    - city: Los Angeles
+      state: California
+      latitude: 34.0522
+      longitude: -118.2437
+    - city: San Diego
+      state: California
+      latitude: 32.7157
+      longitude: -117.1611
+    - city: Raleigh
+      state: North Carolina
+      latitude: 35.7796
+      longitude: -78.6382
+    - city: Atlanta
+      state: Georgia
+      latitude: 33.749
+      longitude: -84.388
+    - city: Houston
+      state: Texas
+      latitude: 29.7604
+      longitude: -95.3698
+    - city: Dallas
+      state: Texas
+      latitude: 32.7767
+      longitude: -96.797
+    - city: New York City
+      state: New York
+      latitude: 40.7831
+      longitude: -73.9712
+    - city: Brooklyn
+      state: New York
+      latitude: 40.6782
+      longitude: -73.9442
+    - city: Queens
+      state: New York
+      latitude: 40.7282
+      longitude: -73.7949
+    - city: The Bronx
+      state: New York
+      latitude: 40.8448
+      longitude: -73.8648
+
 socialReach:
   updatedAt: "2026-06-03"
   items:
