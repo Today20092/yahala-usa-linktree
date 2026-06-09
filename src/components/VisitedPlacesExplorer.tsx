@@ -18,6 +18,14 @@ type Props = {
   places: VisitedPlace[]
 }
 
+type StateGroup = {
+  state: string
+  abbreviation: string
+  places: VisitedPlace[]
+  videoCount: number
+  firstIndex: number
+}
+
 const stateAbbreviations = new Map([
   ["Alabama", "AL"],
   ["Alaska", "AK"],
@@ -101,37 +109,55 @@ function formatPlace(city: string, state: string) {
   return `${city}, ${stateAbbreviations.get(state) ?? state}`
 }
 
+function formatState(state: string) {
+  return state
+}
+
 export default function VisitedPlacesExplorer({ places }: Props) {
-  const [selectedPlace, setSelectedPlace] = React.useState<VisitedPlace | null>(
+  const [selectedState, setSelectedState] = React.useState<string | null>(
     null
   )
-  const selectedVideos = selectedPlace?.videos ?? []
-  const sortedPlaces = React.useMemo(
-    () =>
-      places
-        .map((place, index) => ({ place, index }))
-        .sort((a, b) => {
-          const videoCountDifference =
-            (b.place.videos?.length ?? 0) - (a.place.videos?.length ?? 0)
+  const stateGroups = React.useMemo<StateGroup[]>(
+    () => {
+      const groups = new Map<string, StateGroup>()
 
-          return videoCountDifference || a.index - b.index
-        })
-        .map(({ place }) => place),
+      places.forEach((place, index) => {
+        const group = groups.get(place.state) ?? {
+          state: place.state,
+          abbreviation: stateAbbreviations.get(place.state) ?? place.state,
+          places: [],
+          videoCount: 0,
+          firstIndex: index,
+        }
+
+        group.places.push(place)
+        group.videoCount += place.videos?.length ?? 0
+        groups.set(place.state, group)
+      })
+
+      return [...groups.values()].sort(
+        (a, b) => b.videoCount - a.videoCount || a.firstIndex - b.firstIndex
+      )
+    },
     [places]
   )
+  const selectedStateGroup =
+    stateGroups.find((group) => group.state === selectedState) ?? null
+  const selectedPlacesWithVideos =
+    selectedStateGroup?.places.filter((place) => place.videos?.length) ?? []
 
   return (
     <>
       <ul
         className="mt-3 flex max-h-24 flex-wrap gap-1.5 overflow-y-auto pr-1"
-        aria-label="Visited cities"
+        aria-label="Visited states"
       >
-        {sortedPlaces.map((place) => {
-          const label = formatPlace(place.city, place.state)
-          const hasVideos = Boolean(place.videos?.length)
+        {stateGroups.map((group) => {
+          const label = formatState(group.state)
+          const hasVideos = group.videoCount > 0
 
           return (
-            <li key={`${place.city}-${place.state}`}>
+            <li key={group.state}>
               <button
                 type="button"
                 className={cn(
@@ -141,7 +167,7 @@ export default function VisitedPlacesExplorer({ places }: Props) {
                     : "border-border/70 bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground dark:bg-background/55"
                 )}
                 aria-label={`Show videos from ${label}`}
-                onClick={() => setSelectedPlace(place)}
+                onClick={() => setSelectedState(group.state)}
               >
                 {hasVideos && <Play className="size-3" aria-hidden="true" />}
                 {label}
@@ -152,9 +178,9 @@ export default function VisitedPlacesExplorer({ places }: Props) {
       </ul>
 
       <Drawer
-        open={Boolean(selectedPlace)}
+        open={Boolean(selectedStateGroup)}
         onOpenChange={(open) => {
-          if (!open) setSelectedPlace(null)
+          if (!open) setSelectedState(null)
         }}
       >
         <DrawerContent>
@@ -165,70 +191,84 @@ export default function VisitedPlacesExplorer({ places }: Props) {
               </span>
               <div className="min-w-0">
                 <DrawerTitle>
-                  {selectedPlace
-                    ? `Videos from ${formatPlace(
-                        selectedPlace.city,
-                        selectedPlace.state
-                      )}`
-                    : "City videos"}
+                  {selectedStateGroup
+                    ? `Videos from ${formatState(selectedStateGroup.state)}`
+                    : "State videos"}
                 </DrawerTitle>
                 <DrawerDescription>
-                  Watch Ya Hala stories and visits from this city.
+                  Watch Ya Hala stories and visits grouped by city.
                 </DrawerDescription>
               </div>
             </div>
           </DrawerHeader>
 
           <div className="overflow-y-auto px-5 pb-2">
-            {selectedVideos.length > 0 ? (
-              <div className="grid gap-3">
-                {selectedVideos.map((video) => {
-                  if (!video.url) return null
-
-                  const thumbnail = getThumbnail(video.url, video.thumbnail)
-
-                  return (
-                    <a
-                      key={`${video.url}-${video.title ?? "video"}`}
-                      href={video.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group grid grid-cols-[104px_1fr] gap-3 rounded-lg border border-border bg-card p-2 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                    >
-                      <span className="relative aspect-video overflow-hidden rounded-md bg-muted">
-                        {thumbnail ? (
-                          <img
-                            src={thumbnail}
-                            alt=""
-                            className="h-full w-full object-cover transition duration-200 group-hover:scale-105"
-                            loading="lazy"
-                          />
-                        ) : (
-                          <span className="grid h-full w-full place-items-center text-muted-foreground">
-                            <Play className="size-5" aria-hidden="true" />
-                          </span>
-                        )}
+            {selectedPlacesWithVideos.length > 0 ? (
+              <div className="grid gap-5">
+                {selectedPlacesWithVideos.map((place) => (
+                  <section key={`${place.city}-${place.state}`} className="grid gap-2">
+                    <div className="flex items-center justify-between gap-3">
+                      <h3 className="text-sm font-semibold text-foreground">
+                        {formatPlace(place.city, place.state)}
+                      </h3>
+                      <span className="text-xs font-medium text-muted-foreground">
+                        {place.videos?.length ?? 0} videos
                       </span>
-                      <span className="flex min-w-0 flex-col justify-between gap-2 py-0.5">
-                        <span className="line-clamp-2 text-sm leading-snug font-semibold text-foreground">
-                          {video.title ?? "Watch on YouTube"}
-                        </span>
-                        <span className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground group-hover:text-foreground">
-                          Watch on YouTube
-                          <ExternalLink className="size-3" aria-hidden="true" />
-                        </span>
-                      </span>
-                    </a>
-                  )
-                })}
+                    </div>
+                    <div className="grid gap-3">
+                      {place.videos?.map((video) => {
+                        if (!video.url) return null
+
+                        const thumbnail = getThumbnail(video.url, video.thumbnail)
+
+                        return (
+                          <a
+                            key={`${place.city}-${video.url}-${video.title ?? "video"}`}
+                            href={video.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group grid grid-cols-[104px_1fr] gap-3 rounded-lg border border-border bg-card p-2 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                          >
+                            <span className="relative aspect-video overflow-hidden rounded-md bg-muted">
+                              {thumbnail ? (
+                                <img
+                                  src={thumbnail}
+                                  alt=""
+                                  className="h-full w-full object-cover transition duration-200 group-hover:scale-105"
+                                  loading="lazy"
+                                />
+                              ) : (
+                                <span className="grid h-full w-full place-items-center text-muted-foreground">
+                                  <Play className="size-5" aria-hidden="true" />
+                                </span>
+                              )}
+                            </span>
+                            <span className="flex min-w-0 flex-col justify-between gap-2 py-0.5">
+                              <span className="line-clamp-2 text-sm leading-snug font-semibold text-foreground">
+                                {video.title ?? "Watch on YouTube"}
+                              </span>
+                              <span className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground group-hover:text-foreground">
+                                Watch on YouTube
+                                <ExternalLink
+                                  className="size-3"
+                                  aria-hidden="true"
+                                />
+                              </span>
+                            </span>
+                          </a>
+                        )
+                      })}
+                    </div>
+                  </section>
+                ))}
               </div>
             ) : (
               <div className="rounded-lg border border-dashed border-border bg-muted/45 px-4 py-8 text-center">
                 <p className="text-sm font-semibold text-foreground">
-                  Videos from this city are coming soon.
+                  Videos from this state are coming soon.
                 </p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Add curated YouTube links for this city in site.yaml.
+                  Add curated YouTube links or detected locations for this state.
                 </p>
               </div>
             )}

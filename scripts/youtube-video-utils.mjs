@@ -109,6 +109,12 @@ export const normalizeVideoMetadata = (video, existing = {}) => {
     channelId: video?.channelId ?? existing.channelId ?? '',
     channelTitle: video?.channelTitle ?? existing.channelTitle ?? '',
     duration: video?.duration ?? existing.duration ?? '',
+    description: video?.description ?? existing.description ?? '',
+    tags: video?.tags ?? existing.tags ?? [],
+    categories: video?.categories ?? existing.categories ?? [],
+    locationHints: video?.locationHints ?? existing.locationHints,
+    fullMetadataFetchedAt:
+      video?.fullMetadataFetchedAt ?? existing.fullMetadataFetchedAt,
     isShort: video?.isShort ?? existing.isShort ?? false,
   }
 }

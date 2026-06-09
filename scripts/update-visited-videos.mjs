@@ -3,6 +3,7 @@ import { readFile, writeFile } from 'node:fs/promises'
 import { promisify } from 'node:util'
 import { parse } from 'yaml'
 
+import { inferLocationForVideo } from './location-utils.mjs'
 import {
   getYoutubeVideoId,
   mergeVideoCache,
@@ -14,6 +15,13 @@ const execFileAsync = promisify(execFile)
 const channelVideosUrl = 'https://www.youtube.com/@YaHalaUSA/videos'
 const outputPath = new URL('../src/data/visited-videos.yaml', import.meta.url)
 const videoCachePath = new URL('../src/data/youtube-videos.json', import.meta.url)
+const geocodeCachePath = new URL(
+  '../src/data/geocoded-locations.json',
+  import.meta.url,
+)
+const siteConfigPath = new URL('../src/data/site.yaml', import.meta.url)
+const latestPath = new URL('../src/data/latest-youtube-videos.json', import.meta.url)
+const refreshDescriptions = process.argv.includes('--refresh-descriptions')
 
 const readJson = async (path, fallback) => {
   try {
@@ -23,23 +31,26 @@ const readJson = async (path, fallback) => {
   }
 }
 
-const readExistingAssignments = async () => {
+const readYaml = async (path, fallback) => {
   try {
-    const existingYaml = await readFile(outputPath, 'utf8')
-    const parsed = parse(existingYaml)
-    return Array.isArray(parsed?.videos) ? parsed.videos : []
+    return parse(await readFile(path, 'utf8')) ?? fallback
   } catch {
-    return []
+    return fallback
   }
 }
 
-const fetchChannelVideos = async () => {
+const readExistingAssignments = async () => {
+  const parsed = await readYaml(outputPath, {})
+  return Array.isArray(parsed?.videos) ? parsed.videos : []
+}
+
+const fetchPlaylistVideos = async () => {
   try {
-    const result = await execFileAsync('yt-dlp', [
-      '--dump-json',
-      '--flat-playlist',
-      channelVideosUrl,
-    ])
+    const result = await execFileAsync(
+      'yt-dlp',
+      ['--dump-json', '--flat-playlist', channelVideosUrl],
+      { maxBuffer: 1024 * 1024 * 32 },
+    )
 
     return result.stdout
       .split('\n')
@@ -52,14 +63,60 @@ const fetchChannelVideos = async () => {
         title: video.title,
         thumbnail: video.thumbnail,
         duration: video.duration_string ?? '',
-        published: video.upload_date
-          ? `${video.upload_date.slice(0, 4)}-${video.upload_date.slice(4, 6)}-${video.upload_date.slice(6, 8)}`
-          : '',
       }))
   } catch (error) {
-    console.warn(`Unable to fetch Ya Hala videos with yt-dlp: ${error.message}`)
+    console.warn(`Unable to fetch Ya Hala playlist with yt-dlp: ${error.message}`)
     return []
   }
+}
+
+const ytdlpDate = (value) =>
+  value && /^\d{8}$/.test(value)
+    ? `${value.slice(0, 4)}-${value.slice(4, 6)}-${value.slice(6, 8)}`
+    : ''
+
+const fetchFullVideoMetadata = async (videoId) => {
+  try {
+    const result = await execFileAsync(
+      'yt-dlp',
+      ['--dump-single-json', '--skip-download', youtubeWatchUrl(videoId)],
+      { maxBuffer: 1024 * 1024 * 32 },
+    )
+    const video = JSON.parse(result.stdout)
+
+    return {
+      videoId,
+      url: youtubeWatchUrl(videoId),
+      title: video.title,
+      thumbnail: video.thumbnail,
+      duration: video.duration_string ?? '',
+      published: ytdlpDate(video.upload_date),
+      updated: ytdlpDate(video.upload_date),
+      description: video.description ?? '',
+      tags: video.tags ?? [],
+      categories: video.categories ?? [],
+      fullMetadataFetchedAt: new Date().toISOString(),
+    }
+  } catch (error) {
+    console.warn(`Unable to fetch full metadata for ${videoId}: ${error.message}`)
+    return null
+  }
+}
+
+const mapLimit = async (items, limit, mapper) => {
+  const results = new Array(items.length)
+  let index = 0
+
+  const workers = Array.from({ length: limit }, async () => {
+    while (index < items.length) {
+      const currentIndex = index
+      index += 1
+      results[currentIndex] = await mapper(items[currentIndex], currentIndex)
+    }
+  })
+
+  await Promise.all(workers)
+  return results
 }
 
 const yamlString = (value) => {
@@ -89,48 +146,94 @@ const serializeAssignments = (assignments) => {
   return `${lines.join('\n')}\n`
 }
 
+const siteConfig = await readYaml(siteConfigPath, {})
+const places = siteConfig.visitedPlaces?.places ?? []
+const latestVideos = await readJson(latestPath, {})
+const latestVideoIds = new Set(
+  Object.values(latestVideos)
+    .flatMap((latest) => [latest.latestVideoId, latest.videoId])
+    .filter(Boolean),
+)
 const existingAssignments = await readExistingAssignments()
 let videoCache = await readJson(videoCachePath, {})
+let geocodeCache = await readJson(geocodeCachePath, {})
+
 const existingByKey = new Map(
   existingAssignments
     .map((assignment) => [assignmentKey(assignment), assignment])
     .filter(([key]) => key),
 )
 
-const fetchedVideos = await fetchChannelVideos()
-const fetchedByKey = new Map(
-  fetchedVideos
+const playlistVideos = await fetchPlaylistVideos()
+const playlistByKey = new Map(
+  playlistVideos
     .map((video) => [`youtube:${video.videoId}`, video])
     .filter(([key]) => key),
 )
-const allKeys = [...new Set([...fetchedByKey.keys(), ...existingByKey.keys()])]
+const allKeys = [...new Set([...playlistByKey.keys(), ...existingByKey.keys()])]
 
-const mergedAssignments = allKeys.map((key) => {
-  const fetchedVideo = fetchedByKey.get(key)
+const needsFullMetadata = (videoId) => {
+  const cachedVideo = videoCache[videoId]
+  return (
+    refreshDescriptions ||
+    latestVideoIds.has(videoId) ||
+    !cachedVideo?.description ||
+    !cachedVideo?.locationHints
+  )
+}
+
+const videosNeedingFullMetadata = allKeys
+  .map((key) => key.replace(/^youtube:/, ''))
+  .filter((videoId) => videoId && needsFullMetadata(videoId))
+
+console.log(`Fetching full metadata for ${videosNeedingFullMetadata.length} videos.`)
+
+const fullMetadataVideos = (
+  await mapLimit(videosNeedingFullMetadata, 3, fetchFullVideoMetadata)
+).filter(Boolean)
+
+videoCache = mergeVideoCache(videoCache, playlistVideos)
+videoCache = mergeVideoCache(videoCache, fullMetadataVideos)
+
+const mergedAssignments = []
+
+for (const key of allKeys) {
+  const playlistVideo = playlistByKey.get(key)
   const existingAssignment = existingByKey.get(key)
   const videoId =
-    fetchedVideo?.videoId ??
+    playlistVideo?.videoId ??
     existingAssignment?.videoId ??
     getYoutubeVideoId(existingAssignment?.url)
+  if (!videoId) continue
 
-  return {
-    videoId,
-    state: existingAssignment?.state ?? '',
-    city: existingAssignment?.city ?? '',
-  }
-})
-
-const cacheVideos = mergedAssignments.map((assignment) => {
-  const fetchedVideo = fetchedByKey.get(`youtube:${assignment.videoId}`)
-  return normalizeVideoMetadata(
-    fetchedVideo ?? { videoId: assignment.videoId },
-    videoCache[assignment.videoId],
+  const cachedVideo = normalizeVideoMetadata(
+    playlistVideo ?? { videoId },
+    videoCache[videoId],
   )
-})
+  const locationHints = cachedVideo.description
+    ? await inferLocationForVideo({
+        title: cachedVideo.title,
+        description: cachedVideo.description,
+        places,
+        geocodeCache,
+      })
+    : cachedVideo.locationHints
 
-videoCache = mergeVideoCache(videoCache, cacheVideos)
+  const nextCachedVideo = {
+    ...cachedVideo,
+    locationHints: locationHints ?? cachedVideo.locationHints,
+  }
+  videoCache = mergeVideoCache(videoCache, [nextCachedVideo])
+
+  mergedAssignments.push({
+    videoId,
+    state: locationHints?.state ?? existingAssignment?.state ?? '',
+    city: locationHints?.city ?? existingAssignment?.city ?? '',
+  })
+}
 
 await writeFile(outputPath, serializeAssignments(mergedAssignments))
 await writeFile(videoCachePath, `${JSON.stringify(videoCache, null, 2)}\n`)
+await writeFile(geocodeCachePath, `${JSON.stringify(geocodeCache, null, 2)}\n`)
 
 console.log(`Updated ${mergedAssignments.length} visited video assignments.`)

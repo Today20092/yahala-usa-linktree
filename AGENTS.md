@@ -1,6 +1,6 @@
 - this is linktree type of website for YaHala.
 - single page landing site
 - built with astro & tailwind & shadcn
-- hosted on cloudflare pages/workers and linked to the github repo we push to
+- hosted on cloudflare pages/workers and linked to the github repo that we push to
 - uses shadcn components and color tokens
 - site variables are are at `src/data/site.yaml`

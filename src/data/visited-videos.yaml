@@ -3,50 +3,50 @@
 # City videos appear only in the matching city drawer.
 videos:
   - videoId: wVzeEOyjWEM
-    state: ""
-    city: ""
+    state: "New York"
+    city: "New York City"
   - videoId: gDbn5G3zuZU
     state: ""
     city: ""
   - videoId: M6TQFZpcX64
-    state: ""
-    city: ""
+    state: "New York"
+    city: "New York City"
   - videoId: 59h9IqbY9Dk
     state: "New York"
     city: ""
   - videoId: 8nf0_ZKJJj4
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Houston"
   - videoId: l3bRUbBIh8w
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: 3TutPXW79aY
     state: ""
     city: ""
   - videoId: 06LJ9AaClLs
-    state: ""
-    city: ""
+    state: "North Carolina"
+    city: "Raleigh"
   - videoId: uO35D6Gw6Xg
     state: ""
     city: ""
   - videoId: Psn0QTLw7eA
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Dallas"
   - videoId: 3sNCePfZJ0o
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Dallas"
   - videoId: 48Kjbl5DB4w
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Houston"
   - videoId: Aml_gBJ06ms
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Houston"
   - videoId: LKOcmr_DhZU
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Houston"
   - videoId: -_Z11UKbp8g
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Miami"
   - videoId: RMyWIYvGEB4
     state: ""
     city: ""
@@ -57,38 +57,38 @@ videos:
     state: ""
     city: ""
   - videoId: XVzFBTyl64c
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Houston"
   - videoId: _xG6zgOZSLU
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Dallas"
   - videoId: Z29_fT0gwm8
-    state: ""
-    city: ""
+    state: "New York"
+    city: "Queens"
   - videoId: Dv6t2UQd8_Y
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: x1h4ueJ33g8
-    state: ""
-    city: ""
+    state: "New York"
+    city: "New York City"
   - videoId: jOczHqEoOec
-    state: ""
+    state: "Illinois"
     city: ""
   - videoId: WWdyNe_4xGs
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: jS7epPXlfcs
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: nZmPAhjmfAg
-    state: ""
-    city: ""
+    state: "Georgia"
+    city: "Atlanta"
   - videoId: 47W5hPOBNGA
-    state: ""
+    state: "New York"
     city: ""
   - videoId: ueLDlCSc7CU
-    state: ""
-    city: ""
+    state: "New York"
+    city: "Queens"
   - videoId: nLFHA4Z61n8
     state: ""
     city: ""
@@ -114,29 +114,29 @@ videos:
     state: ""
     city: ""
   - videoId: vcWGQcMlF1s
-    state: ""
+    state: "Michigan"
     city: ""
   - videoId: rQBXqlLE9Mk
-    state: ""
-    city: ""
+    state: "Michigan"
+    city: "Dearborn"
   - videoId: 39ZoH4dMfls
-    state: ""
+    state: "New York"
     city: ""
   - videoId: gY2IuAZ_gJg
     state: ""
     city: ""
   - videoId: UYw4AMNyTiE
-    state: ""
+    state: "Michigan"
     city: ""
   - videoId: yqaissIYvus
     state: ""
     city: ""
   - videoId: udil1yyELEc
-    state: ""
-    city: ""
+    state: "California"
+    city: "Los Angeles"
   - videoId: KIEaTAMGXaw
-    state: ""
-    city: ""
+    state: "North Carolina"
+    city: "Raleigh"
   - videoId: DYlYA2eo46Q
     state: ""
     city: ""
@@ -147,71 +147,71 @@ videos:
     state: ""
     city: ""
   - videoId: xzuofrJn3_4
-    state: ""
+    state: "Michigan"
     city: ""
   - videoId: rTCYWgjZRdE
-    state: ""
-    city: ""
+    state: "Michigan"
+    city: "Dearborn"
   - videoId: oQ43WhkZbII
-    state: ""
+    state: "Georgia"
     city: ""
   - videoId: zg8xW3fTMJw
-    state: ""
-    city: ""
+    state: "New York"
+    city: "New York City"
   - videoId: nRdhwaluBEQ
-    state: ""
+    state: "Florida"
     city: ""
   - videoId: z-b4CHPFHEk
-    state: ""
+    state: "Florida"
     city: ""
   - videoId: SLZS1jtuNeE
-    state: ""
+    state: "California"
     city: ""
   - videoId: Usk7dPheZs0
-    state: ""
+    state: "California"
     city: ""
   - videoId: l2xk_1BzUi8
-    state: ""
-    city: ""
+    state: "California"
+    city: "Los Angeles"
   - videoId: o-0Y6Wt39F4
-    state: ""
-    city: ""
+    state: "North Carolina"
+    city: "Raleigh"
   - videoId: 7Wp58bcElf0
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: 9pf1lVvyuDY
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: vo3Rf9yEl3o
-    state: ""
+    state: "California"
     city: ""
   - videoId: hIV9teRIwog
-    state: ""
+    state: "California"
     city: ""
   - videoId: tVZDgwHwY9Y
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: ab1s4Dt0rGs
-    state: ""
-    city: ""
+    state: "New York"
+    city: "Queens"
   - videoId: FzRhnPF0wh4
     state: ""
     city: ""
   - videoId: t__Tt9LO1R0
-    state: ""
-    city: ""
+    state: "New York"
+    city: "Brooklyn"
   - videoId: C5Yst7w3RYs
-    state: ""
+    state: "North Carolina"
     city: ""
   - videoId: mvw_Dy3Vozk
-    state: ""
+    state: "New York"
     city: ""
   - videoId: GbnDO868OTE
-    state: ""
+    state: "New York"
     city: ""
   - videoId: K_I4j068Ig4
-    state: ""
-    city: ""
+    state: "New York"
+    city: "Queens"
   - videoId: ioznXPWxXVI
     state: ""
     city: ""
@@ -219,23 +219,23 @@ videos:
     state: ""
     city: ""
   - videoId: 9rXXspVoAEU
-    state: ""
-    city: ""
+    state: "New York"
+    city: "The Bronx"
   - videoId: 77FTGA25LKk
     state: ""
     city: ""
   - videoId: pl2EjvZarIc
-    state: ""
-    city: ""
+    state: "Michigan"
+    city: "Dearborn"
   - videoId: sUtgyXSoqzQ
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: JarD6GxBhZ4
-    state: ""
-    city: ""
+    state: "Michigan"
+    city: "Dearborn"
   - videoId: _jbeoI4XD0M
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: lLPTEyAHQro
     state: ""
     city: ""
@@ -246,80 +246,80 @@ videos:
     state: ""
     city: ""
   - videoId: Wl2Oi6MrXbU
-    state: ""
-    city: ""
+    state: "New York"
+    city: "New York City"
   - videoId: PDDIrJeqX8s
     state: ""
     city: ""
   - videoId: 7D6aPRdFp0k
-    state: ""
-    city: ""
+    state: "New York"
+    city: "New York City"
   - videoId: qfdYSd4oujc
-    state: ""
+    state: "New York"
     city: ""
   - videoId: lautMBip1Mg
-    state: ""
-    city: ""
+    state: "New York"
+    city: "New York City"
   - videoId: zA3C10YQ5BA
     state: ""
     city: ""
   - videoId: MC5dRVNjZYg
-    state: ""
+    state: "California"
     city: ""
   - videoId: jiVfFC3z7tw
-    state: ""
+    state: "Texas"
     city: ""
   - videoId: mlSXRCHXpaw
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: T3kQ0gAQMf0
-    state: ""
-    city: ""
+    state: "California"
+    city: "Los Angeles"
   - videoId: 3EsfHZrseL8
-    state: ""
+    state: "California"
     city: ""
   - videoId: t9pYusgNiJo
-    state: ""
-    city: ""
+    state: "California"
+    city: "Los Angeles"
   - videoId: VRw-a69KQ6k
-    state: ""
-    city: ""
+    state: "California"
+    city: "San Diego"
   - videoId: qGOo4P7F3RQ
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Miami"
   - videoId: 9szs9yYYx4w
-    state: ""
+    state: "Texas"
     city: ""
   - videoId: xUE7uFSocSk
-    state: ""
+    state: "Texas"
     city: ""
   - videoId: U_MP-lAzxrg
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Houston"
   - videoId: pP52MX0uiNc
-    state: ""
+    state: "Michigan"
     city: ""
   - videoId: N5QQkk--GeI
-    state: ""
-    city: ""
+    state: "California"
+    city: "San Diego"
   - videoId: EubaNzI8jqw
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Houston"
   - videoId: 4tw19sZ2tl0
-    state: ""
-    city: ""
+    state: "California"
+    city: "Los Angeles"
   - videoId: Gs2PUO71VXE
     state: ""
     city: ""
   - videoId: cA25lO8mCVw
-    state: ""
-    city: ""
+    state: "California"
+    city: "San Diego"
   - videoId: tlx1aujSDfc
-    state: ""
+    state: "California"
     city: ""
   - videoId: 0sCcSFA9ZMs
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Dallas"
   - videoId: ym9_3X3plE4
     state: ""
     city: ""
@@ -327,62 +327,62 @@ videos:
     state: ""
     city: ""
   - videoId: XoJB2kuuK1o
-    state: ""
+    state: "California"
     city: ""
   - videoId: imXmGMIo8VM
-    state: ""
+    state: "California"
     city: ""
   - videoId: pM-Ev0bn-z8
-    state: ""
+    state: "California"
     city: ""
   - videoId: HJAfi1wGgOE
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: PeeqnVA8BP0
-    state: ""
+    state: "California"
     city: ""
   - videoId: AqmqG_2T1Bg
-    state: ""
+    state: "California"
     city: ""
   - videoId: E2H1HMGjfbk
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: onbINvDqoPQ
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: 1bRqpe_aSz0
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Houston"
   - videoId: FvavTRKJ7P8
-    state: ""
+    state: "Michigan"
     city: ""
   - videoId: f02rtsNqRJ4
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Dallas"
   - videoId: E4qRx8GBJt4
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Dallas"
   - videoId: voBySK59lyw
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Houston"
   - videoId: _st4dhD22ww
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Dallas"
   - videoId: D6schY1EeUk
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Dallas"
   - videoId: MRSNTkMS_Wo
-    state: ""
+    state: "Texas"
     city: ""
   - videoId: t8we6Sv6zRU
-    state: ""
+    state: "Texas"
     city: ""
   - videoId: SOAcYBGB74M
-    state: ""
+    state: "Texas"
     city: ""
   - videoId: WahSxoiTwgA
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: 4hqTfKMY9SM
     state: ""
     city: ""
@@ -390,26 +390,26 @@ videos:
     state: ""
     city: ""
   - videoId: JCyJ5QIdlck
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: X2jND0SaISU
-    state: ""
-    city: ""
+    state: "California"
+    city: "Los Angeles"
   - videoId: cxst_VOviaA
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Houston"
   - videoId: 2aMFUa4JrNA
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: KY31dUY6trg
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: TQ6f1zsfp0U
-    state: ""
-    city: ""
+    state: "North Carolina"
+    city: "Raleigh"
   - videoId: bepMZR_e7JU
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: XjkeQvkHHDs
     state: ""
     city: ""
@@ -417,262 +417,262 @@ videos:
     state: ""
     city: ""
   - videoId: qbM9qUFzJ10
-    state: ""
+    state: "Michigan"
     city: ""
   - videoId: HT1XtocZfRE
-    state: ""
-    city: ""
+    state: "California"
+    city: "San Francisco"
   - videoId: VsI3KT8rJH4
-    state: ""
+    state: "New York"
     city: ""
   - videoId: U_pG0dFM7vY
     state: ""
     city: ""
   - videoId: m-Y6ekkbPsI
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: 5yC8zRPu9NU
-    state: ""
+    state: "Texas"
     city: ""
   - videoId: e9G86rMrQkk
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: fTK8Y7tYF2k
-    state: ""
+    state: "Michigan"
     city: ""
   - videoId: rWlKenIlpcA
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: 7OnryHjLVgk
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: hlyS8IRKVnk
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: MBGuLR-Ge60
-    state: ""
+    state: "Illinois"
     city: ""
   - videoId: 0RJ9g0tT4WQ
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: fwfQjakTf2s
-    state: ""
-    city: ""
+    state: "New York"
+    city: "The Bronx"
   - videoId: 4B0Oioh7i7k
-    state: ""
+    state: "Illinois"
     city: ""
   - videoId: KRxUKic2iZw
-    state: ""
+    state: "California"
     city: ""
   - videoId: jN9P1zpFqvQ
-    state: ""
+    state: "California"
     city: ""
   - videoId: giCpFQZ_Df4
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: lTF4lyUN3G8
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: fbMo-hfa_q0
     state: ""
     city: ""
   - videoId: WwutM56thRk
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: 9IOEGrsy3WY
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: 1jbWjBu2QS4
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: Vzjpp2o8mo4
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: Ngph7vZSaUU
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: CpOMg4ZzlH8
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: vaCnoJid7hM
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: 6-zAo6dm7uE
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: J1Sz9IiYz1M
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Houston"
   - videoId: 7toYHgoQ6C8
     state: ""
     city: ""
   - videoId: NA9O_Um60cY
-    state: ""
+    state: "New York"
     city: ""
   - videoId: SGeFKuYaQ7E
     state: ""
     city: ""
   - videoId: w55mjLcSzWg
-    state: ""
-    city: ""
+    state: "Georgia"
+    city: "Atlanta"
   - videoId: HDPSHadUEa4
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: Iq9a-dHH0-4
-    state: ""
+    state: "California"
     city: ""
   - videoId: BkiiwPbVTlA
-    state: ""
+    state: "California"
     city: ""
   - videoId: bH3o5SHHqH4
-    state: ""
-    city: ""
+    state: "California"
+    city: "Los Angeles"
   - videoId: fXo2zvvZoBg
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Miami"
   - videoId: ouZ6HvJwhic
     state: ""
     city: ""
   - videoId: ridWyirOV7w
-    state: ""
-    city: ""
+    state: "Michigan"
+    city: "Dearborn"
   - videoId: ClusI2_AO2Y
-    state: ""
-    city: ""
+    state: "New York"
+    city: "New York City"
   - videoId: Gma5rGyTa9k
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Dallas"
   - videoId: 8X0Q0CcD9Vc
-    state: ""
+    state: "Texas"
     city: ""
   - videoId: WCP2DGL9mJE
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: rsWWixRf334
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Miami"
   - videoId: 75j1XJmH6-k
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Houston"
   - videoId: wjNJy9KY020
-    state: ""
-    city: ""
+    state: "New York"
+    city: "Brooklyn"
   - videoId: 0L-9R66QalE
-    state: ""
-    city: ""
+    state: "North Carolina"
+    city: "Raleigh"
   - videoId: lFxJzTPaVFE
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: rrSdEibrzX0
     state: ""
     city: ""
   - videoId: 2MN1WD9Ltmc
-    state: ""
-    city: ""
+    state: "Georgia"
+    city: "Atlanta"
   - videoId: G0rD9_bzcUU
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Houston"
   - videoId: vw6N2Zgmw-E
-    state: ""
+    state: "Texas"
     city: ""
   - videoId: NoJLE4niIuQ
-    state: ""
-    city: ""
+    state: "New York"
+    city: "New York City"
   - videoId: pk5Y4YuXE6M
-    state: ""
-    city: ""
+    state: "North Carolina"
+    city: "Raleigh"
   - videoId: XegNm157CkQ
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Houston"
   - videoId: JzpaA0f8qUQ
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Houston"
   - videoId: HDEeFMZYy1Q
     state: ""
     city: ""
   - videoId: hmmBS40CEAU
-    state: ""
-    city: ""
+    state: "New York"
+    city: "Brooklyn"
   - videoId: 2z7GEH4FUwQ
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Dallas"
   - videoId: AVQJj-Kg-gY
-    state: ""
+    state: "Michigan"
     city: ""
   - videoId: cl6GUVdNlx0
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Dallas"
   - videoId: s3bC0sYqzsQ
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Houston"
   - videoId: FpsgvcRTUQY
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: OJDYRk1idYQ
-    state: ""
-    city: ""
+    state: "Georgia"
+    city: "Atlanta"
   - videoId: GDXaOkPkgoc
-    state: ""
-    city: ""
+    state: "North Carolina"
+    city: "Raleigh"
   - videoId: XywzxVLE3vU
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Houston"
   - videoId: seoJL6YbYjA
     state: ""
     city: ""
   - videoId: eiEhXohQE8k
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: -gTta9F8M80
-    state: ""
-    city: ""
+    state: "Michigan"
+    city: "Dearborn"
   - videoId: GVnW4AUYAAI
-    state: ""
-    city: ""
+    state: "New York"
+    city: "New York City"
   - videoId: ygQ5gbS5MeI
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Dallas"
   - videoId: G4-pQM4o52Q
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: RplSBzrUjX0
-    state: ""
-    city: ""
+    state: "North Carolina"
+    city: "Raleigh"
   - videoId: IzJ8IYAkSuA
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Dallas"
   - videoId: MhntIoH-nt8
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: lV-edL64sbA
-    state: ""
-    city: ""
+    state: "New York"
+    city: "New York City"
   - videoId: ZZt6-3Jb5Pw
-    state: ""
-    city: ""
+    state: "New York"
+    city: "Brooklyn"
   - videoId: yDsuaA5SOcA
     state: ""
     city: ""
   - videoId: dcJtK8p9mjc
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Dallas"
   - videoId: Y1maCW9dssg
-    state: ""
+    state: "Michigan"
     city: ""
   - videoId: UiV2JEC9Ezg
     state: ""
     city: ""
   - videoId: liy-GwrPI88
-    state: ""
-    city: ""
+    state: "Michigan"
+    city: "Dearborn"
   - videoId: ZDjm6DNSc5Q
-    state: ""
-    city: ""
+    state: "Michigan"
+    city: "Dearborn"
   - videoId: qANSj6xz5fg
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: PDNTtJ1HBHQ
-    state: ""
+    state: "Florida"
     city: ""
   - videoId: hSPjCURL7UA
     state: ""
@@ -681,161 +681,161 @@ videos:
     state: ""
     city: ""
   - videoId: Vph741V_PBI
-    state: ""
-    city: ""
+    state: "California"
+    city: "Los Angeles"
   - videoId: VHLXS5DNpg8
-    state: ""
-    city: ""
+    state: "New York"
+    city: "New York City"
   - videoId: t67__kAwjto
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: i-l33pWFy0E
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: n7Mip7bXzbY
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Houston"
   - videoId: fbNKx42wpXY
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: ZIczMWxpBwo
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Dallas"
   - videoId: _4vW-u1e8NE
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: wsTmDUTwjko
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: 7sFFtuiGtVQ
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: WgoaCa6qMuA
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: gDh87Yt9-EM
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: Ik_sbvUYdRU
     state: ""
     city: ""
   - videoId: Q8oTcl7WnqU
-    state: ""
-    city: ""
+    state: "New York"
+    city: "New York City"
   - videoId: grNmU4DWwCE
     state: ""
     city: ""
   - videoId: 5yCgosRYO8w
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: KRhxlfjGNfg
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: KUoA3hwEMVo
     state: ""
     city: ""
   - videoId: lBPqW4EMzmw
-    state: ""
-    city: ""
+    state: "New York"
+    city: "Brooklyn"
   - videoId: nP4GL4L-_w8
-    state: ""
-    city: ""
+    state: "North Carolina"
+    city: "Raleigh"
   - videoId: -Mo6WVOH_Hc
-    state: ""
-    city: ""
+    state: "Michigan"
+    city: "Dearborn"
   - videoId: WmVC1ZUw1J0
     state: ""
     city: ""
   - videoId: PP9Gup9l8ag
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: hRWTj2HdNjQ
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: yQ1BbxpyGoI
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: QlQurRkAX78
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Dallas"
   - videoId: aBRTDnLvfL4
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Miami"
   - videoId: jN-jwJpCthk
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: ACBu5IH1eeQ
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: caDdVPhh020
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: K_d-tJSGzqc
     state: ""
     city: ""
   - videoId: R9KQ4_EDnB4
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: qCjFYQH9Q7I
-    state: ""
-    city: ""
+    state: "Michigan"
+    city: "Dearborn"
   - videoId: YUyccm3Se80
     state: ""
     city: ""
   - videoId: DSF3qqGI36Q
-    state: ""
+    state: "North Carolina"
     city: ""
   - videoId: DjVQEgpusoc
-    state: ""
+    state: "Florida"
     city: ""
   - videoId: hX7HV4HtEO0
     state: ""
     city: ""
   - videoId: 0gs3SMozHwQ
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: g0RK5nznWxs
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: d03WW8xe8vA
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: wIUyrrMpB5I
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: cd9mPKBvubo
-    state: ""
+    state: "Florida"
     city: ""
   - videoId: q8SUVvX8tKA
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: Hm_3LjGali0
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: g60RL7bnPoE
-    state: ""
+    state: "Florida"
     city: ""
   - videoId: u2K-Xo15eWU
-    state: ""
+    state: "North Carolina"
     city: ""
   - videoId: Cjwc2TqBFyk
-    state: ""
-    city: ""
+    state: "New York"
+    city: "New York City"
   - videoId: owo3i4tc6gs
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: oqyz_vTcTIY
     state: ""
     city: ""
   - videoId: qVqAzgWzucU
-    state: ""
+    state: "Florida"
     city: ""
   - videoId: fmoXDJrd1NY
     state: ""
     city: ""
   - videoId: -XEyPSmD1dg
-    state: ""
-    city: ""
+    state: "North Carolina"
+    city: "Raleigh"
   - videoId: gEWUlMRVR4w
     state: ""
     city: ""
@@ -843,8 +843,8 @@ videos:
     state: ""
     city: ""
   - videoId: 4SwOChVQV_0
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: zn_SorGh7ZE
     state: ""
     city: ""
@@ -852,11 +852,11 @@ videos:
     state: ""
     city: ""
   - videoId: ru57j4FUcpM
-    state: ""
+    state: "Georgia"
     city: ""
   - videoId: EeCa_1aolfg
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: atj7kZh9SOo
     state: ""
     city: ""
@@ -867,14 +867,14 @@ videos:
     state: ""
     city: ""
   - videoId: G6RkhnjpBcw
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: PiUMx7rg9To
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: u6ODZxlT-m0
-    state: ""
+    state: "Florida"
     city: ""
   - videoId: zRRJDipButE
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"

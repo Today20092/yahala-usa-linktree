@@ -1,0 +1,14 @@
+{
+  "5837 Sawmill Rd. Dublin, OH 43017": {
+    "query": "5837 Sawmill Rd. Dublin, OH 43017",
+    "latitude": 40.1091109,
+    "longitude": -83.0910391,
+    "city": "Dublin",
+    "state": "Ohio",
+    "matchedPlace": {
+      "city": "Dearborn",
+      "state": "Michigan",
+      "distanceMiles": 152.98
+    }
+  }
+}
