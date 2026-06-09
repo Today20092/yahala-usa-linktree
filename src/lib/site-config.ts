@@ -66,6 +66,12 @@ export type SocialReach = {
   items: SocialReachItem[]
 }
 
+export type CityVideo = {
+  title?: string
+  url: string
+  thumbnail?: string
+}
+
 export type VisitedPlace = {
   city: string
   state: string
@@ -73,13 +79,20 @@ export type VisitedPlace = {
   longitude?: number
   x?: number
   y?: number
+  videos?: CityVideo[]
   featured?: boolean
+}
+
+export type StateVideoGroup = {
+  state: string
+  videos: CityVideo[]
 }
 
 export type VisitedPlaces = {
   title: string
   eyebrow?: string
   description?: string
+  stateVideos?: StateVideoGroup[]
   places: VisitedPlace[]
 }
 
