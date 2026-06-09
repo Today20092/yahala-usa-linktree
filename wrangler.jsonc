@@ -1,0 +1,33 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "yahala-usa-linktree",
+  "main": "./src/worker.js",
+  "compatibility_date": "2026-06-09",
+  "observability": {
+    "enabled": true
+  },
+  "routes": [
+    {
+      "pattern": "yahalausa.net",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.yahalausa.net",
+      "custom_domain": true
+    },
+    {
+      "pattern": "yahalausa.co",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.yahalausa.co",
+      "custom_domain": true
+    }
+  ],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": true
+  }
+}
