@@ -2402,13 +2402,13 @@
     ],
     "fullMetadataFetchedAt": "2026-06-10T05:47:09.350Z",
     "locationHints": {
-      "matchedText": "reynoldsburg, oh",
-      "city": "Reynoldsburg",
+      "matchedText": "Dublin, OH",
+      "city": "Dublin",
       "state": "Ohio",
-      "latitude": 39.9547861,
-      "longitude": -82.8121191,
-      "source": "description-city-geocode",
-      "confidence": 0.9
+      "latitude": 40.1091109,
+      "longitude": -83.0910391,
+      "source": "description-place-match",
+      "confidence": 0.95
     },
     "viewCount": 28599
   },
@@ -7750,13 +7750,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "wylie, tx",
-      "city": "Wylie",
+      "matchedText": "Dallas, TX",
+      "city": "Dallas",
       "state": "Texas",
-      "latitude": 33.0151561,
-      "longitude": -96.5388038,
-      "source": "description-city-geocode",
-      "confidence": 0.9
+      "latitude": 32.7767,
+      "longitude": -96.797,
+      "source": "description-place-match",
+      "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:33.313Z",
     "viewCount": 29526
@@ -8871,13 +8871,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "schaumburg, il",
-      "city": "Schaumburg",
+      "matchedText": "Chicago, IL",
+      "city": "Chicago",
       "state": "Illinois",
-      "latitude": 42.0333608,
-      "longitude": -88.083406,
-      "source": "description-city-geocode",
-      "confidence": 0.9
+      "latitude": 41.8781,
+      "longitude": -87.6298,
+      "source": "description-place-match",
+      "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:50.290Z",
     "viewCount": 5641
@@ -9653,13 +9653,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "gary, in",
-      "city": "Gary",
-      "state": "Indiana",
-      "latitude": 41.5702561,
-      "longitude": -87.3365496,
-      "source": "description-city-geocode",
-      "confidence": 0.9
+      "matchedText": "Chicago, IL",
+      "city": "Chicago",
+      "state": "Illinois",
+      "latitude": 41.8781,
+      "longitude": -87.6298,
+      "source": "description-place-match",
+      "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:01.945Z",
     "viewCount": 11417
@@ -16365,11 +16365,11 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "melbourne, fl",
-      "city": "Melbourne",
+      "matchedText": "panama city, fl",
+      "city": "Panama City",
       "state": "Florida",
-      "latitude": 28.0785034,
-      "longitude": -80.6077908,
+      "latitude": 30.1586518,
+      "longitude": -85.6602936,
       "source": "description-city-geocode",
       "confidence": 0.9
     },

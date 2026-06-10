@@ -857,5 +857,12 @@
     "longitude": -80.6077908,
     "city": "Melbourne",
     "state": "Florida"
+  },
+  "Panama City, Florida": {
+    "query": "Panama City, Florida",
+    "latitude": 30.1586518,
+    "longitude": -85.6602936,
+    "city": "Panama City",
+    "state": "Florida"
   }
 }

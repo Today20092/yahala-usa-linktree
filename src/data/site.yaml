@@ -578,6 +578,10 @@ visitedPlaces:
       state: Florida
       latitude: 28.0785034
       longitude: -80.6077908
+    - city: Panama City
+      state: Florida
+      latitude: 30.1586518
+      longitude: -85.6602936
 
 socialReach:
   updatedAt: "2026-06-03"
