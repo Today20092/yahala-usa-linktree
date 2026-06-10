@@ -10,5 +10,698 @@
       "state": "Michigan",
       "distanceMiles": 152.98
     }
+  },
+  "Woodside, New York": {
+    "query": "Woodside, New York",
+    "latitude": 40.7453798,
+    "longitude": -73.9054145,
+    "city": "New York",
+    "state": "New York"
+  },
+  "Arlington, Texas": {
+    "query": "Arlington, Texas",
+    "latitude": 32.7355816,
+    "longitude": -97.1071186,
+    "city": "Arlington",
+    "state": "Texas"
+  },
+  "Temple Terrace, Florida": {
+    "query": "Temple Terrace, Florida",
+    "latitude": 28.0352964,
+    "longitude": -82.3892596,
+    "city": "Temple Terrace",
+    "state": "Florida"
+  },
+  "Falls Church, Virginia": {
+    "query": "Falls Church, Virginia",
+    "latitude": 38.882334,
+    "longitude": -77.1710914,
+    "city": "Falls Church",
+    "state": "Virginia"
+  },
+  "Richardson, Texas": {
+    "query": "Richardson, Texas",
+    "latitude": 32.9481789,
+    "longitude": -96.7297206,
+    "city": "Richardson",
+    "state": "Texas"
+  },
+  "Katy, Texas": {
+    "query": "Katy, Texas",
+    "latitude": 29.7857853,
+    "longitude": -95.8243956,
+    "city": "Katy",
+    "state": "Texas"
+  },
+  "Alexandria, Virginia": {
+    "query": "Alexandria, Virginia",
+    "latitude": 38.8051095,
+    "longitude": -77.0470229,
+    "city": "Alexandria",
+    "state": "Virginia"
+  },
+  "Astoria, New York": {
+    "query": "Astoria, New York",
+    "latitude": 40.7720145,
+    "longitude": -73.9302673,
+    "city": "New York",
+    "state": "New York"
+  },
+  "Orlando, Florida": {
+    "query": "Orlando, Florida",
+    "latitude": 28.5421218,
+    "longitude": -81.379045,
+    "city": "Orlando",
+    "state": "Florida"
+  },
+  "Alsip, Illinois": {
+    "query": "Alsip, Illinois",
+    "latitude": 41.6689336,
+    "longitude": -87.7387003,
+    "city": "Alsip",
+    "state": "Illinois"
+  },
+  "North Point Pkwy. Alpharetta, Georgia": {
+    "query": "North Point Pkwy. Alpharetta, Georgia",
+    "latitude": 34.0587066,
+    "longitude": -84.2668288,
+    "city": "Alpharetta",
+    "state": "Georgia"
+  },
+  "Melville, New York": {
+    "query": "Melville, New York",
+    "latitude": 40.7835914,
+    "longitude": -73.4075575,
+    "city": "Town of Huntington",
+    "state": "New York"
+  },
+  "Long Island City, New York": {
+    "query": "Long Island City, New York",
+    "latitude": 40.7455316,
+    "longitude": -73.9484995,
+    "city": "New York",
+    "state": "New York"
+  },
+  "Reston, Virginia": {
+    "query": "Reston, Virginia",
+    "latitude": 38.953282,
+    "longitude": -77.3464516,
+    "city": "Reston",
+    "state": "Virginia"
+  },
+  "Columbus, Ohio": {
+    "query": "Columbus, Ohio",
+    "latitude": 39.9622601,
+    "longitude": -83.0007065,
+    "city": "Columbus",
+    "state": "Ohio"
+  },
+  "Tysons, Virginia": {
+    "query": "Tysons, Virginia",
+    "latitude": 38.9191272,
+    "longitude": -77.2229636,
+    "city": "Tysons",
+    "state": "Virginia"
+  },
+  "Rosedale, Maryland": {
+    "query": "Rosedale, Maryland",
+    "latitude": 39.3297529,
+    "longitude": -76.5075429,
+    "city": "Rosedale",
+    "state": "Maryland"
+  },
+  "Commerce Township, Michigan": {
+    "query": "Commerce Township, Michigan",
+    "latitude": 42.5911431,
+    "longitude": -83.4907721,
+    "city": "Commerce Charter Township",
+    "state": "Michigan"
+  },
+  "Columbus, New York": {
+    "query": "Columbus, New York",
+    "latitude": 42.6839611,
+    "longitude": -75.3726723,
+    "city": "Town of Columbus",
+    "state": "New York"
+  },
+  "Farmington Hills, Michigan": {
+    "query": "Farmington Hills, Michigan",
+    "latitude": 42.4853125,
+    "longitude": -83.3771553,
+    "city": "Farmington Hills",
+    "state": "Michigan"
+  },
+  "Hilliard, Ohio": {
+    "query": "Hilliard, Ohio",
+    "latitude": 40.033814,
+    "longitude": -83.1596108,
+    "city": "Hilliard",
+    "state": "Ohio"
+  },
+  "Dalton, Georgia": {
+    "query": "Dalton, Georgia",
+    "latitude": 34.7691867,
+    "longitude": -84.9702475,
+    "city": "Dalton",
+    "state": "Georgia"
+  },
+  "2401 5th St S, St. Petersburg, FL 33705": {
+    "query": "2401 5th St S, St. Petersburg, FL 33705",
+    "latitude": 27.746544,
+    "longitude": -82.639633,
+    "city": "Saint Petersburg",
+    "state": "Florida"
+  },
+  "Anaheim, California": {
+    "query": "Anaheim, California",
+    "latitude": 33.8347516,
+    "longitude": -117.911732,
+    "city": "Anaheim",
+    "state": "California"
+  },
+  "Chicago Ridge, Illinois": {
+    "query": "Chicago Ridge, Illinois",
+    "latitude": 41.7014217,
+    "longitude": -87.7792196,
+    "city": "Chicago Ridge",
+    "state": "Illinois"
+  },
+  "Thonotosassa, Florida": {
+    "query": "Thonotosassa, Florida",
+    "latitude": 28.0569975,
+    "longitude": -82.2805696,
+    "city": "Thonotosassa",
+    "state": "Florida"
+  },
+  "Duarte, California": {
+    "query": "Duarte, California",
+    "latitude": 34.1394513,
+    "longitude": -117.9772873,
+    "city": "Duarte",
+    "state": "California"
+  },
+  "Paterson, New Jersey": {
+    "query": "Paterson, New Jersey",
+    "latitude": 40.9167654,
+    "longitude": -74.171811,
+    "city": "Paterson",
+    "state": "New Jersey"
+  },
+  "New York, New York": {
+    "query": "New York, New York",
+    "latitude": 40.7127281,
+    "longitude": -74.0060152,
+    "city": "New York",
+    "state": "New York"
+  },
+  "Cary, North Carolina": {
+    "query": "Cary, North Carolina",
+    "latitude": 35.7882893,
+    "longitude": -78.7812081,
+    "city": "Cary",
+    "state": "North Carolina"
+  },
+  "429 11th Ave, New York, NY 10001": {
+    "query": "429 11th Ave, New York, NY 10001",
+    "latitude": 40.7583595,
+    "longitude": -74.0021206,
+    "city": "New York",
+    "state": "New York"
+  },
+  "Edison, New Jersey": {
+    "query": "Edison, New Jersey",
+    "latitude": 40.5005351,
+    "longitude": -74.3983939,
+    "city": "Edison",
+    "state": "New Jersey"
+  },
+  "Bronx, New York": {
+    "query": "Bronx, New York",
+    "latitude": 40.8466508,
+    "longitude": -73.8785937,
+    "city": "New York",
+    "state": "New York"
+  },
+  "Oak Lawn, Illinois": {
+    "query": "Oak Lawn, Illinois",
+    "latitude": 41.7108662,
+    "longitude": -87.7581081,
+    "city": "Oak Lawn",
+    "state": "Illinois"
+  },
+  "Huntsville, Alabama": {
+    "query": "Huntsville, Alabama",
+    "latitude": 34.729847,
+    "longitude": -86.5859011,
+    "city": "Huntsville",
+    "state": "Alabama"
+  },
+  "Austin, Texas": {
+    "query": "Austin, Texas",
+    "latitude": 30.2711286,
+    "longitude": -97.7436995,
+    "city": "Austin",
+    "state": "Texas"
+  },
+  "Culver City, California": {
+    "query": "Culver City, California",
+    "latitude": 34.0211224,
+    "longitude": -118.396466,
+    "city": "Culver City",
+    "state": "California"
+  },
+  "El Cajon, California": {
+    "query": "El Cajon, California",
+    "latitude": 32.7947731,
+    "longitude": -116.962526,
+    "city": "El Cajon",
+    "state": "California"
+  },
+  "Boca Raton, Florida": {
+    "query": "Boca Raton, Florida",
+    "latitude": 26.3586885,
+    "longitude": -80.0830984,
+    "city": "Boca Raton",
+    "state": "Florida"
+  },
+  "اوستن, Texas": {
+    "query": "اوستن, Texas",
+    "latitude": 30.2711286,
+    "longitude": -97.7436995,
+    "city": "Austin",
+    "state": "Texas"
+  },
+  "San Antonio, Texas": {
+    "query": "San Antonio, Texas",
+    "latitude": 29.4246002,
+    "longitude": -98.4951405,
+    "city": "San Antonio",
+    "state": "Texas"
+  },
+  "ديترويت, Michigan": {
+    "query": "ديترويت, Michigan",
+    "latitude": 42.3315509,
+    "longitude": -83.0466403,
+    "city": "Detroit",
+    "state": "Michigan"
+  },
+  "Yorba Linda, California": {
+    "query": "Yorba Linda, California",
+    "latitude": 33.8901096,
+    "longitude": -117.8249705,
+    "city": "Yorba Linda",
+    "state": "California"
+  },
+  "اناهايم, California": {
+    "query": "اناهايم, California",
+    "latitude": 33.8347516,
+    "longitude": -117.911732,
+    "city": "Anaheim",
+    "state": "California"
+  },
+  "Plano, Texas": {
+    "query": "Plano, Texas",
+    "latitude": 33.0136764,
+    "longitude": -96.6925096,
+    "city": "Plano",
+    "state": "Texas"
+  },
+  "Tustin, California": {
+    "query": "Tustin, California",
+    "latitude": 33.7458511,
+    "longitude": -117.826166,
+    "city": "Tustin",
+    "state": "California"
+  },
+  "Upland, California": {
+    "query": "Upland, California",
+    "latitude": 34.09751,
+    "longitude": -117.6483876,
+    "city": "Upland",
+    "state": "California"
+  },
+  "Fountain Valley, California": {
+    "query": "Fountain Valley, California",
+    "latitude": 33.7038145,
+    "longitude": -117.9627349,
+    "city": "Fountain Valley",
+    "state": "California"
+  },
+  "Irvine, California": {
+    "query": "Irvine, California",
+    "latitude": 33.6856969,
+    "longitude": -117.825981,
+    "city": "Irvine",
+    "state": "California"
+  },
+  "Bridgeview, Illinois": {
+    "query": "Bridgeview, Illinois",
+    "latitude": 41.7500323,
+    "longitude": -87.8042216,
+    "city": "Bridgeview",
+    "state": "Illinois"
+  },
+  "Garden City, Michigan": {
+    "query": "Garden City, Michigan",
+    "latitude": 42.3255929,
+    "longitude": -83.3310422,
+    "city": "Garden City",
+    "state": "Michigan"
+  },
+  "Irving, Texas": {
+    "query": "Irving, Texas",
+    "latitude": 32.8295183,
+    "longitude": -96.9442177,
+    "city": "Irving",
+    "state": "Texas"
+  },
+  "Palos Hills, Illinois": {
+    "query": "Palos Hills, Illinois",
+    "latitude": 41.6966397,
+    "longitude": -87.816924,
+    "city": "Palos Hills",
+    "state": "Illinois"
+  },
+  "Jersey City, New Jersey": {
+    "query": "Jersey City, New Jersey",
+    "latitude": 40.7215682,
+    "longitude": -74.047455,
+    "city": "Jersey City",
+    "state": "New Jersey"
+  },
+  "Hometown, Illinois": {
+    "query": "Hometown, Illinois",
+    "latitude": 41.731246,
+    "longitude": -87.7309534,
+    "city": "Hometown",
+    "state": "Illinois"
+  },
+  "Wixom, Michigan": {
+    "query": "Wixom, Michigan",
+    "latitude": 42.5246873,
+    "longitude": -83.5363637,
+    "city": "Wixom",
+    "state": "Michigan"
+  },
+  "في هيوستن, Texas": {
+    "query": "في هيوستن, Texas",
+    "latitude": 29.6992776,
+    "longitude": -95.4099059,
+    "city": "Houston",
+    "state": "Texas"
+  },
+  "Worth, Illinois": {
+    "query": "Worth, Illinois",
+    "latitude": 41.6899779,
+    "longitude": -87.7974139,
+    "city": "Worth",
+    "state": "Illinois"
+  },
+  "Clifton, New Jersey": {
+    "query": "Clifton, New Jersey",
+    "latitude": 40.8584328,
+    "longitude": -74.1637553,
+    "city": "Clifton",
+    "state": "New Jersey"
+  },
+  "West Bloomfield Township, Michigan": {
+    "query": "West Bloomfield Township, Michigan",
+    "latitude": 42.5684073,
+    "longitude": -83.3740333,
+    "city": "West Bloomfield Township",
+    "state": "Michigan"
+  },
+  "Elizabeth, New Jersey": {
+    "query": "Elizabeth, New Jersey",
+    "latitude": 40.6639916,
+    "longitude": -74.2107006,
+    "city": "Elizabeth",
+    "state": "New Jersey"
+  },
+  "Beverly Hills, Michigan": {
+    "query": "Beverly Hills, Michigan",
+    "latitude": 42.5226219,
+    "longitude": -83.241357,
+    "city": "Southfield Township",
+    "state": "Michigan"
+  },
+  "Downers Grove, Illinois": {
+    "query": "Downers Grove, Illinois",
+    "latitude": 41.7936822,
+    "longitude": -88.0102281,
+    "city": "Downers Grove",
+    "state": "Illinois"
+  },
+  "Hickory Hills, Illinois": {
+    "query": "Hickory Hills, Illinois",
+    "latitude": 41.7255879,
+    "longitude": -87.825055,
+    "city": "Hickory Hills",
+    "state": "Illinois"
+  },
+  "Palo Alto, California": {
+    "query": "Palo Alto, California",
+    "latitude": 37.4443293,
+    "longitude": -122.1598465,
+    "city": "Palo Alto",
+    "state": "California"
+  },
+  "Oak Brook, Illinois": {
+    "query": "Oak Brook, Illinois",
+    "latitude": 41.8327126,
+    "longitude": -87.9484125,
+    "city": "Oak Brook",
+    "state": "Illinois"
+  },
+  "Merrillville, Indiana": {
+    "query": "Merrillville, Indiana",
+    "latitude": 41.4828144,
+    "longitude": -87.3328139,
+    "city": "Merrillville",
+    "state": "Indiana"
+  },
+  "Frankfort, Illinois": {
+    "query": "Frankfort, Illinois",
+    "latitude": 41.4979467,
+    "longitude": -87.8495946,
+    "city": "Frankfort",
+    "state": "Illinois"
+  },
+  "Niles, Illinois": {
+    "query": "Niles, Illinois",
+    "latitude": 42.0289319,
+    "longitude": -87.8122348,
+    "city": "Niles",
+    "state": "Illinois"
+  },
+  "Burbank, Illinois": {
+    "query": "Burbank, Illinois",
+    "latitude": 41.741406,
+    "longitude": -87.7686078,
+    "city": "Burbank",
+    "state": "Illinois"
+  },
+  "Clarkston, Georgia": {
+    "query": "Clarkston, Georgia",
+    "latitude": 33.8095487,
+    "longitude": -84.2396434,
+    "city": "Clarkston",
+    "state": "Georgia"
+  },
+  "Plantation, Florida": {
+    "query": "Plantation, Florida",
+    "latitude": 26.1275862,
+    "longitude": -80.2331036,
+    "city": "Plantation",
+    "state": "Florida"
+  },
+  "Totowa, New Jersey": {
+    "query": "Totowa, New Jersey",
+    "latitude": 40.9050988,
+    "longitude": -74.2098679,
+    "city": "Totowa",
+    "state": "New Jersey"
+  },
+  "Coral Springs, Florida": {
+    "query": "Coral Springs, Florida",
+    "latitude": 26.271192,
+    "longitude": -80.2706044,
+    "city": "Coral Springs",
+    "state": "Florida"
+  },
+  "Staten Island, New York": {
+    "query": "Staten Island, New York",
+    "latitude": 40.5834557,
+    "longitude": -74.1496048,
+    "city": "New York",
+    "state": "New York"
+  },
+  "Lawrenceville, Georgia": {
+    "query": "Lawrenceville, Georgia",
+    "latitude": 33.9566391,
+    "longitude": -83.9890066,
+    "city": "Lawrenceville",
+    "state": "Georgia"
+  },
+  "Alpharetta, Georgia": {
+    "query": "Alpharetta, Georgia",
+    "latitude": 34.0755962,
+    "longitude": -84.2945964,
+    "city": "Alpharetta",
+    "state": "Georgia"
+  },
+  "Clermont, Florida": {
+    "query": "Clermont, Florida",
+    "latitude": 28.5551912,
+    "longitude": -81.7669488,
+    "city": "Clermont",
+    "state": "Florida"
+  },
+  "Countryside, Illinois": {
+    "query": "Countryside, Illinois",
+    "latitude": 41.7771605,
+    "longitude": -87.8729748,
+    "city": "Countryside",
+    "state": "Illinois"
+  },
+  "Garland, Texas": {
+    "query": "Garland, Texas",
+    "latitude": 32.912624,
+    "longitude": -96.6388833,
+    "city": "Garland",
+    "state": "Texas"
+  },
+  "Willowbrook, Illinois": {
+    "query": "Willowbrook, Illinois",
+    "latitude": 41.7697533,
+    "longitude": -87.9358931,
+    "city": "Willowbrook",
+    "state": "Illinois"
+  },
+  "Fairfax, Virginia": {
+    "query": "Fairfax, Virginia",
+    "latitude": 38.8462236,
+    "longitude": -77.3063733,
+    "city": "Fairfax",
+    "state": "Virginia"
+  },
+  "Fishers, Indiana": {
+    "query": "Fishers, Indiana",
+    "latitude": 39.9555928,
+    "longitude": -86.0138729,
+    "city": "Fishers",
+    "state": "Indiana"
+  },
+  "Lutz, Florida": {
+    "query": "Lutz, Florida",
+    "latitude": 28.1300994,
+    "longitude": -82.4591842,
+    "city": "Tampa",
+    "state": "Florida"
+  },
+  "Desoto, Texas": {
+    "query": "Desoto, Texas",
+    "latitude": 32.5897831,
+    "longitude": -96.8570183,
+    "city": "DeSoto",
+    "state": "Texas"
+  },
+  "Darien, Illinois": {
+    "query": "Darien, Illinois",
+    "latitude": 41.7508713,
+    "longitude": -87.9739593,
+    "city": "Darien",
+    "state": "Illinois"
+  },
+  "Boston, Massachusetts": {
+    "query": "Boston, Massachusetts",
+    "latitude": 42.3588336,
+    "longitude": -71.0578303,
+    "city": "Boston",
+    "state": "Massachusetts"
+  },
+  "Fuquay-Varina, North Carolina": {
+    "query": "Fuquay-Varina, North Carolina",
+    "latitude": 35.5843849,
+    "longitude": -78.7998691,
+    "city": "Fuquay-Varina",
+    "state": "North Carolina"
+  },
+  "Dearborn Heights, Michigan": {
+    "query": "Dearborn Heights, Michigan",
+    "latitude": 42.3369816,
+    "longitude": -83.2732627,
+    "city": "Dearborn Heights",
+    "state": "Michigan"
+  },
+  "Elmwood Park, Illinois": {
+    "query": "Elmwood Park, Illinois",
+    "latitude": 41.9205931,
+    "longitude": -87.8160169,
+    "city": "Elmwood Park",
+    "state": "Illinois"
+  },
+  "Coral Gables, Florida": {
+    "query": "Coral Gables, Florida",
+    "latitude": 25.7331105,
+    "longitude": -80.2585107,
+    "city": "Coral Gables",
+    "state": "Florida"
+  },
+  "Wesley Chapel, Florida": {
+    "query": "Wesley Chapel, Florida",
+    "latitude": 28.1866014,
+    "longitude": -82.366121,
+    "city": "Wesley Chapel",
+    "state": "Florida"
+  },
+  "Orland Park, Illinois": {
+    "query": "Orland Park, Illinois",
+    "latitude": 41.630663,
+    "longitude": -87.8536288,
+    "city": "Orland Park",
+    "state": "Illinois"
+  },
+  "Durham, North Carolina": {
+    "query": "Durham, North Carolina",
+    "latitude": 35.996653,
+    "longitude": -78.9018053,
+    "city": "Durham",
+    "state": "North Carolina"
+  },
+  "Sterling Heights, Michigan": {
+    "query": "Sterling Heights, Michigan",
+    "latitude": 42.5803122,
+    "longitude": -83.0302033,
+    "city": "Sterling Heights",
+    "state": "Michigan"
+  },
+  "Lookout Mountain, Georgia": {
+    "query": "Lookout Mountain, Georgia",
+    "latitude": 34.9775758,
+    "longitude": -85.3577363,
+    "city": "Lookout Mountain",
+    "state": "Georgia"
+  },
+  "Hoboken, New Jersey": {
+    "query": "Hoboken, New Jersey",
+    "latitude": 40.7433066,
+    "longitude": -74.0323752,
+    "city": "Hoboken",
+    "state": "New Jersey"
+  },
+  "Indianapolis, Indiana": {
+    "query": "Indianapolis, Indiana",
+    "latitude": 39.7683331,
+    "longitude": -86.1583502,
+    "city": "Indianapolis",
+    "state": "Indiana"
+  },
+  "Merritt Island, Florida": {
+    "query": "Merritt Island, Florida",
+    "latitude": 28.2662775,
+    "longitude": -80.6636984,
+    "city": "Cocoa",
+    "state": "Florida"
   }
 }

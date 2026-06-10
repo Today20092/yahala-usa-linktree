@@ -146,6 +146,358 @@ visitedPlaces:
       state: Ohio
       latitude: 40.1091109
       longitude: -83.0910391
+    - city: New York
+      state: New York
+      latitude: 40.7453798
+      longitude: -73.9054145
+    - city: Arlington
+      state: Texas
+      latitude: 32.7355816
+      longitude: -97.1071186
+    - city: Temple Terrace
+      state: Florida
+      latitude: 28.0352964
+      longitude: -82.3892596
+    - city: Falls Church
+      state: Virginia
+      latitude: 38.882334
+      longitude: -77.1710914
+    - city: Richardson
+      state: Texas
+      latitude: 32.9481789
+      longitude: -96.7297206
+    - city: Katy
+      state: Texas
+      latitude: 29.7857853
+      longitude: -95.8243956
+    - city: Alexandria
+      state: Virginia
+      latitude: 38.8051095
+      longitude: -77.0470229
+    - city: Orlando
+      state: Florida
+      latitude: 28.5421218
+      longitude: -81.379045
+    - city: Alsip
+      state: Illinois
+      latitude: 41.6689336
+      longitude: -87.7387003
+    - city: Alpharetta
+      state: Georgia
+      latitude: 34.0587066
+      longitude: -84.2668288
+    - city: Town of Huntington
+      state: New York
+      latitude: 40.7835914
+      longitude: -73.4075575
+    - city: Reston
+      state: Virginia
+      latitude: 38.953282
+      longitude: -77.3464516
+    - city: Columbus
+      state: Ohio
+      latitude: 39.9622601
+      longitude: -83.0007065
+    - city: Tysons
+      state: Virginia
+      latitude: 38.9191272
+      longitude: -77.2229636
+    - city: Rosedale
+      state: Maryland
+      latitude: 39.3297529
+      longitude: -76.5075429
+    - city: Commerce Charter Township
+      state: Michigan
+      latitude: 42.5911431
+      longitude: -83.4907721
+    - city: Town of Columbus
+      state: New York
+      latitude: 42.6839611
+      longitude: -75.3726723
+    - city: Farmington Hills
+      state: Michigan
+      latitude: 42.4853125
+      longitude: -83.3771553
+    - city: Hilliard
+      state: Ohio
+      latitude: 40.033814
+      longitude: -83.1596108
+    - city: Dalton
+      state: Georgia
+      latitude: 34.7691867
+      longitude: -84.9702475
+    - city: Saint Petersburg
+      state: Florida
+      latitude: 27.746544
+      longitude: -82.639633
+    - city: Anaheim
+      state: California
+      latitude: 33.8347516
+      longitude: -117.911732
+    - city: Chicago Ridge
+      state: Illinois
+      latitude: 41.7014217
+      longitude: -87.7792196
+    - city: Thonotosassa
+      state: Florida
+      latitude: 28.0569975
+      longitude: -82.2805696
+    - city: Duarte
+      state: California
+      latitude: 34.1394513
+      longitude: -117.9772873
+    - city: Paterson
+      state: New Jersey
+      latitude: 40.9167654
+      longitude: -74.171811
+    - city: Cary
+      state: North Carolina
+      latitude: 35.7882893
+      longitude: -78.7812081
+    - city: Edison
+      state: New Jersey
+      latitude: 40.5005351
+      longitude: -74.3983939
+    - city: Oak Lawn
+      state: Illinois
+      latitude: 41.7108662
+      longitude: -87.7581081
+    - city: Huntsville
+      state: Alabama
+      latitude: 34.729847
+      longitude: -86.5859011
+    - city: Austin
+      state: Texas
+      latitude: 30.2711286
+      longitude: -97.7436995
+    - city: Culver City
+      state: California
+      latitude: 34.0211224
+      longitude: -118.396466
+    - city: El Cajon
+      state: California
+      latitude: 32.7947731
+      longitude: -116.962526
+    - city: Boca Raton
+      state: Florida
+      latitude: 26.3586885
+      longitude: -80.0830984
+    - city: San Antonio
+      state: Texas
+      latitude: 29.4246002
+      longitude: -98.4951405
+    - city: Detroit
+      state: Michigan
+      latitude: 42.3315509
+      longitude: -83.0466403
+    - city: Yorba Linda
+      state: California
+      latitude: 33.8901096
+      longitude: -117.8249705
+    - city: Plano
+      state: Texas
+      latitude: 33.0136764
+      longitude: -96.6925096
+    - city: Tustin
+      state: California
+      latitude: 33.7458511
+      longitude: -117.826166
+    - city: Upland
+      state: California
+      latitude: 34.09751
+      longitude: -117.6483876
+    - city: Fountain Valley
+      state: California
+      latitude: 33.7038145
+      longitude: -117.9627349
+    - city: Irvine
+      state: California
+      latitude: 33.6856969
+      longitude: -117.825981
+    - city: Bridgeview
+      state: Illinois
+      latitude: 41.7500323
+      longitude: -87.8042216
+    - city: Garden City
+      state: Michigan
+      latitude: 42.3255929
+      longitude: -83.3310422
+    - city: Irving
+      state: Texas
+      latitude: 32.8295183
+      longitude: -96.9442177
+    - city: Palos Hills
+      state: Illinois
+      latitude: 41.6966397
+      longitude: -87.816924
+    - city: Jersey City
+      state: New Jersey
+      latitude: 40.7215682
+      longitude: -74.047455
+    - city: Hometown
+      state: Illinois
+      latitude: 41.731246
+      longitude: -87.7309534
+    - city: Wixom
+      state: Michigan
+      latitude: 42.5246873
+      longitude: -83.5363637
+    - city: Worth
+      state: Illinois
+      latitude: 41.6899779
+      longitude: -87.7974139
+    - city: Clifton
+      state: New Jersey
+      latitude: 40.8584328
+      longitude: -74.1637553
+    - city: West Bloomfield Township
+      state: Michigan
+      latitude: 42.5684073
+      longitude: -83.3740333
+    - city: Elizabeth
+      state: New Jersey
+      latitude: 40.6639916
+      longitude: -74.2107006
+    - city: Southfield Township
+      state: Michigan
+      latitude: 42.5226219
+      longitude: -83.241357
+    - city: Downers Grove
+      state: Illinois
+      latitude: 41.7936822
+      longitude: -88.0102281
+    - city: Hickory Hills
+      state: Illinois
+      latitude: 41.7255879
+      longitude: -87.825055
+    - city: Palo Alto
+      state: California
+      latitude: 37.4443293
+      longitude: -122.1598465
+    - city: Oak Brook
+      state: Illinois
+      latitude: 41.8327126
+      longitude: -87.9484125
+    - city: Merrillville
+      state: Indiana
+      latitude: 41.4828144
+      longitude: -87.3328139
+    - city: Frankfort
+      state: Illinois
+      latitude: 41.4979467
+      longitude: -87.8495946
+    - city: Niles
+      state: Illinois
+      latitude: 42.0289319
+      longitude: -87.8122348
+    - city: Burbank
+      state: Illinois
+      latitude: 41.741406
+      longitude: -87.7686078
+    - city: Clarkston
+      state: Georgia
+      latitude: 33.8095487
+      longitude: -84.2396434
+    - city: Plantation
+      state: Florida
+      latitude: 26.1275862
+      longitude: -80.2331036
+    - city: Totowa
+      state: New Jersey
+      latitude: 40.9050988
+      longitude: -74.2098679
+    - city: Coral Springs
+      state: Florida
+      latitude: 26.271192
+      longitude: -80.2706044
+    - city: Lawrenceville
+      state: Georgia
+      latitude: 33.9566391
+      longitude: -83.9890066
+    - city: Clermont
+      state: Florida
+      latitude: 28.5551912
+      longitude: -81.7669488
+    - city: Countryside
+      state: Illinois
+      latitude: 41.7771605
+      longitude: -87.8729748
+    - city: Garland
+      state: Texas
+      latitude: 32.912624
+      longitude: -96.6388833
+    - city: Willowbrook
+      state: Illinois
+      latitude: 41.7697533
+      longitude: -87.9358931
+    - city: Fairfax
+      state: Virginia
+      latitude: 38.8462236
+      longitude: -77.3063733
+    - city: Fishers
+      state: Indiana
+      latitude: 39.9555928
+      longitude: -86.0138729
+    - city: DeSoto
+      state: Texas
+      latitude: 32.5897831
+      longitude: -96.8570183
+    - city: Darien
+      state: Illinois
+      latitude: 41.7508713
+      longitude: -87.9739593
+    - city: Boston
+      state: Massachusetts
+      latitude: 42.3588336
+      longitude: -71.0578303
+    - city: Fuquay-Varina
+      state: North Carolina
+      latitude: 35.5843849
+      longitude: -78.7998691
+    - city: Dearborn Heights
+      state: Michigan
+      latitude: 42.3369816
+      longitude: -83.2732627
+    - city: Elmwood Park
+      state: Illinois
+      latitude: 41.9205931
+      longitude: -87.8160169
+    - city: Coral Gables
+      state: Florida
+      latitude: 25.7331105
+      longitude: -80.2585107
+    - city: Wesley Chapel
+      state: Florida
+      latitude: 28.1866014
+      longitude: -82.366121
+    - city: Orland Park
+      state: Illinois
+      latitude: 41.630663
+      longitude: -87.8536288
+    - city: Durham
+      state: North Carolina
+      latitude: 35.996653
+      longitude: -78.9018053
+    - city: Sterling Heights
+      state: Michigan
+      latitude: 42.5803122
+      longitude: -83.0302033
+    - city: Lookout Mountain
+      state: Georgia
+      latitude: 34.9775758
+      longitude: -85.3577363
+    - city: Hoboken
+      state: New Jersey
+      latitude: 40.7433066
+      longitude: -74.0323752
+    - city: Indianapolis
+      state: Indiana
+      latitude: 39.7683331
+      longitude: -86.1583502
+    - city: Cocoa
+      state: Florida
+      latitude: 28.2662775
+      longitude: -80.6636984
 
 socialReach:
   updatedAt: "2026-06-03"

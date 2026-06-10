@@ -20,5 +20,6 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-#claude
-CLAUDE.MD
+# ai stuff
+.agents
+.claude

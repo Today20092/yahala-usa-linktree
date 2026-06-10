@@ -683,7 +683,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:11.673Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:03.888Z"
   },
   "M6TQFZpcX64": {
     "videoId": "M6TQFZpcX64",
@@ -791,11 +791,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "New York",
-      "city": "",
+      "matchedText": "woodside, ny",
+      "city": "New York",
       "state": "New York",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 40.7453798,
+      "longitude": -73.9054145,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:31:54.041Z"
   },
@@ -847,13 +849,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "هيوستن, TX",
-      "city": "Houston",
+      "matchedText": "arlington, tx",
+      "city": "Arlington",
       "state": "Texas",
-      "latitude": 29.7604,
-      "longitude": -95.3698,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 32.7355816,
+      "longitude": -97.1071186,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:31:54.135Z"
   },
@@ -904,13 +906,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "تامبا, FL",
-      "city": "Tampa",
+      "matchedText": "temple terrace, fl",
+      "city": "Temple Terrace",
       "state": "Florida",
-      "latitude": 27.9506,
-      "longitude": -82.4572,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 28.0352964,
+      "longitude": -82.3892596,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:31:54.043Z"
   },
@@ -959,7 +961,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:11.476Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:03.891Z"
   },
   "06LJ9AaClLs": {
     "videoId": "06LJ9AaClLs",
@@ -1061,7 +1063,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:13.325Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:05.651Z",
+    "locationHints": {
+      "matchedText": "falls church, va",
+      "city": "Falls Church",
+      "state": "Virginia",
+      "latitude": 38.882334,
+      "longitude": -77.1710914,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "Psn0QTLw7eA": {
     "videoId": "Psn0QTLw7eA",
@@ -1171,13 +1182,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Dallas, TX",
-      "city": "Dallas",
+      "matchedText": "richardson, tx",
+      "city": "Richardson",
       "state": "Texas",
-      "latitude": 32.7767,
-      "longitude": -96.797,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 32.9481789,
+      "longitude": -96.7297206,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:31:59.440Z"
   },
@@ -1286,13 +1297,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "هيوستن, TX",
-      "city": "Houston",
+      "matchedText": "katy, tx",
+      "city": "Katy",
       "state": "Texas",
-      "latitude": 29.7604,
-      "longitude": -95.3698,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 29.7857853,
+      "longitude": -95.8243956,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:01.613Z"
   },
@@ -1455,7 +1466,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:13.615Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:05.773Z",
+    "locationHints": {
+      "matchedText": "alexandria, va",
+      "city": "Alexandria",
+      "state": "Virginia",
+      "latitude": 38.8051095,
+      "longitude": -77.0470229,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "UbAplNdj-fw": {
     "videoId": "UbAplNdj-fw",
@@ -1502,7 +1522,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:13.460Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:05.820Z"
   },
   "smU2_DmMU6I": {
     "videoId": "smU2_DmMU6I",
@@ -1549,7 +1569,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:15.275Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:07.650Z",
+    "locationHints": {
+      "matchedText": "alexandria, va",
+      "city": "Alexandria",
+      "state": "Virginia",
+      "latitude": 38.8051095,
+      "longitude": -77.0470229,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "XVzFBTyl64c": {
     "videoId": "XVzFBTyl64c",
@@ -1714,13 +1743,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "كوينز, NY",
-      "city": "Queens",
+      "matchedText": "astoria, ny",
+      "city": "New York",
       "state": "New York",
-      "latitude": 40.7282,
-      "longitude": -73.7949,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 40.7720145,
+      "longitude": -73.9302673,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:07.282Z"
   },
@@ -1771,13 +1800,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "تامبا, FL",
-      "city": "Tampa",
+      "matchedText": "orlando, fl",
+      "city": "Orlando",
       "state": "Florida",
-      "latitude": 27.9506,
-      "longitude": -82.4572,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 28.5421218,
+      "longitude": -81.379045,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:09.772Z"
   },
@@ -1886,11 +1915,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Illinois",
-      "city": "",
+      "matchedText": "alsip, il",
+      "city": "Alsip",
       "state": "Illinois",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 41.6689336,
+      "longitude": -87.7387003,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:10.404Z"
   },
@@ -2057,13 +2088,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "أتلانتا, GA",
-      "city": "Atlanta",
+      "matchedText": "north point pkwy. alpharetta, ga",
+      "city": "Alpharetta",
       "state": "Georgia",
-      "latitude": 33.749,
-      "longitude": -84.388,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 34.0587066,
+      "longitude": -84.2668288,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:12.914Z"
   },
@@ -2116,11 +2147,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "New York",
-      "city": "",
+      "matchedText": "melville, ny",
+      "city": "Town of Huntington",
       "state": "New York",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 40.7835914,
+      "longitude": -73.4075575,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:15.247Z"
   },
@@ -2172,13 +2205,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "كوينز, NY",
-      "city": "Queens",
+      "matchedText": "long island city, ny",
+      "city": "New York",
       "state": "New York",
-      "latitude": 40.7282,
-      "longitude": -73.7949,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 40.7455316,
+      "longitude": -73.9484995,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:15.100Z"
   },
@@ -2228,7 +2261,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:15.661Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:07.673Z",
+    "locationHints": {
+      "matchedText": "reston, va",
+      "city": "Reston",
+      "state": "Virginia",
+      "latitude": 38.953282,
+      "longitude": -77.3464516,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "EDzKxXUQp9Y": {
     "videoId": "EDzKxXUQp9Y",
@@ -2275,7 +2317,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:15.586Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:07.661Z"
   },
   "Dt8N8S3ZPP4": {
     "videoId": "Dt8N8S3ZPP4",
@@ -2323,7 +2365,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:17.273Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:09.350Z",
+    "locationHints": {
+      "matchedText": "كولومبوس, أوهايو",
+      "city": "Columbus",
+      "state": "Ohio",
+      "latitude": 39.9622601,
+      "longitude": -83.0007065,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "f8sotkFQcrc": {
     "videoId": "f8sotkFQcrc",
@@ -2374,7 +2425,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:17.347Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:09.410Z",
+    "locationHints": {
+      "matchedText": "tysons, va",
+      "city": "Tysons",
+      "state": "Virginia",
+      "latitude": 38.9191272,
+      "longitude": -77.2229636,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "ahR0yuK44YY": {
     "videoId": "ahR0yuK44YY",
@@ -2423,7 +2483,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:17.457Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:09.507Z"
   },
   "9-o6O6YHZ48": {
     "videoId": "9-o6O6YHZ48",
@@ -2468,7 +2528,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:19.236Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:10.975Z",
+    "locationHints": {
+      "matchedText": "كولومبوس, Ohio",
+      "city": "Columbus",
+      "state": "Ohio",
+      "latitude": 39.9622601,
+      "longitude": -83.0007065,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "BJqL1XguzgM": {
     "videoId": "BJqL1XguzgM",
@@ -2515,7 +2584,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:19.274Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:11.104Z",
+    "locationHints": {
+      "matchedText": "rosedale, md",
+      "city": "Rosedale",
+      "state": "Maryland",
+      "latitude": 39.3297529,
+      "longitude": -76.5075429,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "1YfXQSqjYsk": {
     "videoId": "1YfXQSqjYsk",
@@ -2561,7 +2639,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:19.369Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:11.277Z",
+    "locationHints": {
+      "matchedText": "Dublin, OH",
+      "city": "Dublin",
+      "state": "Ohio",
+      "latitude": 40.1091109,
+      "longitude": -83.0910391,
+      "source": "description-place-match",
+      "confidence": 0.95
+    }
   },
   "vcWGQcMlF1s": {
     "videoId": "vcWGQcMlF1s",
@@ -2609,11 +2696,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Michigan",
-      "city": "",
+      "matchedText": "commerce township, mi",
+      "city": "Commerce Charter Township",
       "state": "Michigan",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 42.5911431,
+      "longitude": -83.4907721,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:22.875Z"
   },
@@ -2666,13 +2755,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "5837 Sawmill Rd. Dublin, OH 43017",
+      "matchedText": "Dublin, OH",
       "city": "Dublin",
       "state": "Ohio",
       "latitude": 40.1091109,
       "longitude": -83.0910391,
-      "source": "description-address-geocode",
-      "confidence": 0.85
+      "source": "description-place-match",
+      "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:23.797Z"
   },
@@ -2723,11 +2812,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "New York",
-      "city": "",
+      "matchedText": "Columbus, نيويورك",
+      "city": "Town of Columbus",
       "state": "New York",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 42.6839611,
+      "longitude": -75.3726723,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:25.574Z"
   },
@@ -2776,7 +2867,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:20.934Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:12.835Z",
+    "locationHints": {
+      "matchedText": "كولومبوس, أوهايو",
+      "city": "Columbus",
+      "state": "Ohio",
+      "latitude": 39.9622601,
+      "longitude": -83.0007065,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "UYw4AMNyTiE": {
     "videoId": "UYw4AMNyTiE",
@@ -2827,11 +2927,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Michigan",
-      "city": "",
+      "matchedText": "farmington hills, mi",
+      "city": "Farmington Hills",
       "state": "Michigan",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 42.4853125,
+      "longitude": -83.3771553,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:26.399Z"
   },
@@ -2873,7 +2975,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:20.931Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:12.745Z"
   },
   "udil1yyELEc": {
     "videoId": "udil1yyELEc",
@@ -2979,13 +3081,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Raleigh",
-      "city": "Raleigh",
-      "state": "North Carolina",
-      "latitude": 35.7796,
-      "longitude": -78.6382,
-      "source": "description-city-match",
-      "confidence": 0.8
+      "matchedText": "كولومبوس, أوهايو",
+      "city": "Columbus",
+      "state": "Ohio",
+      "latitude": 39.9622601,
+      "longitude": -83.0007065,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:29.106Z"
   },
@@ -3038,7 +3140,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:21.024Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:12.948Z",
+    "locationHints": {
+      "matchedText": "كولومبوس, Ohio",
+      "city": "Columbus",
+      "state": "Ohio",
+      "latitude": 39.9622601,
+      "longitude": -83.0007065,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "uiXWP_5iyFs": {
     "videoId": "uiXWP_5iyFs",
@@ -3086,7 +3197,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:22.696Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:14.656Z",
+    "locationHints": {
+      "matchedText": "كولومبوس, أوهايو",
+      "city": "Columbus",
+      "state": "Ohio",
+      "latitude": 39.9622601,
+      "longitude": -83.0007065,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "YKIO-4IgCgk": {
     "videoId": "YKIO-4IgCgk",
@@ -3134,7 +3254,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:22.803Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:14.556Z",
+    "locationHints": {
+      "matchedText": "Hilliard, أوهايو",
+      "city": "Hilliard",
+      "state": "Ohio",
+      "latitude": 40.033814,
+      "longitude": -83.1596108,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "xzuofrJn3_4": {
     "videoId": "xzuofrJn3_4",
@@ -3300,11 +3429,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Georgia",
-      "city": "",
+      "matchedText": "dalton, ga",
+      "city": "Dalton",
       "state": "Georgia",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 34.7691867,
+      "longitude": -84.9702475,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:33.916Z"
   },
@@ -3410,11 +3541,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Florida",
-      "city": "",
+      "matchedText": "temple terrace, fl",
+      "city": "Temple Terrace",
       "state": "Florida",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 28.0352964,
+      "longitude": -82.3892596,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:35.694Z"
   },
@@ -3464,11 +3597,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Florida",
-      "city": "",
+      "matchedText": "2401 5th St S, St. Petersburg, FL 33705",
+      "city": "Saint Petersburg",
       "state": "Florida",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 27.746544,
+      "longitude": -82.639633,
+      "source": "description-address-geocode",
+      "confidence": 0.85
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:36.352Z"
   },
@@ -3520,11 +3655,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "California",
-      "city": "",
+      "matchedText": "anaheim, ca",
+      "city": "Anaheim",
       "state": "California",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 33.8347516,
+      "longitude": -117.911732,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:38.136Z"
   },
@@ -3739,13 +3876,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Chicago, IL",
-      "city": "Chicago",
+      "matchedText": "chicago ridge, il",
+      "city": "Chicago Ridge",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.7014217,
+      "longitude": -87.7792196,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:40.952Z"
   },
@@ -3796,13 +3933,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Tampa, Florida",
-      "city": "Tampa",
+      "matchedText": "thonotosassa, fl",
+      "city": "Thonotosassa",
       "state": "Florida",
-      "latitude": 27.9506,
-      "longitude": -82.4572,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 28.0569975,
+      "longitude": -82.2805696,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:41.789Z"
   },
@@ -3854,11 +3991,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "California",
-      "city": "",
+      "matchedText": "duarte, ca",
+      "city": "Duarte",
       "state": "California",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 34.1394513,
+      "longitude": -117.9772873,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:43.053Z"
   },
@@ -4020,13 +4159,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "كوينز, نيويورك",
-      "city": "Queens",
-      "state": "New York",
-      "latitude": 40.7282,
-      "longitude": -73.7949,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "matchedText": "paterson, nj",
+      "city": "Paterson",
+      "state": "New Jersey",
+      "latitude": 40.9167654,
+      "longitude": -74.171811,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:45.452Z"
   },
@@ -4077,7 +4216,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:22.597Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:14.662Z"
   },
   "t__Tt9LO1R0": {
     "videoId": "t__Tt9LO1R0",
@@ -4129,13 +4268,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Brooklyn, New York",
-      "city": "Brooklyn",
+      "matchedText": "new york, ny",
+      "city": "New York",
       "state": "New York",
-      "latitude": 40.6782,
-      "longitude": -73.9442,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 40.7127281,
+      "longitude": -74.0060152,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:46.724Z"
   },
@@ -4186,11 +4325,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "North Carolina",
-      "city": "",
+      "matchedText": "cary, nc",
+      "city": "Cary",
       "state": "North Carolina",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 35.7882893,
+      "longitude": -78.7812081,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:48.066Z"
   },
@@ -4289,11 +4430,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "New York",
-      "city": "",
+      "matchedText": "429 11th Ave, New York, NY 10001",
+      "city": "New York",
       "state": "New York",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 40.7583595,
+      "longitude": -74.0021206,
+      "source": "description-address-geocode",
+      "confidence": 0.85
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:49.117Z"
   },
@@ -4345,13 +4488,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "كوينز, New York",
-      "city": "Queens",
+      "matchedText": "astoria, ny",
+      "city": "New York",
       "state": "New York",
-      "latitude": 40.7282,
-      "longitude": -73.7949,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 40.7720145,
+      "longitude": -73.9302673,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:50.688Z"
   },
@@ -4399,7 +4542,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:24.393Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:16.400Z",
+    "locationHints": {
+      "matchedText": "edison, nj",
+      "city": "Edison",
+      "state": "New Jersey",
+      "latitude": 40.5005351,
+      "longitude": -74.3983939,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "24MvBqhBnfs": {
     "videoId": "24MvBqhBnfs",
@@ -4446,7 +4598,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:24.483Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:16.403Z",
+    "locationHints": {
+      "matchedText": "edison, nj",
+      "city": "Edison",
+      "state": "New Jersey",
+      "latitude": 40.5005351,
+      "longitude": -74.3983939,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "9rXXspVoAEU": {
     "videoId": "9rXXspVoAEU",
@@ -4496,13 +4657,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "bronx, NY",
-      "city": "The Bronx",
+      "matchedText": "bronx, ny",
+      "city": "New York",
       "state": "New York",
-      "latitude": 40.8448,
-      "longitude": -73.8648,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 40.8466508,
+      "longitude": -73.8785937,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:53.326Z"
   },
@@ -4552,7 +4713,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:24.605Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:16.443Z"
   },
   "pl2EjvZarIc": {
     "videoId": "pl2EjvZarIc",
@@ -4660,13 +4821,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "oak lawn, il",
+      "city": "Oak Lawn",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.7108662,
+      "longitude": -87.7581081,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:55.850Z"
   },
@@ -4803,7 +4964,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:26.173Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:18.172Z",
+    "locationHints": {
+      "matchedText": "huntsville, al",
+      "city": "Huntsville",
+      "state": "Alabama",
+      "latitude": 34.729847,
+      "longitude": -86.5859011,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "eoFhCpWN8yw": {
     "videoId": "eoFhCpWN8yw",
@@ -4852,7 +5022,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:26.553Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:18.290Z",
+    "locationHints": {
+      "matchedText": "huntsville, al",
+      "city": "Huntsville",
+      "state": "Alabama",
+      "latitude": 34.729847,
+      "longitude": -86.5859011,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "CjKsOWw4ZaU": {
     "videoId": "CjKsOWw4ZaU",
@@ -4900,7 +5079,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:26.458Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:18.251Z",
+    "locationHints": {
+      "matchedText": "huntsville, al",
+      "city": "Huntsville",
+      "state": "Alabama",
+      "latitude": 34.729847,
+      "longitude": -86.5859011,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "wVzeEOyjWEM": {
     "videoId": "wVzeEOyjWEM",
@@ -4955,7 +5143,7 @@
       "source": "description-place-match",
       "confidence": 0.95
     },
-    "fullMetadataFetchedAt": "2026-06-09T22:52:11.638Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:04.065Z"
   },
   "vDtTkpHzg18": {
     "videoId": "vDtTkpHzg18",
@@ -5153,13 +5341,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "مدينة نيويورك, NY",
-      "city": "New York City",
+      "matchedText": "long island city, ny",
+      "city": "New York",
       "state": "New York",
-      "latitude": 40.7831,
-      "longitude": -73.9712,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 40.7455316,
+      "longitude": -73.9484995,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:00.803Z"
   },
@@ -5211,7 +5399,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:27.835Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:19.998Z"
   },
   "7D6aPRdFp0k": {
     "videoId": "7D6aPRdFp0k",
@@ -5375,13 +5563,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "مدينة نيويورك, NY",
-      "city": "New York City",
+      "matchedText": "astoria, ny",
+      "city": "New York",
       "state": "New York",
-      "latitude": 40.7831,
-      "longitude": -73.9712,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 40.7720145,
+      "longitude": -73.9302673,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:03.816Z"
   },
@@ -5432,7 +5620,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:28.029Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:20.108Z",
+    "locationHints": {
+      "matchedText": "edison, nj",
+      "city": "Edison",
+      "state": "New Jersey",
+      "latitude": 40.5005351,
+      "longitude": -74.3983939,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "MC5dRVNjZYg": {
     "videoId": "MC5dRVNjZYg",
@@ -5539,11 +5736,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Texas",
-      "city": "",
+      "matchedText": "austin, tx",
+      "city": "Austin",
       "state": "Texas",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 30.2711286,
+      "longitude": -97.7436995,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:06.073Z"
   },
@@ -5595,13 +5794,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "تامبا, FL",
-      "city": "Tampa",
+      "matchedText": "temple terrace, fl",
+      "city": "Temple Terrace",
       "state": "Florida",
-      "latitude": 27.9506,
-      "longitude": -82.4572,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 28.0352964,
+      "longitude": -82.3892596,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:06.773Z"
   },
@@ -5651,13 +5850,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Los Angeles, CA",
-      "city": "Los Angeles",
+      "matchedText": "culver city, ca",
+      "city": "Culver City",
       "state": "California",
-      "latitude": 34.0522,
-      "longitude": -118.2437,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 34.0211224,
+      "longitude": -118.396466,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:08.334Z"
   },
@@ -5821,13 +6020,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "San Diego, CA",
-      "city": "San Diego",
+      "matchedText": "el cajon, ca",
+      "city": "El Cajon",
       "state": "California",
-      "latitude": 32.7157,
-      "longitude": -117.1611,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 32.7947731,
+      "longitude": -116.962526,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:10.857Z"
   },
@@ -5877,13 +6076,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "ميامي, FL",
-      "city": "Miami",
+      "matchedText": "boca raton, fl",
+      "city": "Boca Raton",
       "state": "Florida",
-      "latitude": 25.7617,
-      "longitude": -80.1918,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 26.3586885,
+      "longitude": -80.0830984,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:10.805Z"
   },
@@ -5934,11 +6133,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Texas",
-      "city": "",
+      "matchedText": ": اوستن, تكساس",
+      "city": "Austin",
       "state": "Texas",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 30.2711286,
+      "longitude": -97.7436995,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:11.547Z"
   },
@@ -5990,11 +6191,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Texas",
-      "city": "",
+      "matchedText": "san antonio, tx",
+      "city": "San Antonio",
       "state": "Texas",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 29.4246002,
+      "longitude": -98.4951405,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:13.279Z"
   },
@@ -6104,11 +6307,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Michigan",
-      "city": "",
+      "matchedText": ": ديترويت, ميشيغان",
+      "city": "Detroit",
       "state": "Michigan",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 42.3315509,
+      "longitude": -83.0466403,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:13.779Z"
   },
@@ -6271,13 +6476,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "لوس أنجلوس, CA",
-      "city": "Los Angeles",
+      "matchedText": "yorba linda, ca",
+      "city": "Yorba Linda",
       "state": "California",
-      "latitude": 34.0522,
-      "longitude": -118.2437,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 33.8901096,
+      "longitude": -117.8249705,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:16.407Z"
   },
@@ -6328,7 +6533,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:28.257Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:19.992Z"
   },
   "cA25lO8mCVw": {
     "videoId": "cA25lO8mCVw",
@@ -6376,13 +6581,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "San Diego, CA",
-      "city": "San Diego",
+      "matchedText": "el cajon, ca",
+      "city": "El Cajon",
       "state": "California",
-      "latitude": 32.7157,
-      "longitude": -117.1611,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 32.7947731,
+      "longitude": -116.962526,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:18.430Z"
   },
@@ -6434,11 +6639,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "California",
-      "city": "",
+      "matchedText": ": اناهايم, كاليفورنيا",
+      "city": "Anaheim",
       "state": "California",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 33.8347516,
+      "longitude": -117.911732,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:18.807Z"
   },
@@ -6486,13 +6693,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Dallas, TX",
-      "city": "Dallas",
+      "matchedText": "plano, tx",
+      "city": "Plano",
       "state": "Texas",
-      "latitude": 32.7767,
-      "longitude": -96.797,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 33.0136764,
+      "longitude": -96.6925096,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:21.054Z"
   },
@@ -6543,7 +6750,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:29.749Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:21.774Z"
   },
   "NXj6gpd4MI0": {
     "videoId": "NXj6gpd4MI0",
@@ -6593,7 +6800,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:29.941Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:21.620Z"
   },
   "XoJB2kuuK1o": {
     "videoId": "XoJB2kuuK1o",
@@ -6635,11 +6842,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "California",
-      "city": "",
+      "matchedText": "tustin, ca",
+      "city": "Tustin",
       "state": "California",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 33.7458511,
+      "longitude": -117.826166,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:23.090Z"
   },
@@ -6689,11 +6898,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "California",
-      "city": "",
+      "matchedText": "upland, ca",
+      "city": "Upland",
       "state": "California",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 34.09751,
+      "longitude": -117.6483876,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:23.260Z"
   },
@@ -6746,11 +6957,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "California",
-      "city": "",
+      "matchedText": "fountain valley, ca",
+      "city": "Fountain Valley",
       "state": "California",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 33.7038145,
+      "longitude": -117.9627349,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:24.223Z"
   },
@@ -6858,11 +7071,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "California",
-      "city": "",
+      "matchedText": "anaheim, ca",
+      "city": "Anaheim",
       "state": "California",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 33.8347516,
+      "longitude": -117.911732,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:25.483Z"
   },
@@ -6911,11 +7126,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "California",
-      "city": "",
+      "matchedText": "irvine, ca",
+      "city": "Irvine",
       "state": "California",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 33.6856969,
+      "longitude": -117.825981,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:26.729Z"
   },
@@ -6965,13 +7182,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "bridgeview, il",
+      "city": "Bridgeview",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.7500323,
+      "longitude": -87.8042216,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:27.806Z"
   },
@@ -7135,11 +7352,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Michigan",
-      "city": "",
+      "matchedText": "garden city, mi",
+      "city": "Garden City",
       "state": "Michigan",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 42.3255929,
+      "longitude": -83.3310422,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:30.205Z"
   },
@@ -7190,13 +7409,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "دالاس, TX",
-      "city": "Dallas",
+      "matchedText": "irving, tx",
+      "city": "Irving",
       "state": "Texas",
-      "latitude": 32.7767,
-      "longitude": -96.797,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 32.8295183,
+      "longitude": -96.9442177,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:30.720Z"
   },
@@ -7357,13 +7576,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Dallas, TX",
-      "city": "Dallas",
+      "matchedText": "richardson, tx",
+      "city": "Richardson",
       "state": "Texas",
-      "latitude": 32.7767,
-      "longitude": -96.797,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 32.9481789,
+      "longitude": -96.7297206,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:33.313Z"
   },
@@ -7414,13 +7633,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Dallas, TX",
-      "city": "Dallas",
+      "matchedText": "plano, tx",
+      "city": "Plano",
       "state": "Texas",
-      "latitude": 32.7767,
-      "longitude": -96.797,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 33.0136764,
+      "longitude": -96.6925096,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:34.296Z"
   },
@@ -7470,11 +7689,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Texas",
-      "city": "",
+      "matchedText": "plano, tx",
+      "city": "Plano",
       "state": "Texas",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 33.0136764,
+      "longitude": -96.6925096,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:34.957Z"
   },
@@ -7525,11 +7746,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Texas",
-      "city": "",
+      "matchedText": "san antonio, tx",
+      "city": "San Antonio",
       "state": "Texas",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 29.4246002,
+      "longitude": -98.4951405,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:35.833Z"
   },
@@ -7580,11 +7803,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Texas",
-      "city": "",
+      "matchedText": "san antonio, tx",
+      "city": "San Antonio",
       "state": "Texas",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 29.4246002,
+      "longitude": -98.4951405,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:36.471Z"
   },
@@ -7634,13 +7859,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "palos hills, il",
+      "city": "Palos Hills",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.6966397,
+      "longitude": -87.816924,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:37.349Z"
   },
@@ -7689,7 +7914,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:30.114Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:21.638Z",
+    "locationHints": {
+      "matchedText": "jersey city, nj",
+      "city": "Jersey City",
+      "state": "New Jersey",
+      "latitude": 40.7215682,
+      "longitude": -74.047455,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "voZw2fVa5pM": {
     "videoId": "voZw2fVa5pM",
@@ -7730,7 +7964,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:31.421Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:23.363Z"
   },
   "JCyJ5QIdlck": {
     "videoId": "JCyJ5QIdlck",
@@ -7779,13 +8013,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "hometown, il",
+      "city": "Hometown",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.731246,
+      "longitude": -87.7309534,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:39.776Z"
   },
@@ -7835,13 +8069,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Los Angeles",
-      "city": "Los Angeles",
-      "state": "California",
-      "latitude": 34.0522,
-      "longitude": -118.2437,
-      "source": "description-city-match",
-      "confidence": 0.8
+      "matchedText": "wixom, mi",
+      "city": "Wixom",
+      "state": "Michigan",
+      "latitude": 42.5246873,
+      "longitude": -83.5363637,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:40.688Z"
   },
@@ -7891,13 +8125,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Houston, Texas",
+      "matchedText": "في هيوستن, تكساس",
       "city": "Houston",
       "state": "Texas",
-      "latitude": 29.7604,
-      "longitude": -95.3698,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 29.6992776,
+      "longitude": -95.4099059,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:41.097Z"
   },
@@ -7941,13 +8175,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "worth, il",
+      "city": "Worth",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.6899779,
+      "longitude": -87.7974139,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:42.257Z"
   },
@@ -8139,7 +8373,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:31.582Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:23.387Z",
+    "locationHints": {
+      "matchedText": "clifton, nj",
+      "city": "Clifton",
+      "state": "New Jersey",
+      "latitude": 40.8584328,
+      "longitude": -74.1637553,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "aaYMLasAa6s": {
     "videoId": "aaYMLasAa6s",
@@ -8180,7 +8423,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:31.882Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:23.499Z"
   },
   "qbM9qUFzJ10": {
     "videoId": "qbM9qUFzJ10",
@@ -8227,11 +8470,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Michigan",
-      "city": "",
+      "matchedText": "west bloomfield township, mi",
+      "city": "West Bloomfield Township",
       "state": "Michigan",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 42.5684073,
+      "longitude": -83.3740333,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:47.280Z"
   },
@@ -8281,13 +8526,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "سان فرانسيسكو, CA",
-      "city": "San Francisco",
+      "matchedText": "anaheim, ca",
+      "city": "Anaheim",
       "state": "California",
-      "latitude": 37.7749,
-      "longitude": -122.4194,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 33.8347516,
+      "longitude": -117.911732,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:47.976Z"
   },
@@ -8336,11 +8581,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "New York",
-      "city": "",
-      "state": "New York",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "matchedText": "elizabeth, nj",
+      "city": "Elizabeth",
+      "state": "New Jersey",
+      "latitude": 40.6639916,
+      "longitude": -74.2107006,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:48.506Z"
   },
@@ -8387,7 +8634,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:33.019Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:25.179Z"
   },
   "m-Y6ekkbPsI": {
     "videoId": "m-Y6ekkbPsI",
@@ -8429,13 +8676,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Chicago, IL",
-      "city": "Chicago",
+      "matchedText": "oak lawn, il",
+      "city": "Oak Lawn",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.7108662,
+      "longitude": -87.7581081,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:50.290Z"
   },
@@ -8487,11 +8734,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Texas",
-      "city": "",
-      "state": "Texas",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "matchedText": "clifton, nj",
+      "city": "Clifton",
+      "state": "New Jersey",
+      "latitude": 40.8584328,
+      "longitude": -74.1637553,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:51.031Z"
   },
@@ -8540,13 +8789,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "bridgeview, il",
+      "city": "Bridgeview",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.7500323,
+      "longitude": -87.8042216,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:51.842Z"
   },
@@ -8595,11 +8844,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Michigan",
-      "city": "",
+      "matchedText": "beverly hills, mi",
+      "city": "Southfield Township",
       "state": "Michigan",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 42.5226219,
+      "longitude": -83.241357,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:53.086Z"
   },
@@ -8643,13 +8894,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "downers grove, il",
+      "city": "Downers Grove",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.7936822,
+      "longitude": -88.0102281,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:53.414Z"
   },
@@ -8700,13 +8951,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "worth, il",
+      "city": "Worth",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.6899779,
+      "longitude": -87.7974139,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:54.470Z"
   },
@@ -8757,13 +9008,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "bridgeview, il",
+      "city": "Bridgeview",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.7500323,
+      "longitude": -87.8042216,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:55.364Z"
   },
@@ -8814,11 +9065,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Illinois",
-      "city": "",
-      "state": "Illinois",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "matchedText": "anaheim, ca",
+      "city": "Anaheim",
+      "state": "California",
+      "latitude": 33.8347516,
+      "longitude": -117.911732,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:55.833Z"
   },
@@ -8920,13 +9173,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "bronx, New York",
-      "city": "The Bronx",
+      "matchedText": "bronx, ny",
+      "city": "New York",
       "state": "New York",
-      "latitude": 40.8448,
-      "longitude": -73.8648,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 40.8466508,
+      "longitude": -73.8785937,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:57.957Z"
   },
@@ -8973,11 +9226,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Illinois",
-      "city": "",
+      "matchedText": "hickory hills, il",
+      "city": "Hickory Hills",
       "state": "Illinois",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 41.7255879,
+      "longitude": -87.825055,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:58.324Z"
   },
@@ -9021,11 +9276,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "California",
-      "city": "",
+      "matchedText": "palo alto, ca",
+      "city": "Palo Alto",
       "state": "California",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 37.4443293,
+      "longitude": -122.1598465,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:59.571Z"
   },
@@ -9074,11 +9331,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "California",
-      "city": "",
+      "matchedText": "palo alto, ca",
+      "city": "Palo Alto",
       "state": "California",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 37.4443293,
+      "longitude": -122.1598465,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:00.344Z"
   },
@@ -9129,13 +9388,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "oak brook, il",
+      "city": "Oak Brook",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.8327126,
+      "longitude": -87.9484125,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:00.632Z"
   },
@@ -9185,13 +9444,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Chicago, IL",
-      "city": "Chicago",
-      "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "matchedText": "merrillville, in",
+      "city": "Merrillville",
+      "state": "Indiana",
+      "latitude": 41.4828144,
+      "longitude": -87.3328139,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:01.945Z"
   },
@@ -9240,7 +9499,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:33.165Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:25.271Z"
   },
   "WwutM56thRk": {
     "videoId": "WwutM56thRk",
@@ -9289,13 +9548,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Chicago, IL",
-      "city": "Chicago",
+      "matchedText": "frankfort, il",
+      "city": "Frankfort",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.4979467,
+      "longitude": -87.8495946,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:03.183Z"
   },
@@ -9346,13 +9605,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "bridgeview, il",
+      "city": "Bridgeview",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.7500323,
+      "longitude": -87.8042216,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:04.256Z"
   },
@@ -9404,13 +9663,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Chicago, IL",
-      "city": "Chicago",
+      "matchedText": "chicago ridge, il",
+      "city": "Chicago Ridge",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.7014217,
+      "longitude": -87.7792196,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:04.720Z"
   },
@@ -9460,13 +9719,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "niles, il",
+      "city": "Niles",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 42.0289319,
+      "longitude": -87.8122348,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:05.709Z"
   },
@@ -9517,13 +9776,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "palos hills, il",
+      "city": "Palos Hills",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.6966397,
+      "longitude": -87.816924,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:06.703Z"
   },
@@ -9575,13 +9834,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "bridgeview, il",
+      "city": "Bridgeview",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.7500323,
+      "longitude": -87.8042216,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:07.180Z"
   },
@@ -9631,13 +9890,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "burbank, il",
+      "city": "Burbank",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.741406,
+      "longitude": -87.7686078,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:08.462Z"
   },
@@ -9688,13 +9947,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "bridgeview, il",
+      "city": "Bridgeview",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.7500323,
+      "longitude": -87.8042216,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:09.252Z"
   },
@@ -9744,13 +10003,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "هيوستن, TX",
-      "city": "Houston",
+      "matchedText": "san antonio, tx",
+      "city": "San Antonio",
       "state": "Texas",
-      "latitude": 29.7604,
-      "longitude": -95.3698,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 29.4246002,
+      "longitude": -98.4951405,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:09.493Z"
   },
@@ -9798,7 +10057,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:33.657Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:25.177Z"
   },
   "NA9O_Um60cY": {
     "videoId": "NA9O_Um60cY",
@@ -9896,7 +10155,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:34.564Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:26.793Z"
   },
   "w55mjLcSzWg": {
     "videoId": "w55mjLcSzWg",
@@ -9944,13 +10203,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "أتلانتا, GA",
-      "city": "Atlanta",
+      "matchedText": "clarkston, ga",
+      "city": "Clarkston",
       "state": "Georgia",
-      "latitude": 33.749,
-      "longitude": -84.388,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 33.8095487,
+      "longitude": -84.2396434,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:13.556Z"
   },
@@ -10057,11 +10316,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "California",
-      "city": "",
+      "matchedText": "anaheim, ca",
+      "city": "Anaheim",
       "state": "California",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 33.8347516,
+      "longitude": -117.911732,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:14.205Z"
   },
@@ -10166,13 +10427,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "لوس انجلس, CA",
-      "city": "Los Angeles",
+      "matchedText": "el cajon, ca",
+      "city": "El Cajon",
       "state": "California",
-      "latitude": 34.0522,
-      "longitude": -118.2437,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 32.7947731,
+      "longitude": -116.962526,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:16.297Z"
   },
@@ -10223,13 +10484,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "ميامي, FL",
-      "city": "Miami",
+      "matchedText": "plantation, fl",
+      "city": "Plantation",
       "state": "Florida",
-      "latitude": 25.7617,
-      "longitude": -80.1918,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 26.1275862,
+      "longitude": -80.2331036,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:16.725Z"
   },
@@ -10279,7 +10540,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:34.742Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:26.790Z",
+    "locationHints": {
+      "matchedText": "totowa, nj",
+      "city": "Totowa",
+      "state": "New Jersey",
+      "latitude": 40.9050988,
+      "longitude": -74.2098679,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "ridWyirOV7w": {
     "videoId": "ridWyirOV7w",
@@ -10384,13 +10654,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "مدينة نيويورك, نيويورك",
-      "city": "New York City",
-      "state": "New York",
-      "latitude": 40.7831,
-      "longitude": -73.9712,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "matchedText": "clifton, nj",
+      "city": "Clifton",
+      "state": "New Jersey",
+      "latitude": 40.8584328,
+      "longitude": -74.1637553,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:19.880Z"
   },
@@ -10434,13 +10704,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "دالاس, TX",
-      "city": "Dallas",
+      "matchedText": "richardson, tx",
+      "city": "Richardson",
       "state": "Texas",
-      "latitude": 32.7767,
-      "longitude": -96.797,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 32.9481789,
+      "longitude": -96.7297206,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:20.347Z"
   },
@@ -10486,11 +10756,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Texas",
-      "city": "",
+      "matchedText": "plano, tx",
+      "city": "Plano",
       "state": "Texas",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 33.0136764,
+      "longitude": -96.6925096,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:21.068Z"
   },
@@ -10597,13 +10869,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "ميامي, FL",
-      "city": "Miami",
+      "matchedText": "coral springs, fl",
+      "city": "Coral Springs",
       "state": "Florida",
-      "latitude": 25.7617,
-      "longitude": -80.1918,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 26.271192,
+      "longitude": -80.2706044,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:22.618Z"
   },
@@ -10709,13 +10981,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Brooklyn, NY",
-      "city": "Brooklyn",
+      "matchedText": "staten island, ny",
+      "city": "New York",
       "state": "New York",
-      "latitude": 40.6782,
-      "longitude": -73.9442,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 40.5834557,
+      "longitude": -74.1496048,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:24.689Z"
   },
@@ -10754,13 +11026,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "رالي, NC",
-      "city": "Raleigh",
+      "matchedText": "cary, nc",
+      "city": "Cary",
       "state": "North Carolina",
-      "latitude": 35.7796,
-      "longitude": -78.6382,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 35.7882893,
+      "longitude": -78.7812081,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:25.008Z"
   },
@@ -10808,13 +11080,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, إلينوي",
-      "city": "Chicago",
-      "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "matchedText": "lawrenceville, ga",
+      "city": "Lawrenceville",
+      "state": "Georgia",
+      "latitude": 33.9566391,
+      "longitude": -83.9890066,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:26.065Z"
   },
@@ -10859,7 +11131,14 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:35.317Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:26.917Z",
+    "locationHints": {
+      "matchedText": "Ohio",
+      "city": "",
+      "state": "Ohio",
+      "source": "description-state-match",
+      "confidence": 0.55
+    }
   },
   "2MN1WD9Ltmc": {
     "videoId": "2MN1WD9Ltmc",
@@ -10901,13 +11180,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "أتلانتا, GA",
-      "city": "Atlanta",
+      "matchedText": "alpharetta, ga",
+      "city": "Alpharetta",
       "state": "Georgia",
-      "latitude": 33.749,
-      "longitude": -84.388,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 34.0755962,
+      "longitude": -84.2945964,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:27.869Z"
   },
@@ -11010,11 +11289,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Texas",
-      "city": "",
+      "matchedText": "san antonio, tx",
+      "city": "San Antonio",
       "state": "Texas",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 29.4246002,
+      "longitude": -98.4951405,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:29.425Z"
   },
@@ -11072,13 +11353,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "مدينة نيويورك, NY",
-      "city": "New York City",
+      "matchedText": "bronx, ny",
+      "city": "New York",
       "state": "New York",
-      "latitude": 40.7831,
-      "longitude": -73.9712,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 40.8466508,
+      "longitude": -73.8785937,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:30.515Z"
   },
@@ -11125,13 +11406,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "رالي, NC",
-      "city": "Raleigh",
+      "matchedText": "cary, nc",
+      "city": "Cary",
       "state": "North Carolina",
-      "latitude": 35.7796,
-      "longitude": -78.6382,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 35.7882893,
+      "longitude": -78.7812081,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:30.739Z"
   },
@@ -11188,13 +11469,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "هيوستن, TX",
-      "city": "Houston",
+      "matchedText": "katy, tx",
+      "city": "Katy",
       "state": "Texas",
-      "latitude": 29.7604,
-      "longitude": -95.3698,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 29.7857853,
+      "longitude": -95.8243956,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:32.051Z"
   },
@@ -11293,7 +11574,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:36.447Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:28.355Z"
   },
   "hmmBS40CEAU": {
     "videoId": "hmmBS40CEAU",
@@ -11339,13 +11620,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "بروكلين, نيويورك",
-      "city": "Brooklyn",
-      "state": "New York",
-      "latitude": 40.6782,
-      "longitude": -73.9442,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "matchedText": "paterson, nj",
+      "city": "Paterson",
+      "state": "New Jersey",
+      "latitude": 40.9167654,
+      "longitude": -74.171811,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:34.413Z"
   },
@@ -11452,11 +11733,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Michigan",
-      "city": "",
+      "matchedText": "west bloomfield township, mi",
+      "city": "West Bloomfield Township",
       "state": "Michigan",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 42.5684073,
+      "longitude": -83.3740333,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:35.507Z"
   },
@@ -11502,13 +11785,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "دالاس, TX",
-      "city": "Dallas",
+      "matchedText": "plano, tx",
+      "city": "Plano",
       "state": "Texas",
-      "latitude": 32.7767,
-      "longitude": -96.797,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 33.0136764,
+      "longitude": -96.6925096,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:36.770Z"
   },
@@ -11558,13 +11841,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "هيوستن, TX",
-      "city": "Houston",
+      "matchedText": "san antonio, tx",
+      "city": "San Antonio",
       "state": "Texas",
-      "latitude": 29.7604,
-      "longitude": -95.3698,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 29.4246002,
+      "longitude": -98.4951405,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:37.792Z"
   },
@@ -11615,13 +11898,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "تامبا, FL",
-      "city": "Tampa",
+      "matchedText": "clermont, fl",
+      "city": "Clermont",
       "state": "Florida",
-      "latitude": 27.9506,
-      "longitude": -82.4572,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 28.5551912,
+      "longitude": -81.7669488,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:37.832Z"
   },
@@ -11673,13 +11956,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "أتلانتا, GA",
-      "city": "Atlanta",
+      "matchedText": "lawrenceville, ga",
+      "city": "Lawrenceville",
       "state": "Georgia",
-      "latitude": 33.749,
-      "longitude": -84.388,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 33.9566391,
+      "longitude": -83.9890066,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:39.394Z"
   },
@@ -11732,13 +12015,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Raleigh, NC",
-      "city": "Raleigh",
+      "matchedText": "cary, nc",
+      "city": "Cary",
       "state": "North Carolina",
-      "latitude": 35.7796,
-      "longitude": -78.6382,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 35.7882893,
+      "longitude": -78.7812081,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:40.183Z"
   },
@@ -11846,7 +12129,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:36.438Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:28.594Z",
+    "locationHints": {
+      "matchedText": "paterson, nj",
+      "city": "Paterson",
+      "state": "New Jersey",
+      "latitude": 40.9167654,
+      "longitude": -74.171811,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "eiEhXohQE8k": {
     "videoId": "eiEhXohQE8k",
@@ -11954,13 +12246,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "ديربورن, MI",
-      "city": "Dearborn",
+      "matchedText": "beverly hills, mi",
+      "city": "Southfield Township",
       "state": "Michigan",
-      "latitude": 42.3223,
-      "longitude": -83.1763,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 42.5226219,
+      "longitude": -83.241357,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:42.784Z"
   },
@@ -12012,13 +12304,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "مدينة نيويورك, NY",
-      "city": "New York City",
+      "matchedText": "staten island, ny",
+      "city": "New York",
       "state": "New York",
-      "latitude": 40.7831,
-      "longitude": -73.9712,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 40.5834557,
+      "longitude": -74.1496048,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:44.080Z"
   },
@@ -12070,13 +12362,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "دالاس, TX",
-      "city": "Dallas",
+      "matchedText": "plano, tx",
+      "city": "Plano",
       "state": "Texas",
-      "latitude": 32.7767,
-      "longitude": -96.797,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 33.0136764,
+      "longitude": -96.6925096,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:45.322Z"
   },
@@ -12127,13 +12419,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "countryside, il",
+      "city": "Countryside",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.7771605,
+      "longitude": -87.8729748,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:45.109Z"
   },
@@ -12236,13 +12528,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "دالاس, TX",
-      "city": "Dallas",
+      "matchedText": "garland, tx",
+      "city": "Garland",
       "state": "Texas",
-      "latitude": 32.7767,
-      "longitude": -96.797,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 32.912624,
+      "longitude": -96.6388833,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:47.617Z"
   },
@@ -12344,13 +12636,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "مدينة نيويورك, NY",
-      "city": "New York City",
+      "matchedText": "astoria, ny",
+      "city": "New York",
       "state": "New York",
-      "latitude": 40.7831,
-      "longitude": -73.9712,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 40.7720145,
+      "longitude": -73.9302673,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:48.871Z"
   },
@@ -12400,13 +12692,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Brooklyn, NY",
-      "city": "Brooklyn",
+      "matchedText": "staten island, ny",
+      "city": "New York",
       "state": "New York",
-      "latitude": 40.6782,
-      "longitude": -73.9442,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 40.5834557,
+      "longitude": -74.1496048,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:50.718Z"
   },
@@ -12451,7 +12743,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:37.153Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:28.477Z",
+    "locationHints": {
+      "matchedText": "paterson, nj",
+      "city": "Paterson",
+      "state": "New Jersey",
+      "latitude": 40.9167654,
+      "longitude": -74.171811,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "dcJtK8p9mjc": {
     "videoId": "dcJtK8p9mjc",
@@ -12500,13 +12801,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "دالاس, TX",
-      "city": "Dallas",
+      "matchedText": "richardson, tx",
+      "city": "Richardson",
       "state": "Texas",
-      "latitude": 32.7767,
-      "longitude": -96.797,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 32.9481789,
+      "longitude": -96.7297206,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:51.395Z"
   },
@@ -12557,11 +12858,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Michigan",
-      "city": "",
+      "matchedText": "beverly hills, mi",
+      "city": "Southfield Township",
       "state": "Michigan",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 42.5226219,
+      "longitude": -83.241357,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:52.499Z"
   },
@@ -12610,7 +12913,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:38.153Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:30.100Z",
+    "locationHints": {
+      "matchedText": "paterson, nj",
+      "city": "Paterson",
+      "state": "New Jersey",
+      "latitude": 40.9167654,
+      "longitude": -74.171811,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "liy-GwrPI88": {
     "videoId": "liy-GwrPI88",
@@ -12765,13 +13077,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "willowbrook, il",
+      "city": "Willowbrook",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.7697533,
+      "longitude": -87.9358931,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:55.462Z"
   },
@@ -12844,7 +13156,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:38.423Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:30.317Z",
+    "locationHints": {
+      "matchedText": "fairfax, va",
+      "city": "Fairfax",
+      "state": "Virginia",
+      "latitude": 38.8462236,
+      "longitude": -77.3063733,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "2utCKSa0p9o": {
     "videoId": "2utCKSa0p9o",
@@ -12880,7 +13201,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:38.999Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:30.302Z",
+    "locationHints": {
+      "matchedText": "fishers, in",
+      "city": "Fishers",
+      "state": "Indiana",
+      "latitude": 39.9555928,
+      "longitude": -86.0138729,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "Vph741V_PBI": {
     "videoId": "Vph741V_PBI",
@@ -12929,13 +13259,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Los Angeles",
-      "city": "Los Angeles",
-      "state": "California",
-      "latitude": 34.0522,
-      "longitude": -118.2437,
-      "source": "description-city-match",
-      "confidence": 0.8
+      "matchedText": "farmington hills, mi",
+      "city": "Farmington Hills",
+      "state": "Michigan",
+      "latitude": 42.4853125,
+      "longitude": -83.3771553,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:58.794Z"
   },
@@ -12970,13 +13300,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "مدينة نيويورك, NY",
-      "city": "New York City",
+      "matchedText": "bronx, ny",
+      "city": "New York",
       "state": "New York",
-      "latitude": 40.7831,
-      "longitude": -73.9712,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 40.8466508,
+      "longitude": -73.8785937,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:59.831Z"
   },
@@ -13011,13 +13341,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "تامبا, FL",
+      "matchedText": "lutz, fl",
       "city": "Tampa",
       "state": "Florida",
-      "latitude": 27.9506,
-      "longitude": -82.4572,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 28.1300994,
+      "longitude": -82.4591842,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:00.245Z"
   },
@@ -13148,13 +13478,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "countryside, il",
+      "city": "Countryside",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.7771605,
+      "longitude": -87.8729748,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:02.622Z"
   },
@@ -13189,13 +13519,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "دالاس, TX",
-      "city": "Dallas",
+      "matchedText": "desoto, tx",
+      "city": "DeSoto",
       "state": "Texas",
-      "latitude": 32.7767,
-      "longitude": -96.797,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 32.5897831,
+      "longitude": -96.8570183,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:03.511Z"
   },
@@ -13230,13 +13560,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Tampa, Florida",
-      "city": "Tampa",
+      "matchedText": "temple terrace, fl",
+      "city": "Temple Terrace",
       "state": "Florida",
-      "latitude": 27.9506,
-      "longitude": -82.4572,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 28.0352964,
+      "longitude": -82.3892596,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:04.866Z"
   },
@@ -13271,13 +13601,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Tampa, FL",
-      "city": "Tampa",
+      "matchedText": "thonotosassa, fl",
+      "city": "Thonotosassa",
       "state": "Florida",
-      "latitude": 27.9506,
-      "longitude": -82.4572,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 28.0569975,
+      "longitude": -82.2805696,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:05.148Z"
   },
@@ -13320,13 +13650,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "darien, il",
+      "city": "Darien",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.7508713,
+      "longitude": -87.9739593,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:05.922Z"
   },
@@ -13402,13 +13732,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "bridgeview, il",
+      "city": "Bridgeview",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.7500323,
+      "longitude": -87.8042216,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:07.406Z"
   },
@@ -13442,7 +13772,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:39.887Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:32.032Z",
+    "locationHints": {
+      "matchedText": "boston, ma",
+      "city": "Boston",
+      "state": "Massachusetts",
+      "latitude": 42.3588336,
+      "longitude": -71.0578303,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "Q8oTcl7WnqU": {
     "videoId": "Q8oTcl7WnqU",
@@ -13515,7 +13854,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:40.016Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:31.986Z"
   },
   "5yCgosRYO8w": {
     "videoId": "5yCgosRYO8w",
@@ -13650,7 +13989,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:40.898Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:31.941Z",
+    "locationHints": {
+      "matchedText": "clifton, nj",
+      "city": "Clifton",
+      "state": "New Jersey",
+      "latitude": 40.8584328,
+      "longitude": -74.1637553,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "lBPqW4EMzmw": {
     "videoId": "lBPqW4EMzmw",
@@ -13734,13 +14082,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "رالي, NC",
-      "city": "Raleigh",
+      "matchedText": "fuquay-varina, nc",
+      "city": "Fuquay-Varina",
       "state": "North Carolina",
-      "latitude": 35.7796,
-      "longitude": -78.6382,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 35.5843849,
+      "longitude": -78.7998691,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:14.479Z"
   },
@@ -13775,13 +14123,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Dearborn, MI",
-      "city": "Dearborn",
+      "matchedText": "dearborn heights, mi",
+      "city": "Dearborn Heights",
       "state": "Michigan",
-      "latitude": 42.3223,
-      "longitude": -83.1763,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 42.3369816,
+      "longitude": -83.2732627,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:14.851Z"
   },
@@ -13815,7 +14163,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:41.611Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:33.643Z",
+    "locationHints": {
+      "matchedText": "paterson, nj",
+      "city": "Paterson",
+      "state": "New Jersey",
+      "latitude": 40.9167654,
+      "longitude": -74.171811,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "PP9Gup9l8ag": {
     "videoId": "PP9Gup9l8ag",
@@ -13861,13 +14218,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "elmwood park, il",
+      "city": "Elmwood Park",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.9205931,
+      "longitude": -87.8160169,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:17.307Z"
   },
@@ -13902,13 +14259,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "worth, il",
+      "city": "Worth",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.6899779,
+      "longitude": -87.7974139,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:17.437Z"
   },
@@ -13960,13 +14317,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "palos hills, il",
+      "city": "Palos Hills",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.6966397,
+      "longitude": -87.816924,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:19.239Z"
   },
@@ -14001,13 +14358,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Dallas, TX",
-      "city": "Dallas",
+      "matchedText": "richardson, tx",
+      "city": "Richardson",
       "state": "Texas",
-      "latitude": 32.7767,
-      "longitude": -96.797,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 32.9481789,
+      "longitude": -96.7297206,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:19.829Z"
   },
@@ -14042,13 +14399,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Miami, Florida",
-      "city": "Miami",
+      "matchedText": "coral gables, fl",
+      "city": "Coral Gables",
       "state": "Florida",
-      "latitude": 25.7617,
-      "longitude": -80.1918,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 25.7331105,
+      "longitude": -80.2585107,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:19.800Z"
   },
@@ -14098,13 +14455,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "تامبا, FL",
-      "city": "Tampa",
+      "matchedText": "wesley chapel, fl",
+      "city": "Wesley Chapel",
       "state": "Florida",
-      "latitude": 27.9506,
-      "longitude": -82.4572,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 28.1866014,
+      "longitude": -82.366121,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:21.647Z"
   },
@@ -14144,13 +14501,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "bridgeview, il",
+      "city": "Bridgeview",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.7500323,
+      "longitude": -87.8042216,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:22.355Z"
   },
@@ -14185,13 +14542,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "orland park, il",
+      "city": "Orland Park",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.630663,
+      "longitude": -87.8536288,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:22.191Z"
   },
@@ -14245,7 +14602,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:41.883Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:33.614Z",
+    "locationHints": {
+      "matchedText": "paterson, nj",
+      "city": "Paterson",
+      "state": "New Jersey",
+      "latitude": 40.9167654,
+      "longitude": -74.171811,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "R9KQ4_EDnB4": {
     "videoId": "R9KQ4_EDnB4",
@@ -14369,7 +14735,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:42.698Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:33.817Z",
+    "locationHints": {
+      "matchedText": "paterson, nj",
+      "city": "Paterson",
+      "state": "New Jersey",
+      "latitude": 40.9167654,
+      "longitude": -74.171811,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "DSF3qqGI36Q": {
     "videoId": "DSF3qqGI36Q",
@@ -14418,11 +14793,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "North Carolina",
-      "city": "",
+      "matchedText": "durham, nc",
+      "city": "Durham",
       "state": "North Carolina",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 35.996653,
+      "longitude": -78.9018053,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:27.025Z"
   },
@@ -14498,7 +14875,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:43.521Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:35.287Z",
+    "locationHints": {
+      "matchedText": "paterson, nj",
+      "city": "Paterson",
+      "state": "New Jersey",
+      "latitude": 40.9167654,
+      "longitude": -74.171811,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "0gs3SMozHwQ": {
     "videoId": "0gs3SMozHwQ",
@@ -14531,13 +14917,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "تامبا, FL",
-      "city": "Tampa",
+      "matchedText": "temple terrace, fl",
+      "city": "Temple Terrace",
       "state": "Florida",
-      "latitude": 27.9506,
-      "longitude": -82.4572,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 28.0352964,
+      "longitude": -82.3892596,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:29.381Z"
   },
@@ -14572,13 +14958,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "شيكاغو, IL",
-      "city": "Chicago",
+      "matchedText": "bridgeview, il",
+      "city": "Bridgeview",
       "state": "Illinois",
-      "latitude": 41.8781,
-      "longitude": -87.6298,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 41.7500323,
+      "longitude": -87.8042216,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:29.456Z"
   },
@@ -14654,13 +15040,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Tampa, FL",
-      "city": "Tampa",
-      "state": "Florida",
-      "latitude": 27.9506,
-      "longitude": -82.4572,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "matchedText": "sterling heights, mi",
+      "city": "Sterling Heights",
+      "state": "Michigan",
+      "latitude": 42.5803122,
+      "longitude": -83.0302033,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:31.817Z"
   },
@@ -14695,11 +15081,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Florida",
-      "city": "",
+      "matchedText": "orlando, fl",
+      "city": "Orlando",
       "state": "Florida",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 28.5421218,
+      "longitude": -81.379045,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:31.819Z"
   },
@@ -14734,13 +15122,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Tampa, Florida",
-      "city": "Tampa",
-      "state": "Florida",
-      "latitude": 27.9506,
-      "longitude": -82.4572,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "matchedText": "farmington hills, mi",
+      "city": "Farmington Hills",
+      "state": "Michigan",
+      "latitude": 42.4853125,
+      "longitude": -83.3771553,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:33.882Z"
   },
@@ -14816,11 +15204,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Florida",
-      "city": "",
+      "matchedText": "temple terrace, fl",
+      "city": "Temple Terrace",
       "state": "Florida",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 28.0352964,
+      "longitude": -82.3892596,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:34.399Z"
   },
@@ -14855,11 +15245,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "North Carolina",
-      "city": "",
-      "state": "North Carolina",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "matchedText": "lookout mountain, ga",
+      "city": "Lookout Mountain",
+      "state": "Georgia",
+      "latitude": 34.9775758,
+      "longitude": -85.3577363,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:36.451Z"
   },
@@ -14894,13 +15286,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "مدينة نيويورك, نيويورك",
-      "city": "New York City",
-      "state": "New York",
-      "latitude": 40.7831,
-      "longitude": -73.9712,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "matchedText": "hoboken, nj",
+      "city": "Hoboken",
+      "state": "New Jersey",
+      "latitude": 40.7433066,
+      "longitude": -74.0323752,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:36.930Z"
   },
@@ -14980,7 +15372,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:43.519Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:35.393Z",
+    "locationHints": {
+      "matchedText": "indianapolis, in",
+      "city": "Indianapolis",
+      "state": "Indiana",
+      "latitude": 39.7683331,
+      "longitude": -86.1583502,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "qVqAzgWzucU": {
     "videoId": "qVqAzgWzucU",
@@ -15013,11 +15414,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Florida",
-      "city": "",
+      "matchedText": "merritt island, fl",
+      "city": "Cocoa",
       "state": "Florida",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 28.2662775,
+      "longitude": -80.6636984,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:39.188Z"
   },
@@ -15051,7 +15454,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:44.572Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:35.602Z"
   },
   "-XEyPSmD1dg": {
     "videoId": "-XEyPSmD1dg",
@@ -15129,7 +15532,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:45.107Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:36.893Z"
   },
   "e1P3tr-I7fI": {
     "videoId": "e1P3tr-I7fI",
@@ -15161,7 +15564,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:45.094Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:37.083Z",
+    "locationHints": {
+      "matchedText": "clifton, nj",
+      "city": "Clifton",
+      "state": "New Jersey",
+      "latitude": 40.8584328,
+      "longitude": -74.1637553,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "4SwOChVQV_0": {
     "videoId": "4SwOChVQV_0",
@@ -15242,7 +15654,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:46.282Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:37.268Z",
+    "locationHints": {
+      "matchedText": "paterson, nj",
+      "city": "Paterson",
+      "state": "New Jersey",
+      "latitude": 40.9167654,
+      "longitude": -74.171811,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "npCDab9zjcU": {
     "videoId": "npCDab9zjcU",
@@ -15284,7 +15705,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:46.673Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:38.580Z"
   },
   "ru57j4FUcpM": {
     "videoId": "ru57j4FUcpM",
@@ -15325,11 +15746,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Georgia",
-      "city": "",
+      "matchedText": "alpharetta, ga",
+      "city": "Alpharetta",
       "state": "Georgia",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 34.0755962,
+      "longitude": -84.2945964,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:46.583Z"
   },
@@ -15413,7 +15836,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:46.848Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:38.728Z"
   },
   "QWvkx0DcWpc": {
     "videoId": "QWvkx0DcWpc",
@@ -15452,7 +15875,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:47.866Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:38.933Z",
+    "locationHints": {
+      "matchedText": "fishers, in",
+      "city": "Fishers",
+      "state": "Indiana",
+      "latitude": 39.9555928,
+      "longitude": -86.0138729,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "QCzBqc51RwI": {
     "videoId": "QCzBqc51RwI",
@@ -15491,7 +15923,16 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-06-09T22:52:48.283Z"
+    "fullMetadataFetchedAt": "2026-06-10T05:47:40.439Z",
+    "locationHints": {
+      "matchedText": "clifton, nj",
+      "city": "Clifton",
+      "state": "New Jersey",
+      "latitude": 40.8584328,
+      "longitude": -74.1637553,
+      "source": "description-city-geocode",
+      "confidence": 0.9
+    }
   },
   "G6RkhnjpBcw": {
     "videoId": "G6RkhnjpBcw",
@@ -15582,13 +16023,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Tampa, Florida",
-      "city": "Tampa",
+      "matchedText": "thonotosassa, fl",
+      "city": "Thonotosassa",
       "state": "Florida",
-      "latitude": 27.9506,
-      "longitude": -82.4572,
-      "source": "description-place-match",
-      "confidence": 0.95
+      "latitude": 28.0569975,
+      "longitude": -82.2805696,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:51.212Z"
   },
@@ -15626,11 +16067,13 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "Florida",
-      "city": "",
+      "matchedText": "temple terrace, fl",
+      "city": "Temple Terrace",
       "state": "Florida",
-      "source": "description-state-match",
-      "confidence": 0.55
+      "latitude": 28.0352964,
+      "longitude": -82.3892596,
+      "source": "description-city-geocode",
+      "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:51.570Z"
   },

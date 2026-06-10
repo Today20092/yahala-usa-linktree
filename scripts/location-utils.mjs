@@ -74,6 +74,7 @@ const cityAliases = {
   Atlanta: ['أتلانتا', 'اتلانتا'],
   Houston: ['هيوستن'],
   Dallas: ['دالاس'],
+  Columbus: ['كولومبوس', 'كولمبوس', 'كولومبس'],
 }
 
 const stateAliases = {
@@ -85,6 +86,20 @@ const stateAliases = {
   'North Carolina': ['كارولاينا الشمالية', 'نورث كارولاينا'],
   Georgia: ['جورجيا'],
   Texas: ['تكساس'],
+  Ohio: ['أوهايو', 'اوهايو'],
+}
+
+const detectedCityAliases = {
+  Columbus: ['columbus', 'كولومبوس', 'كولمبوس', 'كولومبس'],
+  Dublin: ['dublin'],
+  Hilliard: ['hilliard'],
+  Marysville: ['marysville'],
+  Reynoldsburg: ['reynoldsburg'],
+  Cleveland: ['cleveland'],
+  Cincinnati: ['cincinnati'],
+  Toledo: ['toledo'],
+  Dayton: ['dayton'],
+  Akron: ['akron'],
 }
 
 const roadWords = [
@@ -151,13 +166,33 @@ const aliasesForState = (state) => [
 const canonicalStateName = (value = '') => {
   const normalized = String(value).trim()
   if (!normalized) return ''
+  const normalizedText = normalizeLocationText(normalized)
 
   const stateName = [...stateAbbreviations.keys()].find(
-    (state) => state.toLowerCase() === normalized.toLowerCase(),
+    (state) => normalizeLocationText(state) === normalizedText,
   )
   if (stateName) return stateName
 
-  return stateNamesByAbbreviation.get(normalized.toLowerCase()) ?? ''
+  const aliasState = Object.entries(stateAliases).find(([, aliases]) =>
+    aliases.some((alias) => normalizeLocationText(alias) === normalizedText),
+  )?.[0]
+  if (aliasState) return aliasState
+
+  return stateNamesByAbbreviation.get(normalizedText) ?? ''
+}
+
+const canonicalCityName = (value = '') => {
+  const normalizedText = normalizeLocationText(value)
+  if (!normalizedText) return ''
+
+  const aliasCity = Object.entries(detectedCityAliases).find(([city, aliases]) =>
+    [city, ...aliases].some((alias) => normalizeLocationText(alias) === normalizedText),
+  )?.[0]
+  if (aliasCity) return aliasCity
+
+  return String(value)
+    .trim()
+    .replace(/\b\w/g, (letter) => letter.toUpperCase())
 }
 
 const distanceMiles = (a, b) => {
@@ -259,6 +294,7 @@ export const inferCityStateCandidates = (input = '') => {
   const statePattern = [
     ...stateAbbreviations.keys(),
     ...stateAbbreviations.values(),
+    ...Object.values(stateAliases).flat(),
   ]
     .sort((a, b) => b.length - a.length)
     .map(escapeRegex)
@@ -273,6 +309,39 @@ export const inferCityStateCandidates = (input = '') => {
   ]
   const candidates = []
   const seen = new Set()
+  const addCandidate = ({ matchedText, city, state }) => {
+    const normalizedCity = normalizeLocationText(city)
+    if (roadWords.some((word) => hasTerm(normalizedCity, word))) return
+
+    const canonicalCity = canonicalCityName(city)
+    const canonicalState = canonicalStateName(state)
+    const key = `${normalizeLocationText(canonicalCity)}:${normalizeLocationText(canonicalState)}`
+
+    if (!canonicalCity || !canonicalState || seen.has(key)) return
+    seen.add(key)
+    candidates.push({
+      matchedText: matchedText.trim(),
+      city: canonicalCity,
+      state: canonicalState,
+    })
+  }
+
+  for (const [city, aliases] of Object.entries(detectedCityAliases)) {
+    const cityAlias = [city, ...aliases].find((alias) => hasTerm(text, alias))
+    if (!cityAlias) continue
+
+    for (const state of stateAbbreviations.keys()) {
+      const stateAlias = [state, ...(stateAliases[state] ?? [])].find((alias) =>
+        hasTerm(text, alias),
+      )
+      if (!stateAlias) continue
+      addCandidate({
+        matchedText: `${cityAlias}, ${stateAlias}`,
+        city,
+        state,
+      })
+    }
+  }
 
   for (const pattern of patterns) {
     for (const match of text.matchAll(pattern)) {
@@ -280,21 +349,22 @@ export const inferCityStateCandidates = (input = '') => {
         .replace(/^(location|address|city|visited|in)\s+/i, '')
         .trim()
         .replace(/\s+/g, ' ')
-      const state = canonicalStateName(match[2])
-      const key = `${city.toLowerCase()}:${state.toLowerCase()}`
-
-      if (!city || !state || seen.has(key)) continue
-      seen.add(key)
-      candidates.push({
+      addCandidate({
         matchedText: match[0].trim(),
-        city: city.replace(/\b\w/g, (letter) => letter.toUpperCase()),
-        state,
+        city,
+        state: match[2],
       })
     }
   }
 
   return candidates.slice(0, 5)
 }
+
+export const sanitizeAddressCandidate = (input = '') =>
+  String(input)
+    .replace(/^[^\p{L}\p{N}]*/u, '')
+    .replace(/^(?:address|location|العنوان|عنوان)\s*:\s*/i, '')
+    .trim()
 
 export const extractAddressCandidates = (input = '') => {
   const lines = String(input)
@@ -431,12 +501,40 @@ export const inferLocationForVideo = async ({
   geocodeCache,
 }) => {
   const text = `${title}\n${description}`
+  const placeKeys = new Set(
+    places.map(
+      (place) =>
+        `${normalizeLocationText(place.city)}:${normalizeLocationText(place.state)}`,
+    ),
+  )
+  const cityStateCandidates = inferCityStateCandidates(text)
+
+  for (const candidate of cityStateCandidates) {
+    const key = `${normalizeLocationText(candidate.city)}:${normalizeLocationText(candidate.state)}`
+    if (placeKeys.has(key)) continue
+
+    const geocoded = await geocodeCityState(
+      candidate.city,
+      candidate.state,
+      geocodeCache,
+    )
+    if (!geocoded) continue
+
+    return {
+      matchedText: candidate.matchedText,
+      city: geocoded.city || candidate.city,
+      state: geocoded.state || candidate.state,
+      latitude: geocoded.latitude,
+      longitude: geocoded.longitude,
+      source: 'description-city-geocode',
+      confidence: 0.9,
+    }
+  }
+
   const knownPlace = inferKnownPlaceFromText(text, places)
-  if (knownPlace) return knownPlace
+  if (knownPlace?.city) return knownPlace
 
   const addressCandidates = extractAddressCandidates(description)
-  const cityStateCandidates =
-    addressCandidates.length > 0 ? [] : inferCityStateCandidates(text)
 
   for (const candidate of cityStateCandidates) {
     const geocoded = await geocodeCityState(
@@ -458,12 +556,13 @@ export const inferLocationForVideo = async ({
   }
 
   for (const address of addressCandidates) {
-    const geocoded = await geocodeAddress(address, geocodeCache)
+    const sanitizedAddress = sanitizeAddressCandidate(address)
+    const geocoded = await geocodeAddress(sanitizedAddress, geocodeCache)
     const normalized = normalizeDetectedCityState(geocoded)
     if (!normalized.city || !normalized.state) continue
 
     return {
-      matchedText: address,
+      matchedText: sanitizedAddress,
       city: normalized.city,
       state: normalized.state,
       latitude: normalized.latitude,
@@ -473,7 +572,7 @@ export const inferLocationForVideo = async ({
     }
   }
 
-  return null
+  return knownPlace ?? null
 }
 
 export const testLocationUtils = async () => {
@@ -519,6 +618,13 @@ export const testLocationUtils = async () => {
       latitude: 39.9612,
       longitude: -82.9988,
       city: 'Columbus',
+      state: 'Ohio',
+    },
+    'Dublin, Ohio': {
+      query: 'Dublin, Ohio',
+      latitude: 40.0996009,
+      longitude: -83.1135563,
+      city: 'Dublin',
       state: 'Ohio',
     },
     '5837 Sawmill Rd. Dublin, OH 43017': {
@@ -584,8 +690,7 @@ export const testLocationUtils = async () => {
   })
   if (
     ohioAddress?.city !== 'Dublin' ||
-    ohioAddress?.state !== 'Ohio' ||
-    ohioAddress?.source !== 'description-address-geocode'
+    ohioAddress?.state !== 'Ohio'
   ) {
     throw new Error('Expected Ohio address to map to its geocoded city/state')
   }
