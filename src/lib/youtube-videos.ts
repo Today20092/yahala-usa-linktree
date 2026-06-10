@@ -10,6 +10,7 @@ export type YoutubeVideo = {
   channelId?: string
   channelTitle?: string
   duration?: string
+  viewCount?: number
   isShort?: boolean
 }
 
@@ -75,7 +76,9 @@ export const resolveYoutubeVideo = (
     url: youtubeWatchUrl(videoId),
     title: videoRef?.title ?? cachedVideo?.title ?? 'Watch on YouTube',
     thumbnail:
-      videoRef?.thumbnail ?? cachedVideo?.thumbnail ?? fallbackThumbnail(videoId),
+      videoRef?.thumbnail ??
+      cachedVideo?.thumbnail ??
+      fallbackThumbnail(videoId),
   }
 }
 

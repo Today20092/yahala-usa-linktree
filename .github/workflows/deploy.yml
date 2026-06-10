@@ -4,7 +4,7 @@ on:
   push:
     branches: [master]
   schedule:
-    - cron: '17 9 * * *'
+    - cron: '17 9 * * 1'
   # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
@@ -35,7 +35,7 @@ jobs:
         run: npm ci
       - name: Refresh YouTube data
         run: |
-          npm run update:youtube
+          npm run update:youtube -- --refresh-top-videos
           npm run update:visited-videos
           npm run validate:data
       - name: Commit updated video data

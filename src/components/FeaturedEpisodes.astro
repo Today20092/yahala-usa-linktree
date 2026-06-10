@@ -1,75 +1,60 @@
 ---
 import { Icon } from 'astro-icon/components'
 
+import latestYoutubeVideos from '../data/latest-youtube-videos.json'
+import { youtubeVideosById } from '../lib/youtube-videos'
 import { siteConfig } from '../lib/site-config'
 
 type Episode = {
   thumbnail: string
   title: string
   href: string
-  category: string
+  viewCount: number
 }
 
-type FeaturedEpisodeLink = {
-  url: string
-  category: string
-  title?: string
+type ChannelVideoSummary = {
+  topVideoIds?: string[]
 }
 
-type YoutubeOembed = {
-  title?: string
-  thumbnail_url?: string
-}
+const primaryChannel = siteConfig.youtubeChannels[0]
+const primaryChannelSummary = primaryChannel
+  ? (latestYoutubeVideos as Record<string, ChannelVideoSummary>)[
+      primaryChannel.id
+    ]
+  : undefined
 
-const featuredEpisodeLinks: FeaturedEpisodeLink[] = siteConfig.featuredEpisodes
-
-const getYoutubeVideoId = (url: string) => {
-  try {
-    const parsedUrl = new URL(url)
-    if (parsedUrl.hostname.includes('youtu.be')) {
-      return parsedUrl.pathname.split('/').filter(Boolean)[0]
-    }
-    return parsedUrl.searchParams.get('v')
-  } catch {
-    return null
-  }
-}
+const formatViews = (views: number) =>
+  Intl.NumberFormat('en', {
+    notation: views >= 10000 ? 'compact' : 'standard',
+    maximumFractionDigits: views >= 10000 ? 1 : 0,
+  }).format(views)
 
 const youtubeThumbnailUrl = (videoId: string) =>
   `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
 
-const getYoutubeMetadata = async (url: string): Promise<YoutubeOembed> => {
-  try {
-    const metadataUrl = new URL('https://www.youtube.com/oembed')
-    metadataUrl.searchParams.set('url', url)
-    metadataUrl.searchParams.set('format', 'json')
+const videosWithViews = Object.values(youtubeVideosById)
+  .filter((video) => Number.isFinite(Number(video.viewCount)) && !video.isShort)
+  .sort((a, b) => Number(b.viewCount) - Number(a.viewCount))
 
-    const response = await fetch(metadataUrl)
-    if (!response.ok) return {}
+const topVideoIds =
+  primaryChannelSummary?.topVideoIds?.length === 3
+    ? primaryChannelSummary.topVideoIds
+    : videosWithViews.slice(0, 3).map((video) => video.videoId)
 
-    return (await response.json()) as YoutubeOembed
-  } catch {
-    return {}
-  }
-}
+const episodes = topVideoIds
+  .map((videoId): Episode | null => {
+    const video = youtubeVideosById[videoId]
+    const viewCount = Number(video?.viewCount)
+    if (!video || !Number.isFinite(viewCount)) return null
 
-const episodes = (
-  await Promise.all(
-    featuredEpisodeLinks.map(async (episode): Promise<Episode | null> => {
-      const videoId = getYoutubeVideoId(episode.url)
-      if (!videoId) return null
-
-      const metadata = await getYoutubeMetadata(episode.url)
-
-      return {
-        thumbnail: metadata.thumbnail_url ?? youtubeThumbnailUrl(videoId),
-        title: episode.title ?? metadata.title ?? 'Watch this episode',
-        href: episode.url,
-        category: episode.category,
-      }
-    }),
-  )
-).filter((episode): episode is Episode => Boolean(episode))
+    return {
+      thumbnail: video.thumbnail ?? youtubeThumbnailUrl(videoId),
+      title: video.title ?? 'Watch this episode',
+      href: video.url ?? `https://www.youtube.com/watch?v=${videoId}`,
+      viewCount,
+    }
+  })
+  .filter((episode): episode is Episode => Boolean(episode))
 ---
 
 {
@@ -79,28 +64,28 @@ const episodes = (
       aria-labelledby="featured-episodes-title"
     >
       <div class="mb-4 text-center">
-        <p class="text-primary text-xs font-bold tracking-[0.18em] uppercase">
+        <p class="text-primary text-xs font-bold tracking-widest uppercase">
           Watch next
         </p>
         <h2
           id="featured-episodes-title"
           class="text-foreground mt-1 text-2xl font-extrabold"
         >
-          Featured Episodes
+          Most Viewed Episodes
         </h2>
       </div>
 
       <div class="grid gap-3">
         {episodes.map((episode) => (
-          <article class="bg-card text-card-foreground ring-border/80 dark:bg-muted dark:text-foreground dark:ring-border overflow-hidden rounded-lg text-left shadow-[0_8px_22px_color-mix(in_oklch,var(--color-shadow)_8%,transparent)] ring-1 dark:shadow-[0_14px_34px_oklch(0_0_0_/_0.32)]">
+          <article class="bg-card text-card-foreground ring-border/80 dark:bg-muted dark:text-foreground dark:ring-border overflow-hidden rounded-lg text-left shadow-md ring-1 transition-shadow duration-200 hover:shadow-lg dark:shadow-xl">
             <a
               href={episode.href}
               target="_blank"
               rel="noopener noreferrer"
-              class="group focus-visible:ring-ring/30 focus-visible:ring-offset-background grid grid-cols-[124px_minmax(0,1fr)] items-center gap-3 px-3 py-2.5 transition-transform duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:grid-cols-[156px_minmax(0,1fr)] sm:gap-4 sm:px-4 sm:py-3"
+              class="group focus-visible:ring-ring/30 focus-visible:ring-offset-background flex items-center gap-4 px-3 py-3 transition-transform duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:gap-5 sm:px-4 sm:py-4"
               aria-label={`Watch on YouTube: ${episode.title}`}
             >
-              <span class="bg-muted relative aspect-video w-full overflow-hidden rounded-md">
+              <span class="bg-muted relative aspect-video w-36 shrink-0 overflow-hidden rounded-md shadow-sm ring-1 ring-black/5 sm:w-48">
                 <img
                   src={episode.thumbnail}
                   alt=""
@@ -109,10 +94,10 @@ const episodes = (
                   class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 <span
-                  class="absolute inset-0 grid place-items-center bg-foreground/10 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+                  class="absolute inset-0 grid place-items-center bg-black/10 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
                   aria-hidden="true"
                 >
-                  <span class="text-primary grid size-8 place-items-center rounded-full bg-background shadow-lg">
+                  <span class="text-primary bg-background grid size-8 place-items-center rounded-full shadow-lg">
                     <Icon
                       name="heroicons:play-solid"
                       class="size-4 translate-x-px"
@@ -121,24 +106,34 @@ const episodes = (
                 </span>
               </span>
 
-              <span class="min-w-0">
-                <span class="text-primary text-xs leading-none font-bold uppercase">
-                  {episode.category}
+              <span class="min-w-0 py-0.5">
+                <span class="text-primary text-xs leading-none font-bold tracking-wide uppercase">
+                  Most viewed episode
                 </span>
                 <h3
                   lang="ar"
                   dir="rtl"
-                  class="text-foreground mt-1.5 line-clamp-2 text-base leading-snug font-bold sm:text-lg"
+                  class="text-foreground mt-2 line-clamp-2 text-base leading-snug font-extrabold sm:text-xl"
                 >
                   {episode.title}
                 </h3>
-                <span class="text-muted-foreground mt-1.5 inline-flex items-center gap-1.5 text-sm leading-none font-semibold">
-                  YouTube
-                  <Icon
-                    name="heroicons:arrow-up-right"
-                    class="size-4"
-                    aria-hidden="true"
-                  />
+                <span class="text-muted-foreground mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm leading-none font-semibold">
+                  <span class="inline-flex items-center gap-1.5">
+                    <Icon
+                      name="heroicons:eye"
+                      class="size-4"
+                      aria-hidden="true"
+                    />
+                    {formatViews(episode.viewCount)} views
+                  </span>
+                  <span class="inline-flex items-center gap-1.5">
+                    YouTube
+                    <Icon
+                      name="heroicons:arrow-up-right"
+                      class="size-4"
+                      aria-hidden="true"
+                    />
+                  </span>
                 </span>
               </span>
             </a>

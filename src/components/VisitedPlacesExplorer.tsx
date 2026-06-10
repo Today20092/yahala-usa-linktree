@@ -213,6 +213,12 @@ export default function VisitedPlacesExplorer({ places, stateVideos }: Props) {
     selectedStateGroup?.places.filter((place) => place.videos?.length) ?? []
   const hasSelectedVideos =
     selectedStateVideos.length > 0 || selectedPlacesWithVideos.length > 0
+  const firstAccordionValue =
+    selectedStateVideos.length > 0
+      ? 'statewide-videos'
+      : selectedPlacesWithVideos[0]
+        ? `${selectedPlacesWithVideos[0].state}-${selectedPlacesWithVideos[0].city}`
+        : undefined
 
   return (
     <>
@@ -273,7 +279,11 @@ export default function VisitedPlacesExplorer({ places, stateVideos }: Props) {
           <div className="overflow-y-auto px-5 pb-2">
             {hasSelectedVideos ? (
               <Accordion
+                key={selectedStateGroup?.state ?? 'state-videos'}
                 type="multiple"
+                defaultValue={
+                  firstAccordionValue ? [firstAccordionValue] : undefined
+                }
                 className="border-border bg-card rounded-lg border"
               >
                 {selectedStateVideos.length > 0 && (

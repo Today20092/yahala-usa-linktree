@@ -66,7 +66,9 @@ const decodeJsonString = (value = '') => {
 }
 
 const textFrom = (xml, tagName) => {
-  const match = xml.match(new RegExp(`<${tagName}[^>]*>([\\s\\S]*?)<\\/${tagName}>`))
+  const match = xml.match(
+    new RegExp(`<${tagName}[^>]*>([\\s\\S]*?)<\\/${tagName}>`),
+  )
   return match ? decodeXml(match[1].trim()) : ''
 }
 
@@ -93,8 +95,13 @@ export const entriesFromFeed = (feed) =>
   })
 
 export const normalizeVideoMetadata = (video, existing = {}) => {
-  const videoId = video?.videoId ?? getYoutubeVideoId(video?.url) ?? existing.videoId
+  const videoId =
+    video?.videoId ?? getYoutubeVideoId(video?.url) ?? existing.videoId
   if (!videoId) return null
+
+  const viewCount = Number(
+    video?.viewCount ?? video?.view_count ?? existing.viewCount,
+  )
 
   return {
     ...existing,
@@ -105,14 +112,26 @@ export const normalizeVideoMetadata = (video, existing = {}) => {
     thumbnail:
       video?.thumbnail ?? existing.thumbnail ?? fallbackThumbnail(videoId),
     published: video?.published ?? existing.published ?? '',
-    updated: video?.updated ?? existing.updated ?? video?.published ?? existing.published ?? '',
+    updated:
+      video?.updated ??
+      existing.updated ??
+      video?.published ??
+      existing.published ??
+      '',
     channelId: video?.channelId ?? existing.channelId ?? '',
     channelTitle: video?.channelTitle ?? existing.channelTitle ?? '',
     duration: video?.duration ?? existing.duration ?? '',
-    description: video?.description ?? existing.description ?? '',
-    tags: video?.tags ?? existing.tags ?? [],
-    categories: video?.categories ?? existing.categories ?? [],
+    description: video?.description || existing.description || '',
+    tags:
+      Array.isArray(video?.tags) && video.tags.length > 0
+        ? video.tags
+        : existing.tags ?? [],
+    categories:
+      Array.isArray(video?.categories) && video.categories.length > 0
+        ? video.categories
+        : existing.categories ?? [],
     locationHints: video?.locationHints ?? existing.locationHints,
+    viewCount: Number.isFinite(viewCount) ? viewCount : undefined,
     fullMetadataFetchedAt:
       video?.fullMetadataFetchedAt ?? existing.fullMetadataFetchedAt,
     isShort: video?.isShort ?? existing.isShort ?? false,
@@ -148,7 +167,8 @@ export const videoMetadataFromWatchPage = async (videoId) => {
   const thumbnail =
     html.match(/"thumbnailUrl":"([^"]+)"/)?.[1] ?? fallbackThumbnail(videoId)
   const isShort =
-    html.includes(`/shorts/${videoId}`) || html.includes(`\\/shorts\\/${videoId}`)
+    html.includes(`/shorts/${videoId}`) ||
+    html.includes(`\\/shorts\\/${videoId}`)
 
   return normalizeVideoMetadata({
     videoId,

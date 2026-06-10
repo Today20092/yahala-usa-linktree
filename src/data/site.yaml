@@ -210,10 +210,6 @@ visitedPlaces:
       state: Michigan
       latitude: 42.5911431
       longitude: -83.4907721
-    - city: Town of Columbus
-      state: New York
-      latitude: 42.6839611
-      longitude: -75.3726723
     - city: Farmington Hills
       state: Michigan
       latitude: 42.4853125

@@ -326,23 +326,6 @@ export const inferCityStateCandidates = (input = '') => {
     })
   }
 
-  for (const [city, aliases] of Object.entries(detectedCityAliases)) {
-    const cityAlias = [city, ...aliases].find((alias) => hasTerm(text, alias))
-    if (!cityAlias) continue
-
-    for (const state of stateAbbreviations.keys()) {
-      const stateAlias = [state, ...(stateAliases[state] ?? [])].find((alias) =>
-        hasTerm(text, alias),
-      )
-      if (!stateAlias) continue
-      addCandidate({
-        matchedText: `${cityAlias}, ${stateAlias}`,
-        city,
-        state,
-      })
-    }
-  }
-
   for (const pattern of patterns) {
     for (const match of text.matchAll(pattern)) {
       const city = match[1]
@@ -354,6 +337,34 @@ export const inferCityStateCandidates = (input = '') => {
         city,
         state: match[2],
       })
+    }
+  }
+
+  for (const [city, aliases] of Object.entries(detectedCityAliases)) {
+    const cityPattern = [city, ...aliases]
+      .sort((a, b) => b.length - a.length)
+      .map((alias) => escapeRegex(normalizeLocationText(alias)))
+      .join('|')
+    const cityTermPattern = `(?:^|[^a-z0-9])(${cityPattern})(?=$|[^a-z0-9])`
+
+    for (const state of stateAbbreviations.keys()) {
+      const statePattern = aliasesForState(state)
+        .sort((a, b) => b.length - a.length)
+        .map((alias) => escapeRegex(normalizeLocationText(alias)))
+        .join('|')
+      const stateTermPattern = `(?:^|[^a-z0-9])(${statePattern})(?=$|[^a-z0-9])`
+      const nearbyPattern = new RegExp(
+        `${cityTermPattern}.{0,40}${stateTermPattern}|${stateTermPattern}.{0,40}${cityTermPattern}`,
+        'giu',
+      )
+
+      for (const match of text.matchAll(nearbyPattern)) {
+        addCandidate({
+          matchedText: match[0].trim(),
+          city,
+          state,
+        })
+      }
     }
   }
 
@@ -660,6 +671,28 @@ export const testLocationUtils = async () => {
   })
   if (columbusAbbrev?.city !== 'Columbus' || columbusAbbrev?.state !== 'Ohio') {
     throw new Error('Expected Columbus, OH to geocode as a new place')
+  }
+
+  const columbusArabic = await inferLocationForVideo({
+    title: '',
+    description:
+      'من بغداد إلى كولومبوس اوهايو. حاصل على شهادة من Buffalo College في ولاية نيويورك.',
+    places,
+    geocodeCache: {
+      ...geocodeCache,
+      'Columbus, New York': {
+        query: 'Columbus, New York',
+        latitude: 42.6839611,
+        longitude: -75.3726723,
+        city: 'Town of Columbus',
+        state: 'New York',
+      },
+    },
+  })
+  if (columbusArabic?.city !== 'Columbus' || columbusArabic?.state !== 'Ohio') {
+    throw new Error(
+      `Expected nearby Columbus/Ohio to win over unrelated New York mention, got ${columbusArabic?.city}/${columbusArabic?.state}`,
+    )
   }
 
   const chicago = await inferLocationForVideo({
