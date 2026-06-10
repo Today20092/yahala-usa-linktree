@@ -265,6 +265,16 @@ if (addedPlaces.length > 0) {
 const updatedPlaceKeys = new Set(places.map(visitedPlaceKey))
 const mergedAssignments = processedVideos.map(
   ({ videoId, locationHints, existingAssignment }) => {
+    const existingState = String(existingAssignment?.state ?? '').trim()
+    const existingCity = String(existingAssignment?.city ?? '').trim()
+    if (existingState || existingCity) {
+      return {
+        videoId,
+        state: existingState,
+        city: existingCity,
+      }
+    }
+
     const hintedPlaceKey = visitedPlaceKey(locationHints)
     const canUseHintedCity = locationHints?.city
       ? updatedPlaceKeys.has(hintedPlaceKey)
