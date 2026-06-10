@@ -2,9 +2,12 @@
 import type { ImageMetadata } from 'astro'
 import { Image } from 'astro:assets'
 import { Icon } from 'astro-icon/components'
+import { parse } from 'yaml'
 
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
+import visitedVideosYaml from '../data/visited-videos.yaml?raw'
 import { siteConfig } from '../lib/site-config'
+import { resolveYoutubeVideos } from '../lib/youtube-videos'
 
 type BentoImage = {
   type: 'video'
@@ -32,6 +35,15 @@ type GeneratedYoutubeVideo = {
   title: string
   url: string
   thumbnail: string
+}
+
+type VisitedVideoCatalog = {
+  videos?: {
+    videoId?: string
+    title?: string
+    url?: string
+    thumbnail?: string
+  }[]
 }
 
 const bentoImageModules = import.meta.glob('../bento/*.{png,jpg,jpeg,webp}', {
@@ -169,11 +181,35 @@ const generatedYoutubeImages = Object.values(latestYoutubeVideos)
     }),
   )
 
-const bentoImageHrefs = new Set(
-  generatedYoutubeImages.map((image) => image.href),
+const visitedVideoImages = resolveYoutubeVideos(
+  (parse(visitedVideosYaml) as VisitedVideoCatalog).videos ?? [],
+).map(
+  (video): BentoImage => ({
+    type: 'video',
+    src: video.thumbnail,
+    alt: video.title || 'Ya Hala YouTube video thumbnail',
+    href: video.url || youtubeVideoUrl(video.videoId),
+  }),
 )
-const carouselImages = [
+
+const dedupeImagesByHref = (images: BentoImage[]) => {
+  const seen = new Set<string>()
+
+  return images.filter((image) => {
+    if (seen.has(image.href)) return false
+
+    seen.add(image.href)
+    return true
+  })
+}
+
+const videoThumbnailImages = dedupeImagesByHref([
   ...generatedYoutubeImages,
+  ...visitedVideoImages,
+])
+const bentoImageHrefs = new Set(videoThumbnailImages.map((image) => image.href))
+const carouselImages = [
+  ...videoThumbnailImages,
   ...bentoImages.filter((image) => !bentoImageHrefs.has(image.href)),
 ]
 
@@ -271,7 +307,7 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
     const rows = [...marqueeMask.querySelectorAll('.bento-scroll-row')].map(
       (row, index) => {
         const track = row.querySelector('.bento-scroll-track')
-        const baseDurations = [82, 98, 90]
+        const baseDurations = [140, 165, 150]
         const width =
           track instanceof HTMLElement ? track.scrollWidth / 2 : 274 * 8
 
