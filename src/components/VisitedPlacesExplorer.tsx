@@ -1,7 +1,13 @@
-import { ExternalLink, MapPin, Play } from "lucide-react"
-import * as React from "react"
+import { ExternalLink, MapPin, Play } from 'lucide-react'
+import * as React from 'react'
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
 import {
   Drawer,
   DrawerClose,
@@ -10,85 +16,91 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-} from "@/components/ui/drawer"
-import type { VisitedPlace } from "@/lib/site-config"
-import { cn } from "@/lib/utils"
+} from '@/components/ui/drawer'
+import type {
+  CityVideo,
+  StateVideoGroup,
+  VisitedPlace,
+} from '@/lib/site-config'
+import { cn } from '@/lib/utils'
 
 type Props = {
   places: VisitedPlace[]
+  stateVideos: StateVideoGroup[]
 }
 
 type StateGroup = {
   state: string
   abbreviation: string
   places: VisitedPlace[]
+  stateVideos: CityVideo[]
   videoCount: number
   firstIndex: number
 }
 
 const stateAbbreviations = new Map([
-  ["Alabama", "AL"],
-  ["Alaska", "AK"],
-  ["Arizona", "AZ"],
-  ["Arkansas", "AR"],
-  ["California", "CA"],
-  ["Colorado", "CO"],
-  ["Connecticut", "CT"],
-  ["Delaware", "DE"],
-  ["Florida", "FL"],
-  ["Georgia", "GA"],
-  ["Hawaii", "HI"],
-  ["Idaho", "ID"],
-  ["Illinois", "IL"],
-  ["Indiana", "IN"],
-  ["Iowa", "IA"],
-  ["Kansas", "KS"],
-  ["Kentucky", "KY"],
-  ["Louisiana", "LA"],
-  ["Maine", "ME"],
-  ["Maryland", "MD"],
-  ["Massachusetts", "MA"],
-  ["Michigan", "MI"],
-  ["Minnesota", "MN"],
-  ["Mississippi", "MS"],
-  ["Missouri", "MO"],
-  ["Montana", "MT"],
-  ["Nebraska", "NE"],
-  ["Nevada", "NV"],
-  ["New Hampshire", "NH"],
-  ["New Jersey", "NJ"],
-  ["New Mexico", "NM"],
-  ["New York", "NY"],
-  ["North Carolina", "NC"],
-  ["North Dakota", "ND"],
-  ["Ohio", "OH"],
-  ["Oklahoma", "OK"],
-  ["Oregon", "OR"],
-  ["Pennsylvania", "PA"],
-  ["Rhode Island", "RI"],
-  ["South Carolina", "SC"],
-  ["South Dakota", "SD"],
-  ["Tennessee", "TN"],
-  ["Texas", "TX"],
-  ["Utah", "UT"],
-  ["Vermont", "VT"],
-  ["Virginia", "VA"],
-  ["Washington", "WA"],
-  ["West Virginia", "WV"],
-  ["Wisconsin", "WI"],
-  ["Wyoming", "WY"],
+  ['Alabama', 'AL'],
+  ['Alaska', 'AK'],
+  ['Arizona', 'AZ'],
+  ['Arkansas', 'AR'],
+  ['California', 'CA'],
+  ['Colorado', 'CO'],
+  ['Connecticut', 'CT'],
+  ['Delaware', 'DE'],
+  ['Florida', 'FL'],
+  ['Georgia', 'GA'],
+  ['Hawaii', 'HI'],
+  ['Idaho', 'ID'],
+  ['Illinois', 'IL'],
+  ['Indiana', 'IN'],
+  ['Iowa', 'IA'],
+  ['Kansas', 'KS'],
+  ['Kentucky', 'KY'],
+  ['Louisiana', 'LA'],
+  ['Maine', 'ME'],
+  ['Maryland', 'MD'],
+  ['Massachusetts', 'MA'],
+  ['Michigan', 'MI'],
+  ['Minnesota', 'MN'],
+  ['Mississippi', 'MS'],
+  ['Missouri', 'MO'],
+  ['Montana', 'MT'],
+  ['Nebraska', 'NE'],
+  ['Nevada', 'NV'],
+  ['New Hampshire', 'NH'],
+  ['New Jersey', 'NJ'],
+  ['New Mexico', 'NM'],
+  ['New York', 'NY'],
+  ['North Carolina', 'NC'],
+  ['North Dakota', 'ND'],
+  ['Ohio', 'OH'],
+  ['Oklahoma', 'OK'],
+  ['Oregon', 'OR'],
+  ['Pennsylvania', 'PA'],
+  ['Rhode Island', 'RI'],
+  ['South Carolina', 'SC'],
+  ['South Dakota', 'SD'],
+  ['Tennessee', 'TN'],
+  ['Texas', 'TX'],
+  ['Utah', 'UT'],
+  ['Vermont', 'VT'],
+  ['Virginia', 'VA'],
+  ['Washington', 'WA'],
+  ['West Virginia', 'WV'],
+  ['Wisconsin', 'WI'],
+  ['Wyoming', 'WY'],
 ])
 
 function getYoutubeVideoId(url: string) {
   try {
     const parsedUrl = new URL(url)
 
-    if (parsedUrl.hostname.includes("youtu.be")) {
-      return parsedUrl.pathname.split("/").filter(Boolean)[0]
+    if (parsedUrl.hostname.includes('youtu.be')) {
+      return parsedUrl.pathname.split('/').filter(Boolean)[0]
     }
 
-    if (parsedUrl.searchParams.has("v")) {
-      return parsedUrl.searchParams.get("v")
+    if (parsedUrl.searchParams.has('v')) {
+      return parsedUrl.searchParams.get('v')
     }
 
     const embedMatch = parsedUrl.pathname.match(/\/embed\/([^/?]+)/)
@@ -113,38 +125,94 @@ function formatState(state: string) {
   return state
 }
 
-export default function VisitedPlacesExplorer({ places }: Props) {
-  const [selectedState, setSelectedState] = React.useState<string | null>(
-    null
+function formatVideoCount(count: number) {
+  return `${count} ${count === 1 ? 'video' : 'videos'}`
+}
+
+function VideoLink({
+  video,
+  videoKeyPrefix,
+}: {
+  video: CityVideo
+  videoKeyPrefix: string
+}) {
+  if (!video.url) return null
+
+  const thumbnail = getThumbnail(video.url, video.thumbnail)
+
+  return (
+    <a
+      key={`${videoKeyPrefix}-${video.url}-${video.title ?? 'video'}`}
+      href={video.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="focus-visible:ring-ring group hover:bg-muted/60 grid grid-cols-[96px_1fr] gap-3 rounded-md p-2 text-left transition focus-visible:ring-2 focus-visible:outline-none"
+    >
+      <span className="bg-muted relative aspect-video overflow-hidden rounded-md">
+        {thumbnail ? (
+          <img
+            src={thumbnail}
+            alt=""
+            className="h-full w-full object-cover transition duration-200 group-hover:scale-105"
+            loading="lazy"
+          />
+        ) : (
+          <span className="text-muted-foreground grid h-full w-full place-items-center">
+            <Play className="size-5" aria-hidden="true" />
+          </span>
+        )}
+      </span>
+      <span className="flex min-w-0 flex-col justify-between gap-2 py-0.5">
+        <span className="text-foreground line-clamp-2 text-sm leading-snug font-semibold">
+          {video.title ?? 'Watch on YouTube'}
+        </span>
+        <span className="text-muted-foreground group-hover:text-foreground inline-flex items-center gap-1 text-xs font-semibold">
+          Watch on YouTube
+          <ExternalLink className="size-3" aria-hidden="true" />
+        </span>
+      </span>
+    </a>
   )
-  const stateGroups = React.useMemo<StateGroup[]>(
-    () => {
-      const groups = new Map<string, StateGroup>()
+}
 
-      places.forEach((place, index) => {
-        const group = groups.get(place.state) ?? {
-          state: place.state,
-          abbreviation: stateAbbreviations.get(place.state) ?? place.state,
-          places: [],
-          videoCount: 0,
-          firstIndex: index,
-        }
+export default function VisitedPlacesExplorer({ places, stateVideos }: Props) {
+  const [selectedState, setSelectedState] = React.useState<string | null>(null)
+  const stateGroups = React.useMemo<StateGroup[]>(() => {
+    const groups = new Map<string, StateGroup>()
+    const stateVideosByState = new Map(
+      stateVideos.map((group) => [
+        group.state.trim().toLowerCase(),
+        group.videos ?? [],
+      ]),
+    )
 
-        group.places.push(place)
-        group.videoCount += place.videos?.length ?? 0
-        groups.set(place.state, group)
-      })
+    places.forEach((place, index) => {
+      const stateKey = place.state.trim().toLowerCase()
+      const group = groups.get(place.state) ?? {
+        state: place.state,
+        abbreviation: stateAbbreviations.get(place.state) ?? place.state,
+        places: [],
+        stateVideos: stateVideosByState.get(stateKey) ?? [],
+        videoCount: stateVideosByState.get(stateKey)?.length ?? 0,
+        firstIndex: index,
+      }
 
-      return [...groups.values()].sort(
-        (a, b) => b.videoCount - a.videoCount || a.firstIndex - b.firstIndex
-      )
-    },
-    [places]
-  )
+      group.places.push(place)
+      group.videoCount += place.videos?.length ?? 0
+      groups.set(place.state, group)
+    })
+
+    return [...groups.values()].sort(
+      (a, b) => b.videoCount - a.videoCount || a.firstIndex - b.firstIndex,
+    )
+  }, [places, stateVideos])
   const selectedStateGroup =
     stateGroups.find((group) => group.state === selectedState) ?? null
+  const selectedStateVideos = selectedStateGroup?.stateVideos ?? []
   const selectedPlacesWithVideos =
     selectedStateGroup?.places.filter((place) => place.videos?.length) ?? []
+  const hasSelectedVideos =
+    selectedStateVideos.length > 0 || selectedPlacesWithVideos.length > 0
 
   return (
     <>
@@ -161,10 +229,10 @@ export default function VisitedPlacesExplorer({ places }: Props) {
               <button
                 type="button"
                 className={cn(
-                  "inline-flex min-h-7 items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                  'focus-visible:ring-ring inline-flex min-h-7 items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
                   hasVideos
-                    ? "border-border bg-card text-foreground hover:bg-accent"
-                    : "border-border/70 bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground dark:bg-background/55"
+                    ? 'border-border bg-card text-foreground hover:bg-accent'
+                    : 'border-border/70 bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground dark:bg-background/55',
                 )}
                 aria-label={`Show videos from ${label}`}
                 onClick={() => setSelectedState(group.state)}
@@ -186,89 +254,89 @@ export default function VisitedPlacesExplorer({ places }: Props) {
         <DrawerContent>
           <DrawerHeader>
             <div className="flex items-start gap-3">
-              <span className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-lg bg-muted text-muted-foreground ring-1 ring-border">
+              <span className="bg-muted text-muted-foreground ring-border mt-0.5 grid size-9 shrink-0 place-items-center rounded-lg ring-1">
                 <MapPin className="size-4" aria-hidden="true" />
               </span>
               <div className="min-w-0">
                 <DrawerTitle>
                   {selectedStateGroup
                     ? `Videos from ${formatState(selectedStateGroup.state)}`
-                    : "State videos"}
+                    : 'State videos'}
                 </DrawerTitle>
                 <DrawerDescription>
-                  Watch Ya Hala stories and visits grouped by city.
+                  Watch Ya Hala stories and visits grouped by state and city.
                 </DrawerDescription>
               </div>
             </div>
           </DrawerHeader>
 
           <div className="overflow-y-auto px-5 pb-2">
-            {selectedPlacesWithVideos.length > 0 ? (
-              <div className="grid gap-5">
-                {selectedPlacesWithVideos.map((place) => (
-                  <section key={`${place.city}-${place.state}`} className="grid gap-2">
-                    <div className="flex items-center justify-between gap-3">
-                      <h3 className="text-sm font-semibold text-foreground">
-                        {formatPlace(place.city, place.state)}
-                      </h3>
-                      <span className="text-xs font-medium text-muted-foreground">
-                        {place.videos?.length ?? 0} videos
+            {hasSelectedVideos ? (
+              <Accordion
+                type="multiple"
+                className="border-border bg-card rounded-lg border"
+              >
+                {selectedStateVideos.length > 0 && (
+                  <AccordionItem
+                    value="statewide-videos"
+                    className="border-border data-open:bg-card"
+                  >
+                    <AccordionTrigger className="items-center px-3 py-3 hover:no-underline">
+                      <span className="text-foreground min-w-0 truncate text-sm font-semibold">
+                        Statewide videos
                       </span>
-                    </div>
-                    <div className="grid gap-3">
-                      {place.videos?.map((video) => {
-                        if (!video.url) return null
+                      <span className="text-muted-foreground text-xs font-medium">
+                        {formatVideoCount(selectedStateVideos.length)}
+                      </span>
+                    </AccordionTrigger>
+                    <AccordionContent className="flex flex-col gap-1 px-0 pb-2 [&_a]:no-underline">
+                      {selectedStateVideos.map((video) => (
+                        <VideoLink
+                          key={`state-${video.url}-${video.title ?? 'video'}`}
+                          video={video}
+                          videoKeyPrefix="state"
+                        />
+                      ))}
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
 
-                        const thumbnail = getThumbnail(video.url, video.thumbnail)
-
-                        return (
-                          <a
-                            key={`${place.city}-${video.url}-${video.title ?? "video"}`}
-                            href={video.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group grid grid-cols-[104px_1fr] gap-3 rounded-lg border border-border bg-card p-2 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                          >
-                            <span className="relative aspect-video overflow-hidden rounded-md bg-muted">
-                              {thumbnail ? (
-                                <img
-                                  src={thumbnail}
-                                  alt=""
-                                  className="h-full w-full object-cover transition duration-200 group-hover:scale-105"
-                                  loading="lazy"
-                                />
-                              ) : (
-                                <span className="grid h-full w-full place-items-center text-muted-foreground">
-                                  <Play className="size-5" aria-hidden="true" />
-                                </span>
-                              )}
-                            </span>
-                            <span className="flex min-w-0 flex-col justify-between gap-2 py-0.5">
-                              <span className="line-clamp-2 text-sm leading-snug font-semibold text-foreground">
-                                {video.title ?? "Watch on YouTube"}
-                              </span>
-                              <span className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground group-hover:text-foreground">
-                                Watch on YouTube
-                                <ExternalLink
-                                  className="size-3"
-                                  aria-hidden="true"
-                                />
-                              </span>
-                            </span>
-                          </a>
-                        )
-                      })}
-                    </div>
-                  </section>
+                {selectedPlacesWithVideos.map((place) => (
+                  <AccordionItem
+                    key={`${place.city}-${place.state}`}
+                    value={`${place.state}-${place.city}`}
+                    className="border-border data-open:bg-card"
+                  >
+                    <AccordionTrigger className="items-center px-3 py-3 hover:no-underline">
+                      <span className="text-foreground min-w-0 truncate text-sm font-semibold">
+                        {formatPlace(place.city, place.state)}
+                      </span>
+                      <span className="text-muted-foreground text-xs font-medium">
+                        {formatVideoCount(place.videos?.length ?? 0)}
+                      </span>
+                    </AccordionTrigger>
+                    <AccordionContent className="flex flex-col gap-1 px-0 pb-2 [&_a]:no-underline">
+                      {place.videos?.map((video) => (
+                        <VideoLink
+                          key={`${place.city}-${video.url}-${
+                            video.title ?? 'video'
+                          }`}
+                          video={video}
+                          videoKeyPrefix={place.city}
+                        />
+                      ))}
+                    </AccordionContent>
+                  </AccordionItem>
                 ))}
-              </div>
+              </Accordion>
             ) : (
-              <div className="rounded-lg border border-dashed border-border bg-muted/45 px-4 py-8 text-center">
-                <p className="text-sm font-semibold text-foreground">
+              <div className="border-border bg-muted/45 rounded-lg border border-dashed px-4 py-8 text-center">
+                <p className="text-foreground text-sm font-semibold">
                   Videos from this state are coming soon.
                 </p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Add curated YouTube links or detected locations for this state.
+                <p className="text-muted-foreground mt-1 text-sm">
+                  Add curated YouTube links or detected locations for this
+                  state.
                 </p>
               </div>
             )}

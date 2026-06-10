@@ -72,11 +72,11 @@ export const resolveVisitedPlaces = (
     }
   }
 
+  const cityVideoKeys = new Set<string>()
   const places: VisitedPlace[] = (visitedPlaces.places ?? []).map((place) => {
     const state = normalizeText(place.state)
     const city = normalizeText(place.city)
     const mergedVideos = dedupeVideos([
-      ...(videosByState.get(state) ?? []),
       ...(videosByPlace.get(`${state}:${city}`) ?? []),
       ...(place.videos ?? []),
     ])
@@ -84,14 +84,43 @@ export const resolveVisitedPlaces = (
       .map((video) => resolveYoutubeVideo(video))
       .filter(Boolean)
 
+    videos.forEach((video) => {
+      const key = videoKey(video)
+      if (key) cityVideoKeys.add(key)
+    })
+
     return {
       ...place,
       videos: videos.length > 0 ? videos : undefined,
     }
   })
+  const stateVideos = [...videosByState.entries()]
+    .map(([state, videos]) => {
+      const resolvedVideos = dedupeVideos(videos)
+        .filter((video) => {
+          const key = videoKey(video)
+          return key && !cityVideoKeys.has(key)
+        })
+        .map((video) => resolveYoutubeVideo(video))
+        .filter(Boolean)
+
+      return {
+        state:
+          visitedPlaces.stateVideos?.find(
+            (group) => normalizeText(group.state) === state,
+          )?.state ??
+          visitedPlaces.places?.find(
+            (place) => normalizeText(place.state) === state,
+          )?.state ??
+          state,
+        videos: resolvedVideos,
+      }
+    })
+    .filter((group) => group.videos.length > 0)
 
   return {
     ...visitedPlaces,
+    stateVideos,
     places,
   }
 }
