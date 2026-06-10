@@ -742,7 +742,7 @@
 }
 
 .bento-scroll-track {
-  animation: bento-scroll 80s linear infinite;
+  animation: bento-scroll 160s linear infinite;
   will-change: transform;
 }
 
@@ -760,18 +760,18 @@
 }
 
 .bento-scroll-track-1 {
-  animation-duration: 76s;
-  animation-delay: -12s;
+  animation-duration: 152s;
+  animation-delay: -24s;
 }
 
 .bento-scroll-track-2 {
-  animation-duration: 92s;
-  animation-delay: -36s;
+  animation-duration: 184s;
+  animation-delay: -72s;
 }
 
 .bento-scroll-track-3 {
-  animation-duration: 84s;
-  animation-delay: -24s;
+  animation-duration: 168s;
+  animation-delay: -48s;
 }
 
 .bento-scroll-mask:hover .bento-scroll-track,
