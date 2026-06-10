@@ -703,5 +703,124 @@
     "longitude": -80.6636984,
     "city": "Cocoa",
     "state": "Florida"
+  },
+  "Marysville, Ohio": {
+    "query": "Marysville, Ohio",
+    "latitude": 40.2364486,
+    "longitude": -83.3671432,
+    "city": "Marysville",
+    "state": "Ohio"
+  },
+  "Gainesville, Virginia": {
+    "query": "Gainesville, Virginia",
+    "latitude": 38.7927405,
+    "longitude": -77.6292018,
+    "city": "Gainesville",
+    "state": "Virginia"
+  },
+  "في كولومبوس, Ohio": {
+    "query": "في كولومبوس, Ohio",
+    "latitude": 40.0838622,
+    "longitude": -82.870336,
+    "city": "Columbus",
+    "state": "Ohio"
+  },
+  "Farmington, Michigan": {
+    "query": "Farmington, Michigan",
+    "latitude": 42.4644795,
+    "longitude": -83.3763219,
+    "city": "Farmington",
+    "state": "Michigan"
+  },
+  "Cedar Park, Texas": {
+    "query": "Cedar Park, Texas",
+    "latitude": 30.5217116,
+    "longitude": -97.827833,
+    "city": "Cedar Park",
+    "state": "Texas"
+  },
+  "Spring Valley, California": {
+    "query": "Spring Valley, California",
+    "latitude": 39.0762525,
+    "longitude": -122.5949373,
+    "city": "Spring Valley",
+    "state": "California"
+  },
+  "Murphy, Texas": {
+    "query": "Murphy, Texas",
+    "latitude": 33.0151208,
+    "longitude": -96.6130478,
+    "city": "Murphy",
+    "state": "Texas"
+  },
+  "Paramus, New Jersey": {
+    "query": "Paramus, New Jersey",
+    "latitude": 40.9452911,
+    "longitude": -74.0735899,
+    "city": "Paramus",
+    "state": "New Jersey"
+  },
+  "Oakbrook Terrace, Illinois": {
+    "query": "Oakbrook Terrace, Illinois",
+    "latitude": 41.8500302,
+    "longitude": -87.9645077,
+    "city": "Oakbrook Terrace",
+    "state": "Illinois"
+  },
+  "Waterbury, Connecticut": {
+    "query": "Waterbury, Connecticut",
+    "latitude": 41.5539066,
+    "longitude": -73.0438067,
+    "city": "Waterbury",
+    "state": "Connecticut"
+  },
+  "Skokie, Illinois": {
+    "query": "Skokie, Illinois",
+    "latitude": 42.0262972,
+    "longitude": -87.7521069,
+    "city": "Skokie",
+    "state": "Illinois"
+  },
+  "Garden Grove, California": {
+    "query": "Garden Grove, California",
+    "latitude": 33.7746292,
+    "longitude": -117.9463717,
+    "city": "Garden Grove",
+    "state": "California"
+  },
+  "Villa Park, Illinois": {
+    "query": "Villa Park, Illinois",
+    "latitude": 41.8893116,
+    "longitude": -87.9778368,
+    "city": "Villa Park",
+    "state": "Illinois"
+  },
+  "Calumet City, Illinois": {
+    "query": "Calumet City, Illinois",
+    "latitude": 41.616016,
+    "longitude": -87.5295837,
+    "city": "Calumet City",
+    "state": "Illinois"
+  },
+  "Bolingbrook, Illinois": {
+    "query": "Bolingbrook, Illinois",
+    "latitude": 41.7003302,
+    "longitude": -88.0717708,
+    "city": "Bolingbrook",
+    "state": "Illinois"
+  },
+  "Brandon, Florida": {
+    "query": "Brandon, Florida",
+    "latitude": 27.928464,
+    "longitude": -82.2880508,
+    "city": "Brandon",
+    "state": "Florida"
+  },
+  "Sarasota, Florida": {
+    "query": "Sarasota, Florida",
+    "latitude": 27.3365805,
+    "longitude": -82.5308545,
+    "city": "Sarasota",
+    "state": "Florida"
   }
 }

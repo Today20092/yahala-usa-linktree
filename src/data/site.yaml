@@ -498,6 +498,70 @@ visitedPlaces:
       state: Florida
       latitude: 28.2662775
       longitude: -80.6636984
+    - city: Marysville
+      state: Ohio
+      latitude: 40.2364486
+      longitude: -83.3671432
+    - city: Gainesville
+      state: Virginia
+      latitude: 38.7927405
+      longitude: -77.6292018
+    - city: Farmington
+      state: Michigan
+      latitude: 42.4644795
+      longitude: -83.3763219
+    - city: Cedar Park
+      state: Texas
+      latitude: 30.5217116
+      longitude: -97.827833
+    - city: Spring Valley
+      state: California
+      latitude: 39.0762525
+      longitude: -122.5949373
+    - city: Murphy
+      state: Texas
+      latitude: 33.0151208
+      longitude: -96.6130478
+    - city: Paramus
+      state: New Jersey
+      latitude: 40.9452911
+      longitude: -74.0735899
+    - city: Oakbrook Terrace
+      state: Illinois
+      latitude: 41.8500302
+      longitude: -87.9645077
+    - city: Waterbury
+      state: Connecticut
+      latitude: 41.5539066
+      longitude: -73.0438067
+    - city: Skokie
+      state: Illinois
+      latitude: 42.0262972
+      longitude: -87.7521069
+    - city: Garden Grove
+      state: California
+      latitude: 33.7746292
+      longitude: -117.9463717
+    - city: Villa Park
+      state: Illinois
+      latitude: 41.8893116
+      longitude: -87.9778368
+    - city: Calumet City
+      state: Illinois
+      latitude: 41.616016
+      longitude: -87.5295837
+    - city: Bolingbrook
+      state: Illinois
+      latitude: 41.7003302
+      longitude: -88.0717708
+    - city: Brandon
+      state: Florida
+      latitude: 27.928464
+      longitude: -82.2880508
+    - city: Sarasota
+      state: Florida
+      latitude: 27.3365805
+      longitude: -82.5308545
 
 socialReach:
   updatedAt: "2026-06-03"
