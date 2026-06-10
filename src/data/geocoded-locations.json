@@ -822,5 +822,40 @@
     "longitude": -82.5308545,
     "city": "Sarasota",
     "state": "Florida"
+  },
+  "Reynoldsburg, Ohio": {
+    "query": "Reynoldsburg, Ohio",
+    "latitude": 39.9547861,
+    "longitude": -82.8121191,
+    "city": "Reynoldsburg",
+    "state": "Ohio"
+  },
+  "Wylie, Texas": {
+    "query": "Wylie, Texas",
+    "latitude": 33.0151561,
+    "longitude": -96.5388038,
+    "city": "Wylie",
+    "state": "Texas"
+  },
+  "Schaumburg, Illinois": {
+    "query": "Schaumburg, Illinois",
+    "latitude": 42.0333608,
+    "longitude": -88.083406,
+    "city": "Schaumburg",
+    "state": "Illinois"
+  },
+  "Gary, Indiana": {
+    "query": "Gary, Indiana",
+    "latitude": 41.5702561,
+    "longitude": -87.3365496,
+    "city": "Gary",
+    "state": "Indiana"
+  },
+  "Melbourne, Florida": {
+    "query": "Melbourne, Florida",
+    "latitude": 28.0785034,
+    "longitude": -80.6077908,
+    "city": "Melbourne",
+    "state": "Florida"
   }
 }

@@ -97,10 +97,10 @@ videos:
     city: ""
   - videoId: Dt8N8S3ZPP4
     state: "Ohio"
-    city: "Marysville"
+    city: "Reynoldsburg"
   - videoId: f8sotkFQcrc
     state: "Virginia"
-    city: "Gainesville"
+    city: "Tysons"
   - videoId: ahR0yuK44YY
     state: "Indiana"
     city: ""
@@ -127,7 +127,7 @@ videos:
     city: "Dublin"
   - videoId: UYw4AMNyTiE
     state: "Michigan"
-    city: "Farmington"
+    city: "Farmington Hills"
   - videoId: yqaissIYvus
     state: ""
     city: ""
@@ -139,7 +139,7 @@ videos:
     city: "Columbus"
   - videoId: DYlYA2eo46Q
     state: "Ohio"
-    city: "Marysville"
+    city: "Columbus"
   - videoId: uiXWP_5iyFs
     state: "Ohio"
     city: "Dublin"
@@ -268,7 +268,7 @@ videos:
     city: ""
   - videoId: jiVfFC3z7tw
     state: "Texas"
-    city: "Cedar Park"
+    city: "Austin"
   - videoId: mlSXRCHXpaw
     state: "Florida"
     city: "Tampa"
@@ -283,7 +283,7 @@ videos:
     city: "Los Angeles"
   - videoId: VRw-a69KQ6k
     state: "California"
-    city: "Spring Valley"
+    city: "San Diego"
   - videoId: qGOo4P7F3RQ
     state: "Florida"
     city: "Miami"
@@ -367,7 +367,7 @@ videos:
     city: "Houston"
   - videoId: _st4dhD22ww
     state: "Texas"
-    city: "Murphy"
+    city: "Wylie"
   - videoId: D6schY1EeUk
     state: "Texas"
     city: "Dallas"
@@ -424,19 +424,19 @@ videos:
     city: "San Francisco"
   - videoId: VsI3KT8rJH4
     state: "New Jersey"
-    city: "Paramus"
+    city: "Jersey City"
   - videoId: U_pG0dFM7vY
     state: ""
     city: ""
   - videoId: m-Y6ekkbPsI
     state: "Illinois"
-    city: "Oakbrook Terrace"
+    city: "Schaumburg"
   - videoId: 5yC8zRPu9NU
-    state: "Connecticut"
-    city: "Waterbury"
+    state: "New Jersey"
+    city: "Clifton"
   - videoId: e9G86rMrQkk
     state: "Illinois"
-    city: "Skokie"
+    city: "Chicago"
   - videoId: fTK8Y7tYF2k
     state: "Michigan"
     city: "Southfield Township"
@@ -451,7 +451,7 @@ videos:
     city: "Chicago"
   - videoId: MBGuLR-Ge60
     state: "California"
-    city: "Garden Grove"
+    city: "Anaheim"
   - videoId: 0RJ9g0tT4WQ
     state: "Illinois"
     city: "Chicago"
@@ -469,10 +469,10 @@ videos:
     city: "Palo Alto"
   - videoId: giCpFQZ_Df4
     state: "Illinois"
-    city: "Villa Park"
+    city: "Chicago"
   - videoId: lTF4lyUN3G8
-    state: "Illinois"
-    city: "Calumet City"
+    state: "Indiana"
+    city: "Gary"
   - videoId: fbMo-hfa_q0
     state: ""
     city: ""
@@ -766,7 +766,7 @@ videos:
     city: "Tampa"
   - videoId: ACBu5IH1eeQ
     state: "Illinois"
-    city: "Bolingbrook"
+    city: "Chicago"
   - videoId: caDdVPhh020
     state: "Illinois"
     city: "Chicago"
@@ -793,7 +793,7 @@ videos:
     city: "Paterson"
   - videoId: 0gs3SMozHwQ
     state: "Florida"
-    city: "Brandon"
+    city: "Tampa"
   - videoId: g0RK5nznWxs
     state: "Illinois"
     city: "Chicago"
@@ -871,7 +871,7 @@ videos:
     city: "Chicago"
   - videoId: PiUMx7rg9To
     state: "Florida"
-    city: "Sarasota"
+    city: "Melbourne"
   - videoId: u6ODZxlT-m0
     state: "Florida"
     city: "Temple Terrace"
