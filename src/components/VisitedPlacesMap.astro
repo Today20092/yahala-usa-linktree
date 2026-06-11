@@ -1,6 +1,6 @@
 ---
 import VisitedPlacesExplorer from './VisitedPlacesExplorer'
-import type { VisitedPlaces } from '../lib/site-config'
+import type { CityVideo, VisitedPlaces } from '../lib/site-config'
 
 type Props = {
   visitedPlaces: VisitedPlaces
@@ -10,13 +10,28 @@ const { visitedPlaces } = Astro.props
 const places = visitedPlaces.places ?? []
 const stateVideos = visitedPlaces.stateVideos ?? []
 const maxExplorerVideosPerGroup = 3
+function toExplorerVideo(video: CityVideo) {
+  return {
+    videoId: video.videoId,
+    title: video.title,
+    url: video.url,
+    thumbnail: video.thumbnail,
+  }
+}
 const explorerPlaces = places.map((place) => ({
-  ...place,
-  videos: place.videos?.slice(0, maxExplorerVideosPerGroup),
+  city: place.city,
+  state: place.state,
+  latitude: place.latitude,
+  longitude: place.longitude,
+  x: place.x,
+  y: place.y,
+  videos: place.videos
+    ?.slice(0, maxExplorerVideosPerGroup)
+    .map(toExplorerVideo),
 }))
 const explorerStateVideos = stateVideos.map((group) => ({
-  ...group,
-  videos: group.videos.slice(0, maxExplorerVideosPerGroup),
+  state: group.state,
+  videos: group.videos.slice(0, maxExplorerVideosPerGroup).map(toExplorerVideo),
 }))
 const tileZoom = 4
 const tileColumns = [2, 3, 4, 5]
@@ -207,23 +222,23 @@ const getPlacePosition = (place: (typeof places)[number]) => {
           stateVideos={explorerStateVideos}
         />
       </div>
-
-      <script>
-        document
-          .querySelectorAll<HTMLButtonElement>('[data-visited-state]')
-          .forEach((pin) => {
-            pin.addEventListener('click', () => {
-              const state = pin.dataset.visitedState
-              if (!state) return
-
-              window.dispatchEvent(
-                new CustomEvent('visited-state-select', {
-                  detail: { state },
-                }),
-              )
-            })
-          })
-      </script>
     </section>
   )
 }
+
+<script>
+  document.querySelectorAll('[data-visited-state]').forEach((pin) => {
+    if (!(pin instanceof HTMLElement)) return
+
+    pin.addEventListener('click', () => {
+      const state = pin.dataset.visitedState
+      if (!state) return
+
+      window.dispatchEvent(
+        new CustomEvent('visited-state-select', {
+          detail: { state },
+        }),
+      )
+    })
+  })
+</script>

@@ -205,15 +205,19 @@ export const videosFromVideosTab = async (videosUrl) => {
     ),
   ]
 
-  const videos = (
-    await Promise.all(
-      videoIds.map((videoId) =>
-        videoMetadataFromWatchPage(videoId).catch(() =>
-          normalizeVideoMetadata({ videoId }),
-        ),
-      ),
+  const videos = []
+  const requestDelayMs = Number(process.env.YOUTUBE_REQUEST_DELAY_MS ?? 1500)
+
+  for (const videoId of videoIds) {
+    if (requestDelayMs > 0) {
+      await new Promise((resolve) => setTimeout(resolve, requestDelayMs))
+    }
+
+    const video = await videoMetadataFromWatchPage(videoId).catch(() =>
+      normalizeVideoMetadata({ videoId }),
     )
-  ).filter(Boolean)
+    if (video) videos.push(video)
+  }
 
   return uniqueVideos(videos)
 }

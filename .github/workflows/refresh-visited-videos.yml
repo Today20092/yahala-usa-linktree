@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: youtube-data-refresh
+  cancel-in-progress: false
+
 jobs:
   refresh-visited-videos:
     runs-on: ubuntu-latest
@@ -33,6 +37,8 @@ jobs:
         run: |
           npm run update:visited-videos
           npm run validate:data
+      - name: Rebase before committing
+        run: git pull --rebase --autostash origin master
       - name: Commit updated visited video catalog
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
