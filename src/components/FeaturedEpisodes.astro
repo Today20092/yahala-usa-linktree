@@ -51,7 +51,7 @@ const episodes = topVideoIds
 
     return {
       thumbnail: video.thumbnail ?? youtubeThumbnailUrl(videoId),
-      title: video.title ?? 'Watch this episode',
+      title: video.title ?? 'View this episode',
       href: video.url ?? `https://www.youtube.com/watch?v=${videoId}`,
       viewCount,
     }
@@ -67,7 +67,7 @@ const episodes = topVideoIds
     >
       <div class="mb-4 text-center">
         <p class="text-primary text-xs font-bold tracking-widest uppercase">
-          Watch next
+          View next
         </p>
         <h2
           id="featured-episodes-title"
@@ -85,12 +85,13 @@ const episodes = topVideoIds
               target="_blank"
               rel="noopener noreferrer"
               class="group focus-visible:ring-ring/30 focus-visible:ring-offset-background flex items-center gap-4 px-3 py-3 transition-transform duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:gap-5 sm:px-4 sm:py-4"
-              aria-label={`Watch on YouTube: ${episode.title}`}
             >
               <span class="bg-muted relative aspect-video w-36 shrink-0 overflow-hidden rounded-md shadow-sm ring-1 ring-black/5 sm:w-48">
                 <img
                   src={episode.thumbnail}
-                  alt=""
+                  alt={episode.title}
+                  width="480"
+                  height="360"
                   loading="lazy"
                   decoding="async"
                   class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"

@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap');
 @import 'tailwindcss';
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -93,7 +92,7 @@
   --color-scrim: oklch(0.147 0.004 49.25);
   --page-bg-texture: none;
   --radius-full: 9999px;
-  --font-display: 'Playfair Display', Georgia, serif;
+  --font-display: Georgia, 'Times New Roman', serif;
 }
 
 .dark {

@@ -176,10 +176,10 @@ function VideoLink({
       </span>
       <span className="flex min-w-0 flex-col justify-between gap-2 py-0.5">
         <span className="text-foreground line-clamp-2 text-sm leading-snug font-semibold">
-          {video.title ?? 'Watch on YouTube'}
+          {video.title ?? 'Open on YouTube'}
         </span>
         <span className="text-muted-foreground group-hover:text-foreground inline-flex items-center gap-1 text-xs font-semibold">
-          Watch on YouTube
+          Open on YouTube
           <ExternalLink className="size-3" aria-hidden="true" />
         </span>
       </span>
@@ -339,7 +339,7 @@ export default function VisitedPlacesExplorer({ places, stateVideos }: Props) {
                     : 'State videos'}
                 </DrawerTitle>
                 <DrawerDescription>
-                  Watch Ya Hala stories and visits grouped by state and city.
+                  View Ya Hala stories and visits grouped by state and city.
                 </DrawerDescription>
               </div>
             </div>

@@ -1,6 +1,7 @@
 ---
 import '../styles.css'
 
+import { Picture } from 'astro:assets'
 import { Icon } from 'astro-icon/components'
 
 import FeaturedEpisodes from '../components/FeaturedEpisodes.astro'
@@ -37,8 +38,7 @@ const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
 const profileImageUrl = resolveSiteAsset(baseUrl, profileImage)
 const currentYear = new Date().getFullYear()
 const canonicalUrl = new URL(baseUrl, Astro.site).toString()
-const sitemapUrl = new URL(`${baseUrl}sitemap-index.xml`, Astro.site).toString()
-const heroImagePath = heroCover.src
+const sitemapUrl = new URL(`${baseUrl}sitemap.xml`, Astro.site).toString()
 const heroImageUrl = new URL(
   resolveSiteAsset(baseUrl, ogImage),
   Astro.site,
@@ -203,14 +203,11 @@ const structuredData = {
     <meta name="twitter:image" content={heroImageUrl} />
     <meta name="twitter:image:alt" content={heroImageAlt} />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="sitemap" href={sitemapUrl} />
+    <link rel="sitemap" type="application/xml" href={sitemapUrl} />
     <script
       type="application/ld+json"
       set:html={JSON.stringify(structuredData)}
     />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
 
   <body
@@ -236,11 +233,14 @@ const structuredData = {
             aria-hidden="true"
           />
         </button>
-        <img
-          src={heroImagePath}
+        <Picture
           alt={heroImageAlt}
+          src={heroCover}
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
           class="linktree-hero__image"
           decoding="async"
+          fetchpriority="high"
           loading="eager"
         />
         <div class="linktree-hero__fade" aria-hidden="true"></div>
@@ -344,6 +344,7 @@ const structuredData = {
         class="animate-fade-in-up mx-auto mt-8 w-full max-w-xl px-4 delay-500 sm:px-6"
       >
         <section
+          id="contact"
           class="collaboration-cta rounded-xl px-5 py-6 text-left sm:px-6"
           aria-labelledby="collaboration-title"
         >
@@ -383,9 +384,52 @@ const structuredData = {
       </div>
 
       <footer
-        class="text-muted-foreground mt-auto w-full px-4 pt-12 pb-4 text-center text-sm"
+        class="text-muted-foreground mt-auto w-full px-4 pt-10 pb-4 text-center text-xs leading-relaxed"
       >
-        <p class="mb-1">
+        <nav
+          class="mx-auto mb-3 flex max-w-xl flex-wrap items-center justify-center gap-x-3 gap-y-1"
+          aria-label="Page information"
+        >
+          <a
+            href="/"
+            class="hover:text-foreground transition-colors"
+          >
+            Home
+          </a>
+          <a
+            href="#about"
+            class="hover:text-foreground transition-colors"
+          >
+            About
+          </a>
+          <a
+            href="#contact"
+            class="hover:text-foreground transition-colors"
+          >
+            Contact
+          </a>
+          <a
+            href="#privacy"
+            class="hover:text-foreground transition-colors"
+          >
+            Privacy
+          </a>
+        </nav>
+        <p
+          id="about"
+          class="sr-only"
+        >
+          {siteName} is a single-page hub for Arab American stories, field
+          interviews, community visits, and official social channels.
+        </p>
+        <p
+          id="privacy"
+          class="mx-auto mb-3 max-w-xl text-balance text-[0.72rem]"
+        >
+          Privacy: this page links to third-party platforms and remote media.
+          Contact: use Instagram for collaborations or questions.
+        </p>
+        <p class="mb-0.5">
           &copy; {currentYear}
           {pageTitle}. All rights reserved.
         </p>
