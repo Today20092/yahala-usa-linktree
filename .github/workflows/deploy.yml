@@ -1,51 +1,35 @@
-name: Refresh YouTube Data
+name: Deploy
 
 on:
   push:
     branches: [master]
-  schedule:
-    - cron: '17 9 * * 1'
-  # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
-# Allow this job to clone the repo and create a page deployment
 permissions:
-  contents: write
-
-concurrency:
-  group: youtube-data-refresh
-  cancel-in-progress: false
+  contents: read
+  deployments: write
 
 jobs:
-  refresh-youtube-data:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout your repository using git
+      - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-      - name: Install yt-dlp
-        run: |
-          python -m pip install --user --upgrade yt-dlp
-          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
       - name: Install dependencies
         run: npm ci
-      - name: Refresh YouTube data
-        run: |
-          npm run update:youtube -- --refresh-top-videos
-          npm run update:visited-videos
-          npm run validate:data
-      - name: Rebase before committing
-        run: git pull --rebase --autostash origin master
-      - name: Commit updated video data
-        uses: stefanzweifel/git-auto-commit-action@v5
+
+      - name: Build site
+        run: npm run build
+
+      - name: Deploy to Cloudflare
+        uses: cloudflare/wrangler-action@v3
         with:
-          commit_message: Update YouTube video data
-          file_pattern: src/data/site.yaml src/data/latest-youtube-videos.json src/data/visited-videos.yaml src/data/youtube-videos.json src/data/geocoded-locations.json
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          command: deploy
