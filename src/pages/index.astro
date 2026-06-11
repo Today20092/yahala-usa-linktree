@@ -3,6 +3,7 @@ import '../styles.css'
 
 import { getImage, Picture } from 'astro:assets'
 import { Icon } from 'astro-icon/components'
+import { SEO } from 'astro-seo'
 
 import FeaturedEpisodes from '../components/FeaturedEpisodes.astro'
 import LatestChannelVideo from '../components/LatestChannelVideo.astro'
@@ -127,11 +128,38 @@ const structuredData = {
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>{pageTitle}</title>
-    <meta name="description" content={pageDescription} />
-    <meta
-      name="robots"
-      content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
+    <SEO
+      title={pageTitle}
+      description={pageDescription}
+      canonical={canonicalUrl}
+      robotsExtras="max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+      openGraph={{
+        basic: {
+          title: pageTitle,
+          type: 'website',
+          image: heroImageUrl,
+          url: canonicalUrl,
+        },
+        optional: {
+          description: pageDescription,
+          siteName,
+          locale: 'en_US',
+        },
+        image: {
+          width: 1200,
+          height: 630,
+          alt: heroImageAlt,
+        },
+      }}
+      twitter={{
+        card: 'summary_large_image',
+        site: twitterHandle,
+        creator: twitterHandle,
+        title: pageTitle,
+        description: pageDescription,
+        image: heroImageUrl,
+        imageAlt: heroImageAlt,
+      }}
     />
 
     <link rel="icon" href={`${baseUrl}favicon.ico`} sizes="32x32" />
@@ -197,24 +225,6 @@ const structuredData = {
       })()
     </script>
 
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={pageDescription} />
-    <meta property="og:image" content={heroImageUrl} />
-    <meta property="og:image:alt" content={heroImageAlt} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:site_name" content={siteName} />
-    <meta property="og:locale" content="en_US" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content={twitterHandle} />
-    <meta name="twitter:creator" content={twitterHandle} />
-    <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={pageDescription} />
-    <meta name="twitter:image" content={heroImageUrl} />
-    <meta name="twitter:image:alt" content={heroImageAlt} />
-    <link rel="canonical" href={canonicalUrl} />
     <link rel="sitemap" type="application/xml" href={sitemapUrl} />
     <script
       type="application/ld+json"
