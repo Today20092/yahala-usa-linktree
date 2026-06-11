@@ -1,7 +1,7 @@
 ---
 import '../styles.css'
 
-import { Picture } from 'astro:assets'
+import { getImage, Picture } from 'astro:assets'
 import { Icon } from 'astro-icon/components'
 
 import FeaturedEpisodes from '../components/FeaturedEpisodes.astro'
@@ -16,11 +16,7 @@ import VisitedPlacesMap from '../components/VisitedPlacesMap.astro'
 import heroCover from '../assets/yahala-hero-cover.png'
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
 import { resolveVisitedPlaces } from '../lib/visited-places'
-import {
-  getBaseUrl,
-  resolveSiteAsset,
-  siteConfig,
-} from '../lib/site-config'
+import { getBaseUrl, resolveSiteAsset, siteConfig } from '../lib/site-config'
 import { resolveYoutubeVideo } from '../lib/youtube-videos'
 
 const {
@@ -36,6 +32,10 @@ const {
 const { socialLinks, youtubeChannels, socialReach, visitedPlaces } = siteConfig
 const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
 const profileImageUrl = resolveSiteAsset(baseUrl, profileImage)
+const channelLogoImageUrl = resolveSiteAsset(
+  baseUrl,
+  'yahala-channel-logo-88.png',
+)
 const currentYear = new Date().getFullYear()
 const canonicalUrl = new URL(baseUrl, Astro.site).toString()
 const sitemapUrl = new URL(`${baseUrl}sitemap.xml`, Astro.site).toString()
@@ -43,6 +43,10 @@ const heroImageUrl = new URL(
   resolveSiteAsset(baseUrl, ogImage),
   Astro.site,
 ).toString()
+const heroPreloadImage = await getImage({
+  src: heroCover,
+  format: 'webp',
+})
 
 const resolvedVisitedPlaces = resolveVisitedPlaces(visitedPlaces)
 const latestVideoByChannel = Object.fromEntries(
@@ -66,8 +70,8 @@ const channelBranding = Object.fromEntries(
       ...channel.branding,
       logoSrc:
         channel.branding?.logoSrc === 'profileImage'
-          ? profileImageUrl
-          : (channel.branding?.logoSrc ?? profileImageUrl),
+          ? channelLogoImageUrl
+          : channel.branding?.logoSrc ?? profileImageUrl,
     },
   ]),
 )
@@ -160,7 +164,15 @@ const structuredData = {
       media="(prefers-color-scheme: dark)"
     />
 
-    <script is:inline>
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      href={heroPreloadImage.src}
+      fetchpriority="high"
+    />
+
+    <script>
       ;(() => {
         const lightThemeColor = '#ffffff'
         const darkThemeColor = '#1c1917'
@@ -246,10 +258,7 @@ const structuredData = {
         <div class="linktree-hero__fade" aria-hidden="true"></div>
       </section>
 
-      <h1
-        id="profile-title"
-        class="sr-only"
-      >
+      <h1 id="profile-title" class="sr-only">
         Ya Hala with Haithum ياهلا مع هيثم
       </h1>
       <p
@@ -348,9 +357,7 @@ const structuredData = {
           class="collaboration-cta rounded-xl px-5 py-6 text-left sm:px-6"
           aria-labelledby="collaboration-title"
         >
-          <p
-            class="text-primary text-xs font-bold tracking-[0.18em] uppercase"
-          >
+          <p class="text-primary text-xs font-bold tracking-[0.18em] uppercase">
             For collaborations
           </p>
           <h2
@@ -390,41 +397,30 @@ const structuredData = {
           class="mx-auto mb-3 flex max-w-xl flex-wrap items-center justify-center gap-x-3 gap-y-1"
           aria-label="Page information"
         >
-          <a
-            href="/"
-            class="hover:text-foreground transition-colors"
-          >
-            Home
-          </a>
-          <a
-            href="#about"
-            class="hover:text-foreground transition-colors"
-          >
+          <a href="/" class="hover:text-foreground transition-colors">Home</a>
+          <a href="#about" class="hover:text-foreground transition-colors">
             About
           </a>
-          <a
-            href="#contact"
-            class="hover:text-foreground transition-colors"
-          >
+          <a href="#contact" class="hover:text-foreground transition-colors">
             Contact
           </a>
-          <a
-            href="#privacy"
-            class="hover:text-foreground transition-colors"
-          >
+          <a href="#privacy" class="hover:text-foreground transition-colors">
             Privacy
           </a>
+          <a
+            href="/sitemap.xml"
+            class="hover:text-foreground transition-colors"
+          >
+            Sitemap
+          </a>
         </nav>
-        <p
-          id="about"
-          class="sr-only"
-        >
-          {siteName} is a single-page hub for Arab American stories, field
-          interviews, community visits, and official social channels.
+        <p id="about" class="sr-only">
+          {siteName} is a single-page hub for Arab American stories, field interviews,
+          community visits, and official social channels.
         </p>
         <p
           id="privacy"
-          class="mx-auto mb-3 max-w-xl text-balance text-[0.72rem]"
+          class="mx-auto mb-3 max-w-xl text-[0.72rem] text-balance"
         >
           Privacy: this page links to third-party platforms and remote media.
           Contact: use Instagram for collaborations or questions.
@@ -456,7 +452,7 @@ const structuredData = {
       </footer>
     </main>
 
-    <script is:inline>
+    <script>
       ;(() => {
         const preferences = ['system', 'light', 'dark']
         const lightThemeColor = '#ffffff'
@@ -531,7 +527,7 @@ const structuredData = {
       })()
     </script>
 
-    <script is:inline>
+    <script>
       ;(() => {
         const shareButton = document.querySelector('[data-share-page]')
         if (!shareButton) return
@@ -543,7 +539,11 @@ const structuredData = {
           text: shareButton.dataset.shareText,
           url: shareButton.dataset.shareUrl,
         }
-        const fallbackShareText = [shareData.title, shareData.text, shareData.url]
+        const fallbackShareText = [
+          shareData.title,
+          shareData.text,
+          shareData.url,
+        ]
           .filter(Boolean)
           .join('\n')
 

@@ -28,6 +28,15 @@ const geocodeCachePath = new URL(
 )
 const latestPath = new URL('../src/data/latest-youtube-videos.json', import.meta.url)
 const refreshDescriptions = process.argv.includes('--refresh-descriptions')
+const youtubeRequestDelayMs = Number(
+  process.env.YOUTUBE_REQUEST_DELAY_MS ?? 1500,
+)
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
+const waitBetweenYoutubeRequests = async () => {
+  if (youtubeRequestDelayMs > 0) await sleep(youtubeRequestDelayMs)
+}
 
 const readJson = async (path, fallback) => {
   try {
@@ -52,6 +61,7 @@ const readExistingAssignments = async () => {
 
 const fetchPlaylistVideos = async () => {
   try {
+    await waitBetweenYoutubeRequests()
     const result = await execFileAsync(
       'yt-dlp',
       ['--dump-json', '--flat-playlist', channelVideosUrl],
@@ -83,6 +93,7 @@ const ytdlpDate = (value) =>
 
 const fetchFullVideoMetadata = async (videoId) => {
   try {
+    await waitBetweenYoutubeRequests()
     const result = await execFileAsync(
       'yt-dlp',
       ['--dump-single-json', '--skip-download', youtubeWatchUrl(videoId)],
@@ -195,7 +206,7 @@ const videosNeedingFullMetadata = allKeys
 console.log(`Fetching full metadata for ${videosNeedingFullMetadata.length} videos.`)
 
 const fullMetadataVideos = (
-  await mapLimit(videosNeedingFullMetadata, 3, fetchFullVideoMetadata)
+  await mapLimit(videosNeedingFullMetadata, 1, fetchFullVideoMetadata)
 ).filter(Boolean)
 
 videoCache = mergeVideoCache(videoCache, playlistVideos)

@@ -241,7 +241,7 @@ const videoThumbnailImages = dedupeImagesByHref([
   ...visitedVideoImages,
 ])
 const bentoImageHrefs = new Set(videoThumbnailImages.map((image) => image.href))
-const maxCarouselImages = 36
+const maxCarouselImages = 18
 const carouselImages = [
   ...videoThumbnailImages,
   ...bentoImages.filter((image) => !bentoImageHrefs.has(image.href)),
@@ -332,7 +332,7 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
                   `bento-scroll-track-${rowIndex + 1}`,
                 ]}
               >
-                {[...row, ...row].map((item) =>
+                {row.map((item, itemIndex) =>
                   item.type === 'video' ? (
                     <a
                       href={item.href}
@@ -347,39 +347,23 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
                         width={480}
                         height={270}
                         class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                        loading="eager"
+                        loading={itemIndex === 0 ? 'eager' : 'lazy'}
                         decoding="async"
                       />
                       <span
-                        class="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-3 bg-gradient-to-t from-scrim/80 via-scrim/40 to-transparent p-3 pt-10 text-white opacity-95 transition duration-200 group-hover:opacity-100"
+                        class="from-scrim/80 via-scrim/40 absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-3 bg-gradient-to-t to-transparent p-3 pt-10 text-white opacity-95 transition duration-200 group-hover:opacity-100"
                         aria-hidden="true"
                       >
-                        <span class="inline-flex items-center gap-1.5 rounded-full bg-background/95 px-2.5 py-1 text-xs font-bold text-foreground shadow-sm ring-1 ring-border backdrop-blur-sm dark:bg-card/90">
-                          <IconBadge tone="solid" size="xs">
-                            <Icon
-                              name="heroicons:play-20-solid"
-                              class="size-3"
-                            />
-                          </IconBadge>
+                        <span class="bg-background/95 text-foreground ring-border dark:bg-card/90 inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold shadow-sm ring-1 backdrop-blur-sm">
                           Watch
                         </span>
-                        <IconBadge
-                          tone="solid"
-                          size="sm"
-                          class="transition duration-200 group-hover:scale-110"
-                        >
-                          <Icon
-                            name="heroicons:arrow-top-right-on-square-20-solid"
-                            class="size-4"
-                          />
-                        </IconBadge>
                       </span>
                     </a>
                   ) : (
                     <div
                       style={`--platform-accent: ${item.accent}; --platform-accent-dark: ${item.darkAccent}; --platform-tint: ${item.tint}; --platform-tint-dark: ${item.darkTint};`}
                       aria-label={`${item.platform} ${item.metric}: ${item.value}`}
-                      class="bg-card/90 border-border/60 hover:shadow-md dark:border-border/70 dark:bg-card/75 relative flex aspect-video w-[252px] shrink-0 cursor-default flex-col justify-between overflow-hidden rounded-lg border p-4 text-left shadow-sm transition duration-200 [--platform-active-accent:var(--platform-accent)] [--platform-active-tint:var(--platform-tint)] sm:w-[274px] dark:[--platform-active-accent:var(--platform-accent-dark)] dark:[--platform-active-tint:var(--platform-tint-dark)]"
+                      class="bg-card/90 border-border/60 dark:border-border/70 dark:bg-card/75 relative flex aspect-video w-[252px] shrink-0 cursor-default flex-col justify-between overflow-hidden rounded-lg border p-4 text-left shadow-sm transition duration-200 [--platform-active-accent:var(--platform-accent)] [--platform-active-tint:var(--platform-tint)] hover:shadow-md sm:w-[274px] dark:[--platform-active-accent:var(--platform-accent-dark)] dark:[--platform-active-tint:var(--platform-tint-dark)]"
                     >
                       <span
                         class="absolute inset-x-0 top-0 h-1 bg-[var(--platform-active-accent)]"
@@ -432,6 +416,14 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
       (row, index) => {
         const track = row.querySelector('.bento-scroll-track')
         const baseDurations = [90, 100, 70]
+
+        if (track instanceof HTMLElement && !track.dataset.marqueeCloned) {
+          track.dataset.marqueeCloned = 'true'
+          for (const child of [...track.children]) {
+            track.appendChild(child.cloneNode(true))
+          }
+        }
+
         const width =
           track instanceof HTMLElement ? track.scrollWidth / 2 : 274 * 8
 
