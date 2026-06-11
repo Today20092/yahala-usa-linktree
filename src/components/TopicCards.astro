@@ -1,6 +1,8 @@
 ---
 import { Icon } from 'astro-icon/components'
 
+import { IconBadge } from './ui/icon-badge'
+
 const topics = [
   {
     title: 'Arab businesses & brands',
@@ -44,14 +46,11 @@ const topics = [
   <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
     {
       topics.map((topic) => (
-        <article class="bg-card text-card-foreground ring-border/80 dark:bg-muted dark:text-foreground dark:ring-border rounded-xl p-4 shadow-[0_10px_28px_color-mix(in_oklch,var(--color-shadow)_8%,transparent)] ring-1 dark:shadow-[0_14px_34px_oklch(0_0_0_/_0.32)]">
+        <article class="ui-surface-card p-4">
           <div class="flex items-start gap-3">
-            <span
-              class="bg-primary/10 text-primary grid size-10 shrink-0 place-items-center rounded-lg"
-              aria-hidden="true"
-            >
+            <IconBadge tone="soft" shape="square" size="lg" aria-hidden="true">
               <Icon name={topic.icon} class="size-5" />
-            </span>
+            </IconBadge>
             <div class="min-w-0">
               <h3 class="text-foreground text-base leading-tight font-bold">
                 {topic.title}

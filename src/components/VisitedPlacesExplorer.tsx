@@ -1,6 +1,7 @@
-import { ExternalLink, MapPin, Play } from 'lucide-react'
+import { ExternalLink, MapPin } from 'lucide-react'
 import * as React from 'react'
 
+import { IconBadge } from '@/components/ui/icon-badge'
 import { Button } from '@/components/ui/button'
 import {
   Accordion,
@@ -37,6 +38,8 @@ type StateGroup = {
   videoCount: number
   firstIndex: number
 }
+
+type VisitedStateSelectEvent = CustomEvent<{ state?: string }>
 
 const stateAbbreviations = new Map([
   ['Alabama', 'AL'],
@@ -158,7 +161,16 @@ function VideoLink({
           />
         ) : (
           <span className="text-muted-foreground grid h-full w-full place-items-center">
-            <Play className="size-5" aria-hidden="true" />
+            <IconBadge tone="solid" size="sm" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+                className="size-3 translate-x-px"
+              >
+                <path d="M8 5.14v13.72L19.2 12z" />
+              </svg>
+            </IconBadge>
           </span>
         )}
       </span>
@@ -220,36 +232,93 @@ export default function VisitedPlacesExplorer({ places, stateVideos }: Props) {
         ? `${selectedPlacesWithVideos[0].state}-${selectedPlacesWithVideos[0].city}`
         : undefined
 
+  React.useEffect(() => {
+    const stateNames = new Set(stateGroups.map((group) => group.state))
+    const handleVisitedStateSelect = (event: Event) => {
+      const state = (event as VisitedStateSelectEvent).detail?.state
+      if (state && stateNames.has(state)) {
+        setSelectedState(state)
+      }
+    }
+
+    window.addEventListener('visited-state-select', handleVisitedStateSelect)
+
+    return () => {
+      window.removeEventListener(
+        'visited-state-select',
+        handleVisitedStateSelect,
+      )
+    }
+  }, [stateGroups])
+
   return (
     <>
-      <ul
-        className="mt-3 flex max-h-24 flex-wrap gap-1.5 overflow-y-auto pr-1"
-        aria-label="Visited states"
-      >
-        {stateGroups.map((group) => {
-          const label = formatState(group.state)
-          const hasVideos = group.videoCount > 0
+      <div className="mt-4 flex flex-col gap-2">
+        <p
+          id="visited-states-control-label"
+          className="text-foreground text-xs font-semibold"
+        >
+          Choose a state to watch stories
+        </p>
+        <ul
+          className="flex max-h-28 flex-wrap gap-2 overflow-y-auto pr-1"
+          aria-labelledby="visited-states-control-label"
+        >
+          {stateGroups.map((group) => {
+            const label = formatState(group.state)
+            const hasVideos = group.videoCount > 0
+            const isSelected = selectedState === group.state
 
-          return (
-            <li key={group.state}>
-              <button
-                type="button"
-                className={cn(
-                  'focus-visible:ring-ring inline-flex min-h-7 items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
-                  hasVideos
-                    ? 'border-border bg-card text-foreground hover:bg-accent'
-                    : 'border-border/70 bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground dark:bg-background/55',
-                )}
-                aria-label={`Show videos from ${label}`}
-                onClick={() => setSelectedState(group.state)}
-              >
-                {hasVideos && <Play className="size-3" aria-hidden="true" />}
-                {label}
-              </button>
-            </li>
-          )
-        })}
-      </ul>
+            return (
+              <li key={group.state}>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant={isSelected ? 'default' : 'outline'}
+                  className={cn(
+                    'rounded-full shadow-sm hover:-translate-y-0.5 hover:shadow-md active:translate-y-px',
+                    isSelected && 'shadow-md',
+                    !hasVideos && !isSelected && 'text-muted-foreground',
+                  )}
+                  aria-label={`Show videos from ${label}`}
+                  aria-pressed={isSelected}
+                  onClick={() => setSelectedState(group.state)}
+                >
+                  {hasVideos && (
+                    <IconBadge
+                      tone="solid"
+                      size="xs"
+                      style={
+                        isSelected
+                          ? {
+                              '--ui-icon-badge-accent': 'var(--primary-foreground)',
+                              '--ui-icon-badge-foreground': 'var(--primary)',
+                            }
+                          : {
+                              '--ui-icon-badge-accent': 'var(--primary)',
+                              '--ui-icon-badge-foreground': 'var(--primary-foreground)',
+                            }
+                      }
+                      className="mr-0.5"
+                      aria-hidden="true"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden="true"
+                        className="size-3 translate-x-px"
+                      >
+                        <path d="M8 5.14v13.72L19.2 12z" />
+                      </svg>
+                    </IconBadge>
+                  )}
+                  {label}
+                </Button>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
 
       <Drawer
         open={Boolean(selectedStateGroup)}

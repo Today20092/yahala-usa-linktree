@@ -4,6 +4,7 @@ import { Image } from 'astro:assets'
 import { Icon } from 'astro-icon/components'
 import { parse } from 'yaml'
 
+import { IconBadge } from './ui/icon-badge'
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
 import visitedVideosYaml from '../data/visited-videos.yaml?raw'
 import { siteConfig } from '../lib/site-config'
@@ -111,16 +112,28 @@ const platformColors: Record<
   },
 }
 
-const statMetricPriority = ['Views', 'Likes', 'Followers', 'Subscribers']
+const statPlatformPriority = ['TikTok', 'YouTube', 'Instagram', 'Facebook']
+const statMetricPriority = [
+  'Views',
+  'Reach',
+  'Likes',
+  'Posts',
+  'Followers',
+  'Subscribers',
+]
 const statTiles = socialReach.items
-  .filter((item) => statMetricPriority.includes(item.metric))
   .sort((a, b) => {
+    const platformComparison =
+      statPlatformPriority.indexOf(a.platform) -
+      statPlatformPriority.indexOf(b.platform)
+
+    if (platformComparison !== 0) return platformComparison
+
     return (
       statMetricPriority.indexOf(a.metric) -
       statMetricPriority.indexOf(b.metric)
     )
   })
-  .slice(0, 6)
   .map((item) => {
     const colors = platformColors[item.platform] ?? {
       accent: 'var(--primary)',
@@ -222,7 +235,10 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
   return rowImages.flatMap((image, index): BentoTile[] => {
     const shouldInsertStat =
       index === 1 || (index > 1 && (index + rowIndex) % 4 === 1)
-    const statTile = statTiles[(index + rowIndex * 2) % statTiles.length]
+    const statTile =
+      statTiles.length > 0
+        ? statTiles[(index + rowIndex * 2) % statTiles.length]
+        : undefined
 
     return shouldInsertStat && statTile ? [image, statTile] : [image]
   })
@@ -235,7 +251,32 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
       class="animate-fade-in-up mx-auto mt-6 w-full max-w-xl px-4 delay-300 sm:px-6"
       aria-label="Ya Hala videos and social reach"
     >
-      <div class="border-border/70 bg-muted text-foreground dark:border-border dark:bg-muted overflow-hidden rounded-xl border shadow-[0_18px_42px_oklch(0.35_0.045_70_/_0.14)]">
+      <div class="ui-surface-card overflow-hidden">
+        <div class="border-border/70 bg-card/80 flex items-center justify-between gap-3 border-b px-3 py-2 text-left sm:px-4">
+          <div class="flex items-center gap-2">
+            <IconBadge
+              tone="solid"
+              size="md"
+              style={{
+                '--ui-icon-badge-accent': 'var(--primary)',
+                '--ui-icon-badge-foreground': 'var(--primary-foreground)',
+              }}
+              class="shadow-sm"
+            >
+              <Icon
+                name="heroicons:play-20-solid"
+                class="size-4"
+                aria-hidden="true"
+              />
+            </IconBadge>
+            <p class="text-sm leading-tight font-semibold">
+              Tap any video to watch
+            </p>
+          </div>
+          <span class="text-muted-foreground hidden text-xs font-medium sm:inline">
+            Drag to browse
+          </span>
+        </div>
         <div class="bento-scroll-mask space-y-2 overflow-hidden p-3 sm:space-y-3">
           {bentoRows.map((row, rowIndex) => (
             <div class="bento-scroll-row overflow-hidden">
@@ -252,7 +293,7 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Watch on YouTube: ${item.alt}`}
-                      class="group bg-accent focus-visible:outline-ring dark:bg-accent relative isolate block aspect-video w-[252px] shrink-0 overflow-hidden rounded-lg border border-border/60 text-left shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-3 focus-visible:outline-offset-2 sm:w-[274px] dark:border-border"
+                      class="group bento-video-link bg-accent focus-visible:outline-ring dark:bg-accent border-border/60 hover:border-youtube/70 hover:ring-youtube/30 dark:border-border dark:hover:border-youtube/70 relative isolate block aspect-video w-[252px] shrink-0 cursor-pointer overflow-hidden rounded-lg border text-left shadow-sm ring-1 ring-transparent transition duration-200 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-3 focus-visible:outline-offset-2 sm:w-[274px]"
                     >
                       <Image
                         src={item.src}
@@ -263,28 +304,65 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
                         loading="eager"
                         decoding="async"
                       />
+                      <span
+                        class="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-3 bg-gradient-to-t from-scrim/80 via-scrim/40 to-transparent p-3 pt-10 text-white opacity-95 transition duration-200 group-hover:opacity-100"
+                        aria-hidden="true"
+                      >
+                        <span class="inline-flex items-center gap-1.5 rounded-full bg-background/95 px-2.5 py-1 text-xs font-bold text-foreground shadow-sm ring-1 ring-border backdrop-blur-sm dark:bg-card/90">
+                          <IconBadge tone="solid" size="xs">
+                            <Icon
+                              name="heroicons:play-20-solid"
+                              class="size-3"
+                            />
+                          </IconBadge>
+                          Watch
+                        </span>
+                        <IconBadge
+                          tone="solid"
+                          size="sm"
+                          class="transition duration-200 group-hover:scale-110"
+                        >
+                          <Icon
+                            name="heroicons:arrow-top-right-on-square-20-solid"
+                            class="size-4"
+                          />
+                        </IconBadge>
+                      </span>
                     </a>
                   ) : (
                     <div
                       style={`--platform-accent: ${item.accent}; --platform-accent-dark: ${item.darkAccent}; --platform-tint: ${item.tint}; --platform-tint-dark: ${item.darkTint};`}
-                      class="flex aspect-video w-[252px] shrink-0 flex-col justify-between overflow-hidden rounded-lg border border-[color-mix(in_srgb,var(--platform-active-accent)_28%,var(--border))] bg-[linear-gradient(135deg,color-mix(in_srgb,var(--platform-active-tint)_36%,var(--card))_0%,var(--accent)_72%)] p-3 text-left shadow-sm ring-1 ring-[color-mix(in_srgb,var(--platform-active-accent)_10%,transparent)] [--platform-active-accent:var(--platform-accent)] [--platform-active-tint:var(--platform-tint)] sm:w-[274px] sm:p-4 dark:bg-[linear-gradient(135deg,color-mix(in_srgb,var(--platform-active-tint)_42%,var(--card))_0%,var(--accent)_76%)] dark:[--platform-active-accent:var(--platform-accent-dark)] dark:[--platform-active-tint:var(--platform-tint-dark)]"
+                      aria-label={`${item.platform} ${item.metric}: ${item.value}`}
+                      class="bg-card/90 border-border/60 hover:shadow-md dark:border-border/70 dark:bg-card/75 relative flex aspect-video w-[252px] shrink-0 cursor-default flex-col justify-between overflow-hidden rounded-lg border p-4 text-left shadow-sm transition duration-200 [--platform-active-accent:var(--platform-accent)] [--platform-active-tint:var(--platform-tint)] sm:w-[274px] dark:[--platform-active-accent:var(--platform-accent-dark)] dark:[--platform-active-tint:var(--platform-tint-dark)]"
                     >
-                      <div class="text-muted-foreground flex items-center gap-2">
-                        <Icon
-                          name={item.icon}
-                          class="size-4 shrink-0 text-[var(--platform-active-accent)]"
-                          aria-hidden="true"
-                        />
-                        <p class="truncate text-xs font-medium">
+                      <span
+                        class="absolute inset-x-0 top-0 h-1 bg-[var(--platform-active-accent)]"
+                        aria-hidden="true"
+                      />
+                      <span
+                        class="absolute inset-0 bg-[linear-gradient(135deg,color-mix(in_srgb,var(--platform-active-tint)_42%,transparent)_0%,transparent_58%)]"
+                        aria-hidden="true"
+                      />
+                      <div class="relative flex min-w-0 items-center gap-2">
+                        <span class="grid size-7 shrink-0 place-items-center rounded-full bg-[color-mix(in_srgb,var(--platform-active-accent)_12%,var(--card))] ring-1 ring-[color-mix(in_srgb,var(--platform-active-accent)_18%,transparent)]">
+                          <Icon
+                            name={item.icon}
+                            class="size-3.5 shrink-0 text-[var(--platform-active-accent)]"
+                            aria-hidden="true"
+                          />
+                        </span>
+                        <p class="text-foreground truncate text-sm font-semibold">
                           {item.platform}
                         </p>
                       </div>
-                      <p class="text-foreground text-3xl leading-none font-semibold tracking-tight tabular-nums sm:text-4xl">
-                        {item.value}
-                      </p>
-                      <p class="text-muted-foreground truncate text-xs font-medium">
-                        {item.metric}
-                      </p>
+                      <div class="relative">
+                        <p class="text-foreground text-3xl leading-none font-black tracking-normal tabular-nums sm:text-4xl">
+                          {item.value}
+                        </p>
+                        <p class="text-muted-foreground mt-2 truncate text-xs font-bold tracking-normal uppercase">
+                          {item.metric}
+                        </p>
+                      </div>
                     </div>
                   ),
                 )}

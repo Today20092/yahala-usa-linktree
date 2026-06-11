@@ -1,6 +1,8 @@
 ---
 import { Icon } from 'astro-icon/components'
 
+import { IconBadge } from './ui/icon-badge'
+
 type ReachItem = {
   platform: string
   metric: string
@@ -58,13 +60,9 @@ const platformColors: Record<
 }
 
 const formatNumber = (value: number) => {
-  const formatter = new Intl.NumberFormat('en-US', {
-    maximumFractionDigits: value >= 1000000 ? 1 : 0,
-  })
-
-  if (value >= 1000000) return `${formatter.format(value / 1000000)}M`
-  if (value >= 1000) return `${formatter.format(value / 1000)}K`
-  return formatter.format(value)
+  return new Intl.NumberFormat('en-US', {
+    maximumFractionDigits: 0,
+  }).format(Math.floor(value))
 }
 
 const updatedDate = new Intl.DateTimeFormat('en-US', {
@@ -103,17 +101,12 @@ const platformTotals = Object.values(
   class="animate-fade-in-up mx-auto mt-6 w-full max-w-xl px-4 delay-300 sm:px-6"
   aria-label="Total people reached"
 >
-  <div
-    class="text-foreground overflow-hidden rounded-xl border border-border bg-card shadow-[0_20px_45px_color-mix(in_srgb,var(--color-shadow)_12%,transparent)] dark:border-border dark:bg-muted dark:shadow-[0_24px_52px_oklch(0_0_0_/_0.34)]"
-  >
+  <div class="ui-surface-card overflow-hidden">
     <div class="px-5 py-5 sm:px-6">
       <div class="mb-4 flex items-center justify-center gap-2">
-        <span
-          class="grid size-10 shrink-0 place-items-center rounded-full bg-primary/10 text-primary ring-1 ring-primary/25"
-          aria-hidden="true"
-        >
+        <IconBadge tone="soft" size="lg" aria-hidden="true">
           <Icon name="heroicons:globe-americas" class="size-5" />
-        </span>
+        </IconBadge>
         <span class="text-left">
           <span class="block text-sm font-semibold text-foreground">
             People reached
@@ -125,7 +118,7 @@ const platformTotals = Object.values(
       </div>
 
       <p
-        class="text-foreground text-center text-5xl leading-none font-black tracking-normal tabular-nums sm:text-6xl"
+        class="text-foreground text-center text-4xl leading-none font-black tracking-normal tabular-nums sm:text-5xl"
       >
         <span data-count-value={total} data-growing-reach>
           {formatNumber(total)}
@@ -137,14 +130,6 @@ const platformTotals = Object.values(
         class="text-muted-foreground mx-auto mt-3 max-w-sm text-center text-sm leading-snug"
       >
         Across YouTube, TikTok, Instagram, and Facebook
-      </p>
-      <p
-        class="text-muted-foreground mt-2 text-center text-xs font-bold tracking-normal tabular-nums dark:text-foreground"
-        aria-live="off"
-      >
-        <span data-growing-reach-detail>
-          {new Intl.NumberFormat('en-US').format(total)}
-        </span> and growing
       </p>
     </div>
 
@@ -166,7 +151,7 @@ const platformTotals = Object.values(
               <span class="truncate">{item.platform}</span>
             </dt>
             <dd
-              class="text-foreground mt-1 text-base font-bold tabular-nums"
+              class="text-foreground mt-1 text-sm font-bold tabular-nums sm:text-base"
               data-count-value={item.total}
             >
               {formatNumber(item.total)}
@@ -182,20 +167,12 @@ const platformTotals = Object.values(
   const reachCard = document.querySelector('[data-reach-card]')
   const animatedNumbers = reachCard?.querySelectorAll('[data-count-value]')
   const growingReachNumber = reachCard?.querySelector('[data-growing-reach]')
-  const growingReachDetail = reachCard?.querySelector(
-    '[data-growing-reach-detail]',
-  )
   const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
 
   const formatAnimatedNumber = (value, target) => {
-    const formatter = new Intl.NumberFormat('en-US', {
-      maximumFractionDigits: target >= 1000000 ? 1 : 0,
-      minimumFractionDigits: target >= 1000000 ? 1 : 0,
-    })
-
-    if (target >= 1000000) return `${formatter.format(value / 1000000)}M`
-    if (target >= 1000) return `${formatter.format(value / 1000)}K`
-    return formatter.format(value)
+    return new Intl.NumberFormat('en-US', {
+      maximumFractionDigits: 0,
+    }).format(Math.floor(value))
   }
 
   const growReachNumber = (element, baseValue) => {
@@ -213,11 +190,6 @@ const platformTotals = Object.values(
       const displayValue = baseValue + addedReach
 
       element.textContent = formatAnimatedNumber(displayValue, baseValue)
-      if (growingReachDetail instanceof HTMLElement) {
-        growingReachDetail.textContent = fullFormatter.format(
-          Math.floor(displayValue),
-        )
-      }
       requestAnimationFrame(tick)
     }
 

@@ -8,6 +8,7 @@
     "update:youtube": "node scripts/update-latest-youtube-video.mjs",
     "update:visited-videos": "node scripts/update-visited-videos.mjs",
     "validate:data": "node scripts/validate-youtube-data.mjs",
+    "validate:ui": "node scripts/validate-ui-consistency.mjs",
     "test:locations": "node scripts/test-location-utils.mjs",
     "build": "astro build",
     "preview": "astro preview",

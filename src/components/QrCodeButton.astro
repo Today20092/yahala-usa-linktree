@@ -36,17 +36,17 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
 </div>
 
 <aside
-  class="qr-desktop-panel border-border/30 bg-accent/95 fixed right-7 bottom-7 z-40 hidden rounded-2xl border p-3 text-center shadow-lg backdrop-blur-sm lg:block"
+  class="qr-desktop-panel border-border/30 bg-accent/95 elevation-3 fixed right-7 bottom-7 z-40 hidden rounded-2xl border p-3 text-center backdrop-blur-sm lg:block"
   aria-label="View on mobile QR code"
 >
   <p class="text-foreground mb-2 text-sm font-semibold">View on mobile</p>
   <div
-    class="elevation-3 to-primary/10 rounded-[1.75rem] bg-gradient-to-br from-background via-background p-2 shadow-[0_18px_45px_rgb(15_23_42_/_0.16)]"
+    class="elevation-3 to-primary/10 rounded-4xl bg-gradient-to-br from-background via-background p-2"
   >
     <img
       src={qrDataUrl}
       alt=""
-      class="size-42 rounded-[1.35rem] bg-background p-1"
+      class="size-42 rounded-3xl bg-background p-1"
       aria-hidden="true"
     />
   </div>
@@ -74,12 +74,12 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
       </button>
     </div>
     <div
-      class="to-primary/10 mx-auto grid aspect-square w-full max-w-64 place-items-center rounded-[2rem] bg-gradient-to-br from-background via-background p-3 shadow-[0_18px_55px_rgb(15_23_42_/_0.14)]"
+      class="to-primary/10 mx-auto grid aspect-square w-full max-w-64 place-items-center rounded-4xl bg-gradient-to-br from-background via-background p-3 elevation-3"
     >
       <img
         src={qrDataUrl}
         alt=""
-        class="h-full w-full max-w-56 rounded-[1.6rem] bg-background p-1"
+        class="h-full w-full max-w-56 rounded-3xl bg-background p-1"
         aria-hidden="true"
       />
     </div>
