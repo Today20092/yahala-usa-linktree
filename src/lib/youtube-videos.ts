@@ -74,7 +74,7 @@ export const resolveYoutubeVideo = (
     ...cachedVideo,
     videoId,
     url: youtubeWatchUrl(videoId),
-    title: videoRef?.title ?? cachedVideo?.title ?? 'Watch on YouTube',
+    title: videoRef?.title ?? cachedVideo?.title ?? 'Open on YouTube',
     thumbnail:
       videoRef?.thumbnail ??
       cachedVideo?.thumbnail ??

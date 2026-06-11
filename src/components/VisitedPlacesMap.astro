@@ -9,6 +9,15 @@ type Props = {
 const { visitedPlaces } = Astro.props
 const places = visitedPlaces.places ?? []
 const stateVideos = visitedPlaces.stateVideos ?? []
+const maxExplorerVideosPerGroup = 3
+const explorerPlaces = places.map((place) => ({
+  ...place,
+  videos: place.videos?.slice(0, maxExplorerVideosPerGroup),
+}))
+const explorerStateVideos = stateVideos.map((group) => ({
+  ...group,
+  videos: group.videos.slice(0, maxExplorerVideosPerGroup),
+}))
 const tileZoom = 4
 const tileColumns = [2, 3, 4, 5]
 const tileRows = [5, 6]
@@ -139,7 +148,9 @@ const getPlacePosition = (place: (typeof places)[number]) => {
               tileColumns.map((column) => (
                 <img
                   src={`https://tile.openstreetmap.org/${tileZoom}/${column}/${row}.png`}
-                  alt=""
+                  alt="OpenStreetMap map tile"
+                  width="256"
+                  height="256"
                   class="h-full w-full object-cover"
                   loading="eager"
                   decoding="async"
@@ -192,8 +203,8 @@ const getPlacePosition = (place: (typeof places)[number]) => {
 
         <VisitedPlacesExplorer
           client:load
-          places={places}
-          stateVideos={stateVideos}
+          places={explorerPlaces}
+          stateVideos={explorerStateVideos}
         />
       </div>
 

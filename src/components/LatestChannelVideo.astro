@@ -60,7 +60,6 @@ const publishedDate =
     href={video.url}
     target="_blank"
     rel="noopener noreferrer"
-    aria-label={`Watch latest ${channelName} video on YouTube: ${video.title}`}
     style={`--channel-accent: ${channelAccentColor}; --channel-accent-dark: ${channelDarkAccentColor}; --channel-card-bg: ${channelCardBackground}; --channel-card-bg-dark: ${channelDarkCardBackground}; --channel-card-tint: ${channelCardTint}; --channel-card-tint-dark: ${channelDarkCardTint}; --channel-logo-bg: ${channelLogoBackgroundColor}; --channel-logo-bg-dark: ${
       channelDarkLogoBackgroundColor ?? channelLogoBackgroundColor
     };`}
@@ -71,7 +70,9 @@ const publishedDate =
   >
     <img
       src={video.thumbnail}
-      alt=""
+      alt={video.title}
+      width="480"
+      height="360"
       loading="lazy"
       decoding="async"
       class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -108,7 +109,9 @@ const publishedDate =
       >
         <img
           src={channelLogoSrc}
-          alt=""
+          alt={channelName}
+          width="44"
+          height="44"
           loading="lazy"
           decoding="async"
           class:list={[
@@ -144,7 +147,7 @@ const publishedDate =
     <span
       class="mb-5 inline-flex items-center gap-2 rounded-full bg-[var(--channel-active-accent)] px-4 py-2 text-sm font-semibold whitespace-nowrap text-primary-foreground shadow-sm transition-all duration-200 group-hover:translate-x-0.5 group-hover:shadow-md"
     >
-      Watch on YouTube
+      Open on YouTube
       <Icon
         name="heroicons:arrow-top-right-on-square"
         class="size-4"

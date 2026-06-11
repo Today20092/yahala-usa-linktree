@@ -6,7 +6,7 @@ Ya Hala with Haithum is a public profile and social link hub for field interview
 
 ## Primary URL
 
-- https://today20092.github.io/yahala-usa-linktree/
+- https://yahalausa.net/
 
 ## Social Profiles
 
@@ -17,8 +17,8 @@ Ya Hala with Haithum is a public profile and social link hub for field interview
 
 ## Key Pages
 
-- Home and profile links: https://today20092.github.io/yahala-usa-linktree/
-- Sitemap: https://today20092.github.io/yahala-usa-linktree/sitemap-index.xml
+- Home and profile links: https://yahalausa.net/
+- Sitemap: https://yahalausa.net/sitemap.xml
 
 ## Content Notes
 

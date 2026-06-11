@@ -241,10 +241,11 @@ const videoThumbnailImages = dedupeImagesByHref([
   ...visitedVideoImages,
 ])
 const bentoImageHrefs = new Set(videoThumbnailImages.map((image) => image.href))
+const maxCarouselImages = 36
 const carouselImages = [
   ...videoThumbnailImages,
   ...bentoImages.filter((image) => !bentoImageHrefs.has(image.href)),
-]
+].slice(0, maxCarouselImages)
 
 const rowCount = 3
 const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
@@ -315,7 +316,7 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
               />
             </IconBadge>
             <p class="text-sm leading-tight font-semibold">
-              Tap any video to watch
+              Tap any video to view
             </p>
           </div>
           <span class="text-muted-foreground hidden text-xs font-medium sm:inline">
@@ -337,7 +338,7 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={`Watch on YouTube: ${item.alt}`}
+                      aria-label={`Open on YouTube: ${item.alt}`}
                       class="group bento-video-link bg-accent focus-visible:outline-ring dark:bg-accent border-border/60 hover:border-youtube/70 hover:ring-youtube/30 dark:border-border dark:hover:border-youtube/70 relative isolate block aspect-video w-[252px] shrink-0 cursor-pointer overflow-hidden rounded-lg border text-left shadow-sm ring-1 ring-transparent transition duration-200 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-3 focus-visible:outline-offset-2 sm:w-[274px]"
                     >
                       <Image
@@ -360,7 +361,6 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
                               class="size-3"
                             />
                           </IconBadge>
-                          Watch
                         </span>
                         <IconBadge
                           tone="solid"
@@ -430,7 +430,7 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
     const rows = [...marqueeMask.querySelectorAll('.bento-scroll-row')].map(
       (row, index) => {
         const track = row.querySelector('.bento-scroll-track')
-        const baseDurations = [240, 280, 255]
+        const baseDurations = [90, 100, 70]
         const width =
           track instanceof HTMLElement ? track.scrollWidth / 2 : 274 * 8
 
