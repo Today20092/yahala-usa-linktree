@@ -216,6 +216,26 @@ const dedupeImagesByHref = (images: BentoImage[]) => {
   })
 }
 
+const getImageKey = (image: BentoImage) => image.href
+
+const getStatKey = (stat: StatTile) =>
+  `${stat.platform}::${stat.metric}::${stat.value}`
+
+const pickNextUnusedStat = (
+  usedKeys: Set<string>,
+  startIndex: number,
+): StatTile | undefined => {
+  if (statTiles.length === 0) return undefined
+
+  for (let offset = 0; offset < statTiles.length; offset += 1) {
+    const stat = statTiles[(startIndex + offset) % statTiles.length]
+
+    if (!usedKeys.has(getStatKey(stat))) return stat
+  }
+
+  return undefined
+}
+
 const videoThumbnailImages = dedupeImagesByHref([
   ...generatedYoutubeImages,
   ...visitedVideoImages,
@@ -231,17 +251,42 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
   const rowImages = carouselImages.filter(
     (_, index) => index % rowCount === rowIndex,
   )
+  const usedKeys = new Set<string>()
+  const rowTiles: BentoTile[] = []
 
-  return rowImages.flatMap((image, index): BentoTile[] => {
+  rowImages.forEach((image, index) => {
+    const imageKey = getImageKey(image)
+    if (usedKeys.has(imageKey)) return
+
+    usedKeys.add(imageKey)
+    rowTiles.push(image)
+
     const shouldInsertStat =
       index === 1 || (index > 1 && (index + rowIndex) % 4 === 1)
-    const statTile =
-      statTiles.length > 0
-        ? statTiles[(index + rowIndex * 2) % statTiles.length]
-        : undefined
+    if (!shouldInsertStat) return
 
-    return shouldInsertStat && statTile ? [image, statTile] : [image]
+    const statTile = pickNextUnusedStat(usedKeys, index + rowIndex * 2)
+    if (!statTile) return
+
+    usedKeys.add(getStatKey(statTile))
+    rowTiles.push(statTile)
   })
+
+  if (process.env.NODE_ENV !== 'production') {
+    const uniqueKeys = new Set(
+      rowTiles.map((tile) =>
+        tile.type === 'video' ? getImageKey(tile) : getStatKey(tile),
+      ),
+    )
+
+    if (uniqueKeys.size !== rowTiles.length) {
+      throw new Error(
+        `Duplicate carousel tile detected in row ${rowIndex + 1}.`,
+      )
+    }
+  }
+
+  return rowTiles
 })
 ---
 
