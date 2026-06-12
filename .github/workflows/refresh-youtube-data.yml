@@ -1,10 +1,14 @@
-name: Refresh Visited Video Catalog
+name: Refresh YouTube Data
 
 on:
+  push:
+    branches: [master]
   schedule:
-    - cron: '23 10 * * 1'
+    - cron: '17 9 * * 1'
+  # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
+# Allow this job to clone the repo and create a page deployment
 permissions:
   contents: write
 
@@ -13,10 +17,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  refresh-visited-videos:
+  refresh-youtube-data:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout your repository using git
         uses: actions/checkout@v4
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -33,14 +37,15 @@ jobs:
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - name: Install dependencies
         run: npm ci
-      - name: Refresh visited video catalog
+      - name: Refresh YouTube data
         run: |
+          npm run update:youtube -- --refresh-top-videos
           npm run update:visited-videos
           npm run validate:data
       - name: Rebase before committing
         run: git pull --rebase --autostash origin master
-      - name: Commit updated visited video catalog
+      - name: Commit updated video data
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: Update visited video catalog
+          commit_message: Update YouTube video data
           file_pattern: src/data/site.yaml src/data/latest-youtube-videos.json src/data/visited-videos.yaml src/data/youtube-videos.json src/data/geocoded-locations.json

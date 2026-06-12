@@ -97,11 +97,30 @@ export type VisitedPlaces = {
   places: VisitedPlace[]
 }
 
+export type InterviewedPerson = {
+  name: string
+  title: string
+  bio: string
+  image: string
+  imageAlt: string
+  videoUrl: string
+  featured?: boolean
+  tags?: string[]
+}
+
+export type PeopleInterviewed = {
+  eyebrow: string
+  title: string
+  description?: string
+  people: InterviewedPerson[]
+}
+
 export type SiteConfig = {
   site: SiteInfo
   socialLinks: SocialLink[]
   youtubeChannels: YoutubeChannel[]
   featuredEpisodes: FeaturedEpisode[]
+  peopleInterviewed: PeopleInterviewed
   visitedPlaces: VisitedPlaces
   socialReach: SocialReach
 }

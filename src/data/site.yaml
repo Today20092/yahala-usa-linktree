@@ -77,6 +77,63 @@ featuredEpisodes:
   - url: https://youtu.be/x1h4ueJ33g8
     category: Community story
 
+peopleInterviewed:
+  eyebrow: Community voices
+  title: People We’ve Interviewed
+  description: Conversations with founders, creators, organizers, and community leaders across Arab America.
+  people:
+    - name: Community Founder
+      title: Founder, local Arab American business
+      bio: Built a neighborhood business rooted in service, hospitality, and community connection.
+      image: /src/assets/people/interviewed-founder.webp
+      imageAlt: Generated placeholder portrait of a community founder
+      videoUrl: https://youtu.be/DYlYA2eo46Q?si=LajIGA3xN9IUbFq_
+      featured: true
+      tags:
+        - Founder
+        - Business
+        - Community
+    - name: Restaurant Owner
+      title: Owner, family-run halal restaurant
+      bio: Shared the story behind a family restaurant serving regulars, travelers, and local families.
+      image: /src/assets/people/interviewed-restaurant-owner.webp
+      imageAlt: Generated placeholder portrait of a restaurant owner
+      videoUrl: https://youtu.be/lV-edL64sbA
+      tags:
+        - Halal food
+        - Family business
+        - Hospitality
+    - name: Creative Director
+      title: Filmmaker and cultural storyteller
+      bio: Creates visual stories that connect culture, language, and the next generation.
+      image: /src/assets/people/interviewed-creator.webp
+      imageAlt: Generated placeholder portrait of a creative director
+      videoUrl: https://youtu.be/x1h4ueJ33g8
+      tags:
+        - Creator
+        - Film
+        - Culture
+    - name: Community Organizer
+      title: Organizer supporting Arab American families
+      bio: Helps families find resources, build relationships, and feel represented in their city.
+      image: /src/assets/people/interviewed-community-leader.webp
+      imageAlt: Generated placeholder portrait of a community organizer
+      videoUrl: https://www.youtube.com/@YaHalaUSA/videos
+      tags:
+        - Organizer
+        - Families
+        - Local impact
+    - name: Small Business Leader
+      title: Entrepreneur building local community spaces
+      bio: Opened welcoming spaces where food, conversation, and local identity come together.
+      image: /src/assets/people/interviewed-business-owner.webp
+      imageAlt: Generated placeholder portrait of a small business leader
+      videoUrl: https://www.youtube.com/@YaHalaUSA/videos
+      tags:
+        - Entrepreneur
+        - Local spaces
+        - Community
+
 visitedPlaces:
   title: Places Ya Hala Has Visited
   eyebrow: Across America

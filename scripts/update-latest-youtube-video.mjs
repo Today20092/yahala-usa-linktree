@@ -24,6 +24,15 @@ const videoCachePath = new URL(
   import.meta.url,
 )
 const refreshTopVideos = process.argv.includes('--refresh-top-videos')
+const youtubeRequestDelayMs = Number(
+  process.env.YOUTUBE_REQUEST_DELAY_MS ?? 1500,
+)
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
+const waitBetweenYoutubeRequests = async () => {
+  if (youtubeRequestDelayMs > 0) await sleep(youtubeRequestDelayMs)
+}
 
 const readJson = async (path, fallback) => {
   try {
@@ -56,6 +65,7 @@ const mapLimit = async (items, limit, mapper) => {
 
 const fetchPlaylistVideos = async (videosUrl, channel) => {
   try {
+    await waitBetweenYoutubeRequests()
     const result = await execFileAsync(
       'yt-dlp',
       ['--dump-json', '--flat-playlist', videosUrl],
@@ -86,6 +96,7 @@ const fetchPlaylistVideos = async (videosUrl, channel) => {
 
 const fetchVideoStats = async (video, channel) => {
   try {
+    await waitBetweenYoutubeRequests()
     const result = await execFileAsync(
       'yt-dlp',
       ['--dump-single-json', '--skip-download', youtubeWatchUrl(video.videoId)],
@@ -134,7 +145,7 @@ const fetchTopVideos = async (channel, videoCache) => {
   )
 
   const refreshedVideos = (
-    await mapLimit(playlistVideos, 3, (video) =>
+    await mapLimit(playlistVideos, 1, (video) =>
       fetchVideoStats(video, channel),
     )
   ).filter(Boolean)
@@ -262,13 +273,15 @@ for (const channelLatest of Object.values(previousLatestVideos)) {
   videoCache = mergeVideoCache(videoCache, oldVideos)
 }
 
-const latestEntries = (
-  await Promise.all(
-    channels.map((channel) =>
-      fetchLatestVideo(channel, previousLatestVideos[channel.id], videoCache),
-    ),
+const latestEntries = []
+for (const channel of channels) {
+  const latestEntry = await fetchLatestVideo(
+    channel,
+    previousLatestVideos[channel.id],
+    videoCache,
   )
-).filter(Boolean)
+  if (latestEntry) latestEntries.push(latestEntry)
+}
 
 const latestVideos = Object.fromEntries(
   latestEntries.map(([id, latestVideo]) => [id, latestVideo]),
