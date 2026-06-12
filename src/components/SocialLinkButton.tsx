@@ -41,7 +41,7 @@ export default function SocialLinkButton({
         style={style}
       >
         <span className="flex w-full items-center">
-          <span className="flex w-9 shrink-0 items-center justify-center">
+          <span className="grid size-9 shrink-0 place-items-center">
             {children}
           </span>
           <span className="flex-1 pl-2 text-center leading-snug font-medium wrap-break-word whitespace-normal">

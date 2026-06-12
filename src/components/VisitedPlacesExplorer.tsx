@@ -166,7 +166,7 @@ function VideoLink({
                 viewBox="0 0 24 24"
                 fill="currentColor"
                 aria-hidden="true"
-                className="size-3 translate-x-px"
+                className="block size-3"
               >
                 <path d="M8 5.14v13.72L19.2 12z" />
               </svg>
@@ -306,7 +306,7 @@ export default function VisitedPlacesExplorer({ places, stateVideos }: Props) {
                         viewBox="0 0 24 24"
                         fill="currentColor"
                         aria-hidden="true"
-                        className="size-3 translate-x-px"
+                        className="block size-3"
                       >
                         <path d="M8 5.14v13.72L19.2 12z" />
                       </svg>
