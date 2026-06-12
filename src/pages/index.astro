@@ -8,6 +8,7 @@ import { SEO } from 'astro-seo'
 import FeaturedEpisodes from '../components/FeaturedEpisodes.astro'
 import LatestChannelVideo from '../components/LatestChannelVideo.astro'
 import Link from '../components/Link.astro'
+import PeopleInterviewed from '../components/PeopleInterviewed.astro'
 import QrCodeButton from '../components/QrCodeButton.astro'
 import ReachBadge from '../components/ReachBadge.astro'
 import TopicCards from '../components/TopicCards.astro'
@@ -288,6 +289,8 @@ const structuredData = {
       />
 
       <FeaturedEpisodes />
+
+      <PeopleInterviewed peopleInterviewed={siteConfig.peopleInterviewed} />
 
       <VisitedPlacesMap visitedPlaces={resolvedVisitedPlaces} />
 
