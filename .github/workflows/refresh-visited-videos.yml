@@ -18,14 +18,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.x'
       - name: Install yt-dlp
@@ -43,7 +43,7 @@ jobs:
         run: git pull --rebase --autostash origin master
       - name: Commit updated visited video catalog
         id: commit
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: Update weekly YouTube catalog
           file_pattern: src/data/site.yaml src/data/latest-youtube-videos.json src/data/visited-videos.yaml src/data/youtube-videos.json src/data/geocoded-locations.json
@@ -52,7 +52,7 @@ jobs:
         run: npm run build
       - name: Deploy to Cloudflare
         if: steps.commit.outputs.changes_detected == 'true'
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           command: deploy
