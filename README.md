@@ -1,4 +1,14 @@
-# Astro Starter Kit: Basics
+# Ya Hala Linktree
+
+Single-page Astro website for Ya Hala, deployed as static assets behind a
+Cloudflare Worker.
+
+The semantic YouTube transcript search uses Workers AI, Vectorize, R2, Queues,
+and owner-authorized YouTube captions. See
+[`docs/video-search-setup.md`](docs/video-search-setup.md) for provisioning,
+OAuth, deployment, and backfill instructions.
+
+## Development
 
 ```sh
 npm create astro@latest -- --template basics

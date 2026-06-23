@@ -1,6 +1,7 @@
 import { parse } from 'yaml'
 
 import siteYaml from '../data/site.yaml?raw'
+import type { VideoSearchCopy } from './video-search'
 
 export type SiteInfo = {
   pageTitle: string
@@ -104,6 +105,7 @@ export type SiteConfig = {
   featuredEpisodes: FeaturedEpisode[]
   visitedPlaces: VisitedPlaces
   socialReach: SocialReach
+  videoSearch: VideoSearchCopy
 }
 
 export const siteConfig = parse(siteYaml) as SiteConfig

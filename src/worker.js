@@ -70,6 +70,43 @@ export default {
       return Response.redirect(url.toString(), 301)
     }
 
+    if (url.pathname === '/api/video-search' && request.method === 'GET') {
+      return handleSearch(request, env)
+    }
+
+    if (
+      url.pathname === '/api/admin/video-search/reindex' &&
+      request.method === 'POST'
+    ) {
+      return handleAdminReindex(request, env)
+    }
+
     return withSecurityHeaders(await env.ASSETS.fetch(request))
   },
+
+  async scheduled(_event, env, ctx) {
+    ctx.waitUntil(runScheduledSync(env))
+  },
+
+  async queue(batch, env) {
+    for (const message of batch.messages) {
+      try {
+        const result = await processVideo(env, message.body?.videoId)
+        console.log('Video indexing completed', result)
+        message.ack()
+      } catch (error) {
+        console.error('Video indexing failed', {
+          videoId: message.body?.videoId,
+          error: error instanceof Error ? error.message : String(error),
+        })
+        message.retry()
+      }
+    }
+  },
 }
+import {
+  handleAdminReindex,
+  handleSearch,
+  processVideo,
+  runScheduledSync,
+} from './worker/video-search.js'
