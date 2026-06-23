@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  deployments: write
 
 concurrency:
   group: youtube-data-refresh
@@ -33,14 +34,25 @@ jobs:
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - name: Install dependencies
         run: npm ci
-      - name: Refresh visited video catalog
+      - name: Refresh weekly YouTube catalog
         run: |
+          npm run update:youtube -- --refresh-top-videos
           npm run update:visited-videos
           npm run validate:data
       - name: Rebase before committing
         run: git pull --rebase --autostash origin master
       - name: Commit updated visited video catalog
+        id: commit
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: Update visited video catalog
+          commit_message: Update weekly YouTube catalog
           file_pattern: src/data/site.yaml src/data/latest-youtube-videos.json src/data/visited-videos.yaml src/data/youtube-videos.json src/data/geocoded-locations.json
+      - name: Build site
+        if: steps.commit.outputs.changes_detected == 'true'
+        run: npm run build
+      - name: Deploy to Cloudflare
+        if: steps.commit.outputs.changes_detected == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          command: deploy

@@ -595,15 +595,6 @@ socialReach:
     - platform: Instagram
       metric: Views
       value: 25568075
-    - platform: Instagram
-      metric: Posts
-      value: 3884
     - platform: Facebook
       metric: Views
       value: 79423446
-    - platform: Facebook
-      metric: Likes
-      value: 360000
-    - platform: Facebook
-      metric: Posts
-      value: 3800
