@@ -75,9 +75,16 @@ videoSearch:
   description: Search the meaning of Ya Hala video transcripts in Arabic or English, then jump directly to the matching moment.
   placeholder: Search for a story, person, city, business, or idea…
   buttonLabel: Search
+  exampleQueries:
+    - Little Yemen
+    - halal burger
+    - Chicago
+    - قصة مطعم
   loadingLabel: Searching video transcripts…
   emptyLabel: No matching video moments found
+  emptyDescription: Try a broader word, a city, a person, or a business name from the videos.
   errorLabel: Search is temporarily unavailable
+  errorDescription: Please try again in a moment.
   watchLabel: Watch from this moment
   resultLabel: matching video moments
   resultLimit: 6
