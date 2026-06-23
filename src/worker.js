@@ -102,6 +102,20 @@ export default {
         console.log('Video indexing completed', result)
         message.ack()
       } catch (error) {
+        if (isYouTubeQuotaError(error)) {
+          const result = await deferVideo(
+            env,
+            message.body?.videoId,
+            'youtube-quota-exhausted',
+            {
+              error: error instanceof Error ? error.message : String(error),
+            },
+          )
+          console.warn('Video indexing deferred', result)
+          message.ack()
+          continue
+        }
+
         console.error('Video indexing failed', {
           videoId: message.body?.videoId,
           error: error instanceof Error ? error.message : String(error),
@@ -112,9 +126,11 @@ export default {
   },
 }
 import {
+  deferVideo,
   handleAdminReindex,
   handleAdminStatus,
   handleSearch,
+  isYouTubeQuotaError,
   processVideo,
   runScheduledSync,
 } from './worker/video-search.js'
