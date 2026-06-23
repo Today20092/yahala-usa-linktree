@@ -43,7 +43,7 @@ jobs:
         run: git pull --rebase --autostash origin master
       - name: Commit updated video data
         id: commit
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: Update YouTube video data
           file_pattern: src/data/latest-youtube-videos.json src/data/youtube-videos.json
