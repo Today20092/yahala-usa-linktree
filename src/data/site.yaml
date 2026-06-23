@@ -1,9 +1,9 @@
 site:
   pageTitle: Ya Hala with Haithum ياهلا مع هيثم
-  pageDescription: "Ya Hala with Haithum shares Arab American field interviews, community visits, latest videos, and official social links across the United States."
+  pageDescription: 'Ya Hala with Haithum shares Arab American field interviews, community visits, latest videos, and official social links across the United States.'
   siteName: Ya Hala with Haithum
   profileName: Haithum
-  twitterHandle: "@yahala_usa"
+  twitterHandle: '@yahala_usa'
   heroImageAlt: Ya Hala with Haithum ياهلا مع هيثم social cover
   profileImage: yahala-channel-logo.png
   ogImage: og-image.png
@@ -64,10 +64,23 @@ youtubeChannels:
       darkCardBackground: var(--card)
       cardTint: var(--muted)
       darkCardTint: var(--muted)
-      logoBackgroundColor: "#ffffff"
-      darkLogoBackgroundColor: "#ffffff"
+      logoBackgroundColor: '#ffffff'
+      darkLogoBackgroundColor: '#ffffff'
       logoFit: contain
       logoPaddingClass: p-1.5
+
+videoSearch:
+  eyebrow: Semantic video search
+  title: Find a moment in our videos
+  description: Search the meaning of Ya Hala video transcripts in Arabic or English, then jump directly to the matching moment.
+  placeholder: Search for a story, person, city, business, or idea…
+  buttonLabel: Search
+  loadingLabel: Searching video transcripts…
+  emptyLabel: No matching video moments found
+  errorLabel: Search is temporarily unavailable
+  watchLabel: Watch from this moment
+  resultLabel: matching video moments
+  resultLimit: 6
 
 featuredEpisodes:
   - url: https://youtu.be/DYlYA2eo46Q?si=LajIGA3xN9IUbFq_
@@ -584,7 +597,7 @@ visitedPlaces:
       longitude: -85.6602936
 
 socialReach:
-  updatedAt: "2026-06-22"
+  updatedAt: '2026-06-22'
   items:
     - platform: YouTube
       metric: Views

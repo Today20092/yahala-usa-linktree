@@ -10,6 +10,7 @@
     "validate:data": "node scripts/validate-youtube-data.mjs",
     "validate:ui": "node scripts/validate-ui-consistency.mjs",
     "test:locations": "node scripts/test-location-utils.mjs",
+    "test:video-search": "node scripts/test-video-search.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -45,6 +46,7 @@
     "prettier": "^3.1.1",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.0",
-    "sharp": "^0.35.2"
+    "sharp": "^0.35.2",
+    "wrangler": "^4.103.0"
   }
 }

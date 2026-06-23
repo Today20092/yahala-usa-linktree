@@ -8,6 +8,11 @@
 
 > A single-page Ya Hala landing site for Haithum, built to share Arab American stories, featured videos, and official social links in one polished hub.
 
+The semantic YouTube transcript search uses Workers AI, Vectorize, R2, Queues,
+and owner-authorized YouTube captions. See
+[`docs/video-search-setup.md`](docs/video-search-setup.md) for provisioning,
+OAuth, deployment, and backfill instructions.
+
 ## Overview
 
 Ya Hala with Haithum is a modern linktree-style landing page built for the web presence behind the channel. It is designed to be fast, mobile-friendly, and easy to maintain, with all core content driven from `src/data/site.yaml`.

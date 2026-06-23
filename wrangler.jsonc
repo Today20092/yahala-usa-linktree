@@ -4,30 +4,64 @@
   "main": "./src/worker.js",
   "compatibility_date": "2026-06-09",
   "observability": {
-    "enabled": true
+    "enabled": true,
+  },
+  "ai": {
+    "binding": "AI",
+  },
+  "vectorize": [
+    {
+      "binding": "VECTORIZE",
+      "index_name": "yahala-video-search",
+    },
+  ],
+  "r2_buckets": [
+    {
+      "binding": "TRANSCRIPTS_R2",
+      "bucket_name": "yahala-video-transcripts",
+    },
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "VIDEO_INDEX_QUEUE",
+        "queue": "yahala-video-index",
+      },
+    ],
+    "consumers": [
+      {
+        "queue": "yahala-video-index",
+        "max_batch_size": 1,
+        "max_retries": 5,
+        "dead_letter_queue": "yahala-video-index-dlq",
+      },
+    ],
+  },
+  "triggers": {
+    "crons": ["17 8 * * *"],
   },
   "routes": [
     {
       "pattern": "yahalausa.net",
-      "custom_domain": true
+      "custom_domain": true,
     },
     {
       "pattern": "www.yahalausa.net",
-      "custom_domain": true
+      "custom_domain": true,
     },
     {
       "pattern": "yahalausa.co",
-      "custom_domain": true
+      "custom_domain": true,
     },
     {
       "pattern": "www.yahalausa.co",
-      "custom_domain": true
-    }
+      "custom_domain": true,
+    },
   ],
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
     "not_found_handling": "404-page",
-    "run_worker_first": true
-  }
+    "run_worker_first": true,
+  },
 }
