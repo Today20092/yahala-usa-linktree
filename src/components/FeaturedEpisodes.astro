@@ -18,6 +18,15 @@ type ChannelVideoSummary = {
   topVideoIds?: string[]
 }
 
+type VideoTitleSummary = {
+  videoId?: string
+  title?: string
+}
+
+type VideoWithNestedSummaries = {
+  videos?: VideoTitleSummary[]
+}
+
 const primaryChannel = siteConfig.youtubeChannels[0]
 const primaryChannelSummary = primaryChannel
   ? (latestYoutubeVideos as Record<string, ChannelVideoSummary>)[
@@ -33,6 +42,23 @@ const formatViews = (views: number) =>
 
 const youtubeThumbnailUrl = (videoId: string) =>
   `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
+
+const placeholderTitles = new Set(['Watch on YouTube', 'Open on YouTube'])
+
+const isUsableTitle = (title?: string) =>
+  Boolean(title?.trim()) && !placeholderTitles.has(title.trim())
+
+const nestedVideoTitlesById = Object.values(
+  youtubeVideosById as Record<string, VideoWithNestedSummaries>,
+).reduce<Record<string, string>>((titles, video) => {
+  video.videos?.forEach((nestedVideo) => {
+    if (nestedVideo.videoId && isUsableTitle(nestedVideo.title)) {
+      titles[nestedVideo.videoId] = nestedVideo.title!.trim()
+    }
+  })
+
+  return titles
+}, {})
 
 const videosWithViews = Object.values(youtubeVideosById)
   .filter((video) => Number.isFinite(Number(video.viewCount)) && !video.isShort)
@@ -51,7 +77,9 @@ const episodes = topVideoIds
 
     return {
       thumbnail: video.thumbnail ?? youtubeThumbnailUrl(videoId),
-      title: video.title ?? 'View this episode',
+      title: isUsableTitle(video.title)
+        ? video.title.trim()
+        : nestedVideoTitlesById[videoId] ?? 'View this episode',
       href: video.url ?? `https://www.youtube.com/watch?v=${videoId}`,
       viewCount,
     }
