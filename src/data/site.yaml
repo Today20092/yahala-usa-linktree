@@ -584,23 +584,23 @@ visitedPlaces:
       longitude: -85.6602936
 
 socialReach:
-  updatedAt: "2026-06-11"
+  updatedAt: "2026-06-22"
   items:
     - platform: YouTube
       metric: Views
       value: 22201272
     - platform: TikTok
       metric: Views
-      value: 111613728
+      value: 28166560
     - platform: Instagram
-      metric: Reach
-      value: 445000
+      metric: Views
+      value: 25568075
     - platform: Instagram
       metric: Posts
       value: 3884
     - platform: Facebook
-      metric: Reach
-      value: 360000
+      metric: Views
+      value: 79423446
     - platform: Facebook
       metric: Likes
       value: 360000
