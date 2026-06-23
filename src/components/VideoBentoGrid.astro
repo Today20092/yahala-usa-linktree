@@ -59,6 +59,8 @@ const youtubeChannelUrl =
   'https://www.youtube.com/'
 const youtubeVideoUrl = (videoId: string) =>
   `https://www.youtube.com/watch?v=${videoId}`
+const isRemoteImage = (src: BentoImage['src']): src is string =>
+  typeof src === 'string'
 
 const formatStat = (value: number) => {
   const formatter = new Intl.NumberFormat('en-US', {
@@ -341,15 +343,27 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
                       aria-label={`Watch on YouTube: ${item.alt}`}
                       class="group bento-video-link bg-accent focus-visible:outline-ring dark:bg-accent border-border/60 hover:border-youtube/70 hover:ring-youtube/30 dark:border-border dark:hover:border-youtube/70 relative isolate block aspect-video w-[252px] shrink-0 cursor-pointer overflow-hidden rounded-lg border text-left shadow-sm ring-1 ring-transparent transition duration-200 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-3 focus-visible:outline-offset-2 sm:w-[274px]"
                     >
-                      <Image
-                        src={item.src}
-                        alt={item.alt}
-                        width={480}
-                        height={270}
-                        class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                        loading={itemIndex === 0 ? 'eager' : 'lazy'}
-                        decoding="async"
-                      />
+                      {isRemoteImage(item.src) ? (
+                        <img
+                          src={item.src}
+                          alt={item.alt}
+                          width="480"
+                          height="270"
+                          class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                          loading={itemIndex === 0 ? 'eager' : 'lazy'}
+                          decoding="async"
+                        />
+                      ) : (
+                        <Image
+                          src={item.src}
+                          alt={item.alt}
+                          width={480}
+                          height={270}
+                          class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                          loading={itemIndex === 0 ? 'eager' : 'lazy'}
+                          decoding="async"
+                        />
+                      )}
                       <span
                         class="from-scrim/80 via-scrim/40 absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-3 bg-gradient-to-t to-transparent p-3 pt-10 text-white opacity-95 transition duration-200 group-hover:opacity-100"
                         aria-hidden="true"
