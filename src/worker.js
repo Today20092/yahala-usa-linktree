@@ -81,6 +81,13 @@ export default {
       return handleAdminReindex(request, env)
     }
 
+    if (
+      url.pathname === '/api/admin/video-search/status' &&
+      request.method === 'GET'
+    ) {
+      return handleAdminStatus(request, env)
+    }
+
     return withSecurityHeaders(await env.ASSETS.fetch(request))
   },
 
@@ -106,6 +113,7 @@ export default {
 }
 import {
   handleAdminReindex,
+  handleAdminStatus,
   handleSearch,
   processVideo,
   runScheduledSync,

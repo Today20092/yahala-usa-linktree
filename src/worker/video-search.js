@@ -1,9 +1,29 @@
+import youtubeVideos from '../data/youtube-videos.json' with { type: 'json' }
+
 const CHANNEL_ID = 'UC26OIuJ19EH6HF6uRJ-N_2A'
 const EMBEDDING_MODEL = '@cf/baai/bge-m3'
 const MANIFEST_PREFIX = 'manifests/'
 const TRANSCRIPT_PREFIX = 'transcripts/'
 const GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token'
 const YOUTUBE_API = 'https://www.googleapis.com/youtube/v3'
+const ELIGIBLE_CATALOG = youtubeVideos
+
+const getCatalogVideo = (videoId) => {
+  const video = ELIGIBLE_CATALOG[videoId]
+  return video?.channelId === CHANNEL_ID && video?.isShort === false
+    ? video
+    : null
+}
+
+const listCatalogVideoIds = () =>
+  Object.values(ELIGIBLE_CATALOG)
+    .filter(
+      (video) =>
+        video?.channelId === CHANNEL_ID &&
+        video?.isShort === false &&
+        /^[\w-]{11}$/.test(video.videoId),
+    )
+    .map((video) => video.videoId)
 
 const json = (body, init = {}) =>
   new Response(JSON.stringify(body), {
@@ -268,13 +288,19 @@ export const processVideo = async (env, videoId) => {
     return skipVideo(env, videoId, 'not-public')
   }
 
+  const catalogVideo = getCatalogVideo(videoId)
   const dimensions = getSourceDimensions(video.fileDetails)
-  if (!dimensions) return skipVideo(env, videoId, 'unknown-aspect-ratio')
-  if (dimensions.widthPixels <= dimensions.heightPixels) {
+  if (
+    dimensions &&
+    dimensions.widthPixels <= dimensions.heightPixels
+  ) {
     return skipVideo(env, videoId, 'not-landscape', {
       width: dimensions.widthPixels,
       height: dimensions.heightPixels,
     })
+  }
+  if (!dimensions && !catalogVideo) {
+    return skipVideo(env, videoId, 'not-in-landscape-catalog')
   }
 
   const caption = await getCaption(videoId, token)
@@ -305,8 +331,9 @@ export const processVideo = async (env, videoId) => {
     published: video.snippet?.publishedAt ?? '',
     duration: video.contentDetails?.duration ?? '',
     language,
-    width: dimensions.widthPixels,
-    height: dimensions.heightPixels,
+    width: dimensions?.widthPixels ?? null,
+    height: dimensions?.heightPixels ?? null,
+    landscapeEligibility: dimensions ? 'source-dimensions' : 'catalog',
     events,
   }
   await env.TRANSCRIPTS_R2.put(
@@ -351,6 +378,7 @@ export const processVideo = async (env, videoId) => {
     captionId: caption.id,
     language,
     chunkCount: chunks.length,
+    landscapeEligibility: transcript.landscapeEligibility,
     embeddingModel: EMBEDDING_MODEL,
     indexedAt: new Date().toISOString(),
   })
@@ -358,8 +386,10 @@ export const processVideo = async (env, videoId) => {
 }
 
 const enqueueSync = async (env, maxVideos) => {
-  const token = await getAccessToken(env)
-  const videoIds = await listUploadIds(token, maxVideos)
+  const videoIds = listCatalogVideoIds().slice(
+    0,
+    maxVideos || Number.POSITIVE_INFINITY,
+  )
   let queued = 0
   for (const videoId of videoIds) {
     const manifest = await readManifest(env, videoId)
@@ -452,12 +482,61 @@ export const handleSearch = async (request, env) => {
   return response
 }
 
+const isAdminRequest = (request, env) =>
+  Boolean(
+    env.ADMIN_API_TOKEN &&
+      request.headers.get('authorization') === `Bearer ${env.ADMIN_API_TOKEN}`,
+  )
+
+export const handleAdminStatus = async (request, env) => {
+  if (!isAdminRequest(request, env)) {
+    return json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  const videos = listCatalogVideoIds()
+  const records = []
+  for (let index = 0; index < videos.length; index += 25) {
+    const batch = videos.slice(index, index + 25)
+    const manifests = await Promise.all(
+      batch.map((videoId) => readManifest(env, videoId)),
+    )
+    batch.forEach((videoId, offset) => {
+      const catalog = getCatalogVideo(videoId)
+      const manifest = manifests[offset]
+      records.push({
+        videoId,
+        title: catalog?.title ?? videoId,
+        status: manifest?.status ?? 'pending',
+        reason: manifest?.reason ?? null,
+        chunkCount: manifest?.chunkCount ?? 0,
+        language: manifest?.language ?? null,
+      })
+    })
+  }
+
+  const counts = records.reduce(
+    (result, record) => {
+      result[record.status] = (result[record.status] ?? 0) + 1
+      if (record.reason) {
+        result.reasons[record.reason] =
+          (result.reasons[record.reason] ?? 0) + 1
+      }
+      result.chunks += record.chunkCount
+      return result
+    },
+    { total: records.length, indexed: 0, skipped: 0, pending: 0, chunks: 0, reasons: {} },
+  )
+
+  return json({
+    counts,
+    missingTranscripts: records.filter(
+      (record) => record.status !== 'indexed',
+    ),
+  })
+}
+
 export const handleAdminReindex = async (request, env) => {
-  const authorization = request.headers.get('authorization')
-  if (
-    !env.ADMIN_API_TOKEN ||
-    authorization !== `Bearer ${env.ADMIN_API_TOKEN}`
-  ) {
+  if (!isAdminRequest(request, env)) {
     return json({ error: 'Unauthorized' }, { status: 401 })
   }
   const url = new URL(request.url)

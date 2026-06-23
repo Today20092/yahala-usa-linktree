@@ -18,6 +18,7 @@ pnpm-debug.log*
 .env.production
 .dev.vars
 .wrangler/
+missing-transcripts-report.json
 
 # macOS-specific files
 .DS_Store
