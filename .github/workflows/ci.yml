@@ -1,20 +1,20 @@
-name: Deploy
+name: CI
 
 on:
-  push:
+  pull_request:
     branches: [master]
   workflow_dispatch:
 
-concurrency:
-  group: production-deploy
-  cancel-in-progress: false
-
 permissions:
   contents: read
-  deployments: write
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  deploy:
+  validate:
+    name: Validate and build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -29,11 +29,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Validate data
+        run: npm run validate:data
+
+      - name: Validate UI consistency
+        run: npm run validate:ui
+
+      - name: Test location utilities
+        run: npm run test:locations
+
       - name: Build site
         run: npm run build
-
-      - name: Deploy to Cloudflare
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          command: deploy

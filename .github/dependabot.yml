@@ -7,3 +7,21 @@ updates:
     open-pull-requests-limit: 5
     labels:
       - dependencies
+    groups:
+      routine-npm-updates:
+        update-types:
+          - minor
+          - patch
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+    groups:
+      routine-github-actions-updates:
+        update-types:
+          - minor
+          - patch
