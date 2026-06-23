@@ -43,7 +43,7 @@ jobs:
         run: git pull --rebase --autostash origin master
       - name: Commit updated visited video catalog
         id: commit
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: Update weekly YouTube catalog
           file_pattern: src/data/site.yaml src/data/latest-youtube-videos.json src/data/visited-videos.yaml src/data/youtube-videos.json src/data/geocoded-locations.json
