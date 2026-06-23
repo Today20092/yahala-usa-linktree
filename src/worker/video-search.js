@@ -8,6 +8,13 @@ const GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token'
 const YOUTUBE_API = 'https://www.googleapis.com/youtube/v3'
 const ELIGIBLE_CATALOG = youtubeVideos
 
+class YouTubeQuotaError extends Error {
+  constructor(message) {
+    super(message)
+    this.name = 'YouTubeQuotaError'
+  }
+}
+
 const getCatalogVideo = (videoId) => {
   const video = ELIGIBLE_CATALOG[videoId]
   return video?.channelId === CHANNEL_ID && video?.isShort === false
@@ -77,9 +84,21 @@ const youtubeFetch = async (path, token, params = {}) => {
   })
   const payload = await response.json()
   if (!response.ok) {
-    throw new Error(
-      `YouTube ${path} failed: ${payload.error?.message ?? response.status}`,
-    )
+    const message = payload.error?.message ?? String(response.status)
+    const reasons =
+      payload.error?.errors
+        ?.map((error) => error.reason)
+        .filter(Boolean) ?? []
+
+    if (
+      response.status === 403 &&
+      (message.toLowerCase().includes('quota') ||
+        reasons.some((reason) => reason.toLowerCase().includes('quota')))
+    ) {
+      throw new YouTubeQuotaError(`YouTube ${path} failed: ${message}`)
+    }
+
+    throw new Error(`YouTube ${path} failed: ${message}`)
   }
   return payload
 }
@@ -270,6 +289,29 @@ const skipVideo = async (env, videoId, reason, extra = {}) => {
   return { videoId, status: 'skipped', reason }
 }
 
+export const deferVideo = async (env, videoId, reason, extra = {}) => {
+  await writeManifest(env, videoId, {
+    videoId,
+    channelId: CHANNEL_ID,
+    status: 'pending',
+    reason,
+    checkedAt: new Date().toISOString(),
+    ...extra,
+  })
+  return { videoId, status: 'pending', reason }
+}
+
+export const isYouTubeQuotaError = (error) =>
+  error instanceof YouTubeQuotaError ||
+  String(error?.message ?? error)
+    .toLowerCase()
+    .includes('quota')
+
+const isQueueQuotaError = (error) =>
+  String(error?.message ?? error)
+    .toLowerCase()
+    .includes('daily write operations limit')
+
 const embedTexts = async (env, texts) => {
   const response = await env.AI.run(EMBEDDING_MODEL, { text: texts })
   const vectors = response?.data ?? response?.embeddings ?? response
@@ -391,6 +433,7 @@ const enqueueSync = async (env, maxVideos) => {
     maxVideos || Number.POSITIVE_INFINITY,
   )
   let queued = 0
+  let queueWriteLimitReached = false
   for (const videoId of videoIds) {
     const manifest = await readManifest(env, videoId)
     if (
@@ -399,10 +442,16 @@ const enqueueSync = async (env, maxVideos) => {
     ) {
       continue
     }
-    await env.VIDEO_INDEX_QUEUE.send({ videoId })
+    try {
+      await env.VIDEO_INDEX_QUEUE.send({ videoId })
+    } catch (error) {
+      if (!isQueueQuotaError(error)) throw error
+      queueWriteLimitReached = true
+      break
+    }
     queued += 1
   }
-  return { discovered: videoIds.length, queued }
+  return { discovered: videoIds.length, queued, queueWriteLimitReached }
 }
 
 const rateLimit = async (request) => {
@@ -542,8 +591,22 @@ export const handleAdminReindex = async (request, env) => {
   const url = new URL(request.url)
   const videoId = url.searchParams.get('videoId')
   if (videoId && /^[\w-]{11}$/.test(videoId)) {
-    await env.VIDEO_INDEX_QUEUE.send({ videoId })
-    return json({ queued: 1, videoId }, { status: 202 })
+    try {
+      await env.VIDEO_INDEX_QUEUE.send({ videoId })
+      return json({ queued: 1, videoId }, { status: 202 })
+    } catch (error) {
+      if (!isQueueQuotaError(error)) throw error
+      return json(
+        {
+          queued: 0,
+          videoId,
+          queueWriteLimitReached: true,
+          message:
+            'Cloudflare Queue write quota is exhausted. Daily Cron will resume indexing after the quota resets.',
+        },
+        { status: 202 },
+      )
+    }
   }
   const maxVideos = Math.min(
     500,
