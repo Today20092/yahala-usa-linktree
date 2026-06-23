@@ -4,9 +4,12 @@ export type VideoSearchCopy = {
   description: string
   placeholder: string
   buttonLabel: string
+  exampleQueries: string[]
   loadingLabel: string
   emptyLabel: string
+  emptyDescription: string
   errorLabel: string
+  errorDescription: string
   watchLabel: string
   resultLabel: string
   resultLimit: number

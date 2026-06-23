@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react'
 import {
   ArrowUpRightIcon,
   Clock3Icon,
+  LoaderCircleIcon,
   SearchIcon,
   SparklesIcon,
 } from 'lucide-react'
@@ -92,16 +93,17 @@ function ResultCard({
 
 export default function VideoSearch({ copy }: Props) {
   const [query, setQuery] = useState('')
+  const [lastQuery, setLastQuery] = useState('')
   const [results, setResults] = useState<VideoSearchResult[]>([])
   const [status, setStatus] = useState<'idle' | 'loading' | 'done' | 'error'>(
     'idle',
   )
 
-  const submit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const normalizedQuery = query.trim()
+  const runSearch = async (searchQuery: string) => {
+    const normalizedQuery = searchQuery.trim()
     if (normalizedQuery.length < 2) return
 
+    setLastQuery(normalizedQuery)
     setStatus('loading')
     try {
       const params = new URLSearchParams({
@@ -119,24 +121,46 @@ export default function VideoSearch({ copy }: Props) {
     }
   }
 
+  const submit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    void runSearch(query)
+  }
+
+  const searchExample = (exampleQuery: string) => {
+    setQuery(exampleQuery)
+    void runSearch(exampleQuery)
+  }
+
   return (
     <section
       className="animate-fade-in-up mx-auto mt-8 w-full max-w-xl px-4 text-left delay-300 sm:px-6"
       aria-labelledby="video-search-title"
     >
-      <Card>
-        <CardHeader>
-          <Badge variant="secondary">
+      <Card className="gap-5 py-5 shadow-xs">
+        <CardHeader className="gap-2 px-5 sm:px-6">
+          <Badge
+            variant="secondary"
+            className="bg-secondary/70 w-fit text-xs font-medium"
+          >
             <SparklesIcon data-icon="inline-start" />
             {copy.eyebrow}
           </Badge>
-          <CardTitle id="video-search-title" className="text-xl">
+          <CardTitle
+            id="video-search-title"
+            className="max-w-md text-2xl leading-tight font-semibold tracking-normal"
+          >
             {copy.title}
           </CardTitle>
-          <CardDescription>{copy.description}</CardDescription>
+          <CardDescription className="max-w-prose text-sm leading-relaxed sm:text-base">
+            {copy.description}
+          </CardDescription>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={submit} className="flex gap-2" role="search">
+        <CardContent className="px-5 sm:px-6">
+          <form
+            onSubmit={submit}
+            className="flex flex-col gap-2 sm:flex-row"
+            role="search"
+          >
             <label htmlFor="video-search-query" className="sr-only">
               {copy.title}
             </label>
@@ -149,14 +173,46 @@ export default function VideoSearch({ copy }: Props) {
               maxLength={200}
               dir="auto"
               autoComplete="off"
+              className="h-11 rounded-2xl px-4 text-[0.95rem] shadow-sm sm:h-10"
             />
-            <Button type="submit" size="lg" disabled={status === 'loading'}>
-              <SearchIcon data-icon="inline-start" />
-              <span className="hidden sm:inline">{copy.buttonLabel}</span>
+            <Button
+              type="submit"
+              size="lg"
+              disabled={status === 'loading'}
+              className="h-11 gap-2 rounded-2xl px-4 sm:h-10"
+            >
+              {status === 'loading' ? (
+                <LoaderCircleIcon
+                  data-icon="inline-start"
+                  className="animate-spin"
+                />
+              ) : (
+                <SearchIcon data-icon="inline-start" />
+              )}
+              <span>
+                {status === 'loading' ? 'Searching' : copy.buttonLabel}
+              </span>
             </Button>
           </form>
 
-          <div className="mt-4 flex flex-col gap-3" aria-live="polite">
+          {copy.exampleQueries.length > 0 && status === 'idle' && (
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              {copy.exampleQueries.map((exampleQuery) => (
+                <Button
+                  key={exampleQuery}
+                  type="button"
+                  variant="secondary"
+                  size="sm"
+                  className="bg-muted text-muted-foreground hover:text-foreground rounded-full px-3"
+                  onClick={() => searchExample(exampleQuery)}
+                >
+                  {exampleQuery}
+                </Button>
+              ))}
+            </div>
+          )}
+
+          <div className="mt-5 flex flex-col gap-3" aria-live="polite">
             {status === 'loading' && (
               <>
                 <span className="sr-only">{copy.loadingLabel}</span>
@@ -175,14 +231,18 @@ export default function VideoSearch({ copy }: Props) {
 
             {status === 'done' && results.length === 0 && (
               <Empty>
-                <EmptyTitle>{copy.emptyLabel}</EmptyTitle>
-                <EmptyDescription>{copy.description}</EmptyDescription>
+                <EmptyTitle>
+                  {copy.emptyLabel}
+                  {lastQuery ? ` for "${lastQuery}"` : ''}
+                </EmptyTitle>
+                <EmptyDescription>{copy.emptyDescription}</EmptyDescription>
               </Empty>
             )}
 
             {status === 'error' && (
               <Empty>
                 <EmptyTitle>{copy.errorLabel}</EmptyTitle>
+                <EmptyDescription>{copy.errorDescription}</EmptyDescription>
               </Empty>
             )}
 
@@ -190,6 +250,7 @@ export default function VideoSearch({ copy }: Props) {
               <>
                 <p className="text-muted-foreground text-sm">
                   {results.length} {copy.resultLabel}
+                  {lastQuery ? ` for "${lastQuery}"` : ''}
                 </p>
                 {results.map((result) => (
                   <ResultCard
