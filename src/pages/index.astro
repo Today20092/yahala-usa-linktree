@@ -7,7 +7,6 @@ import { SEO } from 'astro-seo'
 
 import FeaturedEpisodes from '../components/FeaturedEpisodes.astro'
 import LatestChannelVideo from '../components/LatestChannelVideo.astro'
-import Link from '../components/Link.astro'
 import QrCodeButton from '../components/QrCodeButton.astro'
 import ReachBadge from '../components/ReachBadge.astro'
 import TopicCards from '../components/TopicCards.astro'
@@ -85,6 +84,7 @@ const channelBranding = Object.fromEntries(
 )
 
 const instagramLink = socialLinks.find((link) => link.id === 'instagram')
+const youtubeLink = socialLinks.find((link) => link.id === 'youtube')
 const sameAsUrls = socialLinks.map((link) => link.url)
 const socialIconBodies = {
   youtube:
@@ -278,21 +278,124 @@ const structuredData = {
       <h1 id="profile-title" class="sr-only">
         Ya Hala with Haithum ياهلا مع هيثم
       </h1>
-      <p
-        class="animate-fade-in-up text-muted-foreground mx-auto mb-4 w-full max-w-xl px-4 text-center text-lg leading-relaxed delay-200 sm:px-6 sm:text-xl"
+      <section
+        class="animate-fade-in-up mx-auto w-full max-w-xl px-4 pt-6 text-center delay-200 sm:px-6 sm:pt-7"
+        aria-labelledby="intro-title"
       >
-        {pageDescription}
-      </p>
+        <p class="text-primary text-xs font-bold tracking-[0.18em] uppercase">
+          Arab American stories
+        </p>
+        <h2
+          id="intro-title"
+          class="text-foreground mx-auto mt-2 max-w-lg text-3xl leading-tight font-black text-balance sm:text-4xl"
+        >
+          Field interviews, community visits, and digital media from across the
+          U.S.
+        </h2>
+        <p
+          class="text-muted-foreground mx-auto mt-3 max-w-prose text-base leading-relaxed sm:text-lg"
+        >
+          {pageDescription}
+        </p>
+        <div class="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
+          {
+            youtubeLink && (
+              <a
+                href={youtubeLink.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring/30 focus-visible:ring-offset-background inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-5 text-base font-bold shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+              >
+                <Icon
+                  name="simple-icons:youtube"
+                  class="size-5"
+                  aria-hidden="true"
+                />
+                Watch on YouTube
+              </a>
+            )
+          }
+          {
+            instagramLink && (
+              <a
+                href="#contact"
+                class="border-border bg-card text-foreground hover:bg-accent focus-visible:ring-ring/30 focus-visible:ring-offset-background inline-flex min-h-12 items-center justify-center gap-2 rounded-full border px-5 text-base font-bold shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+              >
+                <Icon
+                  name="heroicons:briefcase"
+                  class="size-5"
+                  aria-hidden="true"
+                />
+                Collaborate
+              </a>
+            )
+          }
+        </div>
+      </section>
+
+      <nav
+        class="animate-fade-in-up mx-auto mt-6 flex w-full max-w-xl flex-col gap-3 px-4 delay-300 sm:px-6"
+        aria-label="Official social links"
+      >
+        {
+          socialLinks.map((social) => (
+            <SocialLinkButton
+              label={social.label}
+              href={social.url}
+              id={social.id}
+              style={{
+                '--brand-color': social.color,
+                '--brand-color-2': social.color2,
+                '--brand-color-3': social.color3,
+                '--brand-color-dark': social.darkColor ?? social.color,
+                '--brand-color-dark-2': social.darkColor2 ?? social.color2,
+                '--brand-color-dark-3': social.darkColor3 ?? social.color3,
+              }}
+            >
+              <svg
+                class="size-8"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                set:html={socialIconBodies[social.id]}
+              />
+            </SocialLinkButton>
+          ))
+        }
+      </nav>
 
       <QrCodeButton />
-
-      <VideoBentoGrid />
 
       <ReachBadge
         total={totalReach}
         updatedAt={socialReach.updatedAt}
         items={socialReach.items}
       />
+
+      <section
+        id="about"
+        class="animate-fade-in-up mx-auto mt-8 w-full max-w-xl px-4 text-left delay-300 sm:px-6"
+        aria-labelledby="about-title"
+      >
+        <div class="ui-surface-card px-5 py-6 sm:px-6">
+          <p class="text-primary text-xs font-bold tracking-[0.18em] uppercase">
+            About Haithum
+          </p>
+          <h2
+            id="about-title"
+            class="text-foreground mt-2 text-2xl leading-tight font-extrabold"
+          >
+            A digital media host documenting Arab communities, businesses, and
+            immigrant success stories.
+          </h2>
+          <p class="text-muted-foreground mt-3 text-base leading-relaxed">
+            Through Ya Hala, Haithum turns field visits, interviews,
+            restaurants, neighborhoods, and community moments into social-first
+            stories for Arabic and Arab American audiences.
+          </p>
+        </div>
+      </section>
+
+      <VideoBentoGrid />
 
       <VideoSearch
         copy={videoSearch}
@@ -340,36 +443,6 @@ const structuredData = {
       </section>
 
       <TopicCards />
-
-      <nav
-        class="animate-fade-in-up mx-auto mt-8 flex w-full max-w-xl flex-col gap-4 px-4 delay-500 sm:px-6"
-        aria-label="Official social links"
-      >
-        {
-          socialLinks.map((social) => (
-            <SocialLinkButton
-              label={social.label}
-              href={social.url}
-              id={social.id}
-              style={{
-                '--brand-color': social.color,
-                '--brand-color-2': social.color2,
-                '--brand-color-3': social.color3,
-                '--brand-color-dark': social.darkColor ?? social.color,
-                '--brand-color-dark-2': social.darkColor2 ?? social.color2,
-                '--brand-color-dark-3': social.darkColor3 ?? social.color3,
-              }}
-            >
-              <svg
-                class="size-9"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                set:html={socialIconBodies[social.id]}
-              />
-            </SocialLinkButton>
-          ))
-        }
-      </nav>
 
       <div
         class="animate-fade-in-up mx-auto mt-8 w-full max-w-xl px-4 delay-500 sm:px-6"
@@ -436,7 +509,7 @@ const structuredData = {
             Sitemap
           </a>
         </nav>
-        <p id="about" class="sr-only">
+        <p class="sr-only">
           {siteName} is a single-page hub for Arab American stories, field interviews,
           community visits, and official social channels.
         </p>
