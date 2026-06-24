@@ -24,5 +24,4 @@ missing-transcripts-report.json
 .DS_Store
 
 # ai stuff
-.agents
 .claude
