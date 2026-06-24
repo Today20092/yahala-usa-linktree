@@ -4,7 +4,11 @@ import { Icon } from 'astro-icon/components'
 import { IconBadge } from './ui/icon-badge'
 
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
-import { youtubeVideosById } from '../lib/youtube-videos'
+import {
+  youtubeThumbnailFallbackUrl,
+  youtubeThumbnailUrl,
+  youtubeVideosById,
+} from '../lib/youtube-videos'
 import { siteConfig } from '../lib/site-config'
 
 type Episode = {
@@ -12,6 +16,7 @@ type Episode = {
   title: string
   href: string
   viewCount: number
+  videoId: string
 }
 
 type ChannelVideoSummary = {
@@ -39,9 +44,6 @@ const formatViews = (views: number) =>
     notation: views >= 10000 ? 'compact' : 'standard',
     maximumFractionDigits: views >= 10000 ? 1 : 0,
   }).format(views)
-
-const youtubeThumbnailUrl = (videoId: string) =>
-  `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
 
 const placeholderTitles = new Set(['Watch on YouTube', 'Open on YouTube'])
 
@@ -82,6 +84,7 @@ const episodes = topVideoIds
         : nestedVideoTitlesById[videoId] ?? 'View this episode',
       href: video.url ?? `https://www.youtube.com/watch?v=${videoId}`,
       viewCount,
+      videoId,
     }
   })
   .filter((episode): episode is Episode => Boolean(episode))
@@ -119,6 +122,9 @@ const episodes = topVideoIds
                   height="360"
                   loading="lazy"
                   decoding="async"
+                  data-fallback-src={youtubeThumbnailFallbackUrl(
+                    episode.videoId,
+                  )}
                   class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 <span

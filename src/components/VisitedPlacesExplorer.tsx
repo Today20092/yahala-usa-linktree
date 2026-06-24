@@ -120,6 +120,11 @@ function getThumbnail(url: string, thumbnail?: string) {
   return videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : null
 }
 
+function getThumbnailFallback(url: string) {
+  const videoId = getYoutubeVideoId(url)
+  return videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : null
+}
+
 function formatPlace(city: string, state: string) {
   return `${city}, ${stateAbbreviations.get(state) ?? state}`
 }
@@ -158,6 +163,7 @@ function VideoLink({
             alt=""
             className="h-full w-full object-cover transition duration-200 group-hover:scale-105"
             loading="lazy"
+            data-fallback-src={getThumbnailFallback(video.url)}
           />
         ) : (
           <span className="text-muted-foreground grid h-full w-full place-items-center">

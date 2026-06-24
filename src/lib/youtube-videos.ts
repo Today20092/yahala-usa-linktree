@@ -59,8 +59,11 @@ export const getYoutubeVideoId = (urlOrId?: string) => {
 const youtubeWatchUrl = (videoId: string) =>
   `https://www.youtube.com/watch?v=${videoId}`
 
-const fallbackThumbnail = (videoId: string) =>
+export const youtubeThumbnailUrl = (videoId: string) =>
   `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
+
+export const youtubeThumbnailFallbackUrl = (videoId: string) =>
+  `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
 
 export const resolveYoutubeVideo = (
   videoRef?: YoutubeVideoRef | null,
@@ -78,7 +81,7 @@ export const resolveYoutubeVideo = (
     thumbnail:
       videoRef?.thumbnail ??
       cachedVideo?.thumbnail ??
-      fallbackThumbnail(videoId),
+      youtubeThumbnailUrl(videoId),
   }
 }
 

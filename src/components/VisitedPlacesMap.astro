@@ -149,7 +149,7 @@ const getPlacePosition = (place: (typeof places)[number]) => {
       </div>
 
       <div class="ui-surface-card overflow-hidden p-3 sm:p-4">
-        <div class="bg-muted dark:bg-background/35 border-border/70 relative aspect-[2/1] overflow-hidden rounded-lg border shadow-inner">
+        <div class="bg-muted dark:bg-background/35 border-border/70 relative isolate aspect-[2/1] overflow-hidden rounded-lg border shadow-inner">
           <div
             class="absolute inset-0 grid grid-cols-4 grid-rows-2"
             aria-hidden="true"
@@ -169,8 +169,6 @@ const getPlacePosition = (place: (typeof places)[number]) => {
               )),
             )}
           </div>
-          <div class="bg-background/10 dark:bg-background/15 absolute inset-0 mix-blend-screen" />
-
           {places.map((place) => {
             const label = formatPlace(place.city, place.state)
             const position = getPlacePosition(place)
@@ -178,7 +176,7 @@ const getPlacePosition = (place: (typeof places)[number]) => {
             return (
               <button
                 type="button"
-                class="group absolute grid size-5 -translate-x-1/2 -translate-y-full place-items-center border-0 bg-transparent p-0"
+                class="group absolute z-10 grid size-5 -translate-x-1/2 -translate-y-full place-items-center border-0 bg-transparent p-0"
                 style={`left: ${position.x}%; top: ${position.y}%;`}
                 title={label}
                 aria-label={`Show videos from ${label}`}
@@ -201,11 +199,16 @@ const getPlacePosition = (place: (typeof places)[number]) => {
             )
           })}
 
+          <div
+            class="from-background/20 via-background/5 to-background/15 pointer-events-none absolute inset-0 z-0 bg-gradient-to-b"
+            aria-hidden="true"
+          />
+
           <a
             href="https://www.openstreetmap.org/copyright"
             target="_blank"
             rel="noopener noreferrer"
-            class="bg-background/90 text-muted-foreground absolute right-2 bottom-2 rounded px-1.5 py-0.5 text-[10px] font-medium shadow-sm backdrop-blur-sm"
+            class="bg-background/90 text-muted-foreground absolute right-2 bottom-2 z-20 rounded px-1.5 py-0.5 text-[10px] font-medium shadow-sm backdrop-blur-sm"
           >
             © OpenStreetMap
           </a>

@@ -25,6 +25,7 @@ import type {
   VideoSearchResponse,
   VideoSearchResult,
 } from '@/lib/video-search'
+import { youtubeThumbnailFallbackUrl, getYoutubeVideoId } from '@/lib/youtube-videos'
 
 type Props = {
   copy: VideoSearchCopy
@@ -46,6 +47,11 @@ function ResultCard({
   result: VideoSearchResult
   copy: VideoSearchCopy
 }) {
+  const videoId = getYoutubeVideoId(result.url)
+  const thumbnailFallback = videoId
+    ? youtubeThumbnailFallbackUrl(videoId)
+    : ''
+
   return (
     <Card size="sm" className="text-left">
       <CardHeader>
@@ -56,6 +62,7 @@ function ResultCard({
             className="aspect-video w-28 shrink-0 rounded-lg object-cover sm:w-36"
             loading="lazy"
             decoding="async"
+            data-fallback-src={thumbnailFallback}
           />
           <div className="min-w-0 flex-1">
             <CardTitle className="line-clamp-2">{result.title}</CardTitle>
