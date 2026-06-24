@@ -8,7 +8,12 @@ import { IconBadge } from './ui/icon-badge'
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
 import visitedVideosYaml from '../data/visited-videos.yaml?raw'
 import { siteConfig } from '../lib/site-config'
-import { resolveYoutubeVideos } from '../lib/youtube-videos'
+import {
+  getYoutubeVideoId,
+  resolveYoutubeThumbnailUrl,
+  resolveYoutubeVideos,
+  youtubeThumbnailFallbackUrl,
+} from '../lib/youtube-videos'
 
 type BentoImage = {
   type: 'video'
@@ -61,6 +66,10 @@ const youtubeVideoUrl = (videoId: string) =>
   `https://www.youtube.com/watch?v=${videoId}`
 const isRemoteImage = (src: BentoImage['src']): src is string =>
   typeof src === 'string'
+const getThumbnailFallback = (href: string) => {
+  const videoId = getYoutubeVideoId(href)
+  return videoId ? youtubeThumbnailFallbackUrl(videoId) : undefined
+}
 const placeholderTitles = new Set([
   'Watch on YouTube',
   'Open on YouTube',
@@ -204,7 +213,7 @@ const generatedYoutubeImages = Object.values(latestYoutubeVideos)
   .map(
     (video): BentoImage => ({
       type: 'video',
-      src: video.thumbnail,
+      src: resolveYoutubeThumbnailUrl(video.videoId, video.thumbnail),
       alt: cleanVideoTitle(video.title),
       href: video.url || youtubeVideoUrl(video.videoId),
     }),
@@ -368,6 +377,7 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
                           alt={item.alt}
                           width="480"
                           height="270"
+                          data-fallback-src={getThumbnailFallback(item.href)}
                           class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
                           loading={itemIndex === 0 ? 'eager' : 'lazy'}
                           decoding="async"

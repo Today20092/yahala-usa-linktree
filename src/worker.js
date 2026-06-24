@@ -17,7 +17,7 @@ const createContentSecurityPolicy = (nonce) =>
     "base-uri 'self'",
     "object-src 'none'",
     "frame-ancestors 'none'",
-    "img-src 'self' data: https://i.ytimg.com https://tile.openstreetmap.org",
+    "img-src 'self' data: https://i.ytimg.com https://img.youtube.com https://tile.openstreetmap.org",
     `script-src 'self' 'nonce-${nonce}'`,
     "style-src 'self' 'unsafe-inline'",
     "font-src 'self' data:",

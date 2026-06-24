@@ -65,6 +65,14 @@ export const youtubeThumbnailUrl = (videoId: string) =>
 export const youtubeThumbnailFallbackUrl = (videoId: string) =>
   `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
 
+export const resolveYoutubeThumbnailUrl = (
+  videoId: string,
+  thumbnail?: string,
+) => {
+  if (videoId) return youtubeThumbnailUrl(videoId)
+  return thumbnail?.trim() ?? ''
+}
+
 export const resolveYoutubeVideo = (
   videoRef?: YoutubeVideoRef | null,
 ): YoutubeVideo | undefined => {
@@ -78,10 +86,10 @@ export const resolveYoutubeVideo = (
     videoId,
     url: youtubeWatchUrl(videoId),
     title: videoRef?.title ?? cachedVideo?.title ?? 'Open on YouTube',
-    thumbnail:
-      videoRef?.thumbnail ??
-      cachedVideo?.thumbnail ??
-      youtubeThumbnailUrl(videoId),
+    thumbnail: resolveYoutubeThumbnailUrl(
+      videoId,
+      videoRef?.thumbnail ?? cachedVideo?.thumbnail,
+    ),
   }
 }
 

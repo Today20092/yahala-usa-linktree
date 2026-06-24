@@ -37,6 +37,9 @@ export const youtubeWatchUrl = (videoId) =>
 export const fallbackThumbnail = (videoId) =>
   `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
 
+export const normalizeThumbnailUrl = (videoId, thumbnail = '') =>
+  videoId ? fallbackThumbnail(videoId) : String(thumbnail).trim()
+
 export const uniqueVideos = (videos) => {
   const seen = new Set()
 
@@ -109,8 +112,10 @@ export const normalizeVideoMetadata = (video, existing = {}) => {
     videoId,
     url: youtubeWatchUrl(videoId),
     title: video?.title ?? existing.title ?? 'Watch on YouTube',
-    thumbnail:
-      video?.thumbnail ?? existing.thumbnail ?? fallbackThumbnail(videoId),
+    thumbnail: normalizeThumbnailUrl(
+      videoId,
+      video?.thumbnail ?? existing.thumbnail,
+    ),
     published: video?.published ?? existing.published ?? '',
     updated:
       video?.updated ??
@@ -125,11 +130,11 @@ export const normalizeVideoMetadata = (video, existing = {}) => {
     tags:
       Array.isArray(video?.tags) && video.tags.length > 0
         ? video.tags
-        : existing.tags ?? [],
+        : (existing.tags ?? []),
     categories:
       Array.isArray(video?.categories) && video.categories.length > 0
         ? video.categories
-        : existing.categories ?? [],
+        : (existing.categories ?? []),
     locationHints: video?.locationHints ?? existing.locationHints,
     viewCount: Number.isFinite(viewCount) ? viewCount : undefined,
     fullMetadataFetchedAt:
