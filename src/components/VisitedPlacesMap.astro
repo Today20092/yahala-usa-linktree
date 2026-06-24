@@ -135,14 +135,9 @@ const getPlacePosition = (place: (typeof places)[number]) => {
       aria-labelledby="visited-places-title"
     >
       <div class="mb-4 text-center">
-        {visitedPlaces.eyebrow && (
-          <p class="text-primary text-xs font-bold tracking-[0.18em] uppercase">
-            {visitedPlaces.eyebrow}
-          </p>
-        )}
         <h2
           id="visited-places-title"
-          class="text-foreground mt-1 text-2xl leading-tight font-extrabold"
+          class="text-foreground text-2xl leading-tight font-extrabold"
         >
           {visitedPlaces.title}
         </h2>

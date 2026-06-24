@@ -26,7 +26,7 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
   <button
     type="button"
     id="qr-open"
-    class="text-foreground bg-accent elevation-2 hover:elevation-4 focus-visible:ring-ring/30 inline-flex items-center gap-2 rounded-xl px-4 py-3 text-base font-semibold transition-all duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:outline-none"
+    class="text-foreground bg-accent elevation-2 hover:elevation-4 focus-visible:ring-ring/30 inline-flex items-center gap-2 rounded-full px-4 py-3 text-base font-semibold transition-all duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:outline-none"
     aria-haspopup="dialog"
     aria-controls="qr-dialog"
   >
@@ -36,19 +36,19 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
 </div>
 
 <aside
-  class="qr-desktop-panel border-border/30 bg-accent/95 elevation-3 fixed right-7 bottom-7 z-40 hidden rounded-2xl border p-3 text-center backdrop-blur-sm lg:block"
+  class="qr-desktop-panel border-border/30 bg-accent/95 elevation-3 fixed right-7 bottom-7 z-40 hidden rounded-xl border p-3 text-center backdrop-blur-sm lg:block"
   aria-label="View on mobile QR code"
 >
   <p class="text-foreground mb-2 text-sm font-semibold">View on mobile</p>
   <div
-    class="elevation-3 to-primary/10 rounded-4xl bg-gradient-to-br from-background via-background p-2"
+    class="elevation-3 to-primary/10 from-background via-background rounded-xl bg-gradient-to-br p-2"
   >
     <img
       src={qrDataUrl}
       alt=""
       width="168"
       height="168"
-      class="size-42 rounded-3xl bg-background p-1"
+      class="bg-background size-42 rounded-xl p-1"
       aria-hidden="true"
     />
   </div>
@@ -56,34 +56,34 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
 
 <div
   id="qr-dialog"
-  class="fixed inset-0 z-50 hidden items-center justify-center overflow-y-auto bg-foreground/70 px-4 py-6 backdrop-blur-sm sm:py-8"
+  class="bg-foreground/70 fixed inset-0 z-50 hidden items-center justify-center overflow-y-auto px-4 py-6 backdrop-blur-sm sm:py-8"
   role="dialog"
   aria-modal="true"
   aria-labelledby="qr-title"
 >
   <div
-    class="bg-background text-foreground elevation-4 max-h-[calc(100dvh-3rem)] w-full max-w-[22rem] overflow-y-auto rounded-2xl p-4 text-center sm:p-5"
+    class="bg-background text-foreground elevation-4 max-h-[calc(100dvh-3rem)] w-full max-w-[22rem] overflow-y-auto rounded-xl p-4 text-center sm:p-5"
   >
     <div class="mb-4 flex items-center justify-between gap-4 text-left">
       <h2 id="qr-title" class="text-lg font-bold">Share this page</h2>
       <button
         type="button"
         id="qr-close"
-        class="hover:bg-accent focus-visible:ring-ring/30 grid size-10 place-items-center rounded-xl transition-colors focus-visible:ring-2 focus-visible:outline-none"
+        class="hover:bg-accent focus-visible:ring-ring/30 grid size-10 place-items-center rounded-full transition-colors focus-visible:ring-2 focus-visible:outline-none"
         aria-label="Close QR code"
       >
         <Icon name="heroicons:x-mark" class="size-6" aria-hidden="true" />
       </button>
     </div>
     <div
-      class="to-primary/10 mx-auto grid aspect-square w-full max-w-64 place-items-center rounded-4xl bg-gradient-to-br from-background via-background p-3 elevation-3"
+      class="to-primary/10 from-background via-background elevation-3 mx-auto grid aspect-square w-full max-w-64 place-items-center rounded-xl bg-gradient-to-br p-3"
     >
       <img
         src={qrDataUrl}
         alt=""
         width="224"
         height="224"
-        class="h-full w-full max-w-56 rounded-3xl bg-background p-1"
+        class="bg-background h-full w-full max-w-56 rounded-xl p-1"
         aria-hidden="true"
       />
     </div>
