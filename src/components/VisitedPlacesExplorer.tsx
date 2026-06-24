@@ -237,18 +237,24 @@ export default function VisitedPlacesExplorer({ places, stateVideos }: Props) {
     selectedStateGroup?.places.find((place) => place.city === selectedCity) ??
     null
   const selectedStateVideos = selectedStateGroup?.stateVideos ?? []
-  const selectedPlacesWithVideos =
-    selectedStateGroup?.places.filter((place) => place.videos?.length) ?? []
+  const selectedPlacesWithVideos = React.useMemo(
+    () =>
+      selectedStateGroup?.places.filter((place) => place.videos?.length) ?? [],
+    [selectedStateGroup],
+  )
   const hasSelectedVideos =
     selectedStateVideos.length > 0 || selectedPlacesWithVideos.length > 0
-  const selectedPlaceWithVideos =
-    selectedPlace?.videos?.length ? selectedPlace : null
+  const selectedPlaceWithVideos = selectedPlace?.videos?.length
+    ? selectedPlace
+    : null
   const drawerOpen = Boolean(selectedStateGroup)
   const desiredAccordionValue = React.useMemo(() => {
     if (!selectedStateGroup) return []
 
     if (selectedPlaceWithVideos) {
-      return [`${selectedPlaceWithVideos.state}-${selectedPlaceWithVideos.city}`]
+      return [
+        `${selectedPlaceWithVideos.state}-${selectedPlaceWithVideos.city}`,
+      ]
     }
 
     if (selectedStateVideos.length > 0) {
@@ -256,7 +262,9 @@ export default function VisitedPlacesExplorer({ places, stateVideos }: Props) {
     }
 
     if (selectedPlacesWithVideos[0]) {
-      return [`${selectedPlacesWithVideos[0].state}-${selectedPlacesWithVideos[0].city}`]
+      return [
+        `${selectedPlacesWithVideos[0].state}-${selectedPlacesWithVideos[0].city}`,
+      ]
     }
 
     return []
@@ -338,12 +346,14 @@ export default function VisitedPlacesExplorer({ places, stateVideos }: Props) {
                       style={
                         isSelected
                           ? {
-                              '--ui-icon-badge-accent': 'var(--primary-foreground)',
+                              '--ui-icon-badge-accent':
+                                'var(--primary-foreground)',
                               '--ui-icon-badge-foreground': 'var(--primary)',
                             }
                           : {
                               '--ui-icon-badge-accent': 'var(--primary)',
-                              '--ui-icon-badge-foreground': 'var(--primary-foreground)',
+                              '--ui-icon-badge-foreground':
+                                'var(--primary-foreground)',
                             }
                       }
                       className="mr-0.5"
