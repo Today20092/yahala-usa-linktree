@@ -70,6 +70,11 @@ const latestVideoChannels = youtubeChannels.filter((channel) =>
   Boolean(latestVideoByChannel[channel.id]),
 )
 const totalReach = socialReach.items.reduce((sum, item) => sum + item.value, 0)
+const primaryYoutubeChannel = youtubeChannels[0]
+const latestEpisodeUrl =
+  (primaryYoutubeChannel &&
+    latestVideoByChannel[primaryYoutubeChannel.id]?.url) ||
+  youtubeLink?.url
 const channelBranding = Object.fromEntries(
   youtubeChannels.map((channel) => [
     channel.id,
@@ -319,9 +324,9 @@ const structuredData = {
             </p>
             <div class="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
               {
-                youtubeLink && (
+                latestEpisodeUrl && (
                   <a
-                    href={youtubeLink.url}
+                    href={latestEpisodeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring/30 focus-visible:ring-offset-background inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-5 text-base font-bold shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
