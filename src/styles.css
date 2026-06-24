@@ -697,20 +697,197 @@
 
   @media (min-width: 700px) {
     .linktree-page {
+      background: var(--background);
       padding: 4.75rem 1.5rem 5rem;
     }
 
     .linktree-shell {
-      border-radius: 1.875rem;
-      box-shadow:
-        0 44px 110px oklch(0.04 0.02 265 / 0.44),
-        0 0 0 1px oklch(1 0 0 / 0.16),
-        0 1px 0 oklch(1 0 0 / 0.38) inset;
+      border-radius: 0;
+      box-shadow: none;
     }
 
     .linktree-hero {
       min-height: clamp(22rem, 42vw, 24rem);
       border-radius: 1.875rem 1.875rem 0 0;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .linktree-page {
+      padding-inline: clamp(1.5rem, 3vw, 3rem);
+    }
+
+    .linktree-shell {
+      max-width: min(100%, 78rem);
+      padding-bottom: clamp(2rem, 4vw, 3.5rem);
+    }
+
+    .desktop-hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.34fr) minmax(22rem, 0.66fr);
+      gap: clamp(1.5rem, 2.4vw, 2.5rem);
+      align-items: start;
+      padding: 0;
+      padding-bottom: 0;
+    }
+
+    .desktop-hero-layout .linktree-hero {
+      min-height: clamp(32rem, 48vw, 40rem);
+      border-radius: var(--radius-xl);
+    }
+
+    .desktop-hero-layout .linktree-hero__image {
+      object-position: 61% center;
+    }
+
+    .desktop-hero-layout .linktree-hero__fade {
+      background:
+        linear-gradient(
+          180deg,
+          transparent 54%,
+          color-mix(in srgb, var(--background) 12%, transparent) 76%,
+          color-mix(in srgb, var(--background) 42%, transparent) 100%
+        ),
+        linear-gradient(
+          90deg,
+          color-mix(in srgb, oklch(0.12 0.04 265) 14%, transparent) 0%,
+          transparent 44%
+        );
+    }
+
+    .desktop-intro-panel {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      justify-content: center;
+      padding-block: clamp(1.25rem, 2vw, 2rem);
+    }
+
+    .desktop-intro-panel > section,
+    .desktop-intro-panel > nav {
+      max-width: none;
+      margin-inline: 0;
+      padding-inline: 0;
+      text-align: left;
+    }
+
+    .desktop-intro-panel > section {
+      padding-top: 0;
+    }
+
+    .desktop-intro-panel #intro-title {
+      max-width: 11em;
+      margin-inline: 0;
+      font-size: clamp(2.15rem, 3vw, 2.9rem);
+      line-height: 1;
+    }
+
+    .desktop-intro-panel p {
+      margin-inline: 0;
+    }
+
+    .desktop-intro-panel > section > div {
+      justify-content: flex-start;
+    }
+
+    .desktop-intro-panel > nav {
+      margin-top: clamp(1.25rem, 2vw, 1.75rem);
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .desktop-intro-panel .brand-social-link {
+      padding-block: 0.85rem;
+      font-size: 0.95rem;
+    }
+
+    .desktop-intro-panel .qr-desktop-panel {
+      position: static;
+      z-index: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0.75rem;
+      transform: none;
+      box-shadow:
+        0 10px 28px color-mix(in oklch, var(--color-shadow) 8%, transparent),
+        0 1px 0 color-mix(in srgb, white 42%, transparent) inset;
+    }
+
+    .desktop-intro-panel .qr-desktop-panel p {
+      margin: 0;
+      text-align: left;
+    }
+
+    .desktop-intro-panel .qr-desktop-panel img {
+      width: 5.5rem;
+      height: 5.5rem;
+    }
+
+    .desktop-primary-grid,
+    .desktop-explore-grid,
+    .desktop-latest-grid {
+      display: grid;
+      max-width: none;
+      margin-top: clamp(1.5rem, 2.4vw, 2.25rem);
+      padding-inline: 0;
+      gap: clamp(1rem, 2vw, 1.5rem);
+    }
+
+    .desktop-primary-grid {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      align-items: stretch;
+    }
+
+    .desktop-primary-grid > aside,
+    .desktop-primary-grid > section,
+    .desktop-explore-grid > section,
+    .desktop-latest-grid > section,
+    .desktop-latest-grid > div {
+      max-width: none;
+      width: 100%;
+      margin: 0;
+      padding-inline: 0;
+    }
+
+    .desktop-primary-grid > aside > div,
+    .desktop-primary-grid > section > div {
+      height: 100%;
+    }
+
+    .linktree-shell > section[aria-labelledby='video-showcase-title'],
+    .linktree-shell > div:has(.collaboration-cta),
+    .linktree-shell > section[aria-labelledby='explore-title'],
+    .linktree-shell > section[aria-labelledby='visited-places-title'] {
+      max-width: none;
+      width: 100%;
+      padding-inline: 0;
+    }
+
+    .linktree-shell > section[aria-labelledby='video-showcase-title'] {
+      margin-top: clamp(1.5rem, 2.4vw, 2.25rem);
+    }
+
+    .linktree-shell > div:has(.collaboration-cta) {
+      margin-top: clamp(1.5rem, 2.4vw, 2.25rem);
+    }
+
+    .desktop-explore-grid {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      align-items: start;
+    }
+
+    .desktop-latest-grid {
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      align-items: start;
+    }
+
+    footer {
+      max-width: none;
     }
   }
 
