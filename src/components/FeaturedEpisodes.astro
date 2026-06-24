@@ -79,7 +79,7 @@ const episodes = topVideoIds
       thumbnail: video.thumbnail ?? youtubeThumbnailUrl(videoId),
       title: isUsableTitle(video.title)
         ? video.title.trim()
-        : (nestedVideoTitlesById[videoId] ?? 'View this episode'),
+        : nestedVideoTitlesById[videoId] ?? 'View this episode',
       href: video.url ?? `https://www.youtube.com/watch?v=${videoId}`,
       viewCount,
     }
