@@ -1,6 +1,7 @@
 ---
+import VisitedPlacesLeafletMap from './VisitedPlacesLeafletMap'
 import VisitedPlacesExplorer from './VisitedPlacesExplorer'
-import type { CityVideo, VisitedPlaces } from '../lib/site-config'
+import type { VisitedPlaces } from '../lib/site-config'
 
 type Props = {
   visitedPlaces: VisitedPlaces
@@ -10,7 +11,7 @@ const { visitedPlaces } = Astro.props
 const places = visitedPlaces.places ?? []
 const stateVideos = visitedPlaces.stateVideos ?? []
 const maxExplorerVideosPerGroup = 3
-function toExplorerVideo(video: CityVideo) {
+function toExplorerVideo(video: NonNullable<(typeof places)[number]['videos']>[number]) {
   return {
     videoId: video.videoId,
     title: video.title,
@@ -33,99 +34,6 @@ const explorerStateVideos = stateVideos.map((group) => ({
   state: group.state,
   videos: group.videos.slice(0, maxExplorerVideosPerGroup).map(toExplorerVideo),
 }))
-const tileZoom = 4
-const tileColumns = [2, 3, 4, 5]
-const tileRows = [5, 6]
-const tileBounds = {
-  minX: tileColumns[0],
-  maxX: tileColumns[tileColumns.length - 1] + 1,
-  minY: tileRows[0],
-  maxY: tileRows[tileRows.length - 1] + 1,
-}
-
-const stateAbbreviations = new Map([
-  ['Alabama', 'AL'],
-  ['Alaska', 'AK'],
-  ['Arizona', 'AZ'],
-  ['Arkansas', 'AR'],
-  ['California', 'CA'],
-  ['Colorado', 'CO'],
-  ['Connecticut', 'CT'],
-  ['Delaware', 'DE'],
-  ['Florida', 'FL'],
-  ['Georgia', 'GA'],
-  ['Hawaii', 'HI'],
-  ['Idaho', 'ID'],
-  ['Illinois', 'IL'],
-  ['Indiana', 'IN'],
-  ['Iowa', 'IA'],
-  ['Kansas', 'KS'],
-  ['Kentucky', 'KY'],
-  ['Louisiana', 'LA'],
-  ['Maine', 'ME'],
-  ['Maryland', 'MD'],
-  ['Massachusetts', 'MA'],
-  ['Michigan', 'MI'],
-  ['Minnesota', 'MN'],
-  ['Mississippi', 'MS'],
-  ['Missouri', 'MO'],
-  ['Montana', 'MT'],
-  ['Nebraska', 'NE'],
-  ['Nevada', 'NV'],
-  ['New Hampshire', 'NH'],
-  ['New Jersey', 'NJ'],
-  ['New Mexico', 'NM'],
-  ['New York', 'NY'],
-  ['North Carolina', 'NC'],
-  ['North Dakota', 'ND'],
-  ['Ohio', 'OH'],
-  ['Oklahoma', 'OK'],
-  ['Oregon', 'OR'],
-  ['Pennsylvania', 'PA'],
-  ['Rhode Island', 'RI'],
-  ['South Carolina', 'SC'],
-  ['South Dakota', 'SD'],
-  ['Tennessee', 'TN'],
-  ['Texas', 'TX'],
-  ['Utah', 'UT'],
-  ['Vermont', 'VT'],
-  ['Virginia', 'VA'],
-  ['Washington', 'WA'],
-  ['West Virginia', 'WV'],
-  ['Wisconsin', 'WI'],
-  ['Wyoming', 'WY'],
-])
-const formatPlace = (city: string, state: string) =>
-  `${city}, ${stateAbbreviations.get(state) ?? state}`
-
-const getPlacePosition = (place: (typeof places)[number]) => {
-  if (
-    typeof place.latitude === 'number' &&
-    typeof place.longitude === 'number'
-  ) {
-    const tileCount = 2 ** tileZoom
-    const tileX = ((place.longitude + 180) / 360) * tileCount
-    const latitudeRadians = (place.latitude * Math.PI) / 180
-    const tileY =
-      ((1 -
-        Math.log(Math.tan(latitudeRadians) + 1 / Math.cos(latitudeRadians)) /
-          Math.PI) /
-        2) *
-      tileCount
-
-    return {
-      x:
-        ((tileX - tileBounds.minX) / (tileBounds.maxX - tileBounds.minX)) * 100,
-      y:
-        ((tileY - tileBounds.minY) / (tileBounds.maxY - tileBounds.minY)) * 100,
-    }
-  }
-
-  return {
-    x: place.x ?? 50,
-    y: place.y ?? 50,
-  }
-}
 ---
 
 {
@@ -149,70 +57,7 @@ const getPlacePosition = (place: (typeof places)[number]) => {
       </div>
 
       <div class="ui-surface-card overflow-hidden p-3 sm:p-4">
-        <div class="bg-muted dark:bg-background/35 border-border/70 relative isolate aspect-[2/1] overflow-hidden rounded-lg border shadow-inner">
-          <div
-            class="absolute inset-0 grid grid-cols-4 grid-rows-2"
-            aria-hidden="true"
-          >
-            {tileRows.flatMap((row) =>
-              tileColumns.map((column) => (
-                <img
-                  src={`https://tile.openstreetmap.org/${tileZoom}/${column}/${row}.png`}
-                  alt="OpenStreetMap map tile"
-                  width="256"
-                  height="256"
-                  class="h-full w-full object-cover"
-                  loading="eager"
-                  decoding="async"
-                  referrerpolicy="no-referrer"
-                />
-              )),
-            )}
-          </div>
-          {places.map((place) => {
-            const label = formatPlace(place.city, place.state)
-            const position = getPlacePosition(place)
-
-            return (
-              <button
-                type="button"
-                class="group absolute z-10 grid size-5 -translate-x-1/2 -translate-y-full place-items-center border-0 bg-transparent p-0"
-                style={`left: ${position.x}%; top: ${position.y}%;`}
-                title={label}
-                aria-label={`Show videos from ${label}`}
-                data-visited-state={place.state}
-              >
-                <span
-                  class="bg-foreground/20 absolute top-full left-1/2 h-1 w-3 -translate-x-1/2 -translate-y-1 rounded-full blur-[1px] dark:bg-black/45"
-                  aria-hidden="true"
-                />
-                <span
-                  class="bg-primary ring-primary/35 dark:ring-background/80 relative grid size-4 -rotate-45 place-items-center rounded-[50%_50%_50%_0] shadow-sm ring-1 transition duration-200 group-hover:-translate-y-0.5 group-hover:shadow-md dark:shadow-sm dark:group-hover:shadow-md"
-                  aria-hidden="true"
-                >
-                  <span class="bg-primary-foreground dark:bg-background size-1.5 rounded-full ring-1 ring-[color-mix(in_oklch,var(--primary)_18%,transparent)]" />
-                </span>
-                <span class="bg-foreground text-background pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 rounded-md px-2 py-1 text-xs font-semibold whitespace-nowrap opacity-0 shadow-lg transition group-hover:opacity-100">
-                  {label}
-                </span>
-              </button>
-            )
-          })}
-
-          <div
-            class="from-background/20 via-background/5 to-background/15 pointer-events-none absolute inset-0 z-0 bg-gradient-to-b"
-            aria-hidden="true"
-          />
-
-          <a
-            href="https://www.openstreetmap.org/copyright"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-background/90 text-muted-foreground absolute right-2 bottom-2 z-20 rounded px-1.5 py-0.5 text-[10px] font-medium shadow-sm backdrop-blur-sm"
-          >
-            © OpenStreetMap
-          </a>
-        </div>
+        <VisitedPlacesLeafletMap client:load places={explorerPlaces} />
 
         <VisitedPlacesExplorer
           client:load
@@ -223,20 +68,3 @@ const getPlacePosition = (place: (typeof places)[number]) => {
     </section>
   )
 }
-
-<script>
-  document.querySelectorAll('[data-visited-state]').forEach((pin) => {
-    if (!(pin instanceof HTMLElement)) return
-
-    pin.addEventListener('click', () => {
-      const state = pin.dataset.visitedState
-      if (!state) return
-
-      window.dispatchEvent(
-        new CustomEvent('visited-state-select', {
-          detail: { state },
-        }),
-      )
-    })
-  })
-</script>

@@ -1,0 +1,77 @@
+.visited-places-leaflet-map {
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  font: inherit;
+}
+
+.visited-places-leaflet-map .leaflet-control-zoom {
+  border: 0;
+  box-shadow: none;
+}
+
+.visited-places-leaflet-map .leaflet-control-zoom a {
+  width: 28px;
+  height: 28px;
+  line-height: 26px;
+  font-size: 16px;
+}
+
+.visited-places-leaflet-map .leaflet-control-zoom a {
+  background: color-mix(in oklch, var(--background) 92%, transparent);
+  border: 1px solid color-mix(in oklch, var(--border) 90%, transparent);
+  color: var(--foreground);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.visited-places-leaflet-map .leaflet-control-zoom a:hover {
+  background: color-mix(in oklch, var(--background) 98%, transparent);
+}
+
+.visited-places-leaflet-map .leaflet-control-zoom-in {
+  border-bottom: 0;
+  border-radius: 12px 12px 0 0;
+}
+
+.visited-places-leaflet-map .leaflet-control-zoom-out {
+  border-radius: 0 0 12px 12px;
+}
+
+.visited-places-leaflet-map .leaflet-control-attribution {
+  font-size: 10px;
+  line-height: 1.2;
+  padding: 2px 6px;
+  background: color-mix(in oklch, var(--background) 86%, transparent);
+  color: color-mix(in oklch, var(--muted-foreground) 80%, var(--foreground));
+  border-radius: 10px 0 0 0;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.visited-places-leaflet-map .leaflet-control-attribution a {
+  color: inherit;
+}
+
+.visited-places-leaflet-map .leaflet-tooltip.visited-places-tooltip {
+  border-radius: 0.75rem;
+  box-shadow: 0 12px 30px rgb(15 23 42 / 0.12);
+  padding: 0.375rem 0.625rem;
+}
+
+.visited-places-leaflet-map .leaflet-tooltip-top:before,
+.visited-places-leaflet-map .leaflet-tooltip-bottom:before,
+.visited-places-leaflet-map .leaflet-tooltip-left:before,
+.visited-places-leaflet-map .leaflet-tooltip-right:before {
+  display: none;
+}
+
+.visited-places-leaflet-map .leaflet-pane,
+.visited-places-leaflet-map .leaflet-marker-pane,
+.visited-places-leaflet-map .leaflet-overlay-pane {
+  z-index: 400;
+}
+
+.visited-places-leaflet-map .leaflet-control-container {
+  z-index: 800;
+}

@@ -39,7 +39,7 @@ type StateGroup = {
   firstIndex: number
 }
 
-type VisitedStateSelectEvent = CustomEvent<{ state?: string }>
+type VisitedStateSelectEvent = CustomEvent<{ state?: string; city?: string }>
 
 const stateAbbreviations = new Map([
   ['Alabama', 'AL'],
@@ -137,6 +137,11 @@ function formatVideoCount(count: number) {
   return `${count} ${count === 1 ? 'video' : 'videos'}`
 }
 
+function areStringArraysEqual(a: string[], b: string[]) {
+  if (a.length !== b.length) return false
+  return a.every((value, index) => value === b[index])
+}
+
 function VideoLink({
   video,
   videoKeyPrefix,
@@ -195,6 +200,8 @@ function VideoLink({
 
 export default function VisitedPlacesExplorer({ places, stateVideos }: Props) {
   const [selectedState, setSelectedState] = React.useState<string | null>(null)
+  const [selectedCity, setSelectedCity] = React.useState<string | null>(null)
+  const [accordionValue, setAccordionValue] = React.useState<string[]>([])
   const stateGroups = React.useMemo<StateGroup[]>(() => {
     const groups = new Map<string, StateGroup>()
     const stateVideosByState = new Map(
@@ -226,24 +233,47 @@ export default function VisitedPlacesExplorer({ places, stateVideos }: Props) {
   }, [places, stateVideos])
   const selectedStateGroup =
     stateGroups.find((group) => group.state === selectedState) ?? null
+  const selectedPlace =
+    selectedStateGroup?.places.find((place) => place.city === selectedCity) ??
+    null
   const selectedStateVideos = selectedStateGroup?.stateVideos ?? []
   const selectedPlacesWithVideos =
     selectedStateGroup?.places.filter((place) => place.videos?.length) ?? []
   const hasSelectedVideos =
     selectedStateVideos.length > 0 || selectedPlacesWithVideos.length > 0
-  const firstAccordionValue =
-    selectedStateVideos.length > 0
-      ? 'statewide-videos'
-      : selectedPlacesWithVideos[0]
-        ? `${selectedPlacesWithVideos[0].state}-${selectedPlacesWithVideos[0].city}`
-        : undefined
+  const selectedPlaceWithVideos =
+    selectedPlace?.videos?.length ? selectedPlace : null
+  const drawerOpen = Boolean(selectedStateGroup)
+  const desiredAccordionValue = React.useMemo(() => {
+    if (!selectedStateGroup) return []
+
+    if (selectedPlaceWithVideos) {
+      return [`${selectedPlaceWithVideos.state}-${selectedPlaceWithVideos.city}`]
+    }
+
+    if (selectedStateVideos.length > 0) {
+      return ['statewide-videos']
+    }
+
+    if (selectedPlacesWithVideos[0]) {
+      return [`${selectedPlacesWithVideos[0].state}-${selectedPlacesWithVideos[0].city}`]
+    }
+
+    return []
+  }, [
+    selectedPlaceWithVideos,
+    selectedPlacesWithVideos,
+    selectedStateGroup,
+    selectedStateVideos.length,
+  ])
 
   React.useEffect(() => {
     const stateNames = new Set(stateGroups.map((group) => group.state))
     const handleVisitedStateSelect = (event: Event) => {
-      const state = (event as VisitedStateSelectEvent).detail?.state
+      const { state, city } = (event as VisitedStateSelectEvent).detail ?? {}
       if (state && stateNames.has(state)) {
         setSelectedState(state)
+        setSelectedCity(city ?? null)
       }
     }
 
@@ -256,6 +286,14 @@ export default function VisitedPlacesExplorer({ places, stateVideos }: Props) {
       )
     }
   }, [stateGroups])
+
+  React.useEffect(() => {
+    setAccordionValue((current) =>
+      areStringArraysEqual(current, desiredAccordionValue)
+        ? current
+        : desiredAccordionValue,
+    )
+  }, [desiredAccordionValue])
 
   return (
     <>
@@ -288,7 +326,10 @@ export default function VisitedPlacesExplorer({ places, stateVideos }: Props) {
                   )}
                   aria-label={`Show videos from ${label}`}
                   aria-pressed={isSelected}
-                  onClick={() => setSelectedState(group.state)}
+                  onClick={() => {
+                    setSelectedState(group.state)
+                    setSelectedCity(null)
+                  }}
                 >
                   {hasVideos && (
                     <IconBadge
@@ -327,9 +368,12 @@ export default function VisitedPlacesExplorer({ places, stateVideos }: Props) {
       </div>
 
       <Drawer
-        open={Boolean(selectedStateGroup)}
+        open={drawerOpen}
         onOpenChange={(open) => {
-          if (!open) setSelectedState(null)
+          if (!open) {
+            setSelectedState(null)
+            setSelectedCity(null)
+          }
         }}
       >
         <DrawerContent>
@@ -356,9 +400,8 @@ export default function VisitedPlacesExplorer({ places, stateVideos }: Props) {
               <Accordion
                 key={selectedStateGroup?.state ?? 'state-videos'}
                 type="multiple"
-                defaultValue={
-                  firstAccordionValue ? [firstAccordionValue] : undefined
-                }
+                value={accordionValue}
+                onValueChange={setAccordionValue}
                 className="border-border bg-card rounded-lg border"
               >
                 {selectedStateVideos.length > 0 && (
