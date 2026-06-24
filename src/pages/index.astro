@@ -295,7 +295,8 @@ const structuredData = {
         <p
           class="text-muted-foreground mx-auto mt-3 max-w-prose text-base leading-relaxed sm:text-lg"
         >
-          {pageDescription}
+          Watch Arab American stories, community visits, and creator-led field
+          interviews from across the United States.
         </p>
         <div class="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
           {
@@ -377,12 +378,9 @@ const structuredData = {
         aria-labelledby="about-title"
       >
         <div class="ui-surface-card px-5 py-6 sm:px-6">
-          <p class="text-primary text-xs font-bold tracking-[0.18em] uppercase">
-            About Haithum
-          </p>
           <h2
             id="about-title"
-            class="text-foreground mt-2 text-2xl leading-tight font-extrabold"
+            class="text-foreground text-2xl leading-tight font-extrabold"
           >
             A digital media host documenting Arab communities, businesses, and
             immigrant success stories.
@@ -396,6 +394,67 @@ const structuredData = {
       </section>
 
       <VideoBentoGrid />
+
+      <div
+        class="animate-fade-in-up mx-auto mt-8 w-full max-w-xl px-4 delay-500 sm:px-6"
+      >
+        <section
+          id="contact"
+          class="collaboration-cta rounded-xl px-5 py-6 text-left sm:px-6"
+          aria-labelledby="collaboration-title"
+        >
+          <p class="text-primary text-xs font-bold tracking-[0.18em] uppercase">
+            For collaborations
+          </p>
+          <h2
+            id="collaboration-title"
+            class="text-foreground mt-2 text-2xl font-extrabold"
+          >
+            Sponsor, interview, or feature your story.
+          </h2>
+          <p class="text-muted-foreground mt-2 text-base leading-relaxed">
+            Reach Arab communities across America through episodes, interviews,
+            field visits, and social-first features.
+          </p>
+          {
+            instagramLink && (
+              <a
+                href={instagramLink.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring/30 focus-visible:ring-offset-background mt-5 inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-5 text-base font-bold transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+              >
+                <Icon
+                  name="simple-icons:instagram"
+                  class="size-5"
+                  aria-hidden="true"
+                />
+                DM on Instagram
+              </a>
+            )
+          }
+        </section>
+      </div>
+
+      <section
+        class="animate-fade-in-up mx-auto mt-10 w-full max-w-xl px-4 text-left delay-500 sm:px-6"
+        aria-labelledby="explore-title"
+      >
+        <div class="mb-4 text-center">
+          <h2
+            id="explore-title"
+            class="text-foreground text-2xl leading-tight font-extrabold"
+          >
+            Explore more stories
+          </h2>
+          <p
+            class="text-muted-foreground mx-auto mt-2 max-w-md text-sm leading-relaxed"
+          >
+            Search video moments, browse popular episodes, and follow the places
+            Ya Hala has visited.
+          </p>
+        </div>
+      </section>
 
       <VideoSearch
         copy={videoSearch}
@@ -443,47 +502,6 @@ const structuredData = {
       </section>
 
       <TopicCards />
-
-      <div
-        class="animate-fade-in-up mx-auto mt-8 w-full max-w-xl px-4 delay-500 sm:px-6"
-      >
-        <section
-          id="contact"
-          class="collaboration-cta rounded-xl px-5 py-6 text-left sm:px-6"
-          aria-labelledby="collaboration-title"
-        >
-          <p class="text-primary text-xs font-bold tracking-[0.18em] uppercase">
-            For collaborations
-          </p>
-          <h2
-            id="collaboration-title"
-            class="text-foreground mt-2 text-2xl font-extrabold"
-          >
-            Sponsor, interview, or feature your story.
-          </h2>
-          <p class="text-muted-foreground mt-2 text-base leading-relaxed">
-            Reach Arab communities across America through episodes, interviews,
-            field visits, and social-first features.
-          </p>
-          {
-            instagramLink && (
-              <a
-                href={instagramLink.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring/30 focus-visible:ring-offset-background mt-5 inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-5 text-base font-bold transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-              >
-                <Icon
-                  name="simple-icons:instagram"
-                  class="size-5"
-                  aria-hidden="true"
-                />
-                DM on Instagram
-              </a>
-            )
-          }
-        </section>
-      </div>
 
       <footer
         class="text-muted-foreground mt-auto w-full px-4 pt-10 pb-4 text-center text-xs leading-relaxed"

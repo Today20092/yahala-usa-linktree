@@ -63,105 +63,103 @@ const publishedDate =
     style={`--channel-accent: ${channelAccentColor}; --channel-accent-dark: ${channelDarkAccentColor}; --channel-card-bg: ${channelCardBackground}; --channel-card-bg-dark: ${channelDarkCardBackground}; --channel-card-tint: ${channelCardTint}; --channel-card-tint-dark: ${channelDarkCardTint}; --channel-logo-bg: ${channelLogoBackgroundColor}; --channel-logo-bg-dark: ${
       channelDarkLogoBackgroundColor ?? channelLogoBackgroundColor
     };`}
-    class="group text-foreground focus-visible:ring-offset-background elevation-3 block w-full overflow-hidden rounded-xl bg-[linear-gradient(180deg,var(--channel-active-tint),var(--channel-active-bg)_42%)] text-left ring-1 ring-[color-mix(in_srgb,var(--channel-active-accent)_22%,transparent)] transition-all duration-300 ease-out [--channel-active-accent:var(--channel-accent)] [--channel-active-bg:var(--channel-card-bg)] [--channel-active-logo-bg:var(--channel-logo-bg)] [--channel-active-tint:var(--channel-card-tint)] hover:-translate-y-1 hover:scale-[1.02] hover:elevation-4 hover:ring-[color-mix(in_srgb,var(--channel-active-accent)_36%,transparent)] focus-visible:ring-2 focus-visible:ring-[var(--channel-active-accent)] focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0 active:scale-[0.98] dark:[--channel-active-accent:var(--channel-accent-dark)] dark:[--channel-active-bg:var(--channel-card-bg-dark)] dark:[--channel-active-logo-bg:var(--channel-logo-bg-dark)] dark:[--channel-active-tint:var(--channel-card-tint-dark)]"
+    class="group text-foreground focus-visible:ring-offset-background elevation-3 hover:elevation-4 block w-full overflow-hidden rounded-xl bg-[linear-gradient(180deg,var(--channel-active-tint),var(--channel-active-bg)_42%)] text-left ring-1 ring-[color-mix(in_srgb,var(--channel-active-accent)_22%,transparent)] transition-all duration-300 ease-out [--channel-active-accent:var(--channel-accent)] [--channel-active-bg:var(--channel-card-bg)] [--channel-active-logo-bg:var(--channel-logo-bg)] [--channel-active-tint:var(--channel-card-tint)] hover:-translate-y-1 hover:scale-[1.02] hover:ring-[color-mix(in_srgb,var(--channel-active-accent)_36%,transparent)] focus-visible:ring-2 focus-visible:ring-[var(--channel-active-accent)] focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0 active:scale-[0.98] dark:[--channel-active-accent:var(--channel-accent-dark)] dark:[--channel-active-bg:var(--channel-card-bg-dark)] dark:[--channel-active-logo-bg:var(--channel-logo-bg-dark)] dark:[--channel-active-tint:var(--channel-card-tint-dark)]"
   >
-  <span
-    class="bg-muted relative block aspect-video w-full overflow-hidden"
-  >
-    <img
-      src={video.thumbnail}
-      alt={video.title}
-      width="480"
-      height="360"
-      loading="lazy"
-      decoding="async"
-      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-    />
-    <span
-      class="bg-scrim/15 absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-200 group-hover:bg-scrim/25 group-hover:opacity-100 group-focus-visible:bg-scrim/25 group-focus-visible:opacity-100"
-      aria-hidden="true"
-    >
-      <IconBadge
-        tone="soft"
-        size="lg"
-        style={{
-          '--ui-icon-badge-accent': 'var(--channel-active-accent)',
-          '--ui-icon-badge-foreground': 'var(--channel-active-accent-dark)',
-        }}
-        class="shadow-md"
+    <span class="bg-muted relative block aspect-video w-full overflow-hidden">
+      <img
+        src={video.thumbnail}
+        alt={video.title}
+        width="480"
+        height="360"
+        loading="lazy"
+        decoding="async"
+        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+      <span
+        class="bg-scrim/15 group-hover:bg-scrim/25 group-focus-visible:bg-scrim/25 absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
+        aria-hidden="true"
       >
+        <IconBadge
+          tone="soft"
+          size="lg"
+          style={{
+            '--ui-icon-badge-accent': 'var(--channel-active-accent)',
+            '--ui-icon-badge-foreground': 'var(--channel-active-accent-dark)',
+          }}
+          class="shadow-md"
+        >
+          <Icon
+            name="heroicons:play-solid"
+            class="size-5 translate-x-[1px]"
+            aria-hidden="true"
+          />
+        </IconBadge>
+      </span>
+    </span>
+
+    <span class="block px-5 py-5 sm:px-6 sm:py-6">
+      <span class="mb-5 flex min-w-0 items-center gap-3">
+        <span
+          class:list={[
+            'grid size-11 shrink-0 place-items-center overflow-hidden rounded-full bg-[var(--channel-active-logo-bg)] ring-2 ring-[color-mix(in_srgb,var(--channel-active-accent)_35%,transparent)]',
+            channelLogoPaddingClass,
+          ]}
+        >
+          <img
+            src={channelLogoSrc}
+            alt={channelName}
+            width="44"
+            height="44"
+            loading="lazy"
+            decoding="async"
+            class:list={[
+              'h-full w-full',
+              channelLogoFit === 'contain' ? 'object-contain' : 'object-cover',
+            ]}
+          />
+        </span>
+        <span class="min-w-0">
+          <span
+            class="block text-xs font-semibold text-[var(--channel-active-accent)]"
+          >
+            Latest from the channel
+          </span>
+          <span
+            class="text-foreground block truncate text-base leading-tight font-bold"
+          >
+            {channelName}
+          </span>
+        </span>
+      </span>
+
+      <span
+        class="text-foreground mb-3 block text-lg leading-snug font-bold sm:text-xl"
+      >
+        {video.title}
+      </span>
+
+      <span class="text-muted-foreground mb-5 block text-sm leading-relaxed">
+        {channelDescription}
+      </span>
+
+      <span
+        class="text-primary-foreground mb-5 inline-flex items-center gap-2 rounded-full bg-[var(--channel-active-accent)] px-4 py-2 text-sm font-semibold whitespace-nowrap shadow-sm transition-all duration-200 group-hover:translate-x-0.5 group-hover:shadow-md"
+      >
+        Latest episode
         <Icon
-          name="heroicons:play-solid"
-          class="size-5 translate-x-[1px]"
+          name="heroicons:arrow-top-right-on-square"
+          class="size-4"
           aria-hidden="true"
         />
-      </IconBadge>
-    </span>
-  </span>
-
-  <span class="block px-5 py-5 sm:px-6 sm:py-6">
-    <span class="mb-5 flex min-w-0 items-center gap-3">
-      <span
-        class:list={[
-          'grid size-11 shrink-0 place-items-center overflow-hidden rounded-full bg-[var(--channel-active-logo-bg)] ring-2 ring-[color-mix(in_srgb,var(--channel-active-accent)_35%,transparent)]',
-          channelLogoPaddingClass,
-        ]}
-      >
-        <img
-          src={channelLogoSrc}
-          alt={channelName}
-          width="44"
-          height="44"
-          loading="lazy"
-          decoding="async"
-          class:list={[
-            'h-full w-full',
-            channelLogoFit === 'contain' ? 'object-contain' : 'object-cover',
-          ]}
-        />
       </span>
-      <span class="min-w-0">
-        <span
-          class="block text-[0.68rem] font-semibold tracking-wide text-[var(--channel-active-accent)] uppercase"
-        >
-          Channel
-        </span>
-        <span
-          class="text-foreground block truncate text-base leading-tight font-bold"
-        >
-          {channelName}
-        </span>
-      </span>
-    </span>
 
-    <span
-      class="text-foreground mb-3 block text-lg leading-snug font-bold sm:text-xl"
-    >
-      {video.title}
+      {
+        publishedDate && (
+          <span class="text-muted-foreground/75 block text-xs leading-none font-normal">
+            Published {publishedDate}
+          </span>
+        )
+      }
     </span>
-
-    <span class="text-muted-foreground mb-5 block text-sm leading-relaxed">
-      {channelDescription}
-    </span>
-
-    <span
-      class="mb-5 inline-flex items-center gap-2 rounded-full bg-[var(--channel-active-accent)] px-4 py-2 text-sm font-semibold whitespace-nowrap text-primary-foreground shadow-sm transition-all duration-200 group-hover:translate-x-0.5 group-hover:shadow-md"
-    >
-      Watch on YouTube
-      <Icon
-        name="heroicons:arrow-top-right-on-square"
-        class="size-4"
-        aria-hidden="true"
-      />
-    </span>
-
-    {
-      publishedDate && (
-        <span class="text-muted-foreground/75 block text-xs leading-none font-normal">
-          Published {publishedDate}
-        </span>
-      )
-    }
-  </span>
   </a>
 </div>
