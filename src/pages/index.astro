@@ -236,20 +236,8 @@ const structuredData = {
         applyTheme()
       })()
     </script>
-    <script>
-      document.addEventListener(
-        'error',
-        (event) => {
-          const target = event.target
-          if (!(target instanceof HTMLImageElement)) return
-
-          const fallbackSrc = target.dataset.fallbackSrc
-          if (!fallbackSrc || target.src === fallbackSrc) return
-
-          target.src = fallbackSrc
-        },
-        true,
-      )
+    <script type="module">
+      import '../scripts/image-fallback'
     </script>
 
     <link rel="sitemap" type="application/xml" href={sitemapUrl} />
