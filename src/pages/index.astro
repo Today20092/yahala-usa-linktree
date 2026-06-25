@@ -292,25 +292,21 @@ const structuredData = {
             class="animate-fade-in-up mx-auto w-full max-w-xl px-4 pt-6 text-center delay-200 sm:px-6 sm:pt-7"
             aria-labelledby="intro-title"
           >
-            <p
-              class="text-primary text-xs font-bold tracking-[0.18em] uppercase"
-            >
+            <p class="ui-kicker-accent">
               Arab American stories
             </p>
             <h2
               id="intro-title"
-              class="text-foreground mx-auto mt-2 max-w-lg text-3xl leading-tight font-black text-balance sm:text-4xl"
+              class="ui-page-title mx-auto mt-3 max-w-lg"
             >
               Field interviews, community visits, and digital media from across
               the U.S.
             </h2>
-            <p
-              class="text-muted-foreground mx-auto mt-3 max-w-prose text-base leading-relaxed sm:text-lg"
-            >
+            <p class="ui-body mx-auto mt-4 max-w-prose sm:text-[1.05rem]">
               Watch Arab American stories, community visits, and creator-led
               field interviews from across the United States.
             </p>
-            <div class="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
+            <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
               {
                 latestEpisodeUrl && (
                   <a
@@ -389,18 +385,18 @@ const structuredData = {
 
         <section
           id="about"
-          class="animate-fade-in-up mx-auto mt-8 w-full max-w-xl px-4 text-left delay-300 sm:px-6"
+          class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-300 sm:px-6"
           aria-labelledby="about-title"
         >
-          <div class="ui-surface-card px-5 py-6 sm:px-6">
+          <div class="ui-surface-card px-5 py-7 sm:px-6 sm:py-8">
             <h2
               id="about-title"
-              class="text-foreground text-2xl leading-tight font-extrabold"
+              class="ui-section-title"
             >
               Ya Hala documents Arab American people, businesses, and community
               life through field stories.
             </h2>
-            <p class="text-muted-foreground mt-3 text-base leading-relaxed">
+            <p class="ui-body mt-4">
               Haithum covers interviews, neighborhood visits, restaurants, and
               local moments, then turns them into social-first stories for
               Arabic and Arab American audiences across the United States.
@@ -412,23 +408,23 @@ const structuredData = {
       <VideoBentoGrid />
 
       <div
-        class="animate-fade-in-up mx-auto mt-8 w-full max-w-xl px-4 delay-500 sm:px-6"
+        class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 delay-500 sm:px-6"
       >
         <section
           id="contact"
-          class="collaboration-cta rounded-xl px-5 py-6 text-left sm:px-6"
+          class="collaboration-cta rounded-xl px-5 py-7 text-left sm:px-6 sm:py-8"
           aria-labelledby="collaboration-title"
         >
-          <p class="text-primary text-xs font-bold tracking-[0.18em] uppercase">
+          <p class="ui-kicker-accent">
             For collaborations
           </p>
           <h2
             id="collaboration-title"
-            class="text-foreground mt-2 text-2xl font-extrabold"
+            class="ui-section-title mt-3"
           >
             Sponsor, interview, or feature your story.
           </h2>
-          <p class="text-muted-foreground mt-2 text-base leading-relaxed">
+          <p class="ui-body mt-3">
             Reach Arab communities across America through episodes, interviews,
             field visits, and social-first features.
           </p>
@@ -453,19 +449,17 @@ const structuredData = {
       </div>
 
       <section
-        class="animate-fade-in-up mx-auto mt-10 w-full max-w-xl px-4 text-left delay-500 sm:px-6"
+        class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-500 sm:px-6"
         aria-labelledby="explore-title"
       >
-        <div class="mb-4 text-center">
+        <div class="ui-section-header">
           <h2
             id="explore-title"
-            class="text-foreground text-2xl leading-tight font-extrabold"
+            class="ui-section-title"
           >
             Explore more stories
           </h2>
-          <p
-            class="text-muted-foreground mx-auto mt-2 max-w-md text-sm leading-relaxed"
-          >
+          <p class="ui-body mx-auto mt-3 max-w-md text-sm">
             Search video moments, browse popular episodes, and follow the places
             Ya Hala has visited.
           </p>
@@ -526,7 +520,7 @@ const structuredData = {
       </div>
 
       <footer
-        class="text-muted-foreground mt-auto w-full px-4 pt-10 pb-4 text-center text-xs leading-relaxed"
+        class="ui-meta mt-auto w-full px-4 pt-12 pb-4 text-center"
       >
         <nav
           class="mx-auto mb-3 flex max-w-xl flex-wrap items-center justify-center gap-x-3 gap-y-1"
@@ -555,7 +549,7 @@ const structuredData = {
         </p>
         <p
           id="privacy"
-          class="mx-auto mb-3 max-w-xl text-[0.72rem] text-balance"
+          class="text-muted-foreground/80 mx-auto mb-3 max-w-xl text-[0.7rem] text-balance"
         >
           Privacy: this page links to third-party platforms and remote media.
           Contact: use Instagram for collaborations or questions.

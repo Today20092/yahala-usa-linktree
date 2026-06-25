@@ -93,19 +93,19 @@ const episodes = topVideoIds
 {
   episodes.length > 0 && (
     <section
-      class="animate-fade-in-up mx-auto mt-8 w-full max-w-xl px-4 text-left delay-400 sm:px-6"
+      class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-400 sm:px-6"
       aria-labelledby="featured-episodes-title"
     >
-      <div class="mb-4 text-center">
+      <div class="ui-section-header">
         <h2
           id="featured-episodes-title"
-          class="text-foreground text-2xl font-extrabold"
+          class="ui-section-title"
         >
           Most Viewed Episodes
         </h2>
       </div>
 
-      <div class="grid gap-3">
+      <div class="grid gap-4">
         {episodes.map((episode) => (
           <article class="ui-surface-card hover:elevation-4 overflow-hidden text-left transition-shadow duration-200">
             <a
@@ -141,17 +141,17 @@ const episodes = topVideoIds
               </span>
 
               <span class="min-w-0 py-0.5">
-                <span class="text-primary text-xs leading-none font-semibold">
+                <span class="ui-kicker-accent tracking-[0.08em]">
                   Popular episode
                 </span>
                 <h3
                   lang="ar"
                   dir="rtl"
-                  class="text-foreground mt-2 line-clamp-2 text-base leading-snug font-extrabold sm:text-xl"
+                  class="ui-card-title mt-2 line-clamp-2 sm:text-xl"
                 >
                   {episode.title}
                 </h3>
-                <span class="text-muted-foreground mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm leading-none font-semibold">
+                <span class="ui-meta mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
                   <span class="inline-flex items-center gap-1.5">
                     <Icon
                       name="heroicons:eye"

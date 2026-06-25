@@ -39,24 +39,24 @@ const explorerStateVideos = stateVideos.map((group) => ({
 {
   places.length > 0 && (
     <section
-      class="animate-fade-in-up mx-auto mt-8 w-full max-w-xl px-4 text-left delay-400 sm:px-6"
+      class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-400 sm:px-6"
       aria-labelledby="visited-places-title"
     >
-      <div class="mb-4 text-center">
+      <div class="ui-section-header">
         <h2
           id="visited-places-title"
-          class="text-foreground text-2xl leading-tight font-extrabold"
+          class="ui-section-title"
         >
           {visitedPlaces.title}
         </h2>
         {visitedPlaces.description && (
-          <p class="text-muted-foreground mx-auto mt-2 max-w-md text-center text-sm leading-relaxed">
+          <p class="ui-body mx-auto mt-3 max-w-md text-center text-sm">
             {visitedPlaces.description}
           </p>
         )}
       </div>
 
-      <div class="ui-surface-card overflow-hidden p-3 sm:p-4">
+      <div class="ui-surface-card overflow-hidden p-2.5 sm:p-3">
         <VisitedPlacesLeafletMap client:load places={explorerPlaces} />
 
         <VisitedPlacesExplorer
