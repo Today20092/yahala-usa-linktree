@@ -65,8 +65,10 @@ function ResultCard({
             data-fallback-src={thumbnailFallback}
           />
           <div className="min-w-0 flex-1">
-            <CardTitle className="line-clamp-2">{result.title}</CardTitle>
-            <CardDescription className="mt-2 flex flex-wrap items-center gap-2">
+            <CardTitle className="ui-card-title line-clamp-2 text-sm sm:text-base">
+              {result.title}
+            </CardTitle>
+            <CardDescription className="ui-meta mt-2 flex flex-wrap items-center gap-2">
               <Badge variant="secondary">
                 <Clock3Icon data-icon="inline-start" />
                 {formatTimestamp(result.startSeconds)}
@@ -81,7 +83,7 @@ function ResultCard({
       <CardContent>
         <p
           dir={isRtl(result.excerpt) ? 'rtl' : 'ltr'}
-          className="text-muted-foreground line-clamp-4 text-sm leading-relaxed"
+          className="ui-meta line-clamp-4 font-normal leading-relaxed"
         >
           {result.excerpt}
         </p>
@@ -140,25 +142,25 @@ export default function VideoSearch({ copy }: Props) {
 
   return (
     <section
-      className="animate-fade-in-up mx-auto mt-8 w-full max-w-xl px-4 text-left delay-300 sm:px-6"
+      className="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-300 sm:px-6"
       aria-labelledby="video-search-title"
     >
       <Card className="gap-5 py-5 shadow-xs">
-        <CardHeader className="gap-2 px-5 sm:px-6">
+        <CardHeader className="gap-3 px-5 sm:px-6">
           <Badge
             variant="secondary"
-            className="bg-secondary/70 w-fit text-xs font-medium"
+            className="ui-meta bg-muted w-fit"
           >
             <SparklesIcon data-icon="inline-start" />
             {copy.eyebrow}
           </Badge>
           <CardTitle
             id="video-search-title"
-            className="max-w-md text-2xl leading-tight font-semibold tracking-normal"
+            className="ui-section-title max-w-md"
           >
             {copy.title}
           </CardTitle>
-          <CardDescription className="max-w-prose text-sm leading-relaxed sm:text-base">
+          <CardDescription className="ui-body max-w-prose text-sm sm:text-base">
             {copy.description}
           </CardDescription>
         </CardHeader>
@@ -210,7 +212,7 @@ export default function VideoSearch({ copy }: Props) {
                   type="button"
                   variant="secondary"
                   size="sm"
-                  className="bg-muted text-muted-foreground hover:text-foreground rounded-full px-3"
+                  className="ui-meta bg-muted hover:text-foreground rounded-full px-3"
                   onClick={() => searchExample(exampleQuery)}
                 >
                   {exampleQuery}
@@ -255,7 +257,7 @@ export default function VideoSearch({ copy }: Props) {
 
             {status === 'done' && results.length > 0 && (
               <>
-                <p className="text-muted-foreground text-sm">
+                <p className="ui-meta">
                   {results.length} {copy.resultLabel}
                   {lastQuery ? ` for "${lastQuery}"` : ''}
                 </p>

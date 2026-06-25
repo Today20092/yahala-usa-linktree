@@ -32,28 +32,28 @@ const topics = [
 ---
 
 <section
-  class="animate-fade-in-up mx-auto mt-8 w-full max-w-xl px-4 text-left delay-500 sm:px-6"
+  class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-500 sm:px-6"
   aria-labelledby="topics-title"
 >
-  <div class="mb-4 text-center">
-    <h2 id="topics-title" class="text-foreground text-2xl font-extrabold">
+  <div class="ui-section-header">
+    <h2 id="topics-title" class="ui-section-title">
       Stories From the Community
     </h2>
   </div>
 
-  <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
     {
       topics.map((topic) => (
-        <article class="ui-surface-card p-4">
+        <article class="ui-surface-card ui-compact-card">
           <div class="flex items-start gap-3">
             <IconBadge tone="soft" shape="square" size="lg" aria-hidden="true">
               <Icon name={topic.icon} class="size-5" />
             </IconBadge>
             <div class="min-w-0">
-              <h3 class="text-foreground text-base leading-tight font-bold">
+              <h3 class="ui-card-title text-base sm:text-base">
                 {topic.title}
               </h3>
-              <p class="text-muted-foreground mt-1 text-sm leading-snug">
+              <p class="ui-meta mt-1.5 font-normal">
                 {topic.description}
               </p>
             </div>

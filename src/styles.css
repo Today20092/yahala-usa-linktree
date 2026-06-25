@@ -291,6 +291,46 @@
 }
 
 @layer utilities {
+  .ui-kicker {
+    @apply text-muted-foreground text-[0.7rem] leading-none font-semibold tracking-[0.16em] uppercase;
+  }
+
+  .ui-kicker-accent {
+    @apply text-primary text-[0.7rem] leading-none font-semibold tracking-[0.16em] uppercase;
+  }
+
+  .ui-page-title {
+    @apply text-foreground text-4xl leading-[1.02] font-black text-balance sm:text-5xl;
+  }
+
+  .ui-section-title {
+    @apply text-foreground text-[1.35rem] leading-tight font-bold text-balance sm:text-2xl;
+  }
+
+  .ui-card-title {
+    @apply text-foreground text-base leading-snug font-semibold text-balance sm:text-lg;
+  }
+
+  .ui-body {
+    @apply text-muted-foreground text-base leading-relaxed font-normal;
+  }
+
+  .ui-meta {
+    @apply text-muted-foreground text-xs leading-snug font-medium;
+  }
+
+  .ui-section-block {
+    @apply mt-12 sm:mt-14;
+  }
+
+  .ui-section-header {
+    @apply mb-6 text-center;
+  }
+
+  .ui-compact-card {
+    @apply px-4 py-4 sm:px-5 sm:py-5;
+  }
+
   .animate-float {
     animation: float 4s ease-in-out infinite;
   }
@@ -778,8 +818,8 @@
     .desktop-intro-panel #intro-title {
       max-width: 11em;
       margin-inline: 0;
-      font-size: clamp(2.15rem, 3vw, 2.9rem);
-      line-height: 1;
+      font-size: clamp(2.6rem, 3.8vw, 3.35rem);
+      line-height: 1.02;
     }
 
     .desktop-intro-panel p {
@@ -833,9 +873,9 @@
     .desktop-latest-grid {
       display: grid;
       max-width: none;
-      margin-top: clamp(1.5rem, 2.4vw, 2.25rem);
+      margin-top: clamp(2.25rem, 3.5vw, 3.25rem);
       padding-inline: 0;
-      gap: clamp(1rem, 2vw, 1.5rem);
+      gap: clamp(1.25rem, 2.4vw, 2rem);
     }
 
     .desktop-primary-grid {
@@ -869,11 +909,11 @@
     }
 
     .linktree-shell > section[aria-labelledby='video-showcase-title'] {
-      margin-top: clamp(1.5rem, 2.4vw, 2.25rem);
+      margin-top: clamp(2.25rem, 3.5vw, 3.25rem);
     }
 
     .linktree-shell > div:has(.collaboration-cta) {
-      margin-top: clamp(1.5rem, 2.4vw, 2.25rem);
+      margin-top: clamp(2.25rem, 3.5vw, 3.25rem);
     }
 
     .desktop-explore-grid {

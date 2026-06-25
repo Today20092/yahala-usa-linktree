@@ -128,12 +128,12 @@ const thumbnailFallback = videoId ? youtubeThumbnailFallbackUrl(videoId) : ''
         </span>
         <span class="min-w-0">
           <span
-            class="block text-xs font-semibold text-[var(--channel-active-accent)]"
+            class="ui-kicker-accent block tracking-[0.08em] text-[var(--channel-active-accent)]"
           >
             Latest from the channel
           </span>
           <span
-            class="text-foreground block truncate text-base leading-tight font-bold"
+            class="ui-meta block truncate text-foreground"
           >
             {channelName}
           </span>
@@ -141,12 +141,12 @@ const thumbnailFallback = videoId ? youtubeThumbnailFallbackUrl(videoId) : ''
       </span>
 
       <span
-        class="text-foreground mb-3 block text-lg leading-snug font-bold sm:text-xl"
+        class="ui-card-title mb-3 block sm:text-xl"
       >
         {video.title}
       </span>
 
-      <span class="text-muted-foreground mb-5 block text-sm leading-relaxed">
+      <span class="ui-body mb-5 block text-sm">
         {channelDescription}
       </span>
 
@@ -163,7 +163,7 @@ const thumbnailFallback = videoId ? youtubeThumbnailFallbackUrl(videoId) : ''
 
       {
         publishedDate && (
-          <span class="text-muted-foreground/75 block text-xs leading-none font-normal">
+          <span class="ui-meta block text-muted-foreground/75 font-normal">
             Published {publishedDate}
           </span>
         )
