@@ -2,6 +2,9 @@
 # State-only videos appear in every visited city for that state.
 # City videos appear only in the matching city drawer.
 videos:
+  - videoId: SuKUMhsnLIY
+    state: ""
+    city: ""
   - videoId: lItHVDEnnSI
     state: ""
     city: ""
