@@ -3,11 +3,11 @@
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum  ياهلا مع هيثم",
     "videoId": "gDbn5G3zuZU",
-    "title": "كيف تصل المنتجات العربية إلى أمريكا؟ لماذا أسعارها مرتفعة؟",
+    "title": "Watch on YouTube",
     "url": "https://www.youtube.com/watch?v=gDbn5G3zuZU",
     "thumbnail": "https://i.ytimg.com/vi/gDbn5G3zuZU/hqdefault.jpg",
-    "published": "2026-06-01T16:00:21+00:00",
-    "updated": "2026-06-16T20:05:41+00:00",
+    "published": "",
+    "updated": "",
     "videos": [
       {
         "videoId": "gDbn5G3zuZU",
@@ -5244,7 +5244,7 @@
     "url": "https://www.youtube.com/watch?v=vDtTkpHzg18",
     "thumbnail": "https://i.ytimg.com/vi/vDtTkpHzg18/hqdefault.jpg",
     "published": "2026-06-06T15:00:03+00:00",
-    "updated": "2026-06-16T08:10:19+00:00",
+    "updated": "2026-06-24T17:50:11+00:00",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum  ياهلا مع هيثم",
     "duration": "",
@@ -5259,7 +5259,7 @@
     "url": "https://www.youtube.com/watch?v=WFRFSj-kioo",
     "thumbnail": "https://i.ytimg.com/vi/WFRFSj-kioo/hqdefault.jpg",
     "published": "2026-06-05T21:45:08+00:00",
-    "updated": "2026-06-16T08:10:52+00:00",
+    "updated": "2026-06-24T17:56:57+00:00",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum  ياهلا مع هيثم",
     "duration": "",
@@ -16467,7 +16467,7 @@
     "title": "أكبر فرصة مخفية في أمريكا؟ الحكومة الأمريكية تدفع 750 مليار دولار سنويًا",
     "thumbnail": "https://i.ytimg.com/vi/lItHVDEnnSI/hqdefault.jpg",
     "published": "2026-06-20T16:00:05+00:00",
-    "updated": "2026-06-20T18:01:57+00:00",
+    "updated": "2026-06-25T05:54:07+00:00",
     "isShort": false,
     "url": "https://www.youtube.com/watch?v=lItHVDEnnSI",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
@@ -16506,5 +16506,20 @@
     "description": "",
     "tags": [],
     "categories": []
+  },
+  "Q4yeolah_7M": {
+    "videoId": "Q4yeolah_7M",
+    "title": "وين لازم اروح في الأردن ؟!",
+    "url": "https://www.youtube.com/watch?v=Q4yeolah_7M",
+    "thumbnail": "https://i.ytimg.com/vi/Q4yeolah_7M/hqdefault.jpg",
+    "published": "2026-06-28T21:55:36+00:00",
+    "updated": "2026-06-29T09:37:23+00:00",
+    "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
+    "channelTitle": "Ya Hala with Haithum  ياهلا مع هيثم",
+    "duration": "",
+    "description": "",
+    "tags": [],
+    "categories": [],
+    "isShort": false
   }
 }
