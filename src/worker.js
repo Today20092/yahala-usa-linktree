@@ -64,6 +64,7 @@ const withSecurityHeaders = (response) => {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url)
+    const videoSearch = createVideoSearch(env)
 
     if (REDIRECT_HOSTS.has(url.hostname)) {
       url.hostname = PRIMARY_HOST
@@ -71,66 +72,35 @@ export default {
     }
 
     if (url.pathname === '/api/video-search' && request.method === 'GET') {
-      return handleSearch(request, env)
+      return videoSearch.search(request)
     }
 
     if (
       url.pathname === '/api/admin/video-search/reindex' &&
       request.method === 'POST'
     ) {
-      return handleAdminReindex(request, env)
+      return videoSearch.reindex(request)
     }
 
     if (
       url.pathname === '/api/admin/video-search/status' &&
       request.method === 'GET'
     ) {
-      return handleAdminStatus(request, env)
+      return videoSearch.status(request)
     }
 
     return withSecurityHeaders(await env.ASSETS.fetch(request))
   },
 
   async scheduled(_event, env, ctx) {
-    ctx.waitUntil(runScheduledSync(env))
+    ctx.waitUntil(createVideoSearch(env).sync())
   },
 
   async queue(batch, env) {
+    const videoSearch = createVideoSearch(env)
     for (const message of batch.messages) {
-      try {
-        const result = await processVideo(env, message.body?.videoId)
-        console.log('Video indexing completed', result)
-        message.ack()
-      } catch (error) {
-        if (isYouTubeQuotaError(error)) {
-          const result = await deferVideo(
-            env,
-            message.body?.videoId,
-            'youtube-quota-exhausted',
-            {
-              error: error instanceof Error ? error.message : String(error),
-            },
-          )
-          console.warn('Video indexing deferred', result)
-          message.ack()
-          continue
-        }
-
-        console.error('Video indexing failed', {
-          videoId: message.body?.videoId,
-          error: error instanceof Error ? error.message : String(error),
-        })
-        message.retry()
-      }
+      await videoSearch.consume(message)
     }
   },
 }
-import {
-  deferVideo,
-  handleAdminReindex,
-  handleAdminStatus,
-  handleSearch,
-  isYouTubeQuotaError,
-  processVideo,
-  runScheduledSync,
-} from './worker/video-search.js'
+import { createVideoSearch } from './worker/video-search.js'

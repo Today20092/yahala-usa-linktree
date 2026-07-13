@@ -86,9 +86,7 @@ const youtubeFetch = async (path, token, params = {}) => {
   if (!response.ok) {
     const message = payload.error?.message ?? String(response.status)
     const reasons =
-      payload.error?.errors
-        ?.map((error) => error.reason)
-        .filter(Boolean) ?? []
+      payload.error?.errors?.map((error) => error.reason).filter(Boolean) ?? []
 
     if (
       response.status === 403 &&
@@ -289,7 +287,7 @@ const skipVideo = async (env, videoId, reason, extra = {}) => {
   return { videoId, status: 'skipped', reason }
 }
 
-export const deferVideo = async (env, videoId, reason, extra = {}) => {
+const deferVideo = async (env, videoId, reason, extra = {}) => {
   await writeManifest(env, videoId, {
     videoId,
     channelId: CHANNEL_ID,
@@ -301,7 +299,7 @@ export const deferVideo = async (env, videoId, reason, extra = {}) => {
   return { videoId, status: 'pending', reason }
 }
 
-export const isYouTubeQuotaError = (error) =>
+const isYouTubeQuotaError = (error) =>
   error instanceof YouTubeQuotaError ||
   String(error?.message ?? error)
     .toLowerCase()
@@ -319,7 +317,7 @@ const embedTexts = async (env, texts) => {
   return vectors
 }
 
-export const processVideo = async (env, videoId) => {
+const processVideo = async (env, videoId) => {
   const token = await getAccessToken(env)
   const video = await getVideo(videoId, token)
   if (!video) return skipVideo(env, videoId, 'video-not-found')
@@ -332,10 +330,7 @@ export const processVideo = async (env, videoId) => {
 
   const catalogVideo = getCatalogVideo(videoId)
   const dimensions = getSourceDimensions(video.fileDetails)
-  if (
-    dimensions &&
-    dimensions.widthPixels <= dimensions.heightPixels
-  ) {
+  if (dimensions && dimensions.widthPixels <= dimensions.heightPixels) {
     return skipVideo(env, videoId, 'not-landscape', {
       width: dimensions.widthPixels,
       height: dimensions.heightPixels,
@@ -470,7 +465,7 @@ const rateLimit = async (request) => {
   return count <= 30
 }
 
-export const handleSearch = async (request, env) => {
+const handleSearch = async (request, env) => {
   if (!(await rateLimit(request))) {
     return json(
       { error: 'Too many searches. Please try again shortly.' },
@@ -534,10 +529,10 @@ export const handleSearch = async (request, env) => {
 const isAdminRequest = (request, env) =>
   Boolean(
     env.ADMIN_API_TOKEN &&
-      request.headers.get('authorization') === `Bearer ${env.ADMIN_API_TOKEN}`,
+    request.headers.get('authorization') === `Bearer ${env.ADMIN_API_TOKEN}`,
   )
 
-export const handleAdminStatus = async (request, env) => {
+const handleAdminStatus = async (request, env) => {
   if (!isAdminRequest(request, env)) {
     return json({ error: 'Unauthorized' }, { status: 401 })
   }
@@ -567,24 +562,28 @@ export const handleAdminStatus = async (request, env) => {
     (result, record) => {
       result[record.status] = (result[record.status] ?? 0) + 1
       if (record.reason) {
-        result.reasons[record.reason] =
-          (result.reasons[record.reason] ?? 0) + 1
+        result.reasons[record.reason] = (result.reasons[record.reason] ?? 0) + 1
       }
       result.chunks += record.chunkCount
       return result
     },
-    { total: records.length, indexed: 0, skipped: 0, pending: 0, chunks: 0, reasons: {} },
+    {
+      total: records.length,
+      indexed: 0,
+      skipped: 0,
+      pending: 0,
+      chunks: 0,
+      reasons: {},
+    },
   )
 
   return json({
     counts,
-    missingTranscripts: records.filter(
-      (record) => record.status !== 'indexed',
-    ),
+    missingTranscripts: records.filter((record) => record.status !== 'indexed'),
   })
 }
 
-export const handleAdminReindex = async (request, env) => {
+const handleAdminReindex = async (request, env) => {
   if (!isAdminRequest(request, env)) {
     return json({ error: 'Unauthorized' }, { status: 401 })
   }
@@ -615,4 +614,37 @@ export const handleAdminReindex = async (request, env) => {
   return json(await enqueueSync(env, maxVideos), { status: 202 })
 }
 
-export const runScheduledSync = (env) => enqueueSync(env, 0)
+const runScheduledSync = (env) => enqueueSync(env, 0)
+
+export const createVideoSearch = (env) => ({
+  search: (request) => handleSearch(request, env),
+  indexVideo: (videoId) => processVideo(env, videoId),
+  status: (request) => handleAdminStatus(request, env),
+  reindex: (request) => handleAdminReindex(request, env),
+  sync: () => runScheduledSync(env),
+  consume: async (message) => {
+    try {
+      const result = await processVideo(env, message.body?.videoId)
+      console.log('Video indexing completed', result)
+      message.ack()
+    } catch (error) {
+      if (isYouTubeQuotaError(error)) {
+        const result = await deferVideo(
+          env,
+          message.body?.videoId,
+          'youtube-quota-exhausted',
+          { error: error instanceof Error ? error.message : String(error) },
+        )
+        console.warn('Video indexing deferred', result)
+        message.ack()
+        return
+      }
+
+      console.error('Video indexing failed', {
+        videoId: message.body?.videoId,
+        error: error instanceof Error ? error.message : String(error),
+      })
+      message.retry()
+    }
+  },
+})

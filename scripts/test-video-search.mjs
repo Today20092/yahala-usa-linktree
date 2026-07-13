@@ -1,6 +1,20 @@
 import assert from 'node:assert/strict'
 
-import { chunkTranscript, parseTimedText } from '../src/worker/video-search.js'
+import {
+  chunkTranscript,
+  createVideoSearch,
+  parseTimedText,
+} from '../src/worker/video-search.js'
+
+const videoSearch = createVideoSearch({})
+assert.deepEqual(Object.keys(videoSearch).sort(), [
+  'consume',
+  'indexVideo',
+  'reindex',
+  'search',
+  'status',
+  'sync',
+])
 
 const transcript = `WEBVTT
 
