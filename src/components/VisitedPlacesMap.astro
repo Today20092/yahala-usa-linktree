@@ -8,13 +8,12 @@ type Props = {
 }
 
 const { visitedPlaces } = Astro.props
-const places = visitedPlaces.places ?? []
 const stateGroups = visitedPlaces.stateGroups ?? []
 const mapPlaces = visitedPlaces.mapPlaces ?? []
 ---
 
 {
-  places.length > 0 && (
+  visitedPlaces.places?.length > 0 && (
     <section
       class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-400 sm:px-6"
       aria-labelledby="visited-places-title"

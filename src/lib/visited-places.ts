@@ -3,7 +3,6 @@ import { parse } from 'yaml'
 import visitedVideosYaml from '../data/visited-videos.yaml?raw'
 import type { CityVideo, VisitedPlace, VisitedPlaces } from './site-config'
 import { getYoutubeVideoId, resolveYoutubeVideo } from './youtube-videos'
-import { buildVisitedPlacePresentation } from './visited-place-presentation.js'
 
 type VisitedVideoAssignment = CityVideo & {
   state?: string | null
@@ -95,6 +94,66 @@ const addVideoToMap = (
   const videos = map.get(key) ?? []
   videos.push(video)
   map.set(key, videos)
+}
+
+const maxVideosPerGroup = 3
+
+const buildVisitedPlacePresentation = (
+  places: VisitedPlace[],
+  stateVideos: VisitedPlaces['stateVideos'] = [],
+) => {
+  const videosByState = new Map(
+    stateVideos.map((group) => [
+      normalizeText(group.state),
+      group.videos ?? [],
+    ]),
+  )
+  const groups = new Map<
+    string,
+    NonNullable<VisitedPlaces['stateGroups']>[number]
+  >()
+
+  places.forEach((place, firstIndex) => {
+    const stateKey = normalizeText(place.state)
+    const group = groups.get(stateKey) ?? {
+      state: place.state,
+      abbreviation: place.stateAbbreviation ?? place.state,
+      places: [],
+      stateVideos: (videosByState.get(stateKey) ?? []).slice(
+        0,
+        maxVideosPerGroup,
+      ),
+      videoCount: videosByState.get(stateKey)?.length ?? 0,
+      firstIndex,
+    }
+
+    group.places.push({
+      ...place,
+      videos: place.videos?.slice(0, maxVideosPerGroup),
+    })
+    group.videoCount += place.videos?.length ?? 0
+    groups.set(stateKey, group)
+  })
+
+  return {
+    stateGroups: [...groups.values()].sort(
+      (a, b) => b.videoCount - a.videoCount || a.firstIndex - b.firstIndex,
+    ),
+    mapPlaces: places
+      .filter(
+        (place) =>
+          (place.videos?.length ?? 0) > 0 &&
+          typeof place.latitude === 'number' &&
+          typeof place.longitude === 'number',
+      )
+      .map((place) => ({
+        city: place.city,
+        state: place.state,
+        label: place.label ?? `${place.city}, ${place.state}`,
+        latitude: place.latitude as number,
+        longitude: place.longitude as number,
+      })),
+  }
 }
 
 export const resolveVisitedPlaces = (

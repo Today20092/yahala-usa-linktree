@@ -75,7 +75,6 @@ export type CityVideo = {
 }
 
 export type VisitedPlace = {
-  id?: string
   city: string
   state: string
   label?: string
@@ -96,9 +95,7 @@ export type StateVideoGroup = {
 }
 
 export type VisitedStateGroup = {
-  id: string
   state: string
-  label: string
   abbreviation: string
   places: VisitedPlace[]
   stateVideos: CityVideo[]
@@ -107,7 +104,6 @@ export type VisitedStateGroup = {
 }
 
 export type VisitedMapPlace = {
-  id: string
   city: string
   state: string
   label: string
