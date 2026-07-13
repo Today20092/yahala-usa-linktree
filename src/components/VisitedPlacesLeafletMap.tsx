@@ -27,10 +27,13 @@ export default function VisitedPlacesLeafletMap({ places }: Props) {
       const L = await import('leaflet')
       if (!isMounted || !mapRef.current || mapInstanceRef.current) return
 
+      const isTouchDevice = window.matchMedia('(pointer: coarse)').matches
+
       const map = L.map(mapRef.current, {
         zoomControl: false,
-        scrollWheelZoom: true,
-        dragging: true,
+        scrollWheelZoom: false,
+        dragging: !isTouchDevice,
+        touchZoom: true,
         tap: true,
         preferCanvas: true,
       })
@@ -106,10 +109,20 @@ export default function VisitedPlacesLeafletMap({ places }: Props) {
         map.invalidateSize()
       }
 
+      const handleWheel = (event: WheelEvent) => {
+        if (!event.ctrlKey) return
+
+        event.preventDefault()
+        const point = map.mouseEventToContainerPoint(event)
+        map.setZoomAround(point, map.getZoom() + (event.deltaY < 0 ? 1 : -1))
+      }
+
       window.addEventListener('resize', handleResize)
+      mapRef.current.addEventListener('wheel', handleWheel, { passive: false })
 
       const cleanup = () => {
         window.removeEventListener('resize', handleResize)
+        mapRef.current?.removeEventListener('wheel', handleWheel)
         map.remove()
         mapInstanceRef.current = null
       }
