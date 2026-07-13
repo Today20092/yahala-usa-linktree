@@ -4,6 +4,7 @@ const CHANNEL_ID = 'UC26OIuJ19EH6HF6uRJ-N_2A'
 const EMBEDDING_MODEL = '@cf/baai/bge-m3'
 const MANIFEST_PREFIX = 'manifests/'
 const TRANSCRIPT_PREFIX = 'transcripts/'
+const COVERAGE_KEY = 'coverage/latest.json'
 const GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token'
 const YOUTUBE_API = 'https://www.googleapis.com/youtube/v3'
 const ELIGIBLE_CATALOG = youtubeVideos
@@ -275,6 +276,23 @@ const writeManifest = (env, videoId, manifest) =>
     httpMetadata: { contentType: 'application/json' },
   })
 
+const readTranscript = async (env, videoId) => {
+  const object = await env.TRANSCRIPTS_R2.get(
+    `${TRANSCRIPT_PREFIX}${videoId}.json`,
+  )
+  return object ? object.json() : null
+}
+
+const writeCoverage = (env, coverage) =>
+  env.TRANSCRIPTS_R2.put(COVERAGE_KEY, JSON.stringify(coverage), {
+    httpMetadata: { contentType: 'application/json' },
+  })
+
+const readCoverage = async (env) => {
+  const object = await env.TRANSCRIPTS_R2.get(COVERAGE_KEY)
+  return object ? object.json() : null
+}
+
 const skipVideo = async (env, videoId, reason, extra = {}) => {
   await writeManifest(env, videoId, {
     videoId,
@@ -288,7 +306,9 @@ const skipVideo = async (env, videoId, reason, extra = {}) => {
 }
 
 const deferVideo = async (env, videoId, reason, extra = {}) => {
+  const previous = await readManifest(env, videoId)
   await writeManifest(env, videoId, {
+    ...previous,
     videoId,
     channelId: CHANNEL_ID,
     status: 'pending',
@@ -317,7 +337,64 @@ const embedTexts = async (env, texts) => {
   return vectors
 }
 
+const indexTranscript = async (env, transcript, manifest = {}) => {
+  const chunks = chunkTranscript(transcript.events ?? [])
+  if (!chunks.length) return skipVideo(env, transcript.videoId, 'empty-captions')
+
+  const batchSize = 50
+  for (let index = 0; index < chunks.length; index += batchSize) {
+    const batch = chunks.slice(index, index + batchSize)
+    const embeddings = await embedTexts(
+      env,
+      batch.map(
+        (chunk) =>
+          `${transcript.title}\n${transcript.description ?? ''}\n${chunk.text}`,
+      ),
+    )
+    await env.VECTORIZE.upsert(
+      batch.map((chunk, offset) => ({
+        id: `${transcript.videoId}:${Math.floor(chunk.start)}`,
+        values: embeddings[offset],
+        metadata: {
+          videoId: transcript.videoId,
+          channelId: CHANNEL_ID,
+          title: transcript.title,
+          thumbnail: transcript.thumbnail,
+          excerpt: chunk.text.slice(0, 1800),
+          language: transcript.language,
+          startSeconds: chunk.start,
+          endSeconds: chunk.end,
+          duration: transcript.duration,
+          published: transcript.published,
+          landscape: true,
+        },
+      })),
+    )
+  }
+
+  await writeManifest(env, transcript.videoId, {
+    ...manifest,
+    videoId: transcript.videoId,
+    channelId: CHANNEL_ID,
+    status: 'indexed',
+    reason: null,
+    error: null,
+    language: transcript.language,
+    chunkCount: chunks.length,
+    landscapeEligibility: transcript.landscapeEligibility,
+    embeddingModel: EMBEDDING_MODEL,
+    indexedAt: new Date().toISOString(),
+  })
+  return { videoId: transcript.videoId, status: 'indexed', chunkCount: chunks.length }
+}
+
 const processVideo = async (env, videoId) => {
+  const previous = await readManifest(env, videoId)
+  const storedTranscript = await readTranscript(env, videoId)
+  if (storedTranscript) {
+    return indexTranscript(env, storedTranscript, previous)
+  }
+
   const token = await getAccessToken(env)
   const video = await getVideo(videoId, token)
   if (!video) return skipVideo(env, videoId, 'video-not-found')
@@ -348,7 +425,6 @@ const processVideo = async (env, videoId) => {
   if (!events.length) return skipVideo(env, videoId, 'empty-captions')
 
   const checksum = await sha256(captionSource)
-  const previous = await readManifest(env, videoId)
   if (
     previous?.status === 'indexed' &&
     previous.checksum === checksum &&
@@ -359,7 +435,6 @@ const processVideo = async (env, videoId) => {
 
   const language = caption.snippet?.language ?? ''
   const title = video.snippet?.title ?? 'Ya Hala video'
-  const chunks = chunkTranscript(events)
   const transcript = {
     videoId,
     channelId: CHANNEL_ID,
@@ -367,6 +442,7 @@ const processVideo = async (env, videoId) => {
     thumbnail: video.snippet?.thumbnails?.high?.url ?? '',
     published: video.snippet?.publishedAt ?? '',
     duration: video.contentDetails?.duration ?? '',
+    description: video.snippet?.description ?? '',
     language,
     width: dimensions?.widthPixels ?? null,
     height: dimensions?.heightPixels ?? null,
@@ -379,64 +455,21 @@ const processVideo = async (env, videoId) => {
     { httpMetadata: { contentType: 'application/json' } },
   )
 
-  const batchSize = 50
-  for (let index = 0; index < chunks.length; index += batchSize) {
-    const batch = chunks.slice(index, index + batchSize)
-    const embeddingInput = batch.map(
-      (chunk) => `${title}\n${video.snippet?.description ?? ''}\n${chunk.text}`,
-    )
-    const embeddings = await embedTexts(env, embeddingInput)
-    await env.VECTORIZE.upsert(
-      batch.map((chunk, offset) => ({
-        id: `${videoId}:${Math.floor(chunk.start)}`,
-        values: embeddings[offset],
-        metadata: {
-          videoId,
-          channelId: CHANNEL_ID,
-          title,
-          thumbnail: transcript.thumbnail,
-          excerpt: chunk.text.slice(0, 1800),
-          language,
-          startSeconds: chunk.start,
-          endSeconds: chunk.end,
-          duration: transcript.duration,
-          published: transcript.published,
-          landscape: true,
-        },
-      })),
-    )
-  }
-
-  await writeManifest(env, videoId, {
-    videoId,
-    channelId: CHANNEL_ID,
-    status: 'indexed',
+  return indexTranscript(env, transcript, {
     checksum,
     captionId: caption.id,
-    language,
-    chunkCount: chunks.length,
-    landscapeEligibility: transcript.landscapeEligibility,
-    embeddingModel: EMBEDDING_MODEL,
-    indexedAt: new Date().toISOString(),
   })
-  return { videoId, status: 'indexed', chunkCount: chunks.length }
 }
 
 const enqueueSync = async (env, maxVideos) => {
-  const videoIds = listCatalogVideoIds().slice(
+  const coverage = await auditCoverage(env)
+  const videoIds = coverage.incompleteVideos.map((video) => video.videoId).slice(
     0,
     maxVideos || Number.POSITIVE_INFINITY,
   )
   let queued = 0
   let queueWriteLimitReached = false
   for (const videoId of videoIds) {
-    const manifest = await readManifest(env, videoId)
-    if (
-      manifest?.status === 'indexed' &&
-      manifest.embeddingModel === EMBEDDING_MODEL
-    ) {
-      continue
-    }
     try {
       await env.VIDEO_INDEX_QUEUE.send({ videoId })
     } catch (error) {
@@ -446,7 +479,12 @@ const enqueueSync = async (env, maxVideos) => {
     }
     queued += 1
   }
-  return { discovered: videoIds.length, queued, queueWriteLimitReached }
+  return {
+    discovered: coverage.counts.total,
+    incomplete: coverage.counts.incomplete,
+    queued,
+    queueWriteLimitReached,
+  }
 }
 
 const rateLimit = async (request) => {
@@ -466,6 +504,10 @@ const rateLimit = async (request) => {
 }
 
 const handleSearch = async (request, env) => {
+  const coverage = await readCoverage(env)
+  if (!coverage?.searchReady) {
+    return json({ error: 'Video search is not ready.' }, { status: 503 })
+  }
   if (!(await rateLimit(request))) {
     return json(
       { error: 'Too many searches. Please try again shortly.' },
@@ -532,11 +574,23 @@ const isAdminRequest = (request, env) =>
     request.headers.get('authorization') === `Bearer ${env.ADMIN_API_TOKEN}`,
   )
 
+const handleAvailability = async (env) => {
+  const coverage = await readCoverage(env)
+  return json({
+    searchReady: coverage?.searchReady === true,
+    checkedAt: coverage?.checkedAt ?? null,
+  })
+}
+
 const handleAdminStatus = async (request, env) => {
   if (!isAdminRequest(request, env)) {
     return json({ error: 'Unauthorized' }, { status: 401 })
   }
 
+  return json(await auditCoverage(env))
+}
+
+const auditCoverage = async (env) => {
   const videos = listCatalogVideoIds()
   const records = []
   for (let index = 0; index < videos.length; index += 25) {
@@ -558,29 +612,85 @@ const handleAdminStatus = async (request, env) => {
     })
   }
 
-  const counts = records.reduce(
-    (result, record) => {
-      result[record.status] = (result[record.status] ?? 0) + 1
-      if (record.reason) {
-        result.reasons[record.reason] = (result.reasons[record.reason] ?? 0) + 1
-      }
-      result.chunks += record.chunkCount
-      return result
-    },
-    {
-      total: records.length,
-      indexed: 0,
-      skipped: 0,
-      pending: 0,
-      chunks: 0,
-      reasons: {},
-    },
-  )
+  const noCaptionReasons = new Set(['captions-unavailable', 'empty-captions'])
+  const incompleteVideos = []
+  const expectedVectorIds = new Map()
 
-  return json({
+  for (let index = 0; index < records.length; index += 25) {
+    const batch = records.slice(index, index + 25)
+    const transcripts = await Promise.all(
+      batch.map((record) =>
+        record.status === 'indexed'
+          ? readTranscript(env, record.videoId)
+          : Promise.resolve(null),
+      ),
+    )
+    batch.forEach((record, offset) => {
+      if (record.status === 'skipped' && noCaptionReasons.has(record.reason)) {
+        record.coverage = 'excluded-no-captions'
+        return
+      }
+      if (record.status !== 'indexed') {
+        record.coverage = 'incomplete'
+        incompleteVideos.push(record)
+        return
+      }
+      const transcript = transcripts[offset]
+      if (!transcript) {
+        record.coverage = 'missing-transcript'
+        incompleteVideos.push(record)
+        return
+      }
+      const ids = chunkTranscript(transcript.events ?? []).map(
+        (chunk) => `${record.videoId}:${Math.floor(chunk.start)}`,
+      )
+      expectedVectorIds.set(record.videoId, ids)
+    })
+  }
+
+  const existingVectorIds = new Set()
+  const allVectorIds = [...expectedVectorIds.values()].flat()
+  for (let index = 0; index < allVectorIds.length; index += 100) {
+    const vectors = await env.VECTORIZE.getByIds(
+      allVectorIds.slice(index, index + 100),
+    )
+    for (const vector of vectors) existingVectorIds.add(vector.id)
+  }
+
+  for (const record of records) {
+    const ids = expectedVectorIds.get(record.videoId)
+    if (!ids) continue
+    const missingVectorCount = ids.filter(
+      (id) => !existingVectorIds.has(id),
+    ).length
+    if (missingVectorCount) {
+      record.coverage = 'missing-vectors'
+      record.expectedVectorCount = ids.length
+      record.missingVectorCount = missingVectorCount
+      incompleteVideos.push(record)
+    } else {
+      record.coverage = 'verified'
+      record.chunkCount = ids.length
+    }
+  }
+
+  const counts = {
+    total: records.length,
+    verified: records.filter((record) => record.coverage === 'verified').length,
+    excludedNoCaptions: records.filter(
+      (record) => record.coverage === 'excluded-no-captions',
+    ).length,
+    incomplete: incompleteVideos.length,
+    vectors: existingVectorIds.size,
+  }
+  const coverage = {
+    searchReady: incompleteVideos.length === 0,
     counts,
-    missingTranscripts: records.filter((record) => record.status !== 'indexed'),
-  })
+    checkedAt: new Date().toISOString(),
+  }
+  await writeCoverage(env, coverage)
+
+  return { ...coverage, incompleteVideos }
 }
 
 const handleAdminReindex = async (request, env) => {
@@ -618,6 +728,7 @@ const runScheduledSync = (env) => enqueueSync(env, 0)
 
 export const createVideoSearch = (env) => ({
   search: (request) => handleSearch(request, env),
+  availability: () => handleAvailability(env),
   indexVideo: (videoId) => processVideo(env, videoId),
   status: (request) => handleAdminStatus(request, env),
   reindex: (request) => handleAdminReindex(request, env),

@@ -51,8 +51,9 @@ curl -X POST \
   "https://yahalausa.net/api/admin/video-search/reindex?max=5"
 ```
 
-Check Worker and Queue logs, test Arabic and English searches, and then enqueue
-the complete channel:
+Check Worker and Queue logs, then reconcile the complete catalog. The endpoint
+verifies each R2 transcript and its expected Vectorize IDs, excludes videos
+without captions, and queues only incomplete videos:
 
 ```sh
 curl -X POST \
@@ -71,6 +72,17 @@ curl -X POST \
 The daily Cron Trigger runs at 08:17 UTC. Videos without owner-visible source
 dimensions or downloadable captions are written to R2 as skipped manifests and
 are never included in search.
+
+The same reconciliation runs daily. Its result is stored at
+`coverage/latest.json`; both `/api/video-search` and the homepage search UI stay
+disabled until the latest audit verifies every eligible captioned video. Inspect
+the detailed result with:
+
+```sh
+curl \
+  -H "Authorization: Bearer $ADMIN_API_TOKEN" \
+  "https://yahalausa.net/api/admin/video-search/status"
+```
 
 ## 4. Local development
 

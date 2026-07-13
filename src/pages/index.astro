@@ -457,17 +457,20 @@ const structuredData = {
             Explore more stories
           </h2>
           <p class="ui-body mx-auto mt-3 max-w-md text-sm">
-            Search video moments, browse popular episodes, and follow the places
-            Ya Hala has visited.
+            {videoSearch.enabled
+              ? 'Search video moments, browse popular episodes, and follow the places Ya Hala has visited.'
+              : 'Browse popular episodes and follow the places Ya Hala has visited.'}
           </p>
         </div>
       </section>
 
       <div class="desktop-explore-grid">
-        <VideoSearch
-          copy={videoSearch}
-          client:visible={{ rootMargin: '200px' }}
-        />
+        {videoSearch.enabled && (
+          <VideoSearch
+            copy={videoSearch}
+            client:visible={{ rootMargin: '200px' }}
+          />
+        )}
 
         <FeaturedEpisodes />
       </div>

@@ -70,6 +70,7 @@ youtubeChannels:
       logoPaddingClass: p-1.5
 
 videoSearch:
+  enabled: true
   eyebrow: Semantic video search
   title: Find a moment in our videos
   description: Search the meaning of Ya Hala video transcripts in Arabic or English, then jump directly to the matching moment.

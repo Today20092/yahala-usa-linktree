@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import {
   ArrowUpRightIcon,
   Clock3Icon,
@@ -101,12 +101,22 @@ function ResultCard({
 }
 
 export default function VideoSearch({ copy }: Props) {
+  const [available, setAvailable] = useState(false)
   const [query, setQuery] = useState('')
   const [lastQuery, setLastQuery] = useState('')
   const [results, setResults] = useState<VideoSearchResult[]>([])
   const [status, setStatus] = useState<'idle' | 'loading' | 'done' | 'error'>(
     'idle',
   )
+
+  useEffect(() => {
+    fetch('/api/video-search/availability')
+      .then((response) => response.json())
+      .then((payload) => setAvailable(payload.searchReady === true))
+      .catch(() => setAvailable(false))
+  }, [])
+
+  if (!available) return null
 
   const runSearch = async (searchQuery: string) => {
     const normalizedQuery = searchQuery.trim()

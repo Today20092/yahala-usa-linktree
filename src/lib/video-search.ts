@@ -1,4 +1,5 @@
 export type VideoSearchCopy = {
+  enabled: boolean
   eyebrow: string
   title: string
   description: string

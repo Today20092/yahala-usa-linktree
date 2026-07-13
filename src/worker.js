@@ -76,6 +76,13 @@ export default {
     }
 
     if (
+      url.pathname === '/api/video-search/availability' &&
+      request.method === 'GET'
+    ) {
+      return videoSearch.availability()
+    }
+
+    if (
       url.pathname === '/api/admin/video-search/reindex' &&
       request.method === 'POST'
     ) {
