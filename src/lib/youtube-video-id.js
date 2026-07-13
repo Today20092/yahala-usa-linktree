@@ -27,3 +27,24 @@ export const getYoutubeVideoId = (urlOrId = '') => {
     return ''
   }
 }
+
+export const youtubeWatchUrl = (videoId) =>
+  `https://www.youtube.com/watch?v=${videoId}`
+
+export const youtubeThumbnailUrl = (videoId) =>
+  `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
+
+export const youtubeThumbnailFallbackUrl = (videoId) =>
+  `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+
+export const resolveYoutubeReference = (urlOrId = '') => {
+  const videoId = getYoutubeVideoId(urlOrId)
+  return videoId
+    ? {
+        videoId,
+        url: youtubeWatchUrl(videoId),
+        thumbnail: youtubeThumbnailUrl(videoId),
+        thumbnailFallback: youtubeThumbnailFallbackUrl(videoId),
+      }
+    : null
+}

@@ -5,11 +5,10 @@ import { parse } from 'yaml'
 
 import {
   entriesFromFeed,
+  deriveChannelCatalog,
   mergeVideoCache,
   normalizeVideoMetadata,
-  uniqueVideos,
   videosFromVideosTab,
-  videosWithFallbackThumbnails,
   youtubeWatchUrl,
 } from './youtube-video-utils.mjs'
 
@@ -168,16 +167,9 @@ const fetchTopVideos = async (channel, videoCache) => {
 const fetchLatestVideo = async (channel, previousLatestVideo, videoCache) => {
   const { id, channelId, videosUrl, name } = channel
   const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`
-  const previousVideoIds =
-    previousLatestVideo?.videoIds ??
-    [
-      previousLatestVideo?.latestVideoId,
-      previousLatestVideo?.videoId,
-      ...(previousLatestVideo?.videos ?? []).map((video) => video.videoId),
-    ].filter(Boolean)
-
-  let channelTitle = previousLatestVideo?.channelTitle ?? name
-  let videos = []
+  let feedChannelTitle = ''
+  let feedVideos = []
+  let tabVideos = []
 
   try {
     const feedResponse = await fetch(feedUrl)
@@ -189,76 +181,30 @@ const fetchLatestVideo = async (channel, previousLatestVideo, videoCache) => {
     }
 
     const feed = await feedResponse.text()
-    const feedChannelTitle =
+    feedChannelTitle =
       feed.match(/<title>([\s\S]*?)<\/title>/)?.[1]?.trim() ?? ''
-    if (feedChannelTitle) channelTitle = feedChannelTitle
-
-    const feedEntries = entriesFromFeed(feed).map((video) => ({
-      ...video,
-      channelId,
-      channelTitle,
-    }))
-    const videosTabEntries = await videosFromVideosTab(videosUrl).catch(
-      (error) => {
-        console.warn(error.message)
-        return []
-      },
-    )
-
-    videos = videosWithFallbackThumbnails(
-      uniqueVideos([...videosTabEntries, ...feedEntries]).map((video) => {
-        const feedEntry = feedEntries.find(
-          (entry) => entry.videoId === video.videoId,
-        )
-
-        return {
-          ...video,
-          title: feedEntry?.title || video.title,
-          thumbnail: feedEntry?.thumbnail || video.thumbnail,
-          published: feedEntry?.published || video.published,
-          updated: feedEntry?.updated || video.updated,
-          channelId,
-          channelTitle,
-        }
-      }),
-    )
+    feedVideos = entriesFromFeed(feed)
+    tabVideos = await videosFromVideosTab(videosUrl).catch((error) => {
+      console.warn(error.message)
+      return []
+    })
   } catch (error) {
     console.warn(error.message)
   }
 
-  if (videos.length === 0) {
-    videos = previousVideoIds
-      .map((videoId) =>
-        normalizeVideoMetadata(
-          { videoId, channelId, channelTitle },
-          videoCache[videoId],
-        ),
-      )
-      .filter(Boolean)
-  }
-
-  if (videos.length === 0) {
+  const catalog = deriveChannelCatalog({
+    channel,
+    previous: previousLatestVideo,
+    cache: videoCache,
+    feedChannelTitle,
+    feedVideos,
+    tabVideos,
+  })
+  if (!catalog) {
     console.warn(`Skipped ${name} - unable to fetch latest video`)
     return null
   }
-
-  const videoIds = videos.map((video) => video.videoId)
-  const latestVideoId =
-    videos[0]?.videoId ??
-    previousLatestVideo?.latestVideoId ??
-    previousLatestVideo?.videoId ??
-    ''
-
-  return [
-    id,
-    {
-      channelId,
-      channelTitle,
-      latestVideoId,
-      videoIds,
-    },
-    videos,
-  ]
+  return [id, catalog.latest, catalog.videos]
 }
 
 const siteConfig = parse(await readFile(siteConfigPath, 'utf8'))

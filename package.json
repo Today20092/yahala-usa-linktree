@@ -11,6 +11,7 @@
     "validate:ui": "node scripts/validate-ui-consistency.mjs",
     "test:locations": "node scripts/test-location-utils.mjs",
     "test:youtube-id": "node scripts/test-youtube-video-id.mjs",
+    "test:youtube-catalog": "node scripts/test-youtube-channel-catalog.mjs",
     "test:video-search": "node scripts/test-video-search.mjs",
     "build": "astro build",
     "preview": "astro preview",

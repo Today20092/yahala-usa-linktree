@@ -1,12 +1,12 @@
-import { getYoutubeVideoId } from '../src/lib/youtube-video-id.js'
+import {
+  getYoutubeVideoId,
+  youtubeThumbnailUrl,
+  youtubeWatchUrl,
+} from '../src/lib/youtube-video-id.js'
 
-export { getYoutubeVideoId } from '../src/lib/youtube-video-id.js'
+export { getYoutubeVideoId, youtubeWatchUrl }
 
-export const youtubeWatchUrl = (videoId) =>
-  `https://www.youtube.com/watch?v=${videoId}`
-
-export const fallbackThumbnail = (videoId) =>
-  `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
+export const fallbackThumbnail = youtubeThumbnailUrl
 
 export const normalizeThumbnailUrl = (videoId, thumbnail = '') =>
   videoId ? fallbackThumbnail(videoId) : String(thumbnail).trim()
@@ -118,6 +118,76 @@ export const videosWithFallbackThumbnails = (videos) =>
   uniqueVideos(videos)
     .map((video) => normalizeVideoMetadata(video))
     .filter(Boolean)
+
+export const deriveChannelCatalog = ({
+  channel,
+  previous,
+  cache = {},
+  feedChannelTitle = '',
+  feedVideos = [],
+  tabVideos = [],
+}) => {
+  const channelTitle =
+    feedChannelTitle || previous?.channelTitle || channel.name
+  const previousVideoIds =
+    previous?.videoIds ??
+    [
+      previous?.latestVideoId,
+      previous?.videoId,
+      ...(previous?.videos ?? []).map((video) => video.videoId),
+    ].filter(Boolean)
+  const normalizedFeedVideos = feedVideos.map((video) => ({
+    ...video,
+    channelId: channel.channelId,
+    channelTitle,
+  }))
+  let videos = videosWithFallbackThumbnails(
+    uniqueVideos([...tabVideos, ...normalizedFeedVideos]).map((video) => {
+      const feedVideo = normalizedFeedVideos.find(
+        (entry) => entry.videoId === video.videoId,
+      )
+      return normalizeVideoMetadata(
+        {
+          ...video,
+          title: feedVideo?.title || video.title,
+          thumbnail: feedVideo?.thumbnail || video.thumbnail,
+          published: feedVideo?.published || video.published,
+          updated: feedVideo?.updated || video.updated,
+          channelId: channel.channelId,
+          channelTitle,
+        },
+        cache[video.videoId],
+      )
+    }),
+  )
+
+  if (videos.length === 0) {
+    videos = previousVideoIds
+      .map((videoId) =>
+        normalizeVideoMetadata(
+          { videoId, channelId: channel.channelId, channelTitle },
+          cache[videoId],
+        ),
+      )
+      .filter(Boolean)
+  }
+  if (videos.length === 0) return null
+
+  const videoIds = videos.map((video) => video.videoId)
+  return {
+    latest: {
+      channelId: channel.channelId,
+      channelTitle,
+      latestVideoId:
+        videos[0]?.videoId ??
+        previous?.latestVideoId ??
+        previous?.videoId ??
+        '',
+      videoIds,
+    },
+    videos,
+  }
+}
 
 export const videoMetadataFromWatchPage = async (videoId) => {
   if (!videoId) return null

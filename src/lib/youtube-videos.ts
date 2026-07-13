@@ -1,7 +1,18 @@
 import youtubeVideos from '../data/youtube-videos.json'
-import { getYoutubeVideoId } from './youtube-video-id.js'
+import {
+  getYoutubeVideoId,
+  youtubeThumbnailFallbackUrl,
+  youtubeThumbnailUrl,
+  youtubeWatchUrl,
+} from './youtube-video-id.js'
 
-export { getYoutubeVideoId } from './youtube-video-id.js'
+export {
+  getYoutubeVideoId,
+  resolveYoutubeReference,
+  youtubeThumbnailFallbackUrl,
+  youtubeThumbnailUrl,
+  youtubeWatchUrl,
+} from './youtube-video-id.js'
 
 export type YoutubeVideo = {
   videoId: string
@@ -25,15 +36,6 @@ export type YoutubeVideoRef = {
 }
 
 export const youtubeVideosById = youtubeVideos as Record<string, YoutubeVideo>
-
-const youtubeWatchUrl = (videoId: string) =>
-  `https://www.youtube.com/watch?v=${videoId}`
-
-export const youtubeThumbnailUrl = (videoId: string) =>
-  `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
-
-export const youtubeThumbnailFallbackUrl = (videoId: string) =>
-  `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
 
 export const resolveYoutubeThumbnailUrl = (
   videoId: string,

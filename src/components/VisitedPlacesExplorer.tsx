@@ -24,7 +24,7 @@ import type {
   VisitedPlace,
 } from '@/lib/site-config'
 import { cn } from '@/lib/utils'
-import { getYoutubeVideoId } from '@/lib/youtube-video-id.js'
+import { resolveYoutubeReference } from '@/lib/youtube-video-id.js'
 
 type Props = {
   places: VisitedPlace[]
@@ -42,77 +42,13 @@ type StateGroup = {
 
 type VisitedStateSelectEvent = CustomEvent<{ state?: string; city?: string }>
 
-const stateAbbreviations = new Map([
-  ['Alabama', 'AL'],
-  ['Alaska', 'AK'],
-  ['Arizona', 'AZ'],
-  ['Arkansas', 'AR'],
-  ['California', 'CA'],
-  ['Colorado', 'CO'],
-  ['Connecticut', 'CT'],
-  ['Delaware', 'DE'],
-  ['Florida', 'FL'],
-  ['Georgia', 'GA'],
-  ['Hawaii', 'HI'],
-  ['Idaho', 'ID'],
-  ['Illinois', 'IL'],
-  ['Indiana', 'IN'],
-  ['Iowa', 'IA'],
-  ['Kansas', 'KS'],
-  ['Kentucky', 'KY'],
-  ['Louisiana', 'LA'],
-  ['Maine', 'ME'],
-  ['Maryland', 'MD'],
-  ['Massachusetts', 'MA'],
-  ['Michigan', 'MI'],
-  ['Minnesota', 'MN'],
-  ['Mississippi', 'MS'],
-  ['Missouri', 'MO'],
-  ['Montana', 'MT'],
-  ['Nebraska', 'NE'],
-  ['Nevada', 'NV'],
-  ['New Hampshire', 'NH'],
-  ['New Jersey', 'NJ'],
-  ['New Mexico', 'NM'],
-  ['New York', 'NY'],
-  ['North Carolina', 'NC'],
-  ['North Dakota', 'ND'],
-  ['Ohio', 'OH'],
-  ['Oklahoma', 'OK'],
-  ['Oregon', 'OR'],
-  ['Pennsylvania', 'PA'],
-  ['Rhode Island', 'RI'],
-  ['South Carolina', 'SC'],
-  ['South Dakota', 'SD'],
-  ['Tennessee', 'TN'],
-  ['Texas', 'TX'],
-  ['Utah', 'UT'],
-  ['Vermont', 'VT'],
-  ['Virginia', 'VA'],
-  ['Washington', 'WA'],
-  ['West Virginia', 'WV'],
-  ['Wisconsin', 'WI'],
-  ['Wyoming', 'WY'],
-])
-
 function getThumbnail(url: string, thumbnail?: string) {
   if (thumbnail) return thumbnail
-
-  const videoId = getYoutubeVideoId(url)
-  return videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : null
+  return resolveYoutubeReference(url)?.thumbnail ?? null
 }
 
 function getThumbnailFallback(url: string) {
-  const videoId = getYoutubeVideoId(url)
-  return videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : null
-}
-
-function formatPlace(city: string, state: string) {
-  return `${city}, ${stateAbbreviations.get(state) ?? state}`
-}
-
-function formatState(state: string) {
-  return state
+  return resolveYoutubeReference(url)?.thumbnailFallback ?? null
 }
 
 function formatVideoCount(count: number) {
@@ -197,7 +133,7 @@ export default function VisitedPlacesExplorer({ places, stateVideos }: Props) {
       const stateKey = place.state.trim().toLowerCase()
       const group = groups.get(place.state) ?? {
         state: place.state,
-        abbreviation: stateAbbreviations.get(place.state) ?? place.state,
+        abbreviation: place.stateAbbreviation ?? place.state,
         places: [],
         stateVideos: stateVideosByState.get(stateKey) ?? [],
         videoCount: stateVideosByState.get(stateKey)?.length ?? 0,
@@ -299,7 +235,7 @@ export default function VisitedPlacesExplorer({ places, stateVideos }: Props) {
           aria-labelledby="visited-states-control-label"
         >
           {stateGroups.map((group) => {
-            const label = formatState(group.state)
+            const label = group.state
             const hasVideos = group.videoCount > 0
             const isSelected = selectedState === group.state
 
@@ -377,7 +313,7 @@ export default function VisitedPlacesExplorer({ places, stateVideos }: Props) {
               <div className="min-w-0">
                 <DrawerTitle>
                   {selectedStateGroup
-                    ? `Videos from ${formatState(selectedStateGroup.state)}`
+                    ? `Videos from ${selectedStateGroup.state}`
                     : 'State videos'}
                 </DrawerTitle>
                 <DrawerDescription>
@@ -429,7 +365,7 @@ export default function VisitedPlacesExplorer({ places, stateVideos }: Props) {
                   >
                     <AccordionTrigger className="items-center px-3 py-3 hover:no-underline">
                       <span className="text-foreground min-w-0 truncate text-sm font-semibold">
-                        {formatPlace(place.city, place.state)}
+                        {place.label ?? `${place.city}, ${place.state}`}
                       </span>
                       <span className="text-muted-foreground text-xs font-medium">
                         {formatVideoCount(place.videos?.length ?? 0)}

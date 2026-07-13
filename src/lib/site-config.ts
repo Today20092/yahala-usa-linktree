@@ -77,6 +77,8 @@ export type CityVideo = {
 export type VisitedPlace = {
   city: string
   state: string
+  label?: string
+  stateAbbreviation?: string
   latitude?: number
   longitude?: number
   x?: number
@@ -87,6 +89,8 @@ export type VisitedPlace = {
 
 export type StateVideoGroup = {
   state: string
+  label?: string
+  abbreviation?: string
   videos: CityVideo[]
 }
 
