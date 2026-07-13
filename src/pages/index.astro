@@ -313,14 +313,15 @@ const structuredData = {
                     href={latestEpisodeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring/30 focus-visible:ring-offset-background inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-5 text-base font-bold shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+                    aria-label="Watch latest episode"
+                    class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring/30 focus-visible:ring-offset-background inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-base font-semibold whitespace-nowrap shadow-[0_8px_24px_-12px_var(--primary)] transition-[background-color,transform,box-shadow] hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-12px_var(--primary)] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0"
                   >
                     <Icon
                       name="simple-icons:youtube"
-                      class="size-5"
+                      class="size-[1.125rem]"
                       aria-hidden="true"
                     />
-                    Watch latest episode
+                    Watch latest
                   </a>
                 )
               }
@@ -328,11 +329,11 @@ const structuredData = {
                 instagramLink && (
                   <a
                     href="#contact"
-                    class="border-border bg-card text-foreground hover:bg-accent focus-visible:ring-ring/30 focus-visible:ring-offset-background inline-flex min-h-12 items-center justify-center gap-2 rounded-full border px-5 text-base font-bold shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+                    class="border-border/80 bg-card/70 text-foreground hover:border-border hover:bg-accent focus-visible:ring-ring/30 focus-visible:ring-offset-background inline-flex min-h-12 items-center justify-center gap-2 rounded-full border px-6 text-base font-semibold whitespace-nowrap transition-[background-color,border-color,transform] hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0"
                   >
                     <Icon
                       name="heroicons:briefcase"
-                      class="size-5"
+                      class="size-[1.125rem]"
                       aria-hidden="true"
                     />
                     Collaborate
@@ -479,11 +480,17 @@ const structuredData = {
 
       <div class="desktop-latest-grid">
         <section
-          class="animate-fade-in-up mt-8 mb-5 flex flex-col gap-4 delay-400"
-          aria-label="Latest YouTube video"
+          class="animate-fade-in-up mt-8 mb-5 flex flex-col delay-400"
+          aria-labelledby="latest-video-title"
         >
-          {
-            latestVideoChannels.map((channel) => (
+          <div class="ui-section-header">
+            <h2 id="latest-video-title" class="ui-section-title">
+              Latest From Ya Hala
+            </h2>
+          </div>
+          <div class="flex flex-col gap-4">
+            {
+              latestVideoChannels.map((channel) => (
               <LatestChannelVideo
                 channelName={channel.name}
                 channelDescription={channel.description}
@@ -511,9 +518,10 @@ const structuredData = {
                   channelBranding[channel.id].logoPaddingClass
                 }
                 video={latestVideoByChannel[channel.id]}
-              />
-            ))
-          }
+                />
+              ))
+            }
+          </div>
         </section>
 
         <TopicCards />

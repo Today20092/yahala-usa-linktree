@@ -787,7 +787,14 @@
     }
 
     .desktop-intro-panel > section > div {
-      justify-content: flex-start;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      width: 100%;
+    }
+
+    .desktop-intro-panel > section > div > a {
+      width: 100%;
     }
 
     .desktop-intro-panel > nav {
@@ -832,6 +839,7 @@
     .desktop-explore-grid,
     .desktop-latest-grid {
       display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       max-width: none;
       margin-top: clamp(2.25rem, 3.5vw, 3.25rem);
       padding-inline: 0;
@@ -839,13 +847,13 @@
     }
 
     .desktop-primary-grid {
-      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
       align-items: stretch;
     }
 
     .desktop-primary-grid > aside,
     .desktop-primary-grid > section,
     .desktop-explore-grid > section,
+    .desktop-explore-grid section[aria-labelledby='video-search-title'],
     .desktop-latest-grid > section,
     .desktop-latest-grid > div {
       max-width: none;
@@ -877,12 +885,11 @@
     }
 
     .desktop-explore-grid {
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      margin-top: clamp(1rem, 2vw, 1.5rem);
       align-items: start;
     }
 
     .desktop-latest-grid {
-      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
       align-items: start;
     }
 
