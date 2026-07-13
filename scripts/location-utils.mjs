@@ -147,9 +147,10 @@ const hasTerm = (haystack, term) => {
   const normalizedTerm = normalizeLocationText(term)
   if (!normalizedTerm) return false
   if (/^[a-z0-9 .-]+$/.test(normalizedTerm)) {
-    return new RegExp(`(^|[^a-z0-9])${escapeRegex(normalizedTerm)}([^a-z0-9]|$)`, 'i').test(
-      haystack,
-    )
+    return new RegExp(
+      `(^|[^a-z0-9])${escapeRegex(normalizedTerm)}([^a-z0-9]|$)`,
+      'i',
+    ).test(haystack)
   }
 
   return haystack.includes(normalizedTerm)
@@ -157,11 +158,10 @@ const hasTerm = (haystack, term) => {
 
 const aliasesForCity = (city) => [city, ...(cityAliases[city] ?? [])]
 
-const aliasesForState = (state) => [
-  state,
-  stateAbbreviations.get(state),
-  ...(stateAliases[state] ?? []),
-].filter(Boolean)
+const aliasesForState = (state) =>
+  [state, stateAbbreviations.get(state), ...(stateAliases[state] ?? [])].filter(
+    Boolean,
+  )
 
 const canonicalStateName = (value = '') => {
   const normalized = String(value).trim()
@@ -185,8 +185,11 @@ const canonicalCityName = (value = '') => {
   const normalizedText = normalizeLocationText(value)
   if (!normalizedText) return ''
 
-  const aliasCity = Object.entries(detectedCityAliases).find(([city, aliases]) =>
-    [city, ...aliases].some((alias) => normalizeLocationText(alias) === normalizedText),
+  const aliasCity = Object.entries(detectedCityAliases).find(
+    ([city, aliases]) =>
+      [city, ...aliases].some(
+        (alias) => normalizeLocationText(alias) === normalizedText,
+      ),
   )?.[0]
   if (aliasCity) return aliasCity
 
@@ -273,7 +276,9 @@ export const inferKnownPlaceFromText = (input, places) => {
   const stateMatch = stateOnlyMatch(text, places)
   if (!stateMatch) return null
 
-  const placeInState = cityMatches.find((place) => place.state === stateMatch.state)
+  const placeInState = cityMatches.find(
+    (place) => place.state === stateMatch.state,
+  )
   if (placeInState) {
     return {
       matchedText: `${placeInState.city}, ${stateMatch.state}`,
@@ -389,12 +394,16 @@ export const extractAddressCandidates = (input = '') => {
         .filter((line) => {
           const normalized = normalizeLocationText(line)
           const hasNumber = /\d{2,}/.test(normalized)
-          const hasRoadWord = roadWords.some((word) => hasTerm(normalized, word))
+          const hasRoadWord = roadWords.some((word) =>
+            hasTerm(normalized, word),
+          )
           const hasState = [...stateAbbreviations.keys()].some((state) =>
             aliasesForState(state).some((alias) => hasTerm(normalized, alias)),
           )
 
-          return normalized.length <= 180 && hasNumber && (hasRoadWord || hasState)
+          return (
+            normalized.length <= 180 && hasNumber && (hasRoadWord || hasState)
+          )
         })
         .slice(0, 3),
     ),
@@ -419,7 +428,8 @@ export const geocodeAddress = async (query, geocodeCache) => {
 
   const response = await fetch(url, {
     headers: {
-      'user-agent': 'YaHalaLocationBot/1.0 (GitHub Actions static site updater)',
+      'user-agent':
+        'YaHalaLocationBot/1.0 (GitHub Actions static site updater)',
     },
   })
 
@@ -460,7 +470,8 @@ export const geocodeCityState = async (city, state, geocodeCache) => {
   })
 
   if (
-    normalizeLocationText(normalized.state) !== normalizeLocationText(canonicalState)
+    normalizeLocationText(normalized.state) !==
+    normalizeLocationText(canonicalState)
   ) {
     return null
   }
@@ -474,27 +485,32 @@ export const normalizeDetectedCityState = (result) => ({
   latitude: Number(result?.latitude),
   longitude: Number(result?.longitude),
   city: String(result?.city ?? '').trim(),
-  state: canonicalStateName(result?.state) || String(result?.state ?? '').trim(),
+  state:
+    canonicalStateName(result?.state) || String(result?.state ?? '').trim(),
 })
 
 export const isConfidentNewPlace = (result) =>
   Boolean(
     result?.city &&
-      result?.state &&
-      Number.isFinite(Number(result?.latitude)) &&
-      Number.isFinite(Number(result?.longitude)) &&
-      Number(result?.confidence) >= 0.85,
+    result?.state &&
+    Number.isFinite(Number(result?.latitude)) &&
+    Number.isFinite(Number(result?.longitude)) &&
+    Number(result?.confidence) >= 0.85,
   )
 
 export const nearestKnownPlace = (point, places) => {
-  if (typeof point?.latitude !== 'number' || typeof point?.longitude !== 'number') {
+  if (
+    typeof point?.latitude !== 'number' ||
+    typeof point?.longitude !== 'number'
+  ) {
     return null
   }
 
   const candidates = places
     .filter(
       (place) =>
-        typeof place.latitude === 'number' && typeof place.longitude === 'number',
+        typeof place.latitude === 'number' &&
+        typeof place.longitude === 'number',
     )
     .map((place) => ({
       place,
@@ -505,6 +521,28 @@ export const nearestKnownPlace = (point, places) => {
   return candidates[0] ?? null
 }
 
+const placeKey = ({ city, state }) =>
+  `${normalizeLocationText(city)}:${normalizeLocationText(state)}`
+
+const rankLocationCandidates = (text, places) => {
+  const knownKeys = new Set(places.map(placeKey))
+  const candidates = inferCityStateCandidates(text)
+  const knownPlace = inferKnownPlaceFromText(text, places)
+  const ranked = candidates.map((candidate) => ({
+    candidate,
+    isKnown: knownKeys.has(placeKey(candidate)),
+  }))
+
+  return {
+    knownPlace,
+    ranked: [
+      ...ranked.filter(({ isKnown }) => !isKnown),
+      ...(knownPlace ? [{ knownPlace }] : []),
+      ...ranked.filter(({ isKnown }) => isKnown),
+    ],
+  }
+}
+
 export const inferLocationForVideo = async ({
   title = '',
   description = '',
@@ -512,42 +550,14 @@ export const inferLocationForVideo = async ({
   geocodeCache,
 }) => {
   const text = `${title}\n${description}`
-  const placeKeys = new Set(
-    places.map(
-      (place) =>
-        `${normalizeLocationText(place.city)}:${normalizeLocationText(place.state)}`,
-    ),
-  )
-  const cityStateCandidates = inferCityStateCandidates(text)
-
-  for (const candidate of cityStateCandidates) {
-    const key = `${normalizeLocationText(candidate.city)}:${normalizeLocationText(candidate.state)}`
-    if (placeKeys.has(key)) continue
-
-    const geocoded = await geocodeCityState(
-      candidate.city,
-      candidate.state,
-      geocodeCache,
-    )
-    if (!geocoded) continue
-
-    return {
-      matchedText: candidate.matchedText,
-      city: geocoded.city || candidate.city,
-      state: geocoded.state || candidate.state,
-      latitude: geocoded.latitude,
-      longitude: geocoded.longitude,
-      source: 'description-city-geocode',
-      confidence: 0.9,
-    }
-  }
-
-  const knownPlace = inferKnownPlaceFromText(text, places)
-  if (knownPlace?.city) return knownPlace
-
+  const { knownPlace, ranked } = rankLocationCandidates(text, places)
   const addressCandidates = extractAddressCandidates(description)
 
-  for (const candidate of cityStateCandidates) {
+  for (const item of ranked) {
+    if (item.knownPlace?.city) return item.knownPlace
+    if (!item.candidate) continue
+
+    const { candidate } = item
     const geocoded = await geocodeCityState(
       candidate.city,
       candidate.state,
@@ -588,13 +598,43 @@ export const inferLocationForVideo = async ({
 
 export const testLocationUtils = async () => {
   const places = [
-    { city: 'Brooklyn', state: 'New York', latitude: 40.6782, longitude: -73.9442 },
-    { city: 'New York City', state: 'New York', latitude: 40.7128, longitude: -74.006 },
-    { city: 'The Bronx', state: 'New York', latitude: 40.8448, longitude: -73.8648 },
-    { city: 'Dearborn', state: 'Michigan', latitude: 42.3223, longitude: -83.1763 },
+    {
+      city: 'Brooklyn',
+      state: 'New York',
+      latitude: 40.6782,
+      longitude: -73.9442,
+    },
+    {
+      city: 'New York City',
+      state: 'New York',
+      latitude: 40.7128,
+      longitude: -74.006,
+    },
+    {
+      city: 'The Bronx',
+      state: 'New York',
+      latitude: 40.8448,
+      longitude: -73.8648,
+    },
+    {
+      city: 'Dearborn',
+      state: 'Michigan',
+      latitude: 42.3223,
+      longitude: -83.1763,
+    },
     { city: 'Tampa', state: 'Florida', latitude: 27.9506, longitude: -82.4572 },
-    { city: 'Chicago', state: 'Illinois', latitude: 41.8781, longitude: -87.6298 },
-    { city: 'Los Angeles', state: 'California', latitude: 34.0522, longitude: -118.2437 },
+    {
+      city: 'Chicago',
+      state: 'Illinois',
+      latitude: 41.8781,
+      longitude: -87.6298,
+    },
+    {
+      city: 'Los Angeles',
+      state: 'California',
+      latitude: 34.0522,
+      longitude: -118.2437,
+    },
   ]
   const cases = [
     ['Brooklyn - New York', 'Brooklyn', 'New York'],
@@ -701,7 +741,10 @@ export const testLocationUtils = async () => {
     places,
     geocodeCache,
   })
-  if (chicago?.city !== 'Chicago' || chicago?.source !== 'description-place-match') {
+  if (
+    chicago?.city !== 'Chicago' ||
+    chicago?.source !== 'description-place-match'
+  ) {
     throw new Error('Expected existing Chicago to match the known place')
   }
 
@@ -721,10 +764,7 @@ export const testLocationUtils = async () => {
     places,
     geocodeCache,
   })
-  if (
-    ohioAddress?.city !== 'Dublin' ||
-    ohioAddress?.state !== 'Ohio'
-  ) {
+  if (ohioAddress?.city !== 'Dublin' || ohioAddress?.state !== 'Ohio') {
     throw new Error('Expected Ohio address to map to its geocoded city/state')
   }
 }

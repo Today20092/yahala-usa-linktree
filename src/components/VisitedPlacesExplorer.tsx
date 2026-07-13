@@ -24,6 +24,7 @@ import type {
   VisitedPlace,
 } from '@/lib/site-config'
 import { cn } from '@/lib/utils'
+import { getYoutubeVideoId } from '@/lib/youtube-video-id.js'
 
 type Props = {
   places: VisitedPlace[]
@@ -93,25 +94,6 @@ const stateAbbreviations = new Map([
   ['Wisconsin', 'WI'],
   ['Wyoming', 'WY'],
 ])
-
-function getYoutubeVideoId(url: string) {
-  try {
-    const parsedUrl = new URL(url)
-
-    if (parsedUrl.hostname.includes('youtu.be')) {
-      return parsedUrl.pathname.split('/').filter(Boolean)[0]
-    }
-
-    if (parsedUrl.searchParams.has('v')) {
-      return parsedUrl.searchParams.get('v')
-    }
-
-    const embedMatch = parsedUrl.pathname.match(/\/embed\/([^/?]+)/)
-    return embedMatch?.[1] ?? null
-  } catch {
-    return null
-  }
-}
 
 function getThumbnail(url: string, thumbnail?: string) {
   if (thumbnail) return thumbnail

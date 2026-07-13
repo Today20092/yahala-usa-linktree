@@ -1,35 +1,6 @@
-export const getYoutubeVideoId = (urlOrId) => {
-  if (!urlOrId) return ''
+import { getYoutubeVideoId } from '../src/lib/youtube-video-id.js'
 
-  const value = String(urlOrId).trim()
-  if (/^[a-zA-Z0-9_-]{11}$/.test(value)) return value
-
-  try {
-    const parsedUrl = new URL(value)
-    const host = parsedUrl.hostname.replace(/^www\./, '')
-
-    if (host === 'youtu.be') {
-      return parsedUrl.pathname.split('/').filter(Boolean)[0] ?? ''
-    }
-
-    if (host.endsWith('youtube.com')) {
-      if (parsedUrl.searchParams.has('v')) {
-        return parsedUrl.searchParams.get('v') ?? ''
-      }
-
-      const parts = parsedUrl.pathname.split('/').filter(Boolean)
-      const videoPathIndex = parts.findIndex((part) =>
-        ['embed', 'shorts', 'live'].includes(part),
-      )
-
-      if (videoPathIndex >= 0) return parts[videoPathIndex + 1] ?? ''
-    }
-  } catch {
-    return ''
-  }
-
-  return ''
-}
+export { getYoutubeVideoId } from '../src/lib/youtube-video-id.js'
 
 export const youtubeWatchUrl = (videoId) =>
   `https://www.youtube.com/watch?v=${videoId}`
