@@ -130,12 +130,13 @@ export const deriveChannelCatalog = ({
   const channelTitle =
     feedChannelTitle || previous?.channelTitle || channel.name
   const previousVideoIds =
-    previous?.videoIds ??
-    [
-      previous?.latestVideoId,
-      previous?.videoId,
-      ...(previous?.videos ?? []).map((video) => video.videoId),
-    ].filter(Boolean)
+    previous?.videoIds?.length > 0
+      ? previous.videoIds
+      : [
+          previous?.latestVideoId,
+          previous?.videoId,
+          ...(previous?.videos ?? []).map((video) => video.videoId),
+        ].filter(Boolean)
   const normalizedFeedVideos = feedVideos.map((video) => ({
     ...video,
     channelId: channel.channelId,

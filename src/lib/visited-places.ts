@@ -96,8 +96,6 @@ const addVideoToMap = (
   map.set(key, videos)
 }
 
-const maxVideosPerGroup = 3
-
 const buildVisitedPlacePresentation = (
   places: VisitedPlace[],
   stateVideos: VisitedPlaces['stateVideos'] = [],
@@ -119,17 +117,14 @@ const buildVisitedPlacePresentation = (
       state: place.state,
       abbreviation: place.stateAbbreviation ?? place.state,
       places: [],
-      stateVideos: (videosByState.get(stateKey) ?? []).slice(
-        0,
-        maxVideosPerGroup,
-      ),
+      stateVideos: videosByState.get(stateKey) ?? [],
       videoCount: videosByState.get(stateKey)?.length ?? 0,
       firstIndex,
     }
 
     group.places.push({
       ...place,
-      videos: place.videos?.slice(0, maxVideosPerGroup),
+      videos: place.videos,
     })
     group.videoCount += place.videos?.length ?? 0
     groups.set(stateKey, group)

@@ -34,4 +34,13 @@ if (fallback?.videos[0].title !== 'Cached') {
   throw new Error('Expected cached catalog fallback')
 }
 
+const legacyFallback = deriveChannelCatalog({
+  channel,
+  previous: { videoIds: [], latestVideoId: 'ccccccccccc' },
+  cache: { ccccccccccc: { videoId: 'ccccccccccc', title: 'Legacy cached' } },
+})
+if (legacyFallback?.videos[0].title !== 'Legacy cached') {
+  throw new Error('Expected empty videoIds to use legacy catalog fallback')
+}
+
 console.log('YouTube channel catalog is valid.')
