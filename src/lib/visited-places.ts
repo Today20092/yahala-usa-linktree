@@ -3,6 +3,7 @@ import { parse } from 'yaml'
 import visitedVideosYaml from '../data/visited-videos.yaml?raw'
 import type { CityVideo, VisitedPlace, VisitedPlaces } from './site-config'
 import { getYoutubeVideoId, resolveYoutubeVideo } from './youtube-videos'
+import { buildVisitedPlacePresentation } from './visited-place-presentation.js'
 
 type VisitedVideoAssignment = CityVideo & {
   state?: string | null
@@ -176,9 +177,12 @@ export const resolveVisitedPlaces = (
     })
     .filter((group) => group.videos.length > 0)
 
+  const presentation = buildVisitedPlacePresentation(places, stateVideos)
+
   return {
     ...visitedPlaces,
     stateVideos,
     places,
+    ...presentation,
   }
 }

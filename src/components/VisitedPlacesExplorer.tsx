@@ -20,24 +20,14 @@ import {
 } from '@/components/ui/drawer'
 import type {
   CityVideo,
-  StateVideoGroup,
   VisitedPlace,
+  VisitedStateGroup,
 } from '@/lib/site-config'
 import { cn } from '@/lib/utils'
 import { resolveYoutubeReference } from '@/lib/youtube-video-id.js'
 
 type Props = {
-  places: VisitedPlace[]
-  stateVideos: StateVideoGroup[]
-}
-
-type StateGroup = {
-  state: string
-  abbreviation: string
-  places: VisitedPlace[]
-  stateVideos: CityVideo[]
-  videoCount: number
-  firstIndex: number
+  stateGroups: VisitedStateGroup[]
 }
 
 type VisitedStateSelectEvent = CustomEvent<{ state?: string; city?: string }>
@@ -116,39 +106,10 @@ function VideoLink({
   )
 }
 
-export default function VisitedPlacesExplorer({ places, stateVideos }: Props) {
+export default function VisitedPlacesExplorer({ stateGroups }: Props) {
   const [selectedState, setSelectedState] = React.useState<string | null>(null)
   const [selectedCity, setSelectedCity] = React.useState<string | null>(null)
   const [accordionValue, setAccordionValue] = React.useState<string[]>([])
-  const stateGroups = React.useMemo<StateGroup[]>(() => {
-    const groups = new Map<string, StateGroup>()
-    const stateVideosByState = new Map(
-      stateVideos.map((group) => [
-        group.state.trim().toLowerCase(),
-        group.videos ?? [],
-      ]),
-    )
-
-    places.forEach((place, index) => {
-      const stateKey = place.state.trim().toLowerCase()
-      const group = groups.get(place.state) ?? {
-        state: place.state,
-        abbreviation: place.stateAbbreviation ?? place.state,
-        places: [],
-        stateVideos: stateVideosByState.get(stateKey) ?? [],
-        videoCount: stateVideosByState.get(stateKey)?.length ?? 0,
-        firstIndex: index,
-      }
-
-      group.places.push(place)
-      group.videoCount += place.videos?.length ?? 0
-      groups.set(place.state, group)
-    })
-
-    return [...groups.values()].sort(
-      (a, b) => b.videoCount - a.videoCount || a.firstIndex - b.firstIndex,
-    )
-  }, [places, stateVideos])
   const selectedStateGroup =
     stateGroups.find((group) => group.state === selectedState) ?? null
   const selectedPlace =

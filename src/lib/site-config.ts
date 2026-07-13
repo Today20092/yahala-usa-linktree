@@ -75,6 +75,7 @@ export type CityVideo = {
 }
 
 export type VisitedPlace = {
+  id?: string
   city: string
   state: string
   label?: string
@@ -94,12 +95,34 @@ export type StateVideoGroup = {
   videos: CityVideo[]
 }
 
+export type VisitedStateGroup = {
+  id: string
+  state: string
+  label: string
+  abbreviation: string
+  places: VisitedPlace[]
+  stateVideos: CityVideo[]
+  videoCount: number
+  firstIndex: number
+}
+
+export type VisitedMapPlace = {
+  id: string
+  city: string
+  state: string
+  label: string
+  latitude: number
+  longitude: number
+}
+
 export type VisitedPlaces = {
   title: string
   eyebrow?: string
   description?: string
   stateVideos?: StateVideoGroup[]
   places: VisitedPlace[]
+  stateGroups?: VisitedStateGroup[]
+  mapPlaces?: VisitedMapPlace[]
 }
 
 export type SiteConfig = {

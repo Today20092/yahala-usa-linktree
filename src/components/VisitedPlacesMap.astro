@@ -9,31 +9,8 @@ type Props = {
 
 const { visitedPlaces } = Astro.props
 const places = visitedPlaces.places ?? []
-const stateVideos = visitedPlaces.stateVideos ?? []
-const maxExplorerVideosPerGroup = 3
-function toExplorerVideo(video: NonNullable<(typeof places)[number]['videos']>[number]) {
-  return {
-    videoId: video.videoId,
-    title: video.title,
-    url: video.url,
-    thumbnail: video.thumbnail,
-  }
-}
-const explorerPlaces = places.map((place) => ({
-  city: place.city,
-  state: place.state,
-  latitude: place.latitude,
-  longitude: place.longitude,
-  x: place.x,
-  y: place.y,
-  videos: place.videos
-    ?.slice(0, maxExplorerVideosPerGroup)
-    .map(toExplorerVideo),
-}))
-const explorerStateVideos = stateVideos.map((group) => ({
-  state: group.state,
-  videos: group.videos.slice(0, maxExplorerVideosPerGroup).map(toExplorerVideo),
-}))
+const stateGroups = visitedPlaces.stateGroups ?? []
+const mapPlaces = visitedPlaces.mapPlaces ?? []
 ---
 
 {
@@ -43,10 +20,7 @@ const explorerStateVideos = stateVideos.map((group) => ({
       aria-labelledby="visited-places-title"
     >
       <div class="ui-section-header">
-        <h2
-          id="visited-places-title"
-          class="ui-section-title"
-        >
+        <h2 id="visited-places-title" class="ui-section-title">
           {visitedPlaces.title}
         </h2>
         {visitedPlaces.description && (
@@ -57,13 +31,9 @@ const explorerStateVideos = stateVideos.map((group) => ({
       </div>
 
       <div class="ui-surface-card overflow-hidden p-2.5 sm:p-3">
-        <VisitedPlacesLeafletMap client:load places={explorerPlaces} />
+        <VisitedPlacesLeafletMap client:load places={mapPlaces} />
 
-        <VisitedPlacesExplorer
-          client:load
-          places={explorerPlaces}
-          stateVideos={explorerStateVideos}
-        />
+        <VisitedPlacesExplorer client:load stateGroups={stateGroups} />
       </div>
     </section>
   )

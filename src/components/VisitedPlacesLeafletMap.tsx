@@ -2,10 +2,10 @@ import * as React from 'react'
 import 'leaflet/dist/leaflet.css'
 import './VisitedPlacesLeafletMap.css'
 
-import type { VisitedPlace } from '@/lib/site-config'
+import type { VisitedMapPlace } from '@/lib/site-config'
 
 type Props = {
-  places: VisitedPlace[]
+  places: VisitedMapPlace[]
 }
 
 const mapContainerClass =
@@ -13,76 +13,9 @@ const mapContainerClass =
 
 const mapBoundsPadding: [number, number] = [32, 32]
 
-const stateAbbreviations = new Map([
-  ['Alabama', 'AL'],
-  ['Alaska', 'AK'],
-  ['Arizona', 'AZ'],
-  ['Arkansas', 'AR'],
-  ['California', 'CA'],
-  ['Colorado', 'CO'],
-  ['Connecticut', 'CT'],
-  ['Delaware', 'DE'],
-  ['Florida', 'FL'],
-  ['Georgia', 'GA'],
-  ['Hawaii', 'HI'],
-  ['Idaho', 'ID'],
-  ['Illinois', 'IL'],
-  ['Indiana', 'IN'],
-  ['Iowa', 'IA'],
-  ['Kansas', 'KS'],
-  ['Kentucky', 'KY'],
-  ['Louisiana', 'LA'],
-  ['Maine', 'ME'],
-  ['Maryland', 'MD'],
-  ['Massachusetts', 'MA'],
-  ['Michigan', 'MI'],
-  ['Minnesota', 'MN'],
-  ['Mississippi', 'MS'],
-  ['Missouri', 'MO'],
-  ['Montana', 'MT'],
-  ['Nebraska', 'NE'],
-  ['Nevada', 'NV'],
-  ['New Hampshire', 'NH'],
-  ['New Jersey', 'NJ'],
-  ['New Mexico', 'NM'],
-  ['New York', 'NY'],
-  ['North Carolina', 'NC'],
-  ['North Dakota', 'ND'],
-  ['Ohio', 'OH'],
-  ['Oklahoma', 'OK'],
-  ['Oregon', 'OR'],
-  ['Pennsylvania', 'PA'],
-  ['Rhode Island', 'RI'],
-  ['South Carolina', 'SC'],
-  ['South Dakota', 'SD'],
-  ['Tennessee', 'TN'],
-  ['Texas', 'TX'],
-  ['Utah', 'UT'],
-  ['Vermont', 'VT'],
-  ['Virginia', 'VA'],
-  ['Washington', 'WA'],
-  ['West Virginia', 'WV'],
-  ['Wisconsin', 'WI'],
-  ['Wyoming', 'WY'],
-])
-
-const formatPlace = (city: string, state: string) =>
-  `${city}, ${stateAbbreviations.get(state) ?? state}`
-
 export default function VisitedPlacesLeafletMap({ places }: Props) {
   const mapRef = React.useRef<HTMLDivElement | null>(null)
   const mapInstanceRef = React.useRef<import('leaflet').Map | null>(null)
-
-  const mapPlaces = React.useMemo(
-    () =>
-      places.filter(
-        (place) =>
-          (place.videos?.length ?? 0) > 0 &&
-          typeof place.latitude === 'number' &&
-          typeof place.longitude === 'number',
-      ),
-    [places],
-  )
 
   React.useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current) return
@@ -95,11 +28,11 @@ export default function VisitedPlacesLeafletMap({ places }: Props) {
       if (!isMounted || !mapRef.current || mapInstanceRef.current) return
 
       const map = L.map(mapRef.current, {
-      zoomControl: false,
-      scrollWheelZoom: true,
-      dragging: true,
-      tap: true,
-      preferCanvas: true,
+        zoomControl: false,
+        scrollWheelZoom: true,
+        dragging: true,
+        tap: true,
+        preferCanvas: true,
       })
 
       mapInstanceRef.current = map
@@ -129,15 +62,8 @@ export default function VisitedPlacesLeafletMap({ places }: Props) {
 
       const markerGroup = L.featureGroup()
 
-      mapPlaces.forEach((place) => {
-        if (
-          typeof place.latitude !== 'number' ||
-          typeof place.longitude !== 'number'
-        ) {
-          return
-        }
-
-        const label = formatPlace(place.city, place.state)
+      places.forEach((place) => {
+        const label = place.label
         const marker = L.marker([place.latitude, place.longitude], {
           icon: markerIcon,
           keyboard: true,
@@ -200,7 +126,7 @@ export default function VisitedPlacesLeafletMap({ places }: Props) {
       isMounted = false
       cleanup?.()
     }
-  }, [mapPlaces])
+  }, [places])
 
   return <div ref={mapRef} className={mapContainerClass} aria-label="Map" />
 }
