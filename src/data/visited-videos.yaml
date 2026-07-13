@@ -2,6 +2,9 @@
 # State-only videos appear in every visited city for that state.
 # City videos appear only in the matching city drawer.
 videos:
+  - videoId: r0DeNDBfx_I
+    state: ""
+    city: ""
   - videoId: 9tbGsk7PB_I
     state: ""
     city: ""
@@ -864,8 +867,8 @@ videos:
     state: "New Jersey"
     city: "Paterson"
   - videoId: npCDab9zjcU
-    state: ""
-    city: ""
+    state: "Indiana"
+    city: "Indianapolis"
   - videoId: ru57j4FUcpM
     state: "Georgia"
     city: "Alpharetta"
