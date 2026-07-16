@@ -5,7 +5,7 @@ import path from 'node:path'
 import { spawn } from 'node:child_process'
 
 const script = path.resolve('scripts/smoke-preview.mjs')
-const html = `<!doctype html><link rel="stylesheet" href="/_astro/site.css"><script type="module" src="/_astro/site.js"></script><aside data-reach-card></aside><button id="qr-open">QR</button><div aria-label="Map"></div><p>Choose a state to watch stories</p><a>Latest From Ya Hala</a>`
+const html = `<!doctype html><link rel="stylesheet" href="./_astro/site.css"><script type="module" src="/_astro/site.js"></script><aside data-reach-card></aside><button id="qr-open">QR</button><div aria-label="Map"></div><p>Choose a state to watch stories</p><a>Latest From Ya Hala</a>`
 
 const run = (target) =>
   new Promise((resolve) => {

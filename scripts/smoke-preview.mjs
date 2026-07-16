@@ -8,13 +8,19 @@ if (!target) {
   process.exit(1)
 }
 
-const assetPaths = (html) => [
-  ...new Set(
-    [...html.matchAll(/\/[^\s"'`<>]+?\.(?:css|js)(?:\?[^\s"'`<>]*)?/g)].map(
-      ([asset]) => asset,
-    ),
-  ),
-]
+const assetPaths = (html) =>
+  [
+    ...new Set([
+      ...[
+        ...html.matchAll(
+          /\b(?:src|href)=["']([^"']+?\.(?:css|js)(?:[?#][^"']*)?)["']/gi,
+        ),
+      ].map(([, asset]) => asset),
+      ...[
+        ...html.matchAll(/\/[^\s"'`<>]+?\.(?:css|js)(?:\?[^\s"'`<>]*)?/g),
+      ].map(([asset]) => asset),
+    ]),
+  ].filter((asset) => !/^(?:https?:)?\/\//.test(asset))
 
 const journeyMarkers = [
   ['reach section', 'data-reach-card'],
