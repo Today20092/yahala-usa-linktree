@@ -32,6 +32,9 @@ jobs:
       - name: Build site
         run: npm run build
 
+      - name: Verify production assets
+        run: npm run smoke:preview -- dist
+
       - name: Deploy to Cloudflare
         uses: cloudflare/wrangler-action@v4
         with:

@@ -1,0 +1,28 @@
+name: Preview smoke
+
+on:
+  workflow_dispatch:
+    inputs:
+      preview_url:
+        description: Cloudflare preview URL to verify after propagation
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run smoke:preview -- dist
+      - run: npm run smoke:preview -- "$PREVIEW_URL"
+        env:
+          PREVIEW_URL: ${{ inputs.preview_url }}

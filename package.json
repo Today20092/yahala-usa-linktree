@@ -13,6 +13,8 @@
     "test:youtube-id": "node scripts/test-youtube-video-id.mjs",
     "test:youtube-catalog": "node scripts/test-youtube-channel-catalog.mjs",
     "test:video-search": "node scripts/test-video-search.mjs",
+    "test:preview-smoke": "node scripts/test-preview-smoke.mjs",
+    "smoke:preview": "node scripts/smoke-preview.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
