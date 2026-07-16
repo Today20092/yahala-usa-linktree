@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Newsreader:opsz,wght@6..72,400;6..72,700&family=Plus+Jakarta+Sans:wght@400;600;700&family=Tomorrow:wght@400;600&display=swap');
+
+:root {
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.25rem;
+  --text-lg: 1.5625rem;
+  --text-xl: 1.953rem;
+  --text-2xl: 2.441rem;
+  --text-3xl: 3.052rem;
+  --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+
+  --rule-hair: 1px;
+  --rule-heavy: 3px;
+  --radius-input: 0.5rem;
+  --radius-card: 0.75rem;
+  --radius-pill: 999px;
+  --z-sticky: 200;
+}
+
+html[data-design='field'] {
+  --font-display: 'Newsreader', ui-serif, serif;
+  --font-body: 'Geist Variable', ui-sans-serif, sans-serif;
+  --font-label: 'JetBrains Mono', ui-monospace, monospace;
+  --color-paper: oklch(96% 0.016 82);
+  --color-paper-2: oklch(92% 0.019 82);
+  --color-paper-3: oklch(88% 0.02 82);
+  --color-ink: oklch(19% 0.014 58);
+  --color-ink-2: oklch(39% 0.016 58);
+  --color-rule: oklch(72% 0.018 72);
+  --color-accent: oklch(43% 0.15 35);
+  --color-accent-2: oklch(42% 0.07 155);
+  --color-accent-3: oklch(63% 0.12 72);
+  --color-accent-ink: oklch(97% 0.01 82);
+  --color-focus: oklch(43% 0.15 35);
+  --color-shadow: oklch(20% 0.014 58);
+  --color-scrim: oklch(15% 0.015 58);
+  --radius-card: 0.125rem;
+  color-scheme: light;
+}
+
+html[data-design='night'] {
+  --font-display: 'Tomorrow', 'Geist Variable', ui-sans-serif, sans-serif;
+  --font-body: 'Geist Variable', ui-sans-serif, sans-serif;
+  --font-label: 'JetBrains Mono', ui-monospace, monospace;
+  --color-paper: oklch(14% 0.018 258);
+  --color-paper-2: oklch(19% 0.022 258);
+  --color-paper-3: oklch(24% 0.026 258);
+  --color-ink: oklch(94% 0.012 72);
+  --color-ink-2: oklch(72% 0.014 72);
+  --color-rule: oklch(34% 0.025 258);
+  --color-accent: oklch(72% 0.17 55);
+  --color-accent-2: oklch(66% 0.13 18);
+  --color-accent-3: oklch(62% 0.12 325);
+  --color-accent-ink: oklch(16% 0.02 258);
+  --color-focus: oklch(78% 0.17 55);
+  --color-shadow: oklch(7% 0.012 258);
+  --color-scrim: oklch(8% 0.018 258);
+  --radius-card: 0.875rem;
+  color-scheme: dark;
+}
+
+html[data-design='atlas'] {
+  --font-display: 'Plus Jakarta Sans', 'Geist Variable', ui-sans-serif, sans-serif;
+  --font-body: 'Plus Jakarta Sans', 'Geist Variable', ui-sans-serif, sans-serif;
+  --font-label: 'JetBrains Mono', ui-monospace, monospace;
+  --color-paper: oklch(98% 0.006 283);
+  --color-paper-2: oklch(96% 0.012 283);
+  --color-paper-3: oklch(92% 0.018 283);
+  --color-ink: oklch(30.7% 0.095 283.4);
+  --color-ink-2: oklch(44% 0.055 283);
+  --color-rule: oklch(78% 0.022 283);
+  --color-accent: oklch(56.4% 0.2 19.2);
+  --color-accent-2: oklch(30.7% 0.095 283.4);
+  --color-accent-3: oklch(56.4% 0.2 19.2);
+  --color-accent-ink: oklch(98% 0.006 283);
+  --color-focus: oklch(56.4% 0.2 19.2);
+  --color-shadow: oklch(30.7% 0.095 283.4);
+  --color-scrim: oklch(24% 0.07 283);
+  --radius-card: 1rem;
+  --radius-input: 0.75rem;
+  color-scheme: light;
+}
+
+html[data-design] {
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
+  --card: var(--color-paper-2);
+  --card-foreground: var(--color-ink);
+  --popover: var(--color-paper-2);
+  --popover-foreground: var(--color-ink);
+  --primary: var(--color-accent);
+  --primary-foreground: var(--color-accent-ink);
+  --secondary: var(--color-paper-3);
+  --secondary-foreground: var(--color-ink);
+  --muted: var(--color-paper-2);
+  --muted-foreground: var(--color-ink-2);
+  --accent: var(--color-paper-3);
+  --accent-foreground: var(--color-ink);
+  --border: var(--color-rule);
+  --input: var(--color-rule);
+  --ring: var(--color-focus);
+}

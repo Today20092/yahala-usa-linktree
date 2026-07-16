@@ -29,7 +29,7 @@ const mapPlaces = visitedPlaces.mapPlaces ?? []
         )}
       </div>
 
-      <div class="ui-surface-card overflow-hidden p-2.5 sm:p-3">
+      <div class="visited-places-frame overflow-hidden p-2.5 sm:p-3">
         <VisitedPlacesLeafletMap client:load places={mapPlaces} />
 
         <VisitedPlacesExplorer client:load stateGroups={stateGroups} />

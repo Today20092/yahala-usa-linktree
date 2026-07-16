@@ -61,7 +61,7 @@ const videoId = getYoutubeVideoId(video.url)
 const thumbnailFallback = videoId ? youtubeThumbnailFallbackUrl(videoId) : ''
 ---
 
-<div class="mx-auto w-full max-w-xl px-4 sm:px-6 lg:max-w-none lg:px-0">
+<div class="latest-channel-video mx-auto w-full max-w-xl px-4 sm:px-6 lg:max-w-none lg:px-0">
   <a
     href={video.url}
     target="_blank"
@@ -69,7 +69,7 @@ const thumbnailFallback = videoId ? youtubeThumbnailFallbackUrl(videoId) : ''
     style={`--channel-accent: ${channelAccentColor}; --channel-accent-dark: ${channelDarkAccentColor}; --channel-card-bg: ${channelCardBackground}; --channel-card-bg-dark: ${channelDarkCardBackground}; --channel-card-tint: ${channelCardTint}; --channel-card-tint-dark: ${channelDarkCardTint}; --channel-logo-bg: ${channelLogoBackgroundColor}; --channel-logo-bg-dark: ${
       channelDarkLogoBackgroundColor ?? channelLogoBackgroundColor
     };`}
-    class="group text-foreground focus-visible:ring-offset-background elevation-3 hover:elevation-4 block w-full overflow-hidden rounded-xl bg-[linear-gradient(180deg,var(--channel-active-tint),var(--channel-active-bg)_42%)] text-left ring-1 ring-[color-mix(in_srgb,var(--channel-active-accent)_22%,transparent)] transition-all duration-300 ease-out [--channel-active-accent:var(--channel-accent)] [--channel-active-bg:var(--channel-card-bg)] [--channel-active-logo-bg:var(--channel-logo-bg)] [--channel-active-tint:var(--channel-card-tint)] hover:-translate-y-1 hover:scale-[1.02] hover:ring-[color-mix(in_srgb,var(--channel-active-accent)_36%,transparent)] focus-visible:ring-2 focus-visible:ring-[var(--channel-active-accent)] focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0 active:scale-[0.98] dark:[--channel-active-accent:var(--channel-accent-dark)] dark:[--channel-active-bg:var(--channel-card-bg-dark)] dark:[--channel-active-logo-bg:var(--channel-logo-bg-dark)] dark:[--channel-active-tint:var(--channel-card-tint-dark)]"
+    class="latest-channel-video__link group text-foreground focus-visible:ring-offset-background elevation-3 hover:elevation-4 block w-full overflow-hidden rounded-xl bg-[linear-gradient(180deg,var(--channel-active-tint),var(--channel-active-bg)_42%)] text-left ring-1 ring-[color-mix(in_srgb,var(--channel-active-accent)_22%,transparent)] transition-[transform,box-shadow] duration-300 ease-out [--channel-active-accent:var(--channel-accent)] [--channel-active-bg:var(--channel-card-bg)] [--channel-active-logo-bg:var(--channel-logo-bg)] [--channel-active-tint:var(--channel-card-tint)] hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-[var(--channel-active-accent)] focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0 dark:[--channel-active-accent:var(--channel-accent-dark)] dark:[--channel-active-bg:var(--channel-card-bg-dark)] dark:[--channel-active-logo-bg:var(--channel-logo-bg-dark)] dark:[--channel-active-tint:var(--channel-card-tint-dark)]"
   >
     <span class="bg-muted relative block aspect-video w-full overflow-hidden">
       <img
@@ -84,7 +84,7 @@ const thumbnailFallback = videoId ? youtubeThumbnailFallbackUrl(videoId) : ''
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
       <span
-        class="bg-scrim/15 group-hover:bg-scrim/25 group-focus-visible:bg-scrim/25 absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
+        class="bg-scrim/15 group-hover:bg-scrim/25 group-focus-visible:bg-scrim/25 absolute inset-0 flex items-center justify-center opacity-0 transition-[opacity,background-color] duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
         aria-hidden="true"
       >
         <IconBadge
@@ -105,7 +105,7 @@ const thumbnailFallback = videoId ? youtubeThumbnailFallbackUrl(videoId) : ''
       </span>
     </span>
 
-    <span class="block px-5 py-5 sm:px-6 sm:py-6">
+    <span class="latest-channel-video__details block px-5 py-5 sm:px-6 sm:py-6">
       <span class="mb-5 flex min-w-0 items-center gap-3">
         <span
           class:list={[
@@ -151,7 +151,7 @@ const thumbnailFallback = videoId ? youtubeThumbnailFallbackUrl(videoId) : ''
       </span>
 
       <span
-        class="text-primary-foreground mb-5 inline-flex items-center gap-2 rounded-full bg-[var(--channel-active-accent)] px-4 py-2 text-sm font-semibold whitespace-nowrap shadow-sm transition-all duration-200 group-hover:translate-x-0.5 group-hover:shadow-md"
+        class="text-primary-foreground mb-5 inline-flex items-center gap-2 rounded-full bg-[var(--channel-active-accent)] px-4 py-2 text-sm font-semibold whitespace-nowrap shadow-sm transition-transform duration-200 group-hover:translate-x-0.5"
       >
         Latest episode
         <Icon

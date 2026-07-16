@@ -99,22 +99,22 @@ const episodes = topVideoIds
       <div class="ui-section-header">
         <h2
           id="featured-episodes-title"
-          class="ui-section-title"
+          class="ui-section-title featured-episodes-title"
         >
           Most Viewed Episodes
         </h2>
       </div>
 
-      <div class="grid gap-4">
+      <ol class="border-border divide-border grid divide-y border-y">
         {episodes.map((episode) => (
-          <article class="ui-surface-card hover:elevation-4 overflow-hidden text-left transition-shadow duration-200">
+          <li>
             <a
               href={episode.href}
               target="_blank"
               rel="noopener noreferrer"
-              class="group focus-visible:ring-ring/30 focus-visible:ring-offset-background flex items-center gap-4 px-3 py-3 transition-transform duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:gap-5 sm:px-4 sm:py-4"
+              class="group hover:bg-card/60 focus-visible:ring-ring/30 focus-visible:ring-offset-background grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-4 py-5 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-5"
             >
-              <span class="bg-muted relative aspect-video w-36 shrink-0 overflow-hidden rounded-md shadow-sm ring-1 ring-black/5 sm:w-48">
+              <span class="bg-muted relative aspect-video w-full overflow-hidden rounded-lg">
                 <img
                   src={episode.thumbnail}
                   alt={episode.title}
@@ -140,14 +140,11 @@ const episodes = topVideoIds
                 </span>
               </span>
 
-              <span class="min-w-0 py-0.5">
-                <span class="ui-kicker-accent tracking-[0.08em]">
-                  Popular episode
-                </span>
+              <span class="min-w-0">
                 <h3
                   lang="ar"
                   dir="rtl"
-                  class="ui-card-title mt-2 line-clamp-2 sm:text-xl"
+                  class="ui-card-title line-clamp-2 sm:text-xl"
                 >
                   {episode.title}
                 </h3>
@@ -171,9 +168,9 @@ const episodes = topVideoIds
                 </span>
               </span>
             </a>
-          </article>
+          </li>
         ))}
-      </div>
+      </ol>
     </section>
   )
 }

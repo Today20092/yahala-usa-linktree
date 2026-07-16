@@ -41,10 +41,10 @@ const topics = [
     </h2>
   </div>
 
-  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <div class="divide-border grid grid-cols-1 divide-y sm:grid-cols-2 sm:divide-y-0">
     {
       topics.map((topic) => (
-        <article class="ui-surface-card ui-compact-card">
+        <article class="py-5 sm:px-5">
           <div class="flex items-start gap-3">
             <IconBadge tone="soft" shape="square" size="lg" aria-hidden="true">
               <Icon name={topic.icon} class="size-5" />

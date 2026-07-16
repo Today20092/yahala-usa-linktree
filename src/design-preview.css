@@ -1,0 +1,758 @@
+/* Hallmark · macrostructure: Ecosystem Index · tone: energetic editorial · anchor hue: brand red
+ * theme: custom (vibe: cardless Arab-American story atlas · paper oklch(98% 0.006 283) · accent oklch(56.4% 0.2 19.2) red · Plus Jakarta Sans)
+ * nav: N7 · footer: Ft8 · enrichment: real photography + interactive map
+ * pre-emit critique: P5 H5 E5 S5 R5 V4 · contrast: pass (40–41)
+ * slop: pass (42–45) · honest/chrome/tokens/icons: pass (30, 46–48)
+ * responsive/mobile: pass (34, 49–57)
+ */
+@import '../tokens.css';
+
+html[data-design],
+html[data-design] body {
+  overflow-x: clip;
+}
+
+html[data-design] body {
+  min-width: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+html[data-design] :is(h1, h2, h3, .ui-page-title, .ui-section-title) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-family: var(--font-display);
+  font-style: normal;
+}
+
+html[data-design] :is(a, button) {
+  white-space: nowrap;
+}
+
+html[data-design] :is(a, button):focus-visible {
+  outline: var(--rule-heavy) solid var(--color-focus);
+  outline-offset: var(--space-2xs);
+}
+
+html[data-design] * {
+  transition-property: color, background-color, border-color, opacity, transform,
+    box-shadow;
+}
+
+.design-switcher {
+  position: fixed;
+  inset: var(--space-sm) var(--space-sm) auto 50%;
+  z-index: var(--z-sticky);
+  display: flex;
+  width: min(calc(100% - var(--space-lg)), 44rem);
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-xs);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-pill);
+  background: color-mix(in oklch, var(--color-paper) 92%, transparent);
+  color: var(--color-ink);
+  transform: translateX(-50%);
+  box-shadow: 0 var(--space-xs) var(--space-xl)
+    color-mix(in oklch, var(--color-shadow) 14%, transparent);
+  backdrop-filter: blur(var(--space-sm)) saturate(120%);
+}
+
+.design-switcher__label {
+  display: none;
+  margin: 0 0 0 var(--space-xs);
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.design-switcher__options {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2xs);
+}
+
+.design-switcher button {
+  min-height: 2.75rem;
+  min-width: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-ink-2);
+  cursor: pointer;
+  font: 600 var(--text-xs) / 1 var(--font-body);
+  transition:
+    color var(--dur-short) var(--ease-out),
+    background-color var(--dur-short) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
+}
+
+.design-switcher button[aria-pressed='true'] {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+.design-switcher button:active {
+  transform: translateY(var(--rule-hair));
+}
+
+.design-switcher button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.design-label-short {
+  display: none;
+}
+
+html[data-design] .linktree-page {
+  padding-block-start: var(--space-3xl);
+  background: var(--color-paper);
+}
+
+html[data-design] .linktree-shell {
+  overflow: visible;
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+html[data-design] :is(.ui-body, .ui-meta) {
+  color: var(--color-ink-2);
+}
+
+html[data-design] :is(.ui-surface-card, .collaboration-cta) {
+  color: var(--color-ink);
+}
+
+/* Field Notes · Long Document · N6 masthead · Ft6 letter close */
+html[data-design='field'] .linktree-page {
+  background: var(--color-paper-2);
+}
+
+html[data-design='field'] .linktree-shell {
+  max-width: 74rem;
+  padding: var(--space-lg) clamp(var(--space-md), 4vw, var(--space-2xl))
+    var(--space-2xl);
+}
+
+html[data-design='field'] .desktop-hero-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  border-block: var(--rule-heavy) double var(--color-ink);
+  padding-block: var(--space-lg) var(--space-2xl);
+}
+
+html[data-design='field'] .desktop-hero-layout::before {
+  content: 'YA HALA · FIELD NOTES · UNITED STATES';
+  order: -2;
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
+html[data-design='field'] .desktop-intro-panel {
+  display: contents;
+}
+
+html[data-design='field'] .desktop-intro-panel > section {
+  order: -1;
+  max-width: 65ch;
+  margin: 0 auto;
+  padding: 0;
+  text-align: start;
+}
+
+html[data-design='field'] #intro-title {
+  max-width: 13ch;
+  margin: 0;
+  font-size: clamp(3rem, 8vw, 6.75rem);
+  font-weight: 400;
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+}
+
+html[data-design='field'] .desktop-intro-panel > section > p {
+  max-width: 58ch;
+  margin-block-start: var(--space-lg);
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  line-height: 1.62;
+}
+
+html[data-design='field'] .desktop-intro-panel > section > div {
+  justify-content: flex-start;
+}
+
+html[data-design='field'] .desktop-intro-panel > section > div a,
+html[data-design='field'] .collaboration-cta a {
+  min-height: 2.75rem;
+  padding-inline: 0;
+  border: 0;
+  border-bottom: var(--rule-hair) solid currentColor;
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-accent);
+  box-shadow: none;
+}
+
+html[data-design='field'] .linktree-hero {
+  width: min(100%, 54rem);
+  min-height: clamp(18rem, 52vw, 32rem);
+  margin: 0 auto;
+  border-radius: 0;
+  background: var(--color-paper-3);
+}
+
+html[data-design='field'] .linktree-hero__fade {
+  background: linear-gradient(
+    to top,
+    color-mix(in oklch, var(--color-scrim) 36%, transparent),
+    transparent 45%
+  );
+}
+
+html[data-design='field'] .desktop-intro-panel > nav {
+  display: grid;
+  width: min(100%, 65ch);
+  margin: 0 auto;
+  padding: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  border-block: var(--rule-hair) solid var(--color-rule);
+}
+
+html[data-design='field'] .brand-social-link {
+  min-height: 3.75rem;
+  border: 0;
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-ink);
+  box-shadow: none;
+}
+
+html[data-design='field'] .qr-desktop-panel {
+  display: none;
+}
+
+html[data-design='field'] :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid) {
+  display: block;
+  max-width: 65ch;
+  margin-inline: auto;
+}
+
+html[data-design='field'] .linktree-shell > :is(section, div):not(.desktop-hero-layout) {
+  max-width: 65ch;
+  margin-inline: auto;
+}
+
+html[data-design='field'] :is(.ui-surface-card, .collaboration-cta) {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+html[data-design='field'] .ui-section-header {
+  text-align: start;
+}
+
+html[data-design='field'] .ui-section-title {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  line-height: 1.12;
+}
+
+html[data-design='field'] footer {
+  max-width: 65ch;
+  margin-inline: auto;
+  border-top: var(--rule-hair) solid var(--color-rule);
+  text-align: start;
+}
+
+html[data-design='field'] footer::before {
+  content: 'Yours, Ya Hala.';
+  display: block;
+  margin-block-end: var(--space-lg);
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+}
+
+/* Night Broadcast · Marquee Hero · N5 floating pill · Ft5 statement */
+html[data-design='night'] .linktree-page {
+  padding: 0;
+  background:
+    radial-gradient(
+      circle at 14% 22%,
+      color-mix(in oklch, var(--color-accent) 22%, transparent),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 86% 70%,
+      color-mix(in oklch, var(--color-accent-2) 18%, transparent),
+      transparent 24%
+    ),
+    var(--color-paper);
+}
+
+html[data-design='night'] .design-switcher {
+  border-color: var(--color-rule);
+  background: color-mix(in oklch, var(--color-paper-2) 88%, transparent);
+}
+
+html[data-design='night'] .linktree-shell {
+  max-width: 100%;
+  background: transparent;
+}
+
+html[data-design='night'] .desktop-hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 92dvh;
+  grid-template-areas: 'hero';
+  padding: var(--space-md);
+  border-bottom: var(--rule-heavy) solid var(--color-accent);
+}
+
+html[data-design='night'] .linktree-hero,
+html[data-design='night'] .desktop-intro-panel {
+  grid-area: hero;
+}
+
+html[data-design='night'] .linktree-hero {
+  min-height: calc(92dvh - var(--space-xl));
+  border-radius: var(--radius-card);
+  background: var(--color-paper-2);
+}
+
+html[data-design='night'] .linktree-hero__image {
+  filter: saturate(0.78) contrast(1.06);
+}
+
+html[data-design='night'] .linktree-hero__fade {
+  background: linear-gradient(
+    to top,
+    var(--color-scrim),
+    color-mix(in oklch, var(--color-scrim) 42%, transparent) 54%,
+    transparent 78%
+  );
+}
+
+html[data-design='night'] .desktop-intro-panel {
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+  padding: clamp(var(--space-xl), 7vw, var(--space-3xl));
+  pointer-events: none;
+}
+
+html[data-design='night'] .desktop-intro-panel > section {
+  max-width: 74rem;
+  margin: 0;
+  padding: 0;
+  text-align: start;
+}
+
+html[data-design='night'] #intro-title {
+  max-width: 11ch;
+  margin: 0;
+  color: var(--color-ink);
+  font-size: clamp(3.25rem, 7.4vw, 7rem);
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+}
+
+html[data-design='night'] .desktop-intro-panel > :is(nav, .qr-desktop-panel),
+html[data-design='night'] .desktop-intro-panel > section > :is(p, div) {
+  display: none;
+}
+
+html[data-design='night'] :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid) {
+  display: grid;
+  width: min(calc(100% - var(--space-xl)), 82rem);
+  margin-inline: auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+
+html[data-design='night'] .linktree-shell > :is(section, div):not(.desktop-hero-layout) {
+  width: min(calc(100% - var(--space-xl)), 82rem);
+  max-width: 82rem;
+  margin-inline: auto;
+}
+
+html[data-design='night'] :is(.ui-surface-card, .collaboration-cta) {
+  border-color: var(--color-rule);
+  background: var(--color-paper-2);
+  box-shadow: none;
+}
+
+html[data-design='night'] .ui-section-header {
+  text-align: start;
+}
+
+html[data-design='night'] .ui-section-title {
+  color: var(--color-ink);
+  font-size: var(--text-2xl);
+}
+
+html[data-design='night'] footer {
+  width: min(calc(100% - var(--space-xl)), 82rem);
+  margin-inline: auto;
+  text-align: start;
+}
+
+html[data-design='night'] footer::before {
+  content: 'The next American story is already happening.';
+  display: block;
+  max-width: 24ch;
+  margin-block-end: var(--space-xl);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 5rem);
+  font-weight: 600;
+  line-height: 0.98;
+}
+
+/* Story Atlas · Ecosystem Index · N7 slab · Ft8 marquee */
+html[data-design='atlas'] .linktree-page {
+  padding-block-start: clamp(var(--space-lg), 5vw, var(--space-2xl));
+}
+
+html[data-design='atlas'] .design-switcher {
+  inset-inline: 0;
+  top: 0;
+  width: 100%;
+  max-width: none;
+  padding: var(--space-sm) clamp(var(--space-md), 4vw, var(--space-2xl));
+  border-width: 0 0 var(--rule-heavy);
+  border-radius: 0;
+  background: var(--color-paper-2);
+  transform: none;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+html[data-design='atlas'] .design-switcher__label {
+  display: block;
+}
+
+html[data-design='atlas'] .design-switcher__options {
+  width: min(100%, 30rem);
+}
+
+html[data-design='atlas'] .design-switcher button[aria-pressed='true'] {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+html[data-design='atlas'] .linktree-shell {
+  max-width: 92rem;
+  padding-inline: clamp(var(--space-md), 4vw, var(--space-2xl));
+}
+
+html[data-design='atlas'] .desktop-hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: var(--space-lg);
+  align-items: stretch;
+}
+
+html[data-design='atlas'] .linktree-hero {
+  grid-column: 2;
+  min-height: 35rem;
+  border-radius: 0;
+  background: transparent;
+}
+
+html[data-design='atlas'] .linktree-hero__fade {
+  display: none;
+}
+
+html[data-design='atlas'] .desktop-intro-panel {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+html[data-design='atlas'] .desktop-intro-panel > section,
+html[data-design='atlas'] .desktop-intro-panel > nav {
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 0;
+  text-align: start;
+}
+
+html[data-design='atlas'] #intro-title {
+  max-width: 12ch;
+  margin: 0;
+  font-size: clamp(2.25rem, 4.4vw, 4.25rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+html[data-design='atlas'] .desktop-intro-panel > nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+}
+
+html[data-design='atlas'] .brand-social-link {
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-pill);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  box-shadow: none;
+  transition:
+    transform var(--dur-short) var(--ease-out),
+    box-shadow var(--dur-short) var(--ease-out);
+}
+
+html[data-design='atlas'] .qr-desktop-panel {
+  display: none;
+}
+
+html[data-design='atlas'] :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid) {
+  display: grid;
+  max-width: none;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+
+html[data-design='atlas'] .ui-section-block,
+html[data-design='atlas'] .latest-channel-video {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 0;
+}
+
+html[data-design='atlas'] .linktree-shell > :is(section, div):not(.desktop-hero-layout) {
+  max-width: none;
+}
+
+html[data-design='atlas'] :is(.ui-surface-card, .collaboration-cta) {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+html[data-design='atlas'] .collaboration-cta {
+  padding: 0;
+  background: transparent;
+}
+
+html[data-design='atlas'] .reach-summary__headline {
+  padding: 0;
+}
+
+html[data-design='atlas'] .reach-summary__stats {
+  gap: var(--space-md);
+  margin-block-start: var(--space-lg);
+}
+
+html[data-design='atlas'] .reach-summary__stat {
+  padding: 0;
+  background: transparent;
+}
+
+html[data-design='atlas'] :is(.video-bento-frame, .visited-places-frame) {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+html[data-design='atlas'] .video-bento-header {
+  padding-inline: 0;
+  border: 0;
+  background: transparent;
+}
+
+html[data-design='atlas'] .video-bento-frame .bento-scroll-mask,
+html[data-design='atlas'] .visited-places-frame {
+  padding-inline: 0;
+}
+
+html[data-design='atlas'] .bento-video-link {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+html[data-design='atlas'] .latest-channel-video__link {
+  overflow: visible;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+  --tw-ring-shadow: 0 0 #0000;
+}
+
+html[data-design='atlas'] .latest-channel-video__link:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+html[data-design='atlas'] .latest-channel-video__link > span:first-child {
+  overflow: hidden;
+  border-radius: var(--radius-card);
+}
+
+html[data-design='atlas'] .latest-channel-video__details {
+  padding-inline: 0;
+  padding-block-end: 0;
+  background: transparent;
+}
+
+html[data-design='atlas'] .ui-section-header {
+  text-align: start;
+}
+
+html[data-design='atlas'] .ui-section-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+html[data-design='atlas'] .about-copy {
+  max-width: 62ch;
+}
+
+html[data-design='atlas'] .about-copy .ui-section-title,
+html[data-design='atlas'] .featured-episodes-title {
+  font-size: var(--text-xl);
+}
+
+html[data-design='atlas'] footer {
+  overflow: hidden;
+  max-width: none;
+  border-top: 0;
+}
+
+html[data-design='atlas'] footer::before {
+  display: none;
+}
+
+@keyframes atlas-marquee {
+  to {
+    transform: translateX(-25%);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html[data-design='atlas'] .brand-social-link:hover {
+    border-color: var(--color-ink-2);
+    background: var(--color-paper-2);
+    transform: translateY(calc(var(--rule-hair) * -1));
+  }
+}
+
+@media (min-width: 40rem) {
+  .design-switcher__label {
+    display: block;
+  }
+
+  .design-switcher__options {
+    width: auto;
+    grid-template-columns: repeat(3, minmax(8rem, 1fr));
+  }
+}
+
+@media (max-width: 59.99rem) {
+  html[data-design='night'] :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid),
+  html[data-design='atlas'] :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid),
+  html[data-design='atlas'] .desktop-hero-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  html[data-design='atlas'] .linktree-hero,
+  html[data-design='atlas'] .desktop-intro-panel {
+    grid-column: 1;
+  }
+
+  html[data-design='atlas'] .linktree-hero {
+    grid-row: 1;
+    min-height: clamp(20rem, 80vw, 30rem);
+  }
+
+  html[data-design='atlas'] .desktop-intro-panel {
+    grid-row: 2;
+  }
+}
+
+@media (max-width: 39.99rem) {
+  .design-switcher {
+    gap: 0;
+  }
+
+  .design-switcher__label {
+    display: none;
+  }
+
+  .design-switcher button {
+    font-size: 0.7rem;
+  }
+
+  .design-label-full {
+    display: none;
+  }
+
+  .design-label-short {
+    display: inline;
+  }
+
+  html[data-design] .desktop-latest-grid,
+  html[data-design] .desktop-latest-grid > *,
+  html[data-design] .ui-section-header {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  html[data-design='field'] .desktop-intro-panel > nav,
+  html[data-design='atlas'] .desktop-intro-panel > nav {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  html[data-design='night'] .desktop-hero-layout {
+    padding: var(--space-xs);
+  }
+
+  html[data-design='night'] .desktop-intro-panel {
+    padding: var(--space-lg);
+  }
+
+  html[data-design='night'] #intro-title {
+    font-size: clamp(2.75rem, 14vw, 4.5rem);
+  }
+
+  html[data-design='atlas'] .desktop-intro-panel {
+    padding: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-design] *,
+  html[data-design] *::before,
+  html[data-design] *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

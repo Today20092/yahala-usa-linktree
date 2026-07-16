@@ -1,5 +1,6 @@
 ---
 import '../styles.css'
+import '../design-preview.css'
 
 import { getImage, Picture } from 'astro:assets'
 import { Icon } from 'astro-icon/components'
@@ -132,7 +133,7 @@ const structuredData = {
 ---
 
 <!doctype html>
-<html lang="en" class="box-border">
+<html lang="en" class="box-border" data-design-preview>
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -236,6 +237,19 @@ const structuredData = {
         applyTheme()
       })()
     </script>
+    <script is:inline>
+      ;(() => {
+        const validDesigns = ['field', 'night', 'atlas']
+        const requestedDesign = new URLSearchParams(location.search).get('design')
+        const design = validDesigns.includes(requestedDesign)
+          ? requestedDesign
+          : 'atlas'
+
+        document.documentElement.dataset.design = design
+        document.documentElement.classList.toggle('dark', design === 'night')
+        document.documentElement.style.colorScheme = design === 'night' ? 'dark' : 'light'
+      })()
+    </script>
     <script type="module">
       import '../scripts/image-fallback'
     </script>
@@ -310,7 +324,7 @@ const structuredData = {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Watch latest episode"
-                    class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring/30 focus-visible:ring-offset-background inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-base font-semibold whitespace-nowrap shadow-[0_8px_24px_-12px_var(--primary)] transition-[background-color,transform,box-shadow] hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-12px_var(--primary)] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0"
+                    class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring/30 focus-visible:ring-offset-background inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-base font-semibold whitespace-nowrap shadow-lg transition-[background-color,transform,box-shadow] hover:-translate-y-0.5 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0"
                   >
                     <Icon
                       name="simple-icons:youtube"
@@ -346,7 +360,8 @@ const structuredData = {
             {
               socialLinks.map((social) => (
                 <SocialLinkButton
-                  label={social.label}
+                  label={social.label.replace(/^Ya Hala\s+/, '')}
+                  ariaLabel={social.label}
                   href={social.url}
                   id={social.id}
                   style={{
@@ -385,18 +400,16 @@ const structuredData = {
           class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-300 sm:px-6"
           aria-labelledby="about-title"
         >
-          <div class="ui-surface-card px-5 py-7 sm:px-6 sm:py-8">
+          <div class="about-copy py-8 sm:py-10">
             <h2
               id="about-title"
               class="ui-section-title"
             >
-              Ya Hala documents Arab American people, businesses, and community
-              life through field stories.
+              Stories from Arab America.
             </h2>
             <p class="ui-body mt-4">
-              Haithum covers interviews, neighborhood visits, restaurants, and
-              local moments, then turns them into social-first stories for
-              Arabic and Arab American audiences across the United States.
+              Haithum covers people, businesses, neighborhoods, restaurants,
+              and community life across the United States.
             </p>
           </div>
         </section>
@@ -556,6 +569,8 @@ const structuredData = {
 
     <script>
       ;(() => {
+        if (document.documentElement.hasAttribute('data-design-preview')) return
+
         const preferences = ['system', 'light', 'dark']
         const lightThemeColor = '#ffffff'
         const darkThemeColor = '#1c1917'

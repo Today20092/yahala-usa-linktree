@@ -101,8 +101,8 @@ const platformTotals = Object.values(
   class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 delay-300 sm:px-6"
   aria-label="Total people reached"
 >
-  <div class="ui-surface-card overflow-hidden">
-    <div class="px-5 py-5 sm:px-6">
+  <div class="reach-summary">
+    <div class="reach-summary__headline px-5 py-5 sm:px-6">
       <div class="mb-4 flex items-center justify-center gap-2">
         <IconBadge tone="soft" size="lg" aria-hidden="true">
           <Icon name="heroicons:globe-americas" class="size-5" />
@@ -133,14 +133,12 @@ const platformTotals = Object.values(
       </p>
     </div>
 
-    <dl
-      class="grid grid-cols-2 gap-px border-t border-border bg-border p-px dark:bg-[color:var(--muted)] sm:grid-cols-4"
-    >
+    <dl class="reach-summary__stats grid grid-cols-2 sm:grid-cols-4">
       {
         platformTotals.map((item) => (
           <div
             style={`--platform-accent: ${item.accent}; --platform-accent-dark: ${item.darkAccent}; --platform-tint: ${item.tint}; --platform-tint-dark: ${item.darkTint};`}
-            class="bg-[linear-gradient(135deg,color-mix(in_srgb,var(--platform-active-tint)_34%,var(--card))_0%,var(--card)_76%)] px-3 py-3 text-center ring-1 ring-inset ring-[color-mix(in_srgb,var(--platform-active-accent)_18%,transparent)] [--platform-active-accent:var(--platform-accent)] [--platform-active-tint:var(--platform-tint)] dark:bg-[linear-gradient(135deg,color-mix(in_srgb,var(--platform-active-tint)_42%,var(--card))_0%,var(--card)_78%)] dark:ring-[color-mix(in_srgb,var(--platform-active-accent)_12%,var(--muted))] dark:[--platform-active-accent:var(--platform-accent-dark)] dark:[--platform-active-tint:var(--platform-tint-dark)]"
+            class="reach-summary__stat px-3 py-3 text-center [--platform-active-accent:var(--platform-accent)] dark:[--platform-active-accent:var(--platform-accent-dark)]"
           >
             <dt class="ui-meta flex min-w-0 items-center justify-center gap-1.5 truncate">
               <Icon
