@@ -129,6 +129,83 @@ html[data-design] :is(.ui-surface-card, .collaboration-cta) {
   color: var(--color-ink);
 }
 
+html[data-design] .reach-summary {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+html[data-design] .reach-summary__headline {
+  min-width: 0;
+  padding: 0;
+}
+
+html[data-design] .reach-summary__heading-row {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3xs);
+  text-align: start;
+}
+
+html[data-design] .reach-summary__heading-row .ui-section-title {
+  font-size: clamp(var(--text-xl), 8vw, var(--text-2xl));
+}
+
+html[data-design] .reach-summary__stat-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+html[data-design] .reach-summary__total {
+  margin-block-start: var(--space-md);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 11vw, 4.25rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  text-align: start;
+}
+
+html[data-design] .reach-summary__description {
+  max-width: 55ch;
+  margin-block-start: var(--space-sm);
+  text-align: start;
+}
+
+html[data-design] .reach-summary__stats {
+  display: grid;
+  gap: var(--space-md);
+  margin: 0;
+}
+
+html[data-design] .reach-summary__stat {
+  min-width: 0;
+  padding: 0;
+  background: transparent;
+}
+
+html[data-design] .reach-summary__bar {
+  height: var(--space-3xs);
+  margin-block-start: var(--space-2xs);
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--color-rule);
+}
+
+html[data-design] .reach-summary__bar > span {
+  display: block;
+  width: var(--platform-share);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--platform-active-accent);
+}
+
 /* Field Notes · Long Document · N6 masthead · Ft6 letter close */
 html[data-design='field'] .linktree-page {
   background: var(--color-paper-2);
@@ -554,20 +631,6 @@ html[data-design='atlas'] :is(.ui-surface-card, .collaboration-cta) {
 }
 
 html[data-design='atlas'] .collaboration-cta {
-  padding: 0;
-  background: transparent;
-}
-
-html[data-design='atlas'] .reach-summary__headline {
-  padding: 0;
-}
-
-html[data-design='atlas'] .reach-summary__stats {
-  gap: var(--space-md);
-  margin-block-start: var(--space-lg);
-}
-
-html[data-design='atlas'] .reach-summary__stat {
   padding: 0;
   background: transparent;
 }

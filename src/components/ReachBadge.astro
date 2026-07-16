@@ -1,7 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components'
 
-import { IconBadge } from './ui/icon-badge'
+import { CountingNumber } from './animate-ui/primitives/texts/counting-number'
 
 type ReachItem = {
   platform: string
@@ -29,40 +29,24 @@ const platformColors: Record<
   {
     accent: string
     darkAccent: string
-    tint: string
-    darkTint: string
   }
 > = {
   YouTube: {
-    accent: '#ff0000',
-    darkAccent: '#ff5f5f',
-    tint: '#fff1f1',
-    darkTint: '#2a1010',
+    accent: 'var(--social-youtube)',
+    darkAccent: 'var(--social-youtube-dark)',
   },
   TikTok: {
-    accent: '#010101',
-    darkAccent: '#25f4ee',
-    tint: '#f3f4f6',
-    darkTint: '#0b1f20',
+    accent: 'var(--social-tiktok)',
+    darkAccent: 'var(--social-tiktok-dark-2)',
   },
   Instagram: {
-    accent: '#e4405f',
-    darkAccent: '#ff7a9a',
-    tint: '#fff1f6',
-    darkTint: '#2a101b',
+    accent: 'var(--social-instagram)',
+    darkAccent: 'var(--social-instagram-dark)',
   },
   Facebook: {
-    accent: '#1877f2',
-    darkAccent: '#74a7ff',
-    tint: '#eef5ff',
-    darkTint: '#0b1a2e',
+    accent: 'var(--social-facebook)',
+    darkAccent: 'var(--social-facebook-dark)',
   },
-}
-
-const formatNumber = (value: number) => {
-  return new Intl.NumberFormat('en-US', {
-    maximumFractionDigits: 0,
-  }).format(Math.floor(value))
 }
 
 const updatedDate = new Intl.DateTimeFormat('en-US', {
@@ -84,13 +68,12 @@ const platformTotals = Object.values(
   const colors = platformColors[item.platform] ?? {
     accent: 'var(--primary)',
     darkAccent: 'var(--primary)',
-    tint: 'var(--card)',
-    darkTint: 'var(--card)',
   }
 
   return {
     ...item,
     icon: platformIcons[item.platform] ?? 'heroicons:chart-bar',
+    share: total > 0 ? (item.total / total) * 100 : 0,
     ...colors,
   }
 })
@@ -102,145 +85,59 @@ const platformTotals = Object.values(
   aria-label="Total people reached"
 >
   <div class="reach-summary">
-    <div class="reach-summary__headline px-5 py-5 sm:px-6">
-      <div class="mb-4 flex items-center justify-center gap-2">
-        <IconBadge tone="soft" size="lg" aria-hidden="true">
-          <Icon name="heroicons:globe-americas" class="size-5" />
-        </IconBadge>
-        <span class="text-left">
-          <span class="ui-card-title block text-sm sm:text-sm">
-            People reached
-          </span>
-          <span class="ui-meta block">
-            Updated {updatedDate}
-          </span>
-        </span>
+    <header class="reach-summary__headline">
+      <div class="reach-summary__heading-row">
+        <h2 class="ui-section-title">People reached</h2>
+        <p class="ui-meta">Updated {updatedDate}</p>
       </div>
 
-      <p
-        class="text-foreground text-center text-4xl leading-none font-black tracking-normal tabular-nums sm:text-5xl"
-      >
-        <span data-count-value={total} data-growing-reach>
-          {formatNumber(total)}
-        </span><span class="text-primary">
-          +
-        </span>
+      <p class="reach-summary__total">
+        <CountingNumber
+          client:visible
+          number={total}
+          locale="en-US"
+          inView
+          inViewOnce
+        /><span class="text-primary">+</span>
       </p>
-      <p
-        class="ui-meta mx-auto mt-3 max-w-sm text-center font-normal"
-      >
-        Across YouTube, TikTok, Instagram, and Facebook
+      <p class="ui-body reach-summary__description">
+        Total audience across YouTube, TikTok, Instagram, and Facebook.
       </p>
-    </div>
+    </header>
 
-    <dl class="reach-summary__stats grid grid-cols-2 sm:grid-cols-4">
+    <dl class="reach-summary__stats">
       {
         platformTotals.map((item) => (
           <div
-            style={`--platform-accent: ${item.accent}; --platform-accent-dark: ${item.darkAccent}; --platform-tint: ${item.tint}; --platform-tint-dark: ${item.darkTint};`}
-            class="reach-summary__stat px-3 py-3 text-center [--platform-active-accent:var(--platform-accent)] dark:[--platform-active-accent:var(--platform-accent-dark)]"
+            style={`--platform-accent: ${item.accent}; --platform-accent-dark: ${item.darkAccent}; --platform-share: ${item.share}%;`}
+            class="reach-summary__stat [--platform-active-accent:var(--platform-accent)] dark:[--platform-active-accent:var(--platform-accent-dark)]"
           >
-            <dt class="ui-meta flex min-w-0 items-center justify-center gap-1.5 truncate">
-              <Icon
-                name={item.icon}
-                class="size-3.5 shrink-0 text-[var(--platform-active-accent)]"
-                aria-hidden="true"
-              />
-              <span class="truncate">{item.platform}</span>
-            </dt>
-            <dd
-              class="text-foreground mt-1 text-sm font-semibold tabular-nums sm:text-base"
-              data-count-value={item.total}
-            >
-              {formatNumber(item.total)}
-            </dd>
+            <div class="reach-summary__stat-row">
+              <dt class="ui-meta flex min-w-0 items-center gap-2 truncate">
+                <Icon
+                  name={item.icon}
+                  class="size-3.5 shrink-0 text-[var(--platform-active-accent)]"
+                  aria-hidden="true"
+                />
+                <span class="truncate">{item.platform}</span>
+              </dt>
+              <dd class="text-foreground text-sm font-semibold tabular-nums sm:text-base">
+                <CountingNumber
+                  client:visible
+                  number={item.total}
+                  locale="en-US"
+                  inView
+                  inViewOnce
+                  delay={100}
+                />
+              </dd>
+            </div>
+            <div class="reach-summary__bar" aria-hidden="true">
+              <span />
+            </div>
           </div>
         ))
       }
     </dl>
   </div>
 </aside>
-
-<script>
-  const reachCard = document.querySelector('[data-reach-card]')
-  const animatedNumbers = reachCard?.querySelectorAll('[data-count-value]')
-  const growingReachNumber = reachCard?.querySelector('[data-growing-reach]')
-  const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-
-  const formatAnimatedNumber = (value, target) => {
-    return new Intl.NumberFormat('en-US', {
-      maximumFractionDigits: 0,
-    }).format(Math.floor(value))
-  }
-
-  const growReachNumber = (element, baseValue) => {
-    if (!(element instanceof HTMLElement) || reduceMotionQuery.matches) return
-
-    const visibleStep = baseValue >= 1000000 ? 100000 : 1000
-    const incrementPerSecond = visibleStep / 12
-    const maxVisibleGrowth = visibleStep * 12
-    const fullFormatter = new Intl.NumberFormat('en-US')
-    const startedAt = performance.now()
-
-    const tick = (now) => {
-      const elapsedSeconds = (now - startedAt) / 1000
-      const addedReach = (elapsedSeconds * incrementPerSecond) % maxVisibleGrowth
-      const displayValue = baseValue + addedReach
-
-      element.textContent = formatAnimatedNumber(displayValue, baseValue)
-      requestAnimationFrame(tick)
-    }
-
-    requestAnimationFrame(tick)
-  }
-
-  const animateNumber = (element) => {
-    if (!(element instanceof HTMLElement) || element.dataset.counted) return
-
-    const target = Number(element.dataset.countValue)
-    if (!Number.isFinite(target)) return
-
-    element.dataset.counted = 'true'
-
-    if (reduceMotionQuery.matches) {
-      element.textContent = formatAnimatedNumber(target, target)
-      return
-    }
-
-    const duration = 1400
-    const startedAt = performance.now()
-
-    const tick = (now) => {
-      const progress = Math.min((now - startedAt) / duration, 1)
-      const eased = 1 - Math.pow(1 - progress, 3)
-      element.textContent = formatAnimatedNumber(target * eased, target)
-
-      if (progress < 1) {
-        requestAnimationFrame(tick)
-        return
-      }
-
-      element.textContent = formatAnimatedNumber(target, target)
-      if (element === growingReachNumber) growReachNumber(element, target)
-    }
-
-    element.textContent = formatAnimatedNumber(0, target)
-    requestAnimationFrame(tick)
-  }
-
-  if ('IntersectionObserver' in window && reachCard && animatedNumbers) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries.some((entry) => entry.isIntersecting)) return
-
-        animatedNumbers.forEach(animateNumber)
-        observer.disconnect()
-      },
-      { threshold: 0.35 },
-    )
-
-    observer.observe(reachCard)
-  } else {
-    animatedNumbers?.forEach(animateNumber)
-  }
-</script>
