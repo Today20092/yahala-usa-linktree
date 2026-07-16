@@ -40,6 +40,33 @@ html[data-design] * {
     box-shadow;
 }
 
+html.motion-ready[data-design] .animate-fade-in-up {
+  animation: none;
+  opacity: 0;
+  transform: translateY(var(--space-md));
+  transition:
+    opacity var(--dur-long) var(--ease-out),
+    transform var(--dur-long) var(--ease-out);
+}
+
+html.motion-ready[data-design] .animate-fade-in-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+html.motion-ready[data-design] .animate-fade-in-up.delay-200 {
+  transition-delay: 80ms;
+}
+
+html.motion-ready[data-design] .animate-fade-in-up.delay-300 {
+  transition-delay: 140ms;
+}
+
+html.motion-ready[data-design] .animate-fade-in-up.delay-400,
+html.motion-ready[data-design] .animate-fade-in-up.delay-500 {
+  transition-delay: 200ms;
+}
+
 .design-switcher {
   position: fixed;
   inset: var(--space-sm) var(--space-sm) auto 50%;
@@ -176,6 +203,70 @@ html[data-design] .reach-summary__description {
   max-width: 55ch;
   margin-block-start: var(--space-sm);
   text-align: start;
+}
+
+html[data-design] .visited-state-picker {
+  padding-block-start: var(--space-md);
+  border-block-start: var(--rule-hair) solid var(--color-rule);
+}
+
+html[data-design] .visited-state-picker__intro {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+html[data-design] .visited-state-picker__control {
+  min-width: 0;
+  margin-block-start: var(--space-md);
+}
+
+html[data-design] .visited-state-picker__icon {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: var(--radius-pill);
+  background: var(--color-paper-2);
+  color: var(--color-accent);
+}
+
+html[data-design] .visited-state-picker select {
+  border-color: var(--color-rule);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  outline: var(--rule-heavy) solid transparent;
+  outline-offset: var(--rule-hair);
+}
+
+html[data-design] .visited-state-picker select:hover {
+  border-color: var(--color-accent);
+}
+
+html[data-design] .visited-state-picker select:focus-visible {
+  border-color: var(--color-accent);
+  outline: var(--rule-heavy) solid var(--color-focus);
+  outline-offset: var(--rule-hair);
+}
+
+html[data-design] .visited-state-picker select:active {
+  background-color: var(--color-paper-2);
+}
+
+@media (min-width: 768px) {
+  html[data-design] .visited-state-picker {
+    display: grid;
+    grid-template-columns: minmax(14rem, 0.7fr) minmax(18rem, 1.3fr);
+    align-items: center;
+    gap: var(--space-xl);
+  }
+
+  html[data-design] .visited-state-picker__control {
+    margin-block-start: 0;
+  }
 }
 
 html[data-design] .reach-summary__stats {

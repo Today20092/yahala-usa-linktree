@@ -1,4 +1,4 @@
-import { ExternalLink, MapPin } from 'lucide-react'
+import { ChevronDown, ExternalLink, MapPin } from 'lucide-react'
 import * as React from 'react'
 
 import { IconBadge } from '@/components/ui/icon-badge'
@@ -23,7 +23,6 @@ import type {
   VisitedPlace,
   VisitedStateGroup,
 } from '@/lib/site-config'
-import { cn } from '@/lib/utils'
 import { resolveYoutubeReference } from '@/lib/youtube-video-id.js'
 
 type Props = {
@@ -127,6 +126,18 @@ export default function VisitedPlacesExplorer({ stateGroups }: Props) {
     ? selectedPlace
     : null
   const drawerOpen = Boolean(selectedStateGroup)
+  const availableStateGroups = React.useMemo(
+    () => stateGroups.filter((group) => group.videoCount > 0),
+    [stateGroups],
+  )
+  const availableVideoCount = React.useMemo(
+    () =>
+      availableStateGroups.reduce(
+        (total, group) => total + group.videoCount,
+        0,
+      ),
+    [availableStateGroups],
+  )
   const desiredAccordionValue = React.useMemo(() => {
     if (!selectedStateGroup) return []
 
@@ -184,76 +195,58 @@ export default function VisitedPlacesExplorer({ stateGroups }: Props) {
 
   return (
     <>
-      <div className="mt-4 flex flex-col gap-2">
-        <p
-          id="visited-states-control-label"
-          className="text-foreground text-xs font-semibold"
-        >
-          Choose a state to watch stories
-        </p>
-        <ul
-          className="flex max-h-28 flex-wrap gap-2 overflow-y-auto pr-1"
-          aria-labelledby="visited-states-control-label"
-        >
-          {stateGroups.map((group) => {
-            const label = group.state
-            const hasVideos = group.videoCount > 0
-            const isSelected = selectedState === group.state
+      <div className="visited-state-picker mt-5">
+        <div className="visited-state-picker__intro">
+          <span className="visited-state-picker__icon" aria-hidden="true">
+            <MapPin className="size-5" />
+          </span>
+          <div className="min-w-0">
+            <p className="text-foreground text-base font-bold">
+              Find stories near you
+            </p>
+            <p className="text-muted-foreground mt-0.5 text-sm">
+              {availableStateGroups.length}{' '}
+              {availableStateGroups.length === 1 ? 'state' : 'states'} ·{' '}
+              {formatVideoCount(availableVideoCount)}
+            </p>
+          </div>
+        </div>
 
-            return (
-              <li key={group.state}>
-                <Button
-                  type="button"
-                  size="sm"
-                  variant={isSelected ? 'default' : 'outline'}
-                  className={cn(
-                    'rounded-full shadow-sm hover:-translate-y-0.5 hover:shadow-md active:translate-y-px',
-                    isSelected && 'shadow-md',
-                    !hasVideos && !isSelected && 'text-muted-foreground',
-                  )}
-                  aria-label={`Show videos from ${label}`}
-                  aria-pressed={isSelected}
-                  onClick={() => {
-                    setSelectedState(group.state)
-                    setSelectedCity(null)
-                  }}
-                >
-                  {hasVideos && (
-                    <IconBadge
-                      tone="solid"
-                      size="xs"
-                      style={
-                        isSelected
-                          ? {
-                              '--ui-icon-badge-accent':
-                                'var(--primary-foreground)',
-                              '--ui-icon-badge-foreground': 'var(--primary)',
-                            }
-                          : {
-                              '--ui-icon-badge-accent': 'var(--primary)',
-                              '--ui-icon-badge-foreground':
-                                'var(--primary-foreground)',
-                            }
-                      }
-                      className="mr-0.5"
-                      aria-hidden="true"
-                    >
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        aria-hidden="true"
-                        className="block size-3"
-                      >
-                        <path d="M8 5.14v13.72L19.2 12z" />
-                      </svg>
-                    </IconBadge>
-                  )}
-                  {label}
-                </Button>
-              </li>
-            )
-          })}
-        </ul>
+        <div className="visited-state-picker__control">
+          <label
+            htmlFor="visited-state-select"
+            className="text-foreground block text-sm font-semibold"
+          >
+            Browse videos by state
+          </label>
+          <div className="relative mt-2">
+            <select
+              id="visited-state-select"
+              value={selectedState ?? ''}
+              disabled={availableStateGroups.length === 0}
+              className="border-border bg-background text-foreground hover:border-primary/55 focus-visible:border-primary focus-visible:ring-primary/20 min-h-12 w-full appearance-none rounded-lg border px-4 pr-11 text-base font-semibold transition-[border-color,box-shadow] focus-visible:ring-4 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+              onChange={(event) => {
+                const state = event.currentTarget.value
+                setSelectedState(state || null)
+                setSelectedCity(null)
+              }}
+            >
+              <option value="">Choose a state</option>
+              {availableStateGroups.map((group) => (
+                <option key={group.state} value={group.state}>
+                  {group.state} — {formatVideoCount(group.videoCount)}
+                </option>
+              ))}
+            </select>
+            <ChevronDown
+              className="text-muted-foreground pointer-events-none absolute top-1/2 right-4 size-4 -translate-y-1/2"
+              aria-hidden="true"
+            />
+          </div>
+          <p className="text-muted-foreground mt-2 text-xs leading-relaxed">
+            Select a state to open its available stories, grouped by city.
+          </p>
+        </div>
       </div>
 
       <Drawer

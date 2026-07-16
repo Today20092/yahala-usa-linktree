@@ -89,7 +89,6 @@ const channelBranding = Object.fromEntries(
   ]),
 )
 
-const instagramLink = socialLinks.find((link) => link.id === 'instagram')
 const youtubeLink = socialLinks.find((link) => link.id === 'youtube')
 const sameAsUrls = socialLinks.map((link) => link.url)
 const socialIconBodies = {
@@ -335,21 +334,6 @@ const structuredData = {
                   </a>
                 )
               }
-              {
-                instagramLink && (
-                  <a
-                    href="#contact"
-                    class="border-border/80 bg-card/70 text-foreground hover:border-border hover:bg-accent focus-visible:ring-ring/30 focus-visible:ring-offset-background inline-flex min-h-12 items-center justify-center gap-2 rounded-full border px-6 text-base font-semibold whitespace-nowrap transition-[background-color,border-color,transform] hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0"
-                  >
-                    <Icon
-                      name="heroicons:briefcase"
-                      class="size-[1.125rem]"
-                      aria-hidden="true"
-                    />
-                    Collaborate
-                  </a>
-                )
-              }
             </div>
           </section>
 
@@ -415,48 +399,59 @@ const structuredData = {
         </section>
       </div>
 
-      <VideoBentoGrid />
-
-      <div
-        class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 delay-500 sm:px-6"
-      >
+      <div class="desktop-latest-grid">
         <section
-          id="contact"
-          class="collaboration-cta rounded-xl px-5 py-7 text-left sm:px-6 sm:py-8"
-          aria-labelledby="collaboration-title"
+          class="animate-fade-in-up mt-8 mb-5 flex flex-col delay-400"
+          aria-labelledby="latest-video-title"
         >
-          <p class="ui-kicker-accent">
-            For collaborations
-          </p>
-          <h2
-            id="collaboration-title"
-            class="ui-section-title mt-3"
-          >
-            Sponsor, interview, or feature your story.
-          </h2>
-          <p class="ui-body mt-3">
-            Reach Arab communities across America through episodes, interviews,
-            field visits, and social-first features.
-          </p>
-          {
-            instagramLink && (
-              <a
-                href={instagramLink.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring/30 focus-visible:ring-offset-background mt-5 inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-5 text-base font-bold transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-              >
-                <Icon
-                  name="simple-icons:instagram"
-                  class="size-5"
-                  aria-hidden="true"
+          <div class="ui-section-header">
+            <h2 id="latest-video-title" class="ui-section-title">
+              Latest From Ya Hala
+            </h2>
+            <p class="ui-body mx-auto mt-3 max-w-md text-sm">
+              The newest story, updated automatically from the channel.
+            </p>
+          </div>
+          <div class="flex flex-col gap-4">
+            {
+              latestVideoChannels.map((channel) => (
+                <LatestChannelVideo
+                  channelName={channel.name}
+                  channelDescription={channel.description}
+                  channelLogoSrc={channelBranding[channel.id].logoSrc}
+                  channelAccentColor={channelBranding[channel.id].accentColor}
+                  channelDarkAccentColor={
+                    channelBranding[channel.id].darkAccentColor
+                  }
+                  channelCardBackground={
+                    channelBranding[channel.id].cardBackground
+                  }
+                  channelDarkCardBackground={
+                    channelBranding[channel.id].darkCardBackground
+                  }
+                  channelCardTint={channelBranding[channel.id].cardTint}
+                  channelDarkCardTint={channelBranding[channel.id].darkCardTint}
+                  channelLogoBackgroundColor={
+                    channelBranding[channel.id].logoBackgroundColor
+                  }
+                  channelDarkLogoBackgroundColor={
+                    channelBranding[channel.id].darkLogoBackgroundColor
+                  }
+                  channelLogoFit={channelBranding[channel.id].logoFit}
+                  channelLogoPaddingClass={
+                    channelBranding[channel.id].logoPaddingClass
+                  }
+                  video={latestVideoByChannel[channel.id]}
                 />
-                DM on Instagram
-              </a>
-            )
-          }
+              ))
+            }
+          </div>
         </section>
+
+        <TopicCards />
       </div>
+
+      <VideoBentoGrid />
 
       <section
         class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-500 sm:px-6"
@@ -490,55 +485,6 @@ const structuredData = {
 
       <VisitedPlacesMap visitedPlaces={resolvedVisitedPlaces} />
 
-      <div class="desktop-latest-grid">
-        <section
-          class="animate-fade-in-up mt-8 mb-5 flex flex-col delay-400"
-          aria-labelledby="latest-video-title"
-        >
-          <div class="ui-section-header">
-            <h2 id="latest-video-title" class="ui-section-title">
-              Latest From Ya Hala
-            </h2>
-          </div>
-          <div class="flex flex-col gap-4">
-            {
-              latestVideoChannels.map((channel) => (
-              <LatestChannelVideo
-                channelName={channel.name}
-                channelDescription={channel.description}
-                channelLogoSrc={channelBranding[channel.id].logoSrc}
-                channelAccentColor={channelBranding[channel.id].accentColor}
-                channelDarkAccentColor={
-                  channelBranding[channel.id].darkAccentColor
-                }
-                channelCardBackground={
-                  channelBranding[channel.id].cardBackground
-                }
-                channelDarkCardBackground={
-                  channelBranding[channel.id].darkCardBackground
-                }
-                channelCardTint={channelBranding[channel.id].cardTint}
-                channelDarkCardTint={channelBranding[channel.id].darkCardTint}
-                channelLogoBackgroundColor={
-                  channelBranding[channel.id].logoBackgroundColor
-                }
-                channelDarkLogoBackgroundColor={
-                  channelBranding[channel.id].darkLogoBackgroundColor
-                }
-                channelLogoFit={channelBranding[channel.id].logoFit}
-                channelLogoPaddingClass={
-                  channelBranding[channel.id].logoPaddingClass
-                }
-                video={latestVideoByChannel[channel.id]}
-                />
-              ))
-            }
-          </div>
-        </section>
-
-        <TopicCards />
-      </div>
-
       <footer
         class="ui-meta mt-auto w-full px-4 pt-12 pb-4 text-center"
       >
@@ -546,9 +492,6 @@ const structuredData = {
           class="mx-auto mb-3 flex max-w-xl flex-wrap items-center justify-center gap-x-3 gap-y-1"
           aria-label="Page information"
         >
-          <a href="#contact" class="hover:text-foreground transition-colors">
-            Contact
-          </a>
           <a href="#privacy" class="hover:text-foreground transition-colors">
             Privacy
           </a>
@@ -558,7 +501,6 @@ const structuredData = {
           class="text-muted-foreground/80 mx-auto mb-3 max-w-xl text-[0.7rem] text-balance"
         >
           Privacy: this page links to third-party platforms and remote media.
-          Contact: use Instagram for collaborations or questions.
         </p>
         <p class="mb-0.5">
           &copy; {currentYear}
@@ -641,6 +583,37 @@ const structuredData = {
 
         systemQuery.addEventListener('change', handleSystemChange)
         applyTheme(getPreference())
+      })()
+    </script>
+
+    <script>
+      ;(() => {
+        const reveals = [
+          ...document.querySelectorAll('.animate-fade-in-up'),
+        ]
+        const reduceMotion = window.matchMedia(
+          '(prefers-reduced-motion: reduce)',
+        ).matches
+
+        document.documentElement.classList.add('motion-ready')
+
+        if (reduceMotion || !('IntersectionObserver' in window)) {
+          reveals.forEach((element) => element.classList.add('is-visible'))
+          return
+        }
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return
+              entry.target.classList.add('is-visible')
+              observer.unobserve(entry.target)
+            })
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+        )
+
+        reveals.forEach((element) => observer.observe(element))
       })()
     </script>
 
