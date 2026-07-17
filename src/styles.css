@@ -1097,59 +1097,8 @@
   }
 }
 
-.bento-scroll-mask {
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 7%,
-    black 93%,
-    transparent
-  );
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 7%,
-    black 93%,
-    transparent
-  );
-}
-
-.bento-scroll-track {
-  animation: bento-scroll 160s linear infinite;
-  will-change: transform;
-}
-
-.bento-scroll-mask.is-drag-ready .bento-scroll-track {
-  animation: none;
-}
-
 .bento-scroll-row {
-  cursor: grab;
-  touch-action: pan-y;
-}
-
-.bento-scroll-row:active {
-  cursor: grabbing;
-}
-
-.bento-scroll-track-1 {
-  animation-duration: 152s;
-  animation-delay: -24s;
-}
-
-.bento-scroll-track-2 {
-  animation-duration: 184s;
-  animation-delay: -72s;
-}
-
-.bento-scroll-track-3 {
-  animation-duration: 168s;
-  animation-delay: -48s;
-}
-
-.bento-scroll-mask:hover .bento-scroll-track,
-.bento-scroll-mask:focus-within .bento-scroll-track {
-  animation-play-state: paused;
+  scrollbar-width: thin;
 }
 
 .collaboration-cta {
@@ -1169,16 +1118,6 @@
     var(--card);
 }
 
-@keyframes bento-scroll {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 /* Respect user's motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -1190,8 +1129,7 @@
   }
 
   .animate-float,
-  .animate-fade-in-up,
-  .bento-scroll-track {
+  .animate-fade-in-up {
     animation: none !important;
   }
 }

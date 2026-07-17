@@ -31,6 +31,18 @@ const journeyMarkers = [
   ['map', 'aria-label="Map"'],
   ['state selection', 'Choose a state'],
   ['latest-story action', 'Latest From Ya Hala'],
+  ['manual portfolio browsing', 'data-portfolio-scroll="manual"'],
+]
+
+const pageFlow = [
+  ['identity and primary action', 'Watch latest'],
+  ['official links', 'aria-label="Official social links"'],
+  ['QR access', 'data-qr-open'],
+  ['credibility', 'data-reach-card'],
+  ['latest story', 'Latest From Ya Hala'],
+  ['portfolio proof', 'Moments from Ya Hala stories'],
+  ['geographic discovery', 'aria-label="Map"'],
+  ['minimal footer', '<footer'],
 ]
 
 const assertJourney = (html) => {
@@ -40,6 +52,22 @@ const assertJourney = (html) => {
 
   if (missing.length)
     throw new Error(`Missing smoke journey: ${missing.join(', ')}`)
+
+  let previousIndex = -1
+  for (const [name, marker] of pageFlow) {
+    const index = html.indexOf(marker)
+    if (index < 0) throw new Error(`Missing page flow: ${name}`)
+    if (index <= previousIndex)
+      throw new Error(`Page flow out of order: ${name}`)
+    previousIndex = index
+  }
+
+  if (html.includes('bento-scroll-track')) {
+    throw new Error('Unapproved continuous portfolio motion is present')
+  }
+  if (html.includes('collaboration-cta')) {
+    throw new Error('Hidden collaboration promotion is present')
+  }
 }
 
 const expectedContentType = (asset) =>
