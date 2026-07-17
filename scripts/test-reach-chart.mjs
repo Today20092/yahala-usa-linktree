@@ -1,17 +1,27 @@
 import { readFile } from 'node:fs/promises'
+import YAML from 'yaml'
 
 const html = await readFile('dist/index.html', 'utf8')
+const { socialReach } = YAML.parse(await readFile('src/data/site.yaml', 'utf8'))
+const formatNumber = new Intl.NumberFormat('en-US').format
+const updatedDate = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(socialReach.updatedAt))
 const expectedText = [
-  'Updated Jun 22, 2026',
-  '155,359,353',
-  '22,201,272',
-  '28,166,560',
-  '25,568,075',
-  '79,423,446',
+  `Updated ${updatedDate}`,
+  formatNumber(
+    socialReach.items.reduce((total, item) => total + item.value, 0),
+  ),
+  ...socialReach.items.map((item) => formatNumber(item.value)),
 ]
 
 if (!html.includes('data-reach-chart'))
   throw new Error('Production HTML is missing the audience chart')
+if (!html.includes('data-design="atlas"'))
+  throw new Error('Production HTML is missing the no-JavaScript chart styles')
 
 for (const value of expectedText) {
   if (!html.includes(value))

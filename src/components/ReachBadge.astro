@@ -151,6 +151,22 @@ const platformTotals = Object.values(
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document
       .querySelectorAll('[data-reach-chart]')
-      .forEach((chart) => chart.setAttribute('data-reach-enhanced', ''))
+      .forEach(async (chart) => {
+        const islands = [...chart.querySelectorAll('astro-island')]
+
+        await Promise.all(
+          islands.map(
+            (island) =>
+              new Promise<void>((resolve) => {
+                if (!island.hasAttribute('ssr')) return resolve()
+                island.addEventListener('astro:hydrate', () => resolve(), {
+                  once: true,
+                })
+              }),
+          ),
+        )
+
+        chart.setAttribute('data-reach-enhanced', '')
+      })
   }
 </script>
