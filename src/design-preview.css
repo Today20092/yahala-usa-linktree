@@ -293,8 +293,19 @@ html[data-design] .reach-summary__bar > span {
   display: block;
   width: var(--platform-share);
   height: 100%;
+  transform-origin: left;
   border-radius: inherit;
   background: var(--platform-active-accent);
+}
+
+html[data-design] [data-reach-enhanced] .reach-summary__bar > span {
+  animation: reach-bar-reveal var(--dur-long) var(--ease-out) both;
+}
+
+@keyframes reach-bar-reveal {
+  from {
+    transform: scaleX(0);
+  }
 }
 
 /* Field Notes · Long Document · N6 masthead · Ft6 letter close */

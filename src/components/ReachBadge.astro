@@ -53,7 +53,10 @@ const updatedDate = new Intl.DateTimeFormat('en-US', {
   month: 'short',
   day: 'numeric',
   year: 'numeric',
+  timeZone: 'UTC',
 }).format(new Date(updatedAt))
+
+const largestPlatformTotal = Math.max(...items.map((item) => item.value), 0)
 
 const platformTotals = Object.values(
   items.reduce<Record<string, { platform: string; total: number }>>(
@@ -73,7 +76,8 @@ const platformTotals = Object.values(
   return {
     ...item,
     icon: platformIcons[item.platform] ?? 'heroicons:chart-bar',
-    share: total > 0 ? (item.total / total) * 100 : 0,
+    share:
+      largestPlatformTotal > 0 ? (item.total / largestPlatformTotal) * 100 : 0,
     ...colors,
   }
 })
@@ -81,6 +85,7 @@ const platformTotals = Object.values(
 
 <aside
   data-reach-card
+  data-reach-chart
   class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 delay-300 sm:px-6"
   aria-label="Total people reached"
 >
@@ -141,3 +146,11 @@ const platformTotals = Object.values(
     </dl>
   </div>
 </aside>
+
+<script>
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document
+      .querySelectorAll('[data-reach-chart]')
+      .forEach((chart) => chart.setAttribute('data-reach-enhanced', ''))
+  }
+</script>
