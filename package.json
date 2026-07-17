@@ -15,6 +15,7 @@
     "test:video-search": "node scripts/test-video-search.mjs",
     "test:preview-smoke": "node scripts/test-preview-smoke.mjs",
     "test:reach-chart": "node scripts/test-reach-chart.mjs",
+    "test:visited-map": "node scripts/test-visited-map.mjs",
     "smoke:preview": "node scripts/smoke-preview.mjs",
     "build": "astro build",
     "preview": "astro preview",
