@@ -72,6 +72,7 @@ export type CityVideo = {
   title?: string
   url?: string
   thumbnail?: string
+  published?: string
 }
 
 export type VisitedPlace = {

@@ -23,6 +23,7 @@ import type {
   VisitedPlace,
   VisitedStateGroup,
 } from '@/lib/site-config'
+import { isRecentVideo } from '@/lib/video-recency.js'
 import { resolveYoutubeReference } from '@/lib/youtube-video-id.js'
 
 type Props = {
@@ -59,6 +60,7 @@ function VideoLink({
   if (!video.url) return null
 
   const thumbnail = getThumbnail(video.url, video.thumbnail)
+  const isNew = isRecentVideo(video.published)
 
   return (
     <a
@@ -66,7 +68,7 @@ function VideoLink({
       href={video.url}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={`Open ${video.title ?? 'video'} on YouTube`}
+      aria-label={`Open ${video.title ?? 'video'} on YouTube${isNew ? ' — New video' : ''}`}
       className="focus-visible:ring-ring group hover:bg-muted/60 grid grid-cols-[minmax(8rem,42%)_minmax(0,1fr)] gap-3 rounded-lg p-2.5 text-left transition focus-visible:ring-2 focus-visible:outline-none"
     >
       <span className="bg-muted relative aspect-video overflow-hidden rounded-md">
@@ -94,11 +96,18 @@ function VideoLink({
         )}
       </span>
       <span className="flex min-w-0 flex-col justify-between gap-2 py-0.5">
-        <span
-          className="text-foreground block w-full min-w-0 text-start text-sm leading-snug font-semibold break-words whitespace-normal"
-          dir="auto"
-        >
-          {video.title ?? 'Open on YouTube'}
+        <span className="flex items-start gap-2">
+          <span
+            className="text-foreground block w-full min-w-0 text-start text-sm leading-snug font-semibold break-words whitespace-normal"
+            dir="auto"
+          >
+            {video.title ?? 'Open on YouTube'}
+          </span>
+          {isNew && (
+            <span className="bg-primary/10 text-primary ring-primary/20 shrink-0 rounded-full px-2 py-0.5 text-[0.65rem] font-bold uppercase ring-1">
+              New<span className="sr-only"> video</span>
+            </span>
+          )}
         </span>
         <span className="text-muted-foreground group-hover:text-foreground inline-flex items-center gap-1 text-xs font-semibold">
           Open on YouTube
