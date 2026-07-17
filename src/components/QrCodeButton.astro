@@ -23,21 +23,25 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
 ---
 
 <div class="mx-auto mt-5 flex justify-center lg:hidden">
-  <button
-    type="button"
-    id="qr-open"
-      class="text-foreground bg-accent elevation-2 hover:elevation-4 focus-visible:ring-ring/30 inline-flex items-center gap-2 rounded-full px-4 py-3 text-base font-semibold transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:outline-none"
+  <a
+    href="#qr-dialog"
+    data-qr-open
+    class="text-foreground bg-accent elevation-2 hover:elevation-4 focus-visible:ring-ring/30 inline-flex items-center gap-2 rounded-full px-4 py-3 text-base font-semibold transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:outline-none"
     aria-haspopup="dialog"
     aria-controls="qr-dialog"
   >
     <Icon name="heroicons:qr-code" class="size-5" aria-hidden="true" />
     <span>QR code</span>
-  </button>
+  </a>
 </div>
 
-<aside
-  class="qr-desktop-panel border-border/30 bg-accent/95 elevation-3 fixed right-7 bottom-7 z-40 hidden rounded-xl border p-3 text-center backdrop-blur-sm lg:block"
-  aria-label="View on mobile QR code"
+<a
+  href="#qr-dialog"
+  data-qr-open
+  class="qr-desktop-panel border-border/30 bg-accent/95 elevation-3 focus-visible:ring-ring/30 fixed right-7 bottom-7 z-40 hidden rounded-xl border p-3 text-center backdrop-blur-sm focus-visible:ring-2 focus-visible:outline-none lg:block"
+  aria-label="Open view on mobile QR code"
+  aria-haspopup="dialog"
+  aria-controls="qr-dialog"
 >
   <p class="text-foreground mb-2 text-sm font-semibold">View on mobile</p>
   <div
@@ -52,11 +56,11 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
       aria-hidden="true"
     />
   </div>
-</aside>
+</a>
 
 <div
   id="qr-dialog"
-  class="bg-foreground/70 fixed inset-0 z-50 hidden items-center justify-center overflow-y-auto px-4 py-6 backdrop-blur-sm sm:py-8"
+  class="bg-foreground/70 fixed inset-0 z-50 hidden items-center justify-center overflow-y-auto px-4 py-6 backdrop-blur-sm target:flex sm:py-8"
   role="dialog"
   aria-modal="true"
   aria-labelledby="qr-title"
@@ -66,14 +70,14 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
   >
     <div class="mb-4 flex items-center justify-between gap-4 text-left">
       <h2 id="qr-title" class="text-lg font-bold">Share this page</h2>
-      <button
-        type="button"
+      <a
+        href="#"
         id="qr-close"
         class="hover:bg-accent focus-visible:ring-ring/30 grid size-10 place-items-center rounded-full transition-colors focus-visible:ring-2 focus-visible:outline-none"
         aria-label="Close QR code"
       >
         <Icon name="heroicons:x-mark" class="size-6" aria-hidden="true" />
-      </button>
+      </a>
     </div>
     <div
       class="to-primary/10 from-background via-background elevation-3 mx-auto grid aspect-square w-full max-w-64 place-items-center rounded-xl bg-gradient-to-br p-3"
@@ -87,25 +91,27 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
         aria-hidden="true"
       />
     </div>
-    <p
-      class="text-muted-foreground mx-auto mt-4 max-w-full truncate text-[clamp(0.75rem,3.6vw,0.875rem)] font-medium"
+    <a
+      href={pageUrl}
+      data-qr-destination
+      class="text-muted-foreground hover:text-foreground focus-visible:ring-ring/30 mx-auto mt-4 block max-w-full text-[clamp(0.75rem,3.6vw,0.875rem)] font-medium break-all underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:outline-none"
       title={pageUrl}
     >
       {displayUrl}
-    </p>
+    </a>
   </div>
 </div>
 
 <script>
   const dialog = document.getElementById('qr-dialog')
-  const openButton = document.getElementById('qr-open')
+  const openButtons = document.querySelectorAll('[data-qr-open]')
   const closeButton = document.getElementById('qr-close')
   let previousFocus = null
 
-  const openDialog = () => {
+  const openDialog = (trigger) => {
     if (!dialog) return
 
-    previousFocus = document.activeElement
+    previousFocus = trigger ?? document.activeElement
     dialog.classList.remove('hidden')
     dialog.classList.add('flex')
     document.documentElement.classList.add('overflow-hidden')
@@ -115,6 +121,9 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
   const closeDialog = () => {
     if (!dialog) return
 
+    if (dialog.matches(':target')) {
+      history.replaceState(null, '', `${location.pathname}${location.search}`)
+    }
     dialog.classList.add('hidden')
     dialog.classList.remove('flex')
     document.documentElement.classList.remove('overflow-hidden')
@@ -124,15 +133,29 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
     }
   }
 
-  openButton?.addEventListener('click', openDialog)
-  closeButton?.addEventListener('click', closeDialog)
+  openButtons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      event.preventDefault()
+      openDialog(button)
+    })
+  })
+  closeButton?.addEventListener('click', (event) => {
+    event.preventDefault()
+    closeDialog()
+  })
 
   dialog?.addEventListener('click', (event) => {
     if (event.target === dialog) closeDialog()
   })
 
   document.addEventListener('keydown', (event) => {
-    if (!dialog || dialog.classList.contains('hidden')) return
+    if (
+      !dialog ||
+      (dialog.classList.contains('hidden') && !dialog.matches(':target'))
+    )
+      return
     if (event.key === 'Escape') closeDialog()
   })
+
+  if (dialog?.matches(':target')) openDialog()
 </script>

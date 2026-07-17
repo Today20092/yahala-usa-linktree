@@ -32,3 +32,11 @@ Run once in mobile Chromium and once in Brave with ordinary Shields settings:
 - Current Cloudflare Worker deployment in mobile Chromium: five referenced assets return successfully with correct content types, QR opens and closes, Leaflet initializes with tiles and markers, and the console reports no warnings or errors.
 - Hydration boundary: QR behavior comes from an inline module and the map/state browser from hydrated React islands. Both enhance in Chromium after the Worker's nonce-based CSP is applied; local Astro does not apply that CSP.
 - Brave was not installed in the implementation environment; run the mobile journey there before treating a shared preview as the known-good checkpoint.
+
+## 2026-07-16 QR reliability check
+
+- Version preview: `https://3bc4346f-yahala-usa-linktree-atlas-preview.haithum-alqahaf.workers.dev`. The automated asset boundary passes with six assets and the Worker's CSP.
+- Local Chromium opens the QR dialog at 320, 375, 414, 768, and 1280 pixels without horizontal overflow. Focus enters the close control and returns to the mobile or desktop trigger after the close control, backdrop, and Escape paths.
+- With JavaScript disabled at 375 pixels, the fragment fallback exposes the QR image and linked destination without horizontal overflow.
+- Deployed Chromium at 375 pixels opens and closes the enhanced dialog under the Worker's CSP with focus return and no console errors from the deployed origin.
+- Brave remains outstanding because it is not installed or connected in this environment.

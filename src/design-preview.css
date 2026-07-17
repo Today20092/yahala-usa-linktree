@@ -702,10 +702,6 @@ html[data-design='atlas'] .brand-social-link {
     box-shadow var(--dur-short) var(--ease-out);
 }
 
-html[data-design='atlas'] .qr-desktop-panel {
-  display: none;
-}
-
 html[data-design='atlas'] :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid) {
   display: grid;
   max-width: none;

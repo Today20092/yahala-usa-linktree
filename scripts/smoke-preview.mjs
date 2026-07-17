@@ -24,7 +24,10 @@ const assetPaths = (html) =>
 
 const journeyMarkers = [
   ['reach section', 'data-reach-card'],
-  ['QR interaction', 'id="qr-open"'],
+  ['QR interaction', 'data-qr-open'],
+  ['QR fallback', 'href="#qr-dialog"'],
+  ['QR dialog', 'role="dialog"'],
+  ['QR destination', 'data-qr-destination'],
   ['map', 'aria-label="Map"'],
   ['state selection', 'Choose a state'],
   ['latest-story action', 'Latest From Ya Hala'],
