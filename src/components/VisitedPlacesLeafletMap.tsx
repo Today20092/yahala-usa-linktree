@@ -180,15 +180,21 @@ export default function VisitedPlacesLeafletMap({ places }: Props) {
       <div ref={mapRef} className="col-start-1 row-start-1 min-h-full" />
       {status !== 'ready' && (
         <div
-          className="bg-muted/95 text-foreground z-[500] col-start-1 row-start-1 grid place-items-center p-6 text-center backdrop-blur-sm"
+          className={
+            status === 'error'
+              ? 'bg-muted/95 text-foreground z-[500] col-start-1 row-start-1 grid place-items-center p-6 text-center backdrop-blur-sm'
+              : 'bg-background/90 text-foreground pointer-events-none z-[500] col-start-1 row-start-1 m-3 place-self-start rounded-full px-3 py-2 text-left shadow-sm ring-1 ring-black/5 backdrop-blur-sm'
+          }
           role={statusContent.role}
           aria-live="polite"
         >
           <div className="max-w-sm">
-            <p className="font-semibold">{statusContent.title}</p>
-            <p className="text-muted-foreground mt-1 text-sm">
-              {statusContent.description}
-            </p>
+            <p className="text-sm font-semibold">{statusContent.title}</p>
+            {status === 'error' && (
+              <p className="text-muted-foreground mt-1 text-sm">
+                {statusContent.description}
+              </p>
+            )}
           </div>
         </div>
       )}
