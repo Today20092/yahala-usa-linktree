@@ -103,6 +103,7 @@ const platformTotals = Object.values(
           locale="en-US"
           inView
           inViewOnce
+          startEvent="reach-chart:enhance"
         /><span class="text-primary">+</span>
       </p>
       <p class="ui-body reach-summary__description">
@@ -134,6 +135,7 @@ const platformTotals = Object.values(
                   inView
                   inViewOnce
                   delay={100}
+                  startEvent="reach-chart:enhance"
                 />
               </dd>
             </div>
@@ -146,6 +148,37 @@ const platformTotals = Object.values(
     </dl>
   </div>
 </aside>
+
+<style>
+  [data-reach-chart] .reach-summary__stats {
+    display: grid;
+    gap: var(--space-md);
+    margin: 0;
+  }
+
+  [data-reach-chart] .reach-summary__stat {
+    min-width: 0;
+    padding: 0;
+    background: transparent;
+  }
+
+  [data-reach-chart] .reach-summary__bar {
+    height: var(--space-3xs);
+    margin-block-start: var(--space-2xs);
+    overflow: hidden;
+    border-radius: var(--radius-pill);
+    background: var(--color-rule);
+  }
+
+  [data-reach-chart] .reach-summary__bar > span {
+    display: block;
+    width: var(--platform-share);
+    height: 100%;
+    transform-origin: left;
+    border-radius: inherit;
+    background: var(--platform-active-accent);
+  }
+</style>
 
 <script>
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -167,6 +200,7 @@ const platformTotals = Object.values(
         )
 
         chart.setAttribute('data-reach-enhanced', '')
+        window.dispatchEvent(new Event('reach-chart:enhance'))
       })
   }
 </script>

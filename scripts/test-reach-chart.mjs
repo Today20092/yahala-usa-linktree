@@ -17,18 +17,20 @@ const expectedText = [
   ),
   ...socialReach.items.map((item) => formatNumber(item.value)),
 ]
+const expectedPlatformCount = new Set(
+  socialReach.items.map((item) => item.platform),
+).size
 
 if (!html.includes('data-reach-chart'))
   throw new Error('Production HTML is missing the audience chart')
-if (!html.includes('data-design="atlas"'))
-  throw new Error('Production HTML is missing the no-JavaScript chart styles')
-
 for (const value of expectedText) {
   if (!html.includes(value))
     throw new Error(`Production HTML is missing audience value ${value}`)
 }
 
-if ((html.match(/reach-summary__bar/g) ?? []).length !== 4)
-  throw new Error('Production HTML must contain four audience bars')
+if ((html.match(/reach-summary__bar/g) ?? []).length !== expectedPlatformCount)
+  throw new Error(
+    `Production HTML must contain ${expectedPlatformCount} audience bars`,
+  )
 
 console.log('Audience chart is server-rendered with all verified values.')

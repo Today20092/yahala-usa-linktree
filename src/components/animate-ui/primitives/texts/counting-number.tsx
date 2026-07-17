@@ -23,6 +23,7 @@ type CountingNumberProps = Omit<React.ComponentProps<'span'>, 'children'> & {
   transition?: SpringOptions;
   delay?: number;
   initiallyStable?: boolean;
+  startEvent?: string;
 } & UseIsInViewOptions;
 
 function CountingNumber({
@@ -39,6 +40,7 @@ function CountingNumber({
   locale,
   delay = 0,
   initiallyStable = false,
+  startEvent,
   ...props
 }: CountingNumberProps) {
   const { ref: localRef, isInView } = useIsInView(
@@ -73,14 +75,31 @@ function CountingNumber({
   );
 
   React.useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      if (!isInView) return;
-      if (shouldReduceMotion) springVal.jump(number);
-      else motionVal.set(number);
-    }, delay);
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+    const start = () => {
+      timeoutId = setTimeout(() => {
+        if (!isInView) return;
+        if (shouldReduceMotion) springVal.jump(number);
+        else motionVal.set(number);
+      }, delay);
+    };
 
-    return () => clearTimeout(timeoutId);
-  }, [delay, isInView, motionVal, number, shouldReduceMotion, springVal]);
+    if (!startEvent) start();
+    else window.addEventListener(startEvent, start, { once: true });
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      if (startEvent) window.removeEventListener(startEvent, start);
+    };
+  }, [
+    delay,
+    isInView,
+    motionVal,
+    number,
+    shouldReduceMotion,
+    springVal,
+    startEvent,
+  ]);
 
   React.useEffect(() => {
     const unsubscribe = springVal.on('change', (latest) => {
