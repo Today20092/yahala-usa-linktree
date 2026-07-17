@@ -66,7 +66,8 @@ function VideoLink({
       href={video.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="focus-visible:ring-ring group hover:bg-muted/60 grid grid-cols-[96px_1fr] gap-3 rounded-md p-2 text-left transition focus-visible:ring-2 focus-visible:outline-none"
+      aria-label={`Open ${video.title ?? 'video'} on YouTube`}
+      className="focus-visible:ring-ring group hover:bg-muted/60 grid grid-cols-[minmax(8rem,42%)_minmax(0,1fr)] gap-3 rounded-lg p-2.5 text-left transition focus-visible:ring-2 focus-visible:outline-none"
     >
       <span className="bg-muted relative aspect-video overflow-hidden rounded-md">
         {thumbnail ? (
@@ -93,7 +94,10 @@ function VideoLink({
         )}
       </span>
       <span className="flex min-w-0 flex-col justify-between gap-2 py-0.5">
-        <span className="text-foreground line-clamp-2 text-sm leading-snug font-semibold">
+        <span
+          className="text-foreground block w-full min-w-0 text-start text-sm leading-snug font-semibold break-words whitespace-normal"
+          dir="auto"
+        >
           {video.title ?? 'Open on YouTube'}
         </span>
         <span className="text-muted-foreground group-hover:text-foreground inline-flex items-center gap-1 text-xs font-semibold">
@@ -259,7 +263,7 @@ export default function VisitedPlacesExplorer({ stateGroups }: Props) {
         }}
       >
         <DrawerContent>
-          <DrawerHeader>
+          <DrawerHeader className="bg-background z-10 shrink-0 border-b">
             <div className="flex items-start gap-3">
               <span className="bg-muted text-muted-foreground ring-border mt-0.5 grid size-9 shrink-0 place-items-center rounded-lg ring-1">
                 <MapPin className="size-4" aria-hidden="true" />
@@ -277,25 +281,25 @@ export default function VisitedPlacesExplorer({ stateGroups }: Props) {
             </div>
           </DrawerHeader>
 
-          <div className="overflow-y-auto px-5 pb-2">
+          <div className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto px-4 py-3 sm:px-5">
             {hasSelectedVideos ? (
               <Accordion
                 key={selectedStateGroup?.state ?? 'state-videos'}
                 type="multiple"
                 value={accordionValue}
                 onValueChange={setAccordionValue}
-                className="border-border bg-card rounded-lg border"
+                className="border-border bg-card overflow-hidden rounded-lg border"
               >
                 {selectedStateVideos.length > 0 && (
                   <AccordionItem
                     value="statewide-videos"
                     className="border-border data-open:bg-card"
                   >
-                    <AccordionTrigger className="items-center px-3 py-3 hover:no-underline">
-                      <span className="text-foreground min-w-0 truncate text-sm font-semibold">
+                    <AccordionTrigger className="bg-muted/35 items-center gap-3 px-3 py-3 hover:no-underline">
+                      <span className="text-foreground min-w-0 flex-1 truncate text-sm font-semibold">
                         Statewide videos
                       </span>
-                      <span className="text-muted-foreground text-xs font-medium">
+                      <span className="bg-background text-muted-foreground ring-border shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ring-1">
                         {formatVideoCount(selectedStateVideos.length)}
                       </span>
                     </AccordionTrigger>
@@ -317,11 +321,11 @@ export default function VisitedPlacesExplorer({ stateGroups }: Props) {
                     value={`${place.state}-${place.city}`}
                     className="border-border data-open:bg-card"
                   >
-                    <AccordionTrigger className="items-center px-3 py-3 hover:no-underline">
-                      <span className="text-foreground min-w-0 truncate text-sm font-semibold">
+                    <AccordionTrigger className="bg-muted/35 items-center gap-3 px-3 py-3 hover:no-underline">
+                      <span className="text-foreground min-w-0 flex-1 truncate text-sm font-semibold">
                         {place.label ?? `${place.city}, ${place.state}`}
                       </span>
-                      <span className="text-muted-foreground text-xs font-medium">
+                      <span className="bg-background text-muted-foreground ring-border shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ring-1">
                         {formatVideoCount(place.videos?.length ?? 0)}
                       </span>
                     </AccordionTrigger>
@@ -352,7 +356,7 @@ export default function VisitedPlacesExplorer({ stateGroups }: Props) {
             )}
           </div>
 
-          <DrawerFooter>
+          <DrawerFooter className="bg-background z-10 shrink-0 border-t">
             <DrawerClose asChild>
               <Button type="button" variant="outline" className="w-full">
                 Close

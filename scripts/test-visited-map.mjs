@@ -4,6 +4,10 @@ const source = await readFile(
   new URL('../src/components/VisitedPlacesLeafletMap.tsx', import.meta.url),
   'utf8',
 )
+const explorerSource = await readFile(
+  new URL('../src/components/VisitedPlacesExplorer.tsx', import.meta.url),
+  'utf8',
+)
 
 for (const expected of [
   "React.useState<'loading' | 'ready' | 'error'>",
@@ -23,4 +27,20 @@ for (const expected of [
   }
 }
 
-console.log('Visited map loading and failure states are present.')
+for (const expected of [
+  'aria-label={`Open ${video.title ??',
+  'grid-cols-[minmax(8rem,42%)_minmax(0,1fr)]',
+  'dir="auto"',
+  'shrink-0 border-b',
+  'shrink-0 border-t',
+]) {
+  if (!explorerSource.includes(expected)) {
+    throw new Error(`Visited drawer is missing: ${expected}`)
+  }
+}
+
+if (explorerSource.includes('line-clamp-2')) {
+  throw new Error('Visited drawer titles must not be clamped to two lines')
+}
+
+console.log('Visited map and mobile drawer checks pass.')
