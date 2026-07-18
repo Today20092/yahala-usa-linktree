@@ -8,6 +8,14 @@ const explorerSource = await readFile(
   new URL('../src/components/VisitedPlacesExplorer.tsx', import.meta.url),
   'utf8',
 )
+const browserSource = await readFile(
+  new URL('../src/components/StoryBrowser.tsx', import.meta.url),
+  'utf8',
+)
+const pageSource = await readFile(
+  new URL('../src/pages/stories.astro', import.meta.url),
+  'utf8',
+)
 
 for (const expected of [
   "React.useState<'loading' | 'ready' | 'error'>",
@@ -20,7 +28,7 @@ for (const expected of [
   'keyboard: true',
   "window.matchMedia('(pointer: coarse)').matches",
   'aspect-[2/1]',
-  "new CustomEvent('visited-state-select'",
+  'window.location.assign(storyBrowserHref(place.state, place.city))',
 ]) {
   if (!source.includes(expected)) {
     throw new Error(`Visited map is missing: ${expected}`)
@@ -28,19 +36,33 @@ for (const expected of [
 }
 
 for (const expected of [
-  'aria-label={`Open ${video.title ??',
-  'grid-cols-[minmax(8rem,42%)_minmax(0,1fr)]',
-  'dir="auto"',
-  'shrink-0 border-b',
-  'shrink-0 border-t',
+  'window.location.assign(storyBrowserHref(state))',
+  'href="/stories"',
+  'Browse stories by state',
 ]) {
   if (!explorerSource.includes(expected)) {
-    throw new Error(`Visited drawer is missing: ${expected}`)
+    throw new Error(`Visited story entry point is missing: ${expected}`)
   }
 }
 
-if (explorerSource.includes('line-clamp-2')) {
-  throw new Error('Visited drawer titles must not be clamped to two lines')
+for (const expected of [
+  "const PAGE_SIZE = 24",
+  "window.addEventListener('popstate', sync)",
+  "history.pushState(null, '', `/stories",
+  'setVisibleCount(PAGE_SIZE)',
+  'visibleCount < matches.length',
+  'No stories match these filters.',
+  'aria-label={`Open ${story.title ??',
+  'dir="auto"',
+  'event.currentTarget.src = fallback',
+]) {
+  if (!browserSource.includes(expected)) {
+    throw new Error(`Story Browser is missing: ${expected}`)
+  }
 }
 
-console.log('Visited map and mobile drawer checks pass.')
+if (!pageSource.includes('canonical={canonicalUrl}')) {
+  throw new Error('Story Browser must declare /stories as canonical')
+}
+
+console.log('Visited map and Story Browser checks pass.')

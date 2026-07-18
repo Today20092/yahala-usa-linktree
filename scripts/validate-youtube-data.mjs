@@ -1,7 +1,10 @@
 import { readFile } from 'node:fs/promises'
 import { parse } from 'yaml'
 
-import { getYoutubeVideoId } from './youtube-video-utils.mjs'
+import {
+  getYoutubeVideoId,
+  isValidYoutubePublishedDate,
+} from './youtube-video-utils.mjs'
 
 const latestPath = new URL(
   '../src/data/latest-youtube-videos.json',
@@ -97,6 +100,10 @@ const stateKeys = new Set(
 )
 
 for (const [videoId, video] of Object.entries(youtubeVideos)) {
+  if (video.published && !isValidYoutubePublishedDate(video.published)) {
+    errors.push(`${videoId} has invalid published date ${video.published}`)
+  }
+
   if (video.fullMetadataFetchedAt && !video.description) {
     errors.push(`${videoId} has fullMetadataFetchedAt but no description`)
   }

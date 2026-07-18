@@ -3,6 +3,7 @@ import 'leaflet/dist/leaflet.css'
 import './VisitedPlacesLeafletMap.css'
 
 import type { VisitedMapPlace } from '@/lib/site-config'
+import { storyBrowserHref } from '@/lib/story-browser'
 
 type Props = {
   places: VisitedMapPlace[]
@@ -90,11 +91,7 @@ export default function VisitedPlacesLeafletMap({ places }: Props) {
         })
 
         marker.on('click', () => {
-          window.dispatchEvent(
-            new CustomEvent('visited-state-select', {
-              detail: { state: place.state, city: place.city },
-            }),
-          )
+          window.location.assign(storyBrowserHref(place.state, place.city))
         })
 
         marker.bindTooltip(label, {
