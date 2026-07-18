@@ -13,6 +13,7 @@ import { resolveYoutubeReference } from '@/lib/youtube-video-id.js'
 
 type Props = { stories: Story[] }
 const PAGE_SIZE = 24
+const UNASSIGNED_FILTER = 'unassigned'
 
 const readFilters = () => {
   const params = new URLSearchParams(window.location.search)
@@ -56,13 +57,19 @@ export default function StoryBrowser({ stories }: Props) {
         : [],
     [filters.state, stories],
   ) as string[]
-  const validState = !filters.state || states.includes(filters.state)
+  const validState =
+    !filters.state ||
+    filters.state === UNASSIGNED_FILTER ||
+    states.includes(filters.state)
   const validCity = !filters.city || cities.includes(filters.city)
   const matches =
     validState && validCity
       ? stories.filter(
           (story) =>
-            (!filters.state || story.state === filters.state) &&
+            (!filters.state ||
+              (filters.state === UNASSIGNED_FILTER
+                ? !story.state
+                : story.state === filters.state)) &&
             (!filters.city || story.city === filters.city),
         )
       : []
@@ -85,7 +92,7 @@ export default function StoryBrowser({ stories }: Props) {
 
   return (
     <>
-      <div className="border-border bg-card grid gap-4 rounded-xl border p-4 sm:grid-cols-3 sm:p-5">
+      <div className="border-border bg-card grid gap-4 rounded-xl border p-4 sm:grid-cols-2 sm:p-5 lg:grid-cols-3">
         <label className="text-foreground text-sm font-semibold">
           State
           <select
@@ -94,6 +101,7 @@ export default function StoryBrowser({ stories }: Props) {
             className="border-border bg-background focus-visible:ring-ring mt-2 min-h-11 w-full rounded-lg border px-3 text-base focus-visible:ring-2 focus-visible:outline-none"
           >
             <option value="">All states</option>
+            <option value={UNASSIGNED_FILTER}>Location not yet assigned</option>
             {states.map((state) => (
               <option key={state} value={state}>{state}</option>
             ))}
@@ -103,7 +111,9 @@ export default function StoryBrowser({ stories }: Props) {
           City
           <select
             value={filters.city}
-            disabled={!filters.state}
+            disabled={
+              !filters.state || filters.state === UNASSIGNED_FILTER
+            }
             onChange={(event) =>
               updateFilters(filters.state, event.currentTarget.value)
             }
@@ -135,7 +145,8 @@ export default function StoryBrowser({ stories }: Props) {
       </div>
 
       <p className="text-muted-foreground mt-5 text-sm" aria-live="polite">
-        {matches.length} {matches.length === 1 ? 'story' : 'stories'}
+        {matches.length} {matches.length === 1 ? 'story' : 'stories'},{' '}
+        {filters.sort === 'oldest' ? 'oldest first' : 'newest first'}
       </p>
 
       {matches.length > 0 ? (

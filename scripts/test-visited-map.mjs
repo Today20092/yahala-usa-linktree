@@ -47,12 +47,14 @@ for (const expected of [
 
 for (const expected of [
   "const PAGE_SIZE = 24",
+  "const UNASSIGNED_FILTER = 'unassigned'",
   "window.addEventListener('popstate', sync)",
   "history.pushState(null, '', `/stories",
   "params.get('sort') === 'oldest'",
   'Sort by date',
   'Newest first',
   'Oldest first',
+  'Location not yet assigned',
   'setVisibleCount(PAGE_SIZE)',
   'visibleCount < matches.length',
   'No stories match these filters.',
