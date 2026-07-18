@@ -43,5 +43,9 @@ export const buildStories = (visitedPlaces: VisitedPlaces): Story[] => {
       location: 'Location not yet assigned',
     }))
 
-  return sortVideosByPublishedDate([...locatedStories, ...unassignedStories])
+  return sortVideosByPublishedDate(
+    [...locatedStories, ...unassignedStories].filter(
+      (story) => !youtubeVideosById[story.videoId]?.isShort,
+    ),
+  )
 }

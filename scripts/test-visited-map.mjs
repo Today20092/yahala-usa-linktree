@@ -16,6 +16,10 @@ const pageSource = await readFile(
   new URL('../src/pages/stories.astro', import.meta.url),
   'utf8',
 )
+const storyBuilderSource = await readFile(
+  new URL('../src/lib/story-browser.ts', import.meta.url),
+  'utf8',
+)
 
 for (const expected of [
   "React.useState<'loading' | 'ready' | 'error'>",
@@ -72,6 +76,12 @@ for (const expected of [
 
 if (!pageSource.includes('canonical={canonicalUrl}')) {
   throw new Error('Story Browser must declare /stories as canonical')
+}
+
+if (!storyBuilderSource.includes(
+  '!youtubeVideosById[story.videoId]?.isShort',
+)) {
+  throw new Error('Story Browser must exclude YouTube Shorts')
 }
 
 console.log('Visited map and Story Browser checks pass.')
