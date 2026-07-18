@@ -185,10 +185,10 @@ export default function StoryBrowser({ stories }: Props) {
                         />
                       )}
                     </span>
-                    <CardContent className="space-y-3 py-4 text-left">
-                      <div className="min-w-0 space-y-2">
+                    <CardContent className="flex flex-col gap-3 py-4 text-left">
+                      <div className="flex min-w-0 flex-col gap-2">
                         {isNew && <Badge>New</Badge>}
-                        <h2 className="text-foreground min-w-0 text-base leading-snug font-semibold break-words [overflow-wrap:anywhere]" dir="auto">
+                        <h2 className="text-foreground min-w-0 whitespace-normal text-start text-base leading-snug font-semibold break-words [overflow-wrap:anywhere]" dir="auto">
                           {story.title ?? 'Open on YouTube'}
                         </h2>
                       </div>

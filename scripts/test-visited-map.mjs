@@ -60,6 +60,7 @@ for (const expected of [
   'No stories match these filters.',
   'aria-label={`Open ${story.title ??',
   'dir="auto"',
+  'whitespace-normal text-start',
   '[overflow-wrap:anywhere]',
   '{isNew && <Badge>New</Badge>}',
   'event.currentTarget.src = fallback',
