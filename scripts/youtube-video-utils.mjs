@@ -8,10 +8,21 @@ export { getYoutubeVideoId, youtubeWatchUrl }
 
 export const fallbackThumbnail = youtubeThumbnailUrl
 
+export const youtubePublishedTimestamp = (value) => {
+  if (value === null || value === undefined || value === '') return ''
+
+  const timestamp = Number(value)
+  if (!Number.isFinite(timestamp) || timestamp <= 0) return ''
+
+  const date = new Date(timestamp * 1000)
+  return Number.isNaN(date.getTime()) ? '' : date.toISOString()
+}
+
+// YouTube publication dates use ISO 8601 timestamps so their ordering is unambiguous.
 export const isValidYoutubePublishedDate = (value) => {
   const text = String(value ?? '').trim()
   if (
-    !/^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2}))?$/.test(
+    !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(
       text,
     )
   ) {

@@ -2,6 +2,7 @@ import {
   deriveChannelCatalog,
   isValidYoutubePublishedDate,
   mergeVideoCache,
+  youtubePublishedTimestamp,
 } from './youtube-video-utils.mjs'
 
 const channel = { id: 'main', channelId: 'channel', name: 'YaHala' }
@@ -51,20 +52,20 @@ const publicationCache = mergeVideoCache(
   {
     ddddddddddd: {
       videoId: 'ddddddddddd',
-      published: '2025-01-02',
+      published: '2025-01-02T03:04:05Z',
     },
   },
   [
     { videoId: 'ddddddddddd', published: '' },
-    { videoId: 'eeeeeeeeeee', published: '2025-03-04' },
+    { videoId: 'eeeeeeeeeee', published: '2025-03-04T05:06:07Z' },
     { videoId: 'fffffffffff', published: 'not-a-date' },
     null,
   ],
 )
-if (publicationCache.ddddddddddd.published !== '2025-01-02') {
+if (publicationCache.ddddddddddd.published !== '2025-01-02T03:04:05Z') {
   throw new Error('Expected a failed refresh to preserve a trustworthy date')
 }
-if (publicationCache.eeeeeeeeeee.published !== '2025-03-04') {
+if (publicationCache.eeeeeeeeeee.published !== '2025-03-04T05:06:07Z') {
   throw new Error('Expected a successful backfill to retain its date')
 }
 if (publicationCache.fffffffffff.published !== '') {
@@ -76,8 +77,21 @@ if (Object.keys(publicationCache).length !== 3) {
 if (!isValidYoutubePublishedDate('2025-01-02T03:04:05Z')) {
   throw new Error('Expected ISO 8601 publication timestamps to be valid')
 }
+if (isValidYoutubePublishedDate('2025-01-02')) {
+  throw new Error('Expected date-only publication values to be invalid')
+}
 if (isValidYoutubePublishedDate('2025-02-30')) {
   throw new Error('Expected impossible calendar dates to be invalid')
+}
+if (youtubePublishedTimestamp(1735787045) !== '2025-01-02T03:04:05.000Z') {
+  throw new Error('Expected YouTube timestamps to use ISO 8601')
+}
+if (
+  youtubePublishedTimestamp(null) ||
+  youtubePublishedTimestamp('') ||
+  youtubePublishedTimestamp('not-a-timestamp')
+) {
+  throw new Error('Expected missing or invalid YouTube timestamps to stay empty')
 }
 
 console.log('YouTube channel catalog is valid.')

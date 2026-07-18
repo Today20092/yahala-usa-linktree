@@ -16,6 +16,7 @@ import {
   isValidYoutubePublishedDate,
   mergeVideoCache,
   normalizeVideoMetadata,
+  youtubePublishedTimestamp,
   youtubeWatchUrl,
 } from './youtube-video-utils.mjs'
 
@@ -93,11 +94,6 @@ const fetchPlaylistVideos = async () => {
   }
 }
 
-const ytdlpDate = (value) =>
-  value && /^\d{8}$/.test(value)
-    ? `${value.slice(0, 4)}-${value.slice(4, 6)}-${value.slice(6, 8)}`
-    : ''
-
 const fetchFullVideoMetadata = async (videoId) => {
   try {
     await waitBetweenYoutubeRequests()
@@ -105,6 +101,9 @@ const fetchFullVideoMetadata = async (videoId) => {
       'yt-dlp',
       [
         '--ignore-config',
+        '--extractor-args',
+        'youtube:player_client=web_safari',
+        '--ignore-no-formats-error',
         '--dump-single-json',
         '--skip-download',
         youtubeWatchUrl(videoId),
@@ -119,8 +118,8 @@ const fetchFullVideoMetadata = async (videoId) => {
       title: video.title,
       thumbnail: video.thumbnail,
       duration: video.duration_string ?? '',
-      published: ytdlpDate(video.upload_date),
-      updated: ytdlpDate(video.upload_date),
+      published: youtubePublishedTimestamp(video.timestamp),
+      updated: youtubePublishedTimestamp(video.timestamp),
       description: video.description ?? '',
       tags: video.tags ?? [],
       categories: video.categories ?? [],
