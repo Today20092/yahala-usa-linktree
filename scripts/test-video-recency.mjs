@@ -18,6 +18,10 @@ assert.deepEqual(
   ['Newest', 'Older', 'Undated first', 'Invalid', 'Undated second'],
 )
 assert.deepEqual(
+  sortVideosByPublishedDate(videos, 'oldest').map((video) => video.title),
+  ['Older', 'Newest', 'Undated first', 'Invalid', 'Undated second'],
+)
+assert.deepEqual(
   videos.map((video) => video.title),
   ['Undated first', 'Older', 'Invalid', 'Newest', 'Undated second'],
 )

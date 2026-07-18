@@ -5,7 +5,10 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import type { Story } from '@/lib/story-browser'
-import { isRecentVideo } from '@/lib/video-recency.js'
+import {
+  isRecentVideo,
+  sortVideosByPublishedDate,
+} from '@/lib/video-recency.js'
 import { resolveYoutubeReference } from '@/lib/youtube-video-id.js'
 
 type Props = { stories: Story[] }
@@ -13,7 +16,11 @@ const PAGE_SIZE = 24
 
 const readFilters = () => {
   const params = new URLSearchParams(window.location.search)
-  return { state: params.get('state') ?? '', city: params.get('city') ?? '' }
+  return {
+    state: params.get('state') ?? '',
+    city: params.get('city') ?? '',
+    sort: params.get('sort') === 'oldest' ? 'oldest' : 'newest',
+  }
 }
 
 export default function StoryBrowser({ stories }: Props) {
@@ -58,20 +65,26 @@ export default function StoryBrowser({ stories }: Props) {
             (!filters.city || story.city === filters.city),
         )
       : []
+  const sortedMatches = sortVideosByPublishedDate(matches, filters.sort)
 
-  const updateFilters = (state: string, city = '') => {
+  const updateFilters = (
+    state: string,
+    city = '',
+    sort = filters.sort,
+  ) => {
     const params = new URLSearchParams()
     if (state) params.set('state', state)
     if (state && city) params.set('city', city)
+    if (sort === 'oldest') params.set('sort', sort)
     const query = params.toString()
     history.pushState(null, '', `/stories${query ? `?${query}` : ''}`)
-    setFilters({ state, city })
+    setFilters({ state, city, sort })
     setVisibleCount(PAGE_SIZE)
   }
 
   return (
     <>
-      <div className="border-border bg-card grid gap-4 rounded-xl border p-4 sm:grid-cols-2 sm:p-5">
+      <div className="border-border bg-card grid gap-4 rounded-xl border p-4 sm:grid-cols-3 sm:p-5">
         <label className="text-foreground text-sm font-semibold">
           State
           <select
@@ -101,6 +114,23 @@ export default function StoryBrowser({ stories }: Props) {
             ))}
           </select>
         </label>
+        <label className="text-foreground text-sm font-semibold">
+          Sort by date
+          <select
+            value={filters.sort}
+            onChange={(event) =>
+              updateFilters(
+                filters.state,
+                filters.city,
+                event.currentTarget.value,
+              )
+            }
+            className="border-border bg-background focus-visible:ring-ring mt-2 min-h-11 w-full rounded-lg border px-3 text-base focus-visible:ring-2 focus-visible:outline-none"
+          >
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+          </select>
+        </label>
       </div>
 
       <p className="text-muted-foreground mt-5 text-sm" aria-live="polite">
@@ -110,7 +140,7 @@ export default function StoryBrowser({ stories }: Props) {
       {matches.length > 0 ? (
         <>
           <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {matches.slice(0, visibleCount).map((story) => {
+            {sortedMatches.slice(0, visibleCount).map((story) => {
               if (!story.url) return null
               const thumbnail = story.thumbnail ?? resolveYoutubeReference(story.url)?.thumbnail
               const fallback = resolveYoutubeReference(story.url)?.thumbnailFallback

@@ -6,7 +6,7 @@ const publishedTime = (published) => {
   return Number.isNaN(time) ? null : time
 }
 
-export const sortVideosByPublishedDate = (videos = []) =>
+export const sortVideosByPublishedDate = (videos = [], direction = 'newest') =>
   videos
     .map((video, index) => ({
       video,
@@ -17,7 +17,9 @@ export const sortVideosByPublishedDate = (videos = []) =>
       if (a.time === null && b.time === null) return a.index - b.index
       if (a.time === null) return 1
       if (b.time === null) return -1
-      return b.time - a.time || a.index - b.index
+      return direction === 'oldest'
+        ? a.time - b.time || a.index - b.index
+        : b.time - a.time || a.index - b.index
     })
     .map(({ video }) => video)
 
