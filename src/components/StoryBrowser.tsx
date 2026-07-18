@@ -38,7 +38,8 @@ export default function StoryBrowser({ stories }: Props) {
   }, [])
 
   const states = React.useMemo(
-    () => [...new Set(stories.map((story) => story.state))].sort(),
+    () =>
+      [...new Set(stories.map((story) => story.state).filter(Boolean))].sort(),
     [stories],
   )
   const cities = React.useMemo(
@@ -174,11 +175,11 @@ export default function StoryBrowser({ stories }: Props) {
                       )}
                     </span>
                     <CardContent className="space-y-3 py-4 text-left">
-                      <div className="flex items-start justify-between gap-2">
-                        <h2 className="text-foreground text-base leading-snug font-semibold break-words" dir="auto">
+                      <div className="min-w-0 space-y-2">
+                        {isNew && <Badge>New</Badge>}
+                        <h2 className="text-foreground min-w-0 text-base leading-snug font-semibold break-words [overflow-wrap:anywhere]" dir="auto">
                           {story.title ?? 'Open on YouTube'}
                         </h2>
-                        {isNew && <Badge className="shrink-0">New</Badge>}
                       </div>
                       <div className="text-muted-foreground flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
                         <span>{story.location}</span>

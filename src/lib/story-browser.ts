@@ -1,5 +1,6 @@
 import type { CityVideo, VisitedPlaces } from './site-config'
 import { sortVideosByPublishedDate } from './video-recency.js'
+import { youtubeVideosById } from './youtube-videos'
 
 export type Story = CityVideo & {
   state: string
@@ -16,7 +17,7 @@ export const storyBrowserHref = (state?: string, city?: string) => {
 }
 
 export const buildStories = (visitedPlaces: VisitedPlaces): Story[] => {
-  const stories = (visitedPlaces.stateGroups ?? []).flatMap((group) => [
+  const locatedStories = (visitedPlaces.stateGroups ?? []).flatMap((group) => [
     ...group.stateVideos.map((video) => ({
       ...video,
       state: group.state,
@@ -31,6 +32,16 @@ export const buildStories = (visitedPlaces: VisitedPlaces): Story[] => {
       })),
     ),
   ])
+  const locatedVideoIds = new Set(
+    locatedStories.map((story) => story.videoId).filter(Boolean),
+  )
+  const unassignedStories = Object.values(youtubeVideosById)
+    .filter((video) => !locatedVideoIds.has(video.videoId))
+    .map((video) => ({
+      ...video,
+      state: '',
+      location: 'Location not yet assigned',
+    }))
 
-  return sortVideosByPublishedDate(stories)
+  return sortVideosByPublishedDate([...locatedStories, ...unassignedStories])
 }
