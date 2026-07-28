@@ -25,11 +25,39 @@ const canonicalUrl = new URL('/stories', Astro.site).toString()
   </head>
   <body class="linktree-page min-h-screen text-lg subpixel-antialiased">
     <main class="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:py-12">
-      <a href="/" class="text-primary focus-visible:ring-ring rounded-sm text-sm font-semibold focus-visible:ring-2 focus-visible:outline-none">← Back to Ya Hala</a>
+      <nav
+        class="flex items-center gap-5 text-sm font-semibold"
+        aria-label="Primary navigation"
+      >
+        <a
+          href="/"
+          class="text-primary focus-visible:ring-ring rounded-sm focus-visible:ring-2 focus-visible:outline-none"
+        >
+          ← Back to Ya Hala
+        </a>
+        <a
+          href="/about"
+          class="text-muted-foreground hover:text-foreground focus-visible:ring-ring rounded-sm transition-colors focus-visible:ring-2 focus-visible:outline-none"
+        >
+          About Haithem
+        </a>
+      </nav>
       <header class="mt-6 max-w-3xl">
-        <p class="text-primary text-sm font-bold tracking-widest uppercase">Ya Hala stories</p>
-        <h1 class="text-foreground mt-2 text-3xl font-bold tracking-tight sm:text-5xl">Story Browser</h1>
-        <p class="text-muted-foreground mt-4 text-base leading-relaxed sm:text-lg">Browse community stories across the United States, then filter by state and city. Your selected location stays in the URL so it is easy to share.</p>
+        <p class="text-primary text-sm font-bold tracking-widest uppercase">
+          Ya Hala stories
+        </p>
+        <h1
+          class="text-foreground mt-2 text-3xl font-bold tracking-tight sm:text-5xl"
+        >
+          Story Browser
+        </h1>
+        <p
+          class="text-muted-foreground mt-4 text-base leading-relaxed sm:text-lg"
+        >
+          Browse community stories across the United States, then filter by
+          state and city. Your selected location stays in the URL so it is easy
+          to share.
+        </p>
       </header>
       <section class="mt-8" aria-label="Story filters and results">
         <StoryBrowser client:only="react" stories={stories} />

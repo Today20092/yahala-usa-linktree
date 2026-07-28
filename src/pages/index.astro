@@ -241,14 +241,17 @@ const structuredData = {
     <script is:inline>
       ;(() => {
         const validDesigns = ['field', 'night', 'atlas']
-        const requestedDesign = new URLSearchParams(location.search).get('design')
+        const requestedDesign = new URLSearchParams(location.search).get(
+          'design',
+        )
         const design = validDesigns.includes(requestedDesign)
           ? requestedDesign
           : 'atlas'
 
         document.documentElement.dataset.design = design
         document.documentElement.classList.toggle('dark', design === 'night')
-        document.documentElement.style.colorScheme = design === 'night' ? 'dark' : 'light'
+        document.documentElement.style.colorScheme =
+          design === 'night' ? 'dark' : 'light'
       })()
     </script>
     <script type="module">
@@ -307,10 +310,7 @@ const structuredData = {
             class="animate-fade-in-up mx-auto w-full max-w-xl px-4 pt-6 text-center delay-200 sm:px-6 sm:pt-7"
             aria-labelledby="intro-title"
           >
-            <h2
-              id="intro-title"
-              class="ui-page-title mx-auto max-w-lg"
-            >
+            <h2 id="intro-title" class="ui-page-title mx-auto max-w-lg">
               Arab-American stories, coast to coast.
             </h2>
             <p class="ui-body mx-auto mt-4 max-w-prose sm:text-[1.05rem]">
@@ -337,6 +337,23 @@ const structuredData = {
                 )
               }
             </div>
+            <nav
+              class="mt-5 flex items-center justify-center gap-5 text-sm font-semibold"
+              aria-label="Site navigation"
+            >
+              <a
+                href={`${baseUrl}about`}
+                class="text-primary hover:text-primary/80 focus-visible:ring-ring rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+              >
+                About Haithem
+              </a>
+              <a
+                href={`${baseUrl}stories`}
+                class="text-muted-foreground hover:text-foreground focus-visible:ring-ring rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+              >
+                Browse stories
+              </a>
+            </nav>
           </section>
 
           <nav
@@ -387,15 +404,12 @@ const structuredData = {
           aria-labelledby="about-title"
         >
           <div class="about-copy py-8 sm:py-10">
-            <h2
-              id="about-title"
-              class="ui-section-title"
-            >
+            <h2 id="about-title" class="ui-section-title">
               Stories from Arab America.
             </h2>
             <p class="ui-body mt-4">
-              Haithum covers people, businesses, neighborhoods, restaurants,
-              and community life across the United States.
+              Haithum covers people, businesses, neighborhoods, restaurants, and
+              community life across the United States.
             </p>
           </div>
         </section>
@@ -462,40 +476,51 @@ const structuredData = {
         aria-labelledby="explore-title"
       >
         <div class="ui-section-header">
-          <h2
-            id="explore-title"
-            class="ui-section-title"
-          >
+          <h2 id="explore-title" class="ui-section-title">
             Explore more stories
           </h2>
           <p class="ui-body mx-auto mt-3 max-w-md text-sm">
-            {videoSearch.enabled
-              ? 'Search video moments, browse popular episodes, and follow the places Ya Hala has visited.'
-              : 'Browse popular episodes and follow the places Ya Hala has visited.'}
+            {
+              videoSearch.enabled
+                ? 'Search video moments, browse popular episodes, and follow the places Ya Hala has visited.'
+                : 'Browse popular episodes and follow the places Ya Hala has visited.'
+            }
           </p>
         </div>
       </section>
 
       <div class="desktop-explore-grid">
-        {videoSearch.enabled && (
-          <VideoSearch
-            copy={videoSearch}
-            client:visible={{ rootMargin: '200px' }}
-          />
-        )}
+        {
+          videoSearch.enabled && (
+            <VideoSearch
+              copy={videoSearch}
+              client:visible={{ rootMargin: '200px' }}
+            />
+          )
+        }
 
         <FeaturedEpisodes />
       </div>
 
       <VisitedPlacesMap visitedPlaces={resolvedVisitedPlaces} />
 
-      <footer
-        class="ui-meta mt-auto w-full px-4 pt-12 pb-4 text-center"
-      >
+      <footer class="ui-meta mt-auto w-full px-4 pt-12 pb-4 text-center">
         <nav
           class="mx-auto mb-3 flex max-w-xl flex-wrap items-center justify-center gap-x-3 gap-y-1"
           aria-label="Page information"
         >
+          <a
+            href={`${baseUrl}about`}
+            class="hover:text-foreground transition-colors"
+          >
+            About Haithem
+          </a>
+          <a
+            href={`${baseUrl}stories`}
+            class="hover:text-foreground transition-colors"
+          >
+            Stories
+          </a>
           <a href="#privacy" class="hover:text-foreground transition-colors">
             Privacy
           </a>
@@ -592,9 +617,7 @@ const structuredData = {
 
     <script>
       ;(() => {
-        const reveals = [
-          ...document.querySelectorAll('.animate-fade-in-up'),
-        ]
+        const reveals = [...document.querySelectorAll('.animate-fade-in-up')]
         const reduceMotion = window.matchMedia(
           '(prefers-reduced-motion: reduce)',
         ).matches
