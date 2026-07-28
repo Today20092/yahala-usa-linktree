@@ -36,8 +36,8 @@ html[data-design] :is(a, button):focus-visible {
 }
 
 html[data-design] * {
-  transition-property: color, background-color, border-color, opacity, transform,
-    box-shadow;
+  transition-property:
+    color, background-color, border-color, opacity, transform, box-shadow;
 }
 
 html.motion-ready[data-design] .animate-fade-in-up {
@@ -421,13 +421,16 @@ html[data-design='field'] .qr-desktop-panel {
   display: none;
 }
 
-html[data-design='field'] :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid) {
+html[data-design='field']
+  :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid) {
   display: block;
   max-width: 65ch;
   margin-inline: auto;
 }
 
-html[data-design='field'] .linktree-shell > :is(section, div):not(.desktop-hero-layout) {
+html[data-design='field']
+  .linktree-shell
+  > :is(section, div):not(.desktop-hero-layout) {
   max-width: 65ch;
   margin-inline: auto;
 }
@@ -554,7 +557,8 @@ html[data-design='night'] .desktop-intro-panel > section > :is(p, div) {
   display: none;
 }
 
-html[data-design='night'] :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid) {
+html[data-design='night']
+  :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid) {
   display: grid;
   width: min(calc(100% - var(--space-xl)), 82rem);
   margin-inline: auto;
@@ -562,7 +566,9 @@ html[data-design='night'] :is(.desktop-primary-grid, .desktop-explore-grid, .des
   gap: var(--space-lg);
 }
 
-html[data-design='night'] .linktree-shell > :is(section, div):not(.desktop-hero-layout) {
+html[data-design='night']
+  .linktree-shell
+  > :is(section, div):not(.desktop-hero-layout) {
   width: min(calc(100% - var(--space-xl)), 82rem);
   max-width: 82rem;
   margin-inline: auto;
@@ -702,7 +708,8 @@ html[data-design='atlas'] .brand-social-link {
     box-shadow var(--dur-short) var(--ease-out);
 }
 
-html[data-design='atlas'] :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid) {
+html[data-design='atlas']
+  :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid) {
   display: grid;
   max-width: none;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -717,7 +724,9 @@ html[data-design='atlas'] .latest-channel-video {
   padding-inline: 0;
 }
 
-html[data-design='atlas'] .linktree-shell > :is(section, div):not(.desktop-hero-layout) {
+html[data-design='atlas']
+  .linktree-shell
+  > :is(section, div):not(.desktop-hero-layout) {
   max-width: none;
 }
 
@@ -836,8 +845,10 @@ html[data-design='atlas'] footer::before {
 }
 
 @media (max-width: 59.99rem) {
-  html[data-design='night'] :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid),
-  html[data-design='atlas'] :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid),
+  html[data-design='night']
+    :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid),
+  html[data-design='atlas']
+    :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid),
   html[data-design='atlas'] .desktop-hero-layout {
     grid-template-columns: minmax(0, 1fr);
   }

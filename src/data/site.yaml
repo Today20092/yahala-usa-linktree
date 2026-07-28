@@ -619,3 +619,24 @@ socialReach:
     - platform: Facebook
       metric: Views
       value: 79423446
+
+collaborationBrands:
+  - name: Aser Time Juice Time
+  - name: Farooj Abo Abed's Shawarma
+  - name: Moka & Co.
+    logo: https://mokanco.com/wp-content/uploads/2025/11/Moka-and-Co-Cafe-logo.png
+  - name: MokCafe
+  - name: Excite Medical
+  - name: Triangle Family Dentistry
+    logo: https://www.trianglefamilydentistry.com/wp-content/uploads/2025/06/tdf-color-logo.png
+  - name: Chocolate House
+  - name: Slap Burger
+  - name: Yafa Coffee & Kunafa
+  - name: Shotted Coffee
+  - name: Abu Omar Halal
+  - name: Autos of Dallas
+  - name: Zyara Restaurant
+  - name: Shawarma Press
+  - name: Melt N Dip
+  - name: Qahwah House
+    logo: https://qahwahhouse.com/images/logo.png

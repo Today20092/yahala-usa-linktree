@@ -1,0 +1,158 @@
+---
+type Props = {
+  brands: {
+    name: string
+    logo?: string
+  }[]
+}
+
+const { brands } = Astro.props
+const rows = [
+  brands.filter((_, index) => index % 2 === 0),
+  brands.filter((_, index) => index % 2 === 1),
+]
+---
+
+{
+  brands.length > 0 && (
+    <section
+      class="brand-marquee ui-section-block"
+      aria-labelledby="brand-marquee-title"
+    >
+      <div class="brand-marquee__header ui-section-header">
+        <h2 id="brand-marquee-title" class="ui-section-title">
+          Brands we've collaborated with
+        </h2>
+      </div>
+
+      <div class="brand-marquee__viewport">
+        {rows.map((row, rowIndex) => (
+          <div
+            class:list={[
+              'brand-marquee__track',
+              { 'brand-marquee__track--reverse': rowIndex === 1 },
+            ]}
+          >
+            {[false, true].map((duplicate) => (
+              <ul class="brand-marquee__group" aria-hidden={duplicate}>
+                {row.map((brand) => (
+                  <li class="brand-marquee__brand">
+                    {brand.logo && (
+                      <img
+                        src={brand.logo}
+                        alt=""
+                        class="brand-marquee__logo"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    )}
+                    <span>{brand.name}</span>
+                  </li>
+                ))}
+              </ul>
+            ))}
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .brand-marquee {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .brand-marquee__header {
+    width: 100%;
+    text-align: left;
+  }
+
+  .brand-marquee__viewport {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow: hidden;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+  }
+
+  .brand-marquee__track {
+    display: flex;
+    width: max-content;
+    animation: brand-marquee-scroll 45s linear infinite;
+  }
+
+  .brand-marquee__track--reverse {
+    animation-direction: reverse;
+    animation-duration: 50s;
+  }
+
+  .brand-marquee__viewport:hover .brand-marquee__track {
+    animation-play-state: paused;
+  }
+
+  .brand-marquee__group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0;
+    padding: 0 0.5rem;
+    list-style: none;
+  }
+
+  .brand-marquee__brand {
+    display: flex;
+    min-height: 5.5rem;
+    min-width: 12rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    background: var(--card);
+    padding: 1rem 1.5rem;
+    color: var(--card-foreground);
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  .brand-marquee__logo {
+    width: auto;
+    max-width: 6.5rem;
+    height: 2.75rem;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  @keyframes brand-marquee-scroll {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .brand-marquee__viewport {
+      overflow-x: auto;
+      mask-image: none;
+    }
+
+    .brand-marquee__track {
+      animation: none;
+    }
+
+    .brand-marquee__group[aria-hidden='true'] {
+      display: none;
+    }
+  }
+
+</style>

@@ -5,6 +5,27 @@
 - uses shadcn components and color tokens
 - site variables are are at `src/data/site.yaml`
 
+## Cloudflare development deployment
+
+- The shared development target is the Worker named `yahala-usa-linktree-atlas-preview` in the Haithum Cloudflare account. Its account ID is pinned in `wrangler.preview.jsonc`; do not probe or deploy to the Ayoub account.
+- Build and deploy the current working tree with `npm run build` followed by `npx wrangler deploy --config wrangler.preview.jsonc`.
+- Development URL: https://yahala-usa-linktree-atlas-preview.haithum-alqahaf.workers.dev
+- This is the development/preview Worker. Do not use `wrangler.jsonc` or deploy the production Worker unless the user explicitly requests production.
+
+## Agent skills
+
+### Issue tracker
+
+Issues and specifications are tracked in GitHub Issues; external pull requests are not a triage request surface. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Use the standard `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, and `wontfix` label vocabulary. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+This is a single-context repository. Read the root domain context and relevant architectural decisions when they exist. See `docs/agents/domain.md`.
+
 ## Astro 7 AI development workflow
 
 - This project uses Astro 7. Follow Astro's agent-oriented development workflow when running and testing the site.

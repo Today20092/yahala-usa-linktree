@@ -130,6 +130,10 @@ export type SiteConfig = {
   visitedPlaces: VisitedPlaces
   socialReach: SocialReach
   videoSearch: VideoSearchCopy
+  collaborationBrands: {
+    name: string
+    logo?: string
+  }[]
 }
 
 export const siteConfig = parse(siteYaml) as SiteConfig
