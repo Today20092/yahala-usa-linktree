@@ -6,7 +6,7 @@ import { Picture } from 'astro:assets'
 import { Icon } from 'astro-icon/components'
 import { SEO } from 'astro-seo'
 
-import heroCover from '../assets/yahala-hero-cover.png'
+import haithemHeadshot from '../assets/haithem-alqahaf-headshot.jpg'
 import { getBaseUrl, resolveSiteAsset, siteConfig } from '../lib/site-config'
 
 const { about, site, socialLinks, socialReach } = siteConfig
@@ -192,13 +192,13 @@ const structuredData = {
           class="bg-muted relative mx-auto aspect-[4/5] w-full max-w-lg overflow-hidden rounded-[2rem]"
         >
           <Picture
-            src={heroCover}
-            alt={`Ya Hala cover artwork featuring ${about.name}`}
+            src={haithemHeadshot}
+            alt={`Portrait of ${about.name}`}
             formats={['avif', 'webp']}
             fallbackFormat="webp"
             widths={[480, 720, 960]}
             sizes="(min-width: 1024px) 42vw, 92vw"
-            class="h-full w-full scale-[1.45] object-cover object-[93%_center]"
+            class="h-full w-full object-cover object-center"
             loading="eager"
             fetchpriority="high"
           />
