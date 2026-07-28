@@ -94,23 +94,7 @@ const structuredData = {
       }}
     />
     <link rel="icon" href={`${baseUrl}favicon.ico`} sizes="32x32" />
-    <meta
-      name="theme-color"
-      content="#fafafa"
-      media="(prefers-color-scheme: light)"
-    />
-    <meta
-      name="theme-color"
-      content="#18181b"
-      media="(prefers-color-scheme: dark)"
-    />
-    <script is:inline>
-      ;(() => {
-        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-        document.documentElement.classList.toggle('dark', isDark)
-        document.documentElement.style.colorScheme = isDark ? 'dark' : 'light'
-      })()
-    </script>
+    <meta name="theme-color" content="#fafafa" />
     <script
       type="application/ld+json"
       set:html={JSON.stringify(structuredData)}
