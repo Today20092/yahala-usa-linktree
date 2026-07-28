@@ -5,8 +5,6 @@
  * slop: pass (42–45) · honest/chrome/tokens/icons: pass (30, 46–48)
  * responsive/mobile: pass (34, 49–57)
  */
-@import '../tokens.css';
-
 html[data-design],
 html[data-design] body {
   overflow-x: clip;
