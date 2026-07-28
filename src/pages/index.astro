@@ -1,7 +1,4 @@
 ---
-import '../styles.css'
-import '../design-preview.css'
-
 import { getImage, Picture } from 'astro:assets'
 import { Icon } from 'astro-icon/components'
 import { SEO } from 'astro-seo'
@@ -18,6 +15,7 @@ import VideoBentoGrid from '../components/VideoBentoGrid.astro'
 import VisitedPlacesMap from '../components/VisitedPlacesMap.astro'
 import heroCover from '../assets/yahala-hero-cover.png'
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
+import BrandedPageDocument from '../layouts/BrandedPageDocument.astro'
 import { resolveVisitedPlaces } from '../lib/visited-places'
 import { getBaseUrl, resolveSiteAsset, siteConfig } from '../lib/site-config'
 import { resolveYoutubeVideo } from '../lib/youtube-videos'
@@ -133,15 +131,10 @@ const structuredData = {
 }
 ---
 
-<!doctype html>
-<html lang="en" class="box-border" data-design-preview>
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover"
-    />
+<BrandedPageDocument
+  bodyClass="linktree-page my-0 min-h-screen text-center text-lg subpixel-antialiased"
+>
+  <Fragment slot="head">
     <SEO
       title={pageTitle}
       description={pageDescription}
@@ -176,36 +169,6 @@ const structuredData = {
       }}
     />
 
-    <link rel="icon" href={`${baseUrl}favicon.ico`} sizes="32x32" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href={`${baseUrl}favicon-16x16.png`}
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href={`${baseUrl}favicon-32x32.png`}
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href={`${baseUrl}apple-touch-icon.png`}
-    />
-    <link rel="manifest" href={`${baseUrl}site.webmanifest`} />
-    <meta
-      name="theme-color"
-      content="#fafafa"
-      media="(prefers-color-scheme: light)"
-    />
-    <meta
-      name="theme-color"
-      content="#18181b"
-      media="(prefers-color-scheme: dark)"
-    />
-
     <link
       rel="preload"
       as="image"
@@ -214,60 +177,12 @@ const structuredData = {
       fetchpriority="high"
     />
 
-    <script>
-      ;(() => {
-        const lightThemeColor = '#ffffff'
-        const darkThemeColor = '#1c1917'
-        const systemQuery = window.matchMedia('(prefers-color-scheme: dark)')
-
-        const applyTheme = () => {
-          const isDark = systemQuery.matches
-          const theme = isDark ? 'dark' : 'light'
-
-          document.documentElement.classList.toggle('dark', isDark)
-          document.documentElement.style.colorScheme = theme
-
-          document
-            .querySelectorAll('meta[name="theme-color"]')
-            .forEach((meta) => {
-              meta.content = isDark ? darkThemeColor : lightThemeColor
-              meta.media = ''
-            })
-        }
-
-        applyTheme()
-      })()
-    </script>
-    <script is:inline>
-      ;(() => {
-        const validDesigns = ['field', 'night', 'atlas']
-        const requestedDesign = new URLSearchParams(location.search).get(
-          'design',
-        )
-        const design = validDesigns.includes(requestedDesign)
-          ? requestedDesign
-          : 'atlas'
-
-        document.documentElement.dataset.design = design
-        document.documentElement.classList.toggle('dark', design === 'night')
-        document.documentElement.style.colorScheme =
-          design === 'night' ? 'dark' : 'light'
-      })()
-    </script>
-    <script type="module">
-      import '../scripts/image-fallback'
-    </script>
-
     <link rel="sitemap" type="application/xml" href={sitemapUrl} />
     <script
       type="application/ld+json"
       set:html={JSON.stringify(structuredData)}
     />
-  </head>
-
-  <body
-    class="linktree-page my-0 min-h-screen text-center text-lg subpixel-antialiased"
-  >
+  </Fragment>
     <main class="linktree-shell mx-auto flex w-full flex-col pb-6">
       <div class="desktop-hero-layout">
         <section
@@ -702,5 +617,4 @@ const structuredData = {
         })
       })()
     </script>
-  </body>
-</html>
+</BrandedPageDocument>

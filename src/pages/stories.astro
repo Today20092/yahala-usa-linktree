@@ -1,9 +1,7 @@
 ---
-import '../styles.css'
-import '../design-preview.css'
-
 import { SEO } from 'astro-seo'
 import StoryBrowser from '../components/StoryBrowser'
+import BrandedPageDocument from '../layouts/BrandedPageDocument.astro'
 import { resolveVisitedPlaces } from '../lib/visited-places'
 import { siteConfig } from '../lib/site-config'
 import { buildStories } from '../lib/story-browser'
@@ -12,18 +10,16 @@ const stories = buildStories(resolveVisitedPlaces(siteConfig.visitedPlaces))
 const canonicalUrl = new URL('/stories', Astro.site).toString()
 ---
 
-<!doctype html>
-<html lang="en" class="box-border" data-design-preview data-design="atlas">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<BrandedPageDocument
+  bodyClass="linktree-page min-h-screen text-lg subpixel-antialiased"
+>
+  <Fragment slot="head">
     <SEO
       title={`Story Browser | ${siteConfig.site.siteName}`}
       description="Browse Ya Hala stories by state and city."
       canonical={canonicalUrl}
     />
-  </head>
-  <body class="linktree-page min-h-screen text-lg subpixel-antialiased">
+  </Fragment>
     <main class="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:py-12">
       <nav
         class="flex items-center gap-5 text-sm font-semibold"
@@ -63,5 +59,4 @@ const canonicalUrl = new URL('/stories', Astro.site).toString()
         <StoryBrowser client:only="react" stories={stories} />
       </section>
     </main>
-  </body>
-</html>
+</BrandedPageDocument>

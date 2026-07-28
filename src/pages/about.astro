@@ -1,6 +1,4 @@
 ---
-import '../styles.css'
-import '../design-preview.css'
 import '../typeset.css'
 
 import { Picture } from 'astro:assets'
@@ -8,6 +6,7 @@ import { Icon } from 'astro-icon/components'
 import { SEO } from 'astro-seo'
 
 import haithemHeadshot from '../assets/haithem-alqahaf-headshot.jpg'
+import BrandedPageDocument from '../layouts/BrandedPageDocument.astro'
 import { getBaseUrl, resolveSiteAsset, siteConfig } from '../lib/site-config'
 
 const { about, site, socialLinks, socialReach } = siteConfig
@@ -53,19 +52,10 @@ const structuredData = {
 }
 ---
 
-<!doctype html>
-<html
-  lang="en"
-  class="box-border"
-  data-design="atlas"
-  data-design-preview
+<BrandedPageDocument
+  bodyClass="bg-background text-foreground min-h-screen text-lg subpixel-antialiased"
 >
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover"
-    />
+  <Fragment slot="head">
     <SEO
       title={about.pageTitle}
       description={about.pageDescription}
@@ -99,17 +89,11 @@ const structuredData = {
         imageAlt: `Ya Hala cover artwork featuring ${about.name}`,
       }}
     />
-    <link rel="icon" href={`${baseUrl}favicon.ico`} sizes="32x32" />
-    <meta name="theme-color" content="#fafafa" />
     <script
       type="application/ld+json"
       set:html={JSON.stringify(structuredData)}
     />
-  </head>
-
-  <body
-    class="bg-background text-foreground min-h-screen text-lg subpixel-antialiased"
-  >
+  </Fragment>
     <header class="mx-auto w-full max-w-7xl px-4 pt-5 sm:px-6 lg:px-8">
       <nav
         class="flex min-h-14 items-center justify-between gap-4"
@@ -357,5 +341,4 @@ const structuredData = {
         </a>
       </nav>
     </footer>
-  </body>
-</html>
+</BrandedPageDocument>
