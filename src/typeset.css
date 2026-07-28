@@ -1,0 +1,220 @@
+@layer components {
+  .typeset {
+    --typeset-font-body: inherit;
+    --typeset-font-heading: var(--font-sans);
+    --typeset-font-mono: var(--font-mono);
+    --typeset-size: 1rem;
+    --typeset-leading: 1.75;
+    --typeset-flow: 1.25em;
+
+    color: var(--muted-foreground);
+    font-family: var(--typeset-font-body);
+    font-size: var(--typeset-size);
+    line-height: var(--typeset-leading);
+  }
+
+  .typeset-about {
+    --typeset-size: 1.125rem;
+    --typeset-leading: 1.8;
+    --typeset-flow: 1.1em;
+  }
+
+  .typeset
+    :where(h1, h2, h3, h4, p, ul, ol, blockquote, pre, table, figure, hr):not(
+      :where(
+        .not-typeset,
+        .not-typeset *,
+        [data-not-typeset],
+        [data-not-typeset] *
+      )
+    ) {
+    margin: 0;
+  }
+
+  .typeset
+    :where(h1, h2, h3, h4, p, ul, ol, blockquote, pre, table, figure, hr):not(
+      :first-child
+    ):not(
+      :where(
+        .not-typeset,
+        .not-typeset *,
+        [data-not-typeset],
+        [data-not-typeset] *
+      )
+    ) {
+    margin-block-start: var(--typeset-flow);
+  }
+
+  .typeset
+    :where(h1, h2, h3, h4):not(
+      :where(
+        .not-typeset,
+        .not-typeset *,
+        [data-not-typeset],
+        [data-not-typeset] *
+      )
+    ) {
+    color: var(--foreground);
+    font-family: var(--typeset-font-heading);
+    font-weight: 700;
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  .typeset :where(h1) {
+    font-size: 2.25em;
+  }
+
+  .typeset :where(h2) {
+    font-size: 1.75em;
+  }
+
+  .typeset :where(h3) {
+    font-size: 1.35em;
+  }
+
+  .typeset :where(h4) {
+    font-size: 1.1em;
+  }
+
+  .typeset
+    :where(a):not(
+      :where(
+        .not-typeset,
+        .not-typeset *,
+        [data-not-typeset],
+        [data-not-typeset] *
+      )
+    ) {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .typeset
+    :where(ul, ol):not(
+      :where(
+        .not-typeset,
+        .not-typeset *,
+        [data-not-typeset],
+        [data-not-typeset] *
+      )
+    ) {
+    padding-inline-start: 1.5em;
+  }
+
+  .typeset
+    :where(li + li):not(
+      :where(
+        .not-typeset,
+        .not-typeset *,
+        [data-not-typeset],
+        [data-not-typeset] *
+      )
+    ) {
+    margin-block-start: 0.4em;
+  }
+
+  .typeset
+    :where(blockquote):not(
+      :where(
+        .not-typeset,
+        .not-typeset *,
+        [data-not-typeset],
+        [data-not-typeset] *
+      )
+    ) {
+    border-inline-start: 0.25rem solid var(--primary);
+    color: var(--foreground);
+    padding-inline-start: 1em;
+  }
+
+  .typeset
+    :where(code):not(
+      pre code,
+      .not-typeset,
+      .not-typeset *,
+      [data-not-typeset],
+      [data-not-typeset] *
+    ) {
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    color: var(--foreground);
+    font-family: var(--typeset-font-mono);
+    font-size: 0.875em;
+    padding: 0.15em 0.35em;
+  }
+
+  .typeset
+    :where(pre):not(
+      :where(
+        .not-typeset,
+        .not-typeset *,
+        [data-not-typeset],
+        [data-not-typeset] *
+      )
+    ) {
+    overflow-x: auto;
+    border-radius: var(--radius);
+    background: var(--muted);
+    color: var(--foreground);
+    padding: 1em;
+  }
+
+  .typeset :where(pre code) {
+    font-family: var(--typeset-font-mono);
+    font-size: 0.875em;
+  }
+
+  .typeset
+    :where(table):not(
+      :where(
+        .not-typeset,
+        .not-typeset *,
+        [data-not-typeset],
+        [data-not-typeset] *
+      )
+    ) {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .typeset :where(th, td) {
+    border-bottom: 1px solid var(--border);
+    padding: 0.65em;
+    text-align: start;
+  }
+
+  .typeset :where(th) {
+    color: var(--foreground);
+    font-weight: 700;
+  }
+
+  .typeset :where(img) {
+    height: auto;
+    max-width: 100%;
+    border-radius: var(--radius);
+  }
+
+  .typeset :where(figcaption) {
+    margin-block-start: 0.5em;
+    font-size: 0.875em;
+    text-align: center;
+  }
+
+  .typeset :where(hr) {
+    border: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .typeset-scroll {
+    overflow-x: auto;
+  }
+
+  @media (max-width: 639px) {
+    .typeset-about {
+      --typeset-size: 1rem;
+    }
+  }
+}
