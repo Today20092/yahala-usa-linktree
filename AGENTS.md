@@ -16,7 +16,7 @@
 
 ### Issue tracker
 
-Issues and specifications are tracked in GitHub Issues; external pull requests are not a triage request surface. See `docs/agents/issue-tracker.md`.
+Issues and specifications are Markdown files in `issues/`; do not use GitHub Issues. Use the `local-issue-tracker` skill and see `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 

@@ -2,7 +2,7 @@
 
 The engineering skills use five canonical triage roles. Their tracker labels are:
 
-| Canonical role | GitHub label | Meaning |
+| Canonical role | Frontmatter value | Meaning |
 | --- | --- | --- |
 | `needs-triage` | `needs-triage` | Maintainer evaluation is required |
 | `needs-info` | `needs-info` | Waiting for information from the reporter |
@@ -10,4 +10,4 @@ The engineering skills use five canonical triage roles. Their tracker labels are
 | `ready-for-human` | `ready-for-human` | Requires human implementation or judgment |
 | `wontfix` | `wontfix` | Will not be actioned |
 
-When a skill names a canonical role, apply the corresponding GitHub label from this table.
+When a skill names a canonical role, set the ticket's `triage` frontmatter field to the corresponding value.
