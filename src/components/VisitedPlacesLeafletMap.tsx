@@ -38,7 +38,6 @@ export default function VisitedPlacesLeafletMap({ places }: Props) {
         scrollWheelZoom: false,
         dragging: !isTouchDevice,
         touchZoom: true,
-        tap: true,
         preferCanvas: true,
       })
 
