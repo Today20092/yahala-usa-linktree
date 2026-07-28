@@ -33,6 +33,7 @@ export type YoutubeVideoRef = {
   url?: string
   title?: string
   thumbnail?: string
+  published?: string
 }
 
 export const youtubeVideosById = youtubeVideos as Record<string, YoutubeVideo>
@@ -58,6 +59,7 @@ export const resolveYoutubeVideo = (
     videoId,
     url: youtubeWatchUrl(videoId),
     title: videoRef?.title ?? cachedVideo?.title ?? 'Open on YouTube',
+    published: videoRef?.published ?? cachedVideo?.published,
     thumbnail: resolveYoutubeThumbnailUrl(
       videoId,
       videoRef?.thumbnail ?? cachedVideo?.thumbnail,

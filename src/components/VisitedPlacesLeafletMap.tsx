@@ -3,6 +3,7 @@ import 'leaflet/dist/leaflet.css'
 import './VisitedPlacesLeafletMap.css'
 
 import type { VisitedMapPlace } from '@/lib/site-config'
+import { storyBrowserHref } from '@/lib/story-browser'
 
 type Props = {
   places: VisitedMapPlace[]
@@ -16,6 +17,9 @@ const mapBoundsPadding: [number, number] = [32, 32]
 export default function VisitedPlacesLeafletMap({ places }: Props) {
   const mapRef = React.useRef<HTMLDivElement | null>(null)
   const mapInstanceRef = React.useRef<import('leaflet').Map | null>(null)
+  const [status, setStatus] = React.useState<'loading' | 'ready' | 'error'>(
+    'loading',
+  )
 
   React.useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current) return
@@ -42,12 +46,25 @@ export default function VisitedPlacesLeafletMap({ places }: Props) {
 
       L.control.zoom({ position: 'topright' }).addTo(map)
 
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        minZoom: 3,
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>',
-      }).addTo(map)
+      const tileLayer = L.tileLayer(
+        'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+        {
+          maxZoom: 19,
+          minZoom: 3,
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>',
+        },
+      )
+      let hasTileError = false
+
+      tileLayer.on('load', () => {
+        if (isMounted && !hasTileError) setStatus('ready')
+      })
+      tileLayer.on('tileerror', () => {
+        hasTileError = true
+        if (isMounted) setStatus('error')
+      })
+      tileLayer.addTo(map)
 
       const markerIcon = L.divIcon({
         className: '',
@@ -74,11 +91,7 @@ export default function VisitedPlacesLeafletMap({ places }: Props) {
         })
 
         marker.on('click', () => {
-          window.dispatchEvent(
-            new CustomEvent('visited-state-select', {
-              detail: { state: place.state, city: place.city },
-            }),
-          )
+          window.location.assign(storyBrowserHref(place.state, place.city))
         })
 
         marker.bindTooltip(label, {
@@ -131,9 +144,13 @@ export default function VisitedPlacesLeafletMap({ places }: Props) {
     }
 
     let cleanup: undefined | (() => void)
-    loadMap().then((result) => {
-      cleanup = result
-    })
+    loadMap()
+      .then((result) => {
+        cleanup = result
+      })
+      .catch(() => {
+        if (isMounted) setStatus('error')
+      })
 
     return () => {
       isMounted = false
@@ -141,5 +158,43 @@ export default function VisitedPlacesLeafletMap({ places }: Props) {
     }
   }, [places])
 
-  return <div ref={mapRef} className={mapContainerClass} aria-label="Map" />
+  const statusContent =
+    status === 'error'
+      ? {
+          role: 'alert' as const,
+          title: 'The map is unavailable right now.',
+          description:
+            "Map tiles couldn't load. Browse the states below to keep exploring stories by city.",
+        }
+      : {
+          role: 'status' as const,
+          title: 'Loading the map…',
+          description: 'You can browse the states below while it loads.',
+        }
+
+  return (
+    <div className={`${mapContainerClass} grid`} aria-label="Map">
+      <div ref={mapRef} className="col-start-1 row-start-1 min-h-full" />
+      {status !== 'ready' && (
+        <div
+          className={
+            status === 'error'
+              ? 'bg-muted/95 text-foreground z-[500] col-start-1 row-start-1 grid place-items-center p-6 text-center backdrop-blur-sm'
+              : 'bg-background/90 text-foreground pointer-events-none z-[500] col-start-1 row-start-1 m-3 place-self-start rounded-full px-3 py-2 text-left shadow-sm ring-1 ring-black/5 backdrop-blur-sm'
+          }
+          role={statusContent.role}
+          aria-live="polite"
+        >
+          <div className="max-w-sm">
+            <p className="text-sm font-semibold">{statusContent.title}</p>
+            {status === 'error' && (
+              <p className="text-muted-foreground mt-1 text-sm">
+                {statusContent.description}
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  )
 }

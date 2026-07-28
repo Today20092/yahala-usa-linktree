@@ -13,8 +13,10 @@ import {
 } from './site-places-utils.mjs'
 import {
   getYoutubeVideoId,
+  isValidYoutubePublishedDate,
   mergeVideoCache,
   normalizeVideoMetadata,
+  youtubePublishedTimestamp,
   youtubeWatchUrl,
 } from './youtube-video-utils.mjs'
 
@@ -31,6 +33,12 @@ const refreshDescriptions = process.argv.includes('--refresh-descriptions')
 const youtubeRequestDelayMs = Number(
   process.env.YOUTUBE_REQUEST_DELAY_MS ?? 1500,
 )
+const requestedConcurrency = Number(
+  process.env.YOUTUBE_REQUEST_CONCURRENCY ?? 6,
+)
+const youtubeRequestConcurrency = Number.isFinite(requestedConcurrency)
+  ? Math.max(1, Math.floor(requestedConcurrency))
+  : 6
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
@@ -64,7 +72,7 @@ const fetchPlaylistVideos = async () => {
     await waitBetweenYoutubeRequests()
     const result = await execFileAsync(
       'yt-dlp',
-      ['--dump-json', '--flat-playlist', channelVideosUrl],
+      ['--ignore-config', '--dump-json', '--flat-playlist', channelVideosUrl],
       { maxBuffer: 1024 * 1024 * 32 },
     )
 
@@ -86,17 +94,20 @@ const fetchPlaylistVideos = async () => {
   }
 }
 
-const ytdlpDate = (value) =>
-  value && /^\d{8}$/.test(value)
-    ? `${value.slice(0, 4)}-${value.slice(4, 6)}-${value.slice(6, 8)}`
-    : ''
-
 const fetchFullVideoMetadata = async (videoId) => {
   try {
     await waitBetweenYoutubeRequests()
     const result = await execFileAsync(
       'yt-dlp',
-      ['--dump-single-json', '--skip-download', youtubeWatchUrl(videoId)],
+      [
+        '--ignore-config',
+        '--extractor-args',
+        'youtube:player_client=web_safari',
+        '--ignore-no-formats-error',
+        '--dump-single-json',
+        '--skip-download',
+        youtubeWatchUrl(videoId),
+      ],
       { maxBuffer: 1024 * 1024 * 32 },
     )
     const video = JSON.parse(result.stdout)
@@ -107,8 +118,8 @@ const fetchFullVideoMetadata = async (videoId) => {
       title: video.title,
       thumbnail: video.thumbnail,
       duration: video.duration_string ?? '',
-      published: ytdlpDate(video.upload_date),
-      updated: ytdlpDate(video.upload_date),
+      published: youtubePublishedTimestamp(video.timestamp),
+      updated: youtubePublishedTimestamp(video.timestamp),
       description: video.description ?? '',
       tags: video.tags ?? [],
       categories: video.categories ?? [],
@@ -194,6 +205,7 @@ const needsFullMetadata = (videoId) => {
   return (
     refreshDescriptions ||
     latestVideoIds.has(videoId) ||
+    !isValidYoutubePublishedDate(cachedVideo?.published) ||
     !cachedVideo?.description ||
     !cachedVideo?.locationHints
   )
@@ -206,7 +218,11 @@ const videosNeedingFullMetadata = allKeys
 console.log(`Fetching full metadata for ${videosNeedingFullMetadata.length} videos.`)
 
 const fullMetadataVideos = (
-  await mapLimit(videosNeedingFullMetadata, 1, fetchFullVideoMetadata)
+  await mapLimit(
+    videosNeedingFullMetadata,
+    youtubeRequestConcurrency,
+    fetchFullVideoMetadata,
+  )
 ).filter(Boolean)
 
 videoCache = mergeVideoCache(videoCache, playlistVideos)

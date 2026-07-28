@@ -2,6 +2,7 @@ import { parse } from 'yaml'
 
 import visitedVideosYaml from '../data/visited-videos.yaml?raw'
 import type { CityVideo, VisitedPlace, VisitedPlaces } from './site-config'
+import { sortVideosByPublishedDate } from './video-recency.js'
 import { getYoutubeVideoId, resolveYoutubeVideo } from './youtube-videos'
 
 type VisitedVideoAssignment = CityVideo & {
@@ -171,6 +172,7 @@ export const resolveVisitedPlaces = (
       url: assignment.url,
       title: assignment.title,
       thumbnail: assignment.thumbnail,
+      published: assignment.published,
     }
 
     if (city) {
@@ -191,8 +193,9 @@ export const resolveVisitedPlaces = (
     const videos = mergedVideos
       .map((video) => resolveYoutubeVideo(video))
       .filter(Boolean)
+    const sortedVideos = sortVideosByPublishedDate(videos)
 
-    videos.forEach((video) => {
+    sortedVideos.forEach((video) => {
       const key = videoKey(video)
       if (key) cityVideoKeys.add(key)
     })
@@ -201,18 +204,20 @@ export const resolveVisitedPlaces = (
       ...place,
       label: `${place.city}, ${stateAbbreviations[place.state] ?? place.state}`,
       stateAbbreviation: stateAbbreviations[place.state] ?? place.state,
-      videos: videos.length > 0 ? videos : undefined,
+      videos: sortedVideos.length > 0 ? sortedVideos : undefined,
     }
   })
   const stateVideos = [...videosByState.entries()]
     .map(([state, videos]) => {
-      const resolvedVideos = dedupeVideos(videos)
-        .filter((video) => {
-          const key = videoKey(video)
-          return key && !cityVideoKeys.has(key)
-        })
-        .map((video) => resolveYoutubeVideo(video))
-        .filter(Boolean)
+      const resolvedVideos = sortVideosByPublishedDate(
+        dedupeVideos(videos)
+          .filter((video) => {
+            const key = videoKey(video)
+            return key && !cityVideoKeys.has(key)
+          })
+          .map((video) => resolveYoutubeVideo(video))
+          .filter(Boolean),
+      )
 
       const displayState =
         visitedPlaces.stateVideos?.find(

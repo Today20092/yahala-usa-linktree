@@ -8,6 +8,38 @@ export { getYoutubeVideoId, youtubeWatchUrl }
 
 export const fallbackThumbnail = youtubeThumbnailUrl
 
+export const youtubePublishedTimestamp = (value) => {
+  if (value === null || value === undefined || value === '') return ''
+
+  const timestamp = Number(value)
+  if (!Number.isFinite(timestamp) || timestamp <= 0) return ''
+
+  const date = new Date(timestamp * 1000)
+  return Number.isNaN(date.getTime()) ? '' : date.toISOString()
+}
+
+// YouTube publication dates use ISO 8601 timestamps so their ordering is unambiguous.
+export const isValidYoutubePublishedDate = (value) => {
+  const text = String(value ?? '').trim()
+  if (
+    !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(
+      text,
+    )
+  ) {
+    return false
+  }
+
+  const [year, month, day] = text.slice(0, 10).split('-').map(Number)
+  const calendarDate = new Date(Date.UTC(year, month - 1, day))
+
+  return (
+    calendarDate.getUTCFullYear() === year &&
+    calendarDate.getUTCMonth() === month - 1 &&
+    calendarDate.getUTCDate() === day &&
+    !Number.isNaN(Date.parse(text))
+  )
+}
+
 export const normalizeThumbnailUrl = (videoId, thumbnail = '') =>
   videoId ? fallbackThumbnail(videoId) : String(thumbnail).trim()
 
@@ -76,6 +108,11 @@ export const normalizeVideoMetadata = (video, existing = {}) => {
   const viewCount = Number(
     video?.viewCount ?? video?.view_count ?? existing.viewCount,
   )
+  const published = isValidYoutubePublishedDate(video?.published)
+    ? String(video.published).trim()
+    : isValidYoutubePublishedDate(existing.published)
+      ? String(existing.published).trim()
+      : ''
 
   return {
     ...existing,
@@ -87,12 +124,11 @@ export const normalizeVideoMetadata = (video, existing = {}) => {
       videoId,
       video?.thumbnail ?? existing.thumbnail,
     ),
-    published: video?.published ?? existing.published ?? '',
+    published,
     updated:
       video?.updated ??
       existing.updated ??
-      video?.published ??
-      existing.published ??
+      published ??
       '',
     channelId: video?.channelId ?? existing.channelId ?? '',
     channelTitle: video?.channelTitle ?? existing.channelTitle ?? '',
