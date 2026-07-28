@@ -29,8 +29,10 @@ Run once in mobile Chromium and once in Brave with ordinary Shields settings:
 ## 2026-07-16 baseline
 
 - Local Astro development: production HTML contains the five smoke markers, six referenced CSS/JavaScript assets exist, and no CSP is applied by Astro.
-- Current Cloudflare Worker deployment in mobile Chromium: five referenced assets return successfully with correct content types, QR opens and closes, Leaflet initializes with tiles and markers, and the console reports no warnings or errors.
-- Hydration boundary: QR behavior comes from an inline module and the map/state browser from hydrated React islands. Both enhance in Chromium after the Worker's nonce-based CSP is applied; local Astro does not apply that CSP.
+- Isolated preview: `https://yahala-usa-linktree-atlas-preview.haithum-alqahaf.workers.dev`. Its six referenced assets return successfully with correct content types after propagation, and the response includes the Worker's nonce-based CSP.
+- Mobile Chromium at 375 pixels reproduces the failure without horizontal overflow: the QR control is inert and the map remains an empty server-rendered shell. The console reports no warnings or errors; the only failed network request is a CSP-blocked Google Fonts stylesheet.
+- Hydration boundary: the raw response contains 12 nonce-bearing scripts, including all seven inline modules, but Chromium requests none of the Astro module assets. All eight Astro islands keep their `ssr` marker, the QR handler never attaches, and Leaflet never mounts. The failure is inline-module bootstrap execution after the Worker's CSP rewrite, not missing build assets.
+- With JavaScript disabled, the reach values, four platform labels, QR control, state choices, Illinois option, and latest-story link remain in the initial HTML.
 - Brave was not installed in the implementation environment; run the mobile journey there before treating a shared preview as the known-good checkpoint.
 
 ## 2026-07-16 QR reliability check

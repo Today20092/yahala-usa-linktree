@@ -1,0 +1,9 @@
+{
+  "date": "2026-07-16",
+  "framework": "Astro 7 + Tailwind CSS 4 + React 19",
+  "font_stack": "Geist Variable via @fontsource-variable/geist",
+  "palette": "Existing OKLCH shadcn variables in src/styles.css",
+  "motion": "motion-cut; no motion library installed",
+  "spacing": "Tailwind utilities with existing CSS custom properties",
+  "preserve": ["site data", "route", "SEO", "components", "integrations"]
+}

@@ -1,11 +1,11 @@
 {
     "schema_version": 2,
-    "commit": "bbe980c2785b4b9a5c111b51b6b6acefbe237b51",
-    "indexed_at": "2026-07-13T03:13:38Z",
+    "commit": "72d516f51310e4f7551d4f5cbc1b5a31ba7de5ca",
+    "indexed_at": "2026-07-28T19:41:26Z",
     "project": "C-Users-User-Documents-yahala-usa-linktree",
-    "nodes": 1387,
-    "edges": 2237,
-    "original_size": 4980736,
-    "compressed_size": 666450,
+    "nodes": 2467,
+    "edges": 3428,
+    "original_size": 6553600,
+    "compressed_size": 900307,
     "compression_level": 3
 }
