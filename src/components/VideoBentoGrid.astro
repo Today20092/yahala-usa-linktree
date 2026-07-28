@@ -474,6 +474,7 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
 
   .bento-scroll-group {
     display: flex;
+    flex-shrink: 0;
     gap: 0.5rem;
     padding-right: 0.5rem;
   }
@@ -491,29 +492,7 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
     }
   }
 
-  @media (hover: none) and (pointer: coarse) {
-    .bento-scroll-row {
-      overflow-x: auto;
-      overscroll-behavior-inline: contain;
-      scrollbar-width: none;
-      touch-action: pan-x;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .bento-scroll-row::-webkit-scrollbar {
-      display: none;
-    }
-
-    .bento-scroll-row:active .bento-scroll-track {
-      animation-play-state: paused;
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .bento-scroll-row {
-      overflow-x: auto;
-    }
-
     .bento-scroll-track {
       animation: none;
     }
