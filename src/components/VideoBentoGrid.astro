@@ -221,7 +221,9 @@ const generatedYoutubeImages = Object.values(latestYoutubeVideos)
 
 const visitedVideoImages = resolveYoutubeVideos(
   (parse(visitedVideosYaml) as VisitedVideoCatalog).videos ?? [],
-).map(
+)
+  .filter((video) => video !== undefined)
+  .map(
   (video): BentoImage => ({
     type: 'video',
     src: video.thumbnail,
@@ -332,7 +334,7 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
                 '--ui-icon-badge-accent': 'var(--primary)',
                 '--ui-icon-badge-foreground': 'var(--primary-foreground)',
               }}
-              class="shadow-sm"
+              className="shadow-sm"
             >
               <Icon
                 name="heroicons:play-20-solid"
