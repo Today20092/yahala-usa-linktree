@@ -1,6 +1,6 @@
 ---
 import '../styles.css'
-import '../design-preview.css'
+import '../atlas.css'
 
 import { getBaseUrl } from '../lib/site-config'
 
@@ -13,7 +13,7 @@ const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
 ---
 
 <!doctype html>
-<html lang="en" class="box-border" data-design-preview data-design="atlas">
+<html lang="en" class="box-border">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -42,28 +42,6 @@ const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
     <link rel="manifest" href={`${baseUrl}site.webmanifest`} />
     <meta name="theme-color" content="#ffffff" />
     <slot name="head" />
-    <script is:inline>
-      ;(() => {
-        const validDesigns = ['field', 'night', 'atlas']
-        const requestedDesign = new URLSearchParams(location.search).get(
-          'design',
-        )
-        const design = validDesigns.includes(requestedDesign)
-          ? requestedDesign
-          : 'atlas'
-
-        document.documentElement.dataset.design = design
-        document.documentElement.classList.toggle('dark', design === 'night')
-        document.documentElement.style.colorScheme =
-          design === 'night' ? 'dark' : 'light'
-
-        document
-          .querySelectorAll('meta[name="theme-color"]')
-          .forEach((meta) => {
-            meta.content = design === 'night' ? '#1c1917' : '#ffffff'
-          })
-      })()
-    </script>
     <script type="module">
       import '../scripts/image-fallback'
     </script>
