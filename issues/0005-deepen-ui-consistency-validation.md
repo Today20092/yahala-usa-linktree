@@ -1,6 +1,7 @@
 ---
 status: closed
 triage: ready-for-agent
+branch: feature/brand-collaborations
 ---
 
 # 05 — Deepen automated UI consistency validation

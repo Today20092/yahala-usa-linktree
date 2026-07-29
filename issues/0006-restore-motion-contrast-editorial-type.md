@@ -1,6 +1,7 @@
 ---
 status: open
 triage: ready-for-agent
+branch: feature/brand-collaborations
 ---
 
 # 06 — Restore metric motion, accessible contrast, and editorial type

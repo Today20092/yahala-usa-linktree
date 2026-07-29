@@ -6,7 +6,10 @@ Issues and specifications for this repository live in `issues/` and are committe
 
 - Copy `issues/TEMPLATE.md` to `issues/NNNN-short-title.md`.
 - Use the next unused four-digit number.
-- Keep the ticket's status and triage role in its frontmatter.
+- Determine the implementation branch before publishing the ticket.
+- Reuse the dependency ticket's branch for sequential work.
+- Keep the ticket's status, triage role, and branch in its frontmatter.
+- Include a branch-strategy section. Dependency-chain tickets stay on one branch unless a split is explicitly justified.
 - Add every ticket to `issues/README.md`.
 - Close a ticket only after its acceptance criteria are satisfied, then set its status to `closed`.
 - Commit ticket and tracker changes to the repository.

@@ -1,6 +1,7 @@
 ---
 status: closed
 triage: ready-for-agent
+branch: feature/brand-collaborations
 ---
 
 # 02 — Introduce a shared branded page-document seam
