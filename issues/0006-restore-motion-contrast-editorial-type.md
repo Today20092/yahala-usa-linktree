@@ -1,5 +1,5 @@
 ---
-status: open
+status: closed
 triage: ready-for-agent
 branch: feature/brand-collaborations
 ---
@@ -31,21 +31,21 @@ isolating independent work.
 
 ## Acceptance criteria
 
-- [ ] The “People reached” total counts from zero to its verified value once
+- [x] The “People reached” total counts from zero to its verified value once
       when the section enters the viewport, respects reduced-motion settings,
       and retains a server-rendered final-value fallback.
-- [ ] “Latest episode,” map loading/error states, and the “Find stories near
+- [x] “Latest episode,” map loading/error states, and the “Find stories near
       you” icon remain legible in the production light Atlas theme, including
       before and after client hydration.
-- [ ] Normal text and essential icons at the affected surfaces meet WCAG AA
+- [x] Normal text and essential icons at the affected surfaces meet WCAG AA
       contrast (4.5:1 for normal text and 3:1 for large text/UI graphics).
-- [ ] Newsreader is restored as the shared editorial display font for headings
+- [x] Newsreader is restored as the shared editorial display font for headings
       and headline metrics; Plus Jakarta Sans remains the body/UI font.
-- [ ] Home, About, and Stories retain consistent light-theme typography and
+- [x] Home, About, and Stories retain consistent light-theme typography and
       color behavior at mobile and desktop widths.
-- [ ] A regression check covers metric enhancement plus the affected
+- [x] A regression check covers metric enhancement plus the affected
       foreground/background token pairs without adding a CSS parser dependency.
-- [ ] The production build, UI validation, relevant component tests, and live
+- [x] The production build, UI validation, relevant component tests, and live
       preview smoke test pass.
 
 ## Dependencies

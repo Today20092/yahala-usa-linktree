@@ -85,8 +85,8 @@ youtubeChannels:
     description: Latest from Ya Hala with Haithum
     branding:
       logoSrc: profileImage
-      accentColor: var(--color-brand-600)
-      darkAccentColor: var(--color-brand-400)
+      accentColor: var(--primary)
+      darkAccentColor: var(--primary)
       cardBackground: var(--card)
       darkCardBackground: var(--card)
       cardTint: var(--muted)

@@ -199,8 +199,7 @@ html[data-design='night'] {
 }
 
 :root {
-  --font-display:
-    'Plus Jakarta Sans', 'Geist Variable', ui-sans-serif, sans-serif;
+  --font-display: 'Newsreader', ui-serif, serif;
   --font-body: 'Plus Jakarta Sans', 'Geist Variable', ui-sans-serif, sans-serif;
   --font-label: 'JetBrains Mono', ui-monospace, monospace;
   --color-paper: oklch(98% 0.006 283);

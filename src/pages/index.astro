@@ -527,8 +527,9 @@ const structuredData = {
           if (getPreference() === 'system') applyTheme('system')
         }
 
-        systemQuery.addEventListener('change', handleSystemChange)
-        applyTheme(getPreference())
+        if (hasThemeControls)
+          systemQuery.addEventListener('change', handleSystemChange)
+        applyTheme(hasThemeControls ? getPreference() : 'light')
       })()
     </script>
 

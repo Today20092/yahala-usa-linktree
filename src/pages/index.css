@@ -72,7 +72,7 @@ html .visited-state-picker__icon {
   place-items: center;
   border-radius: var(--radius-pill);
   background: var(--color-paper-2);
-  color: var(--color-accent);
+  color: var(--color-accent-2);
 }
 
 html .visited-state-picker select {
@@ -140,7 +140,7 @@ html .reach-summary__bar > span {
   background: var(--platform-active-accent);
 }
 
-html [data-reach-enhanced] .reach-summary__bar > span {
+html [data-reach-chart].is-visible .reach-summary__bar > span {
   animation: reach-bar-reveal var(--dur-long) var(--ease-out) both;
 }
 

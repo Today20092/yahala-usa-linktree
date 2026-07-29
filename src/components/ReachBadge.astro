@@ -103,7 +103,6 @@ const platformTotals = Object.values(
           locale="en-US"
           inView
           inViewOnce
-          startEvent="reach-chart:enhance"
         /><span class="text-primary">+</span>
       </p>
       <p class="ui-body reach-summary__description">
@@ -135,7 +134,6 @@ const platformTotals = Object.values(
                   inView
                   inViewOnce
                   delay={100}
-                  startEvent="reach-chart:enhance"
                 />
               </dd>
             </div>
@@ -179,28 +177,3 @@ const platformTotals = Object.values(
     background: var(--platform-active-accent);
   }
 </style>
-
-<script>
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document
-      .querySelectorAll('[data-reach-chart]')
-      .forEach(async (chart) => {
-        const islands = [...chart.querySelectorAll('astro-island')]
-
-        await Promise.all(
-          islands.map(
-            (island) =>
-              new Promise<void>((resolve) => {
-                if (!island.hasAttribute('ssr')) return resolve()
-                island.addEventListener('astro:hydrate', () => resolve(), {
-                  once: true,
-                })
-              }),
-          ),
-        )
-
-        chart.setAttribute('data-reach-enhanced', '')
-        window.dispatchEvent(new Event('reach-chart:enhance'))
-      })
-  }
-</script>

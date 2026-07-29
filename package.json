@@ -16,6 +16,7 @@
     "test:video-search": "node scripts/test-video-search.mjs",
     "test:preview-smoke": "node scripts/test-preview-smoke.mjs",
     "test:reach-chart": "node scripts/test-reach-chart.mjs",
+    "test:atlas-polish": "node scripts/test-atlas-polish.mjs",
     "test:visited-map": "node scripts/test-visited-map.mjs",
     "test:video-recency": "node scripts/test-video-recency.mjs",
     "test:branded-document": "node scripts/test-branded-page-document.mjs",
