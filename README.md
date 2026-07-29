@@ -44,6 +44,7 @@ All commands run from the project root.
 | --- | --- |
 | `npm install` | Install dependencies |
 | `npm run dev` | Start the Astro dev server |
+| `npm run check` | Check Astro templates and types |
 | `npm run build` | Build the production site |
 | `npm run preview` | Preview the production build locally |
 | `npm run astro ...` | Run Astro CLI commands |

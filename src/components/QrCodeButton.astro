@@ -104,14 +104,18 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
 
 <script>
   const dialog = document.getElementById('qr-dialog')
-  const openButtons = document.querySelectorAll('[data-qr-open]')
-  const closeButton = document.getElementById('qr-close')
-  let previousFocus = null
+  const openButtons = document.querySelectorAll<HTMLElement>('[data-qr-open]')
+  const closeButton = document.querySelector<HTMLElement>('#qr-close')
+  let previousFocus: HTMLElement | null = null
 
-  const openDialog = (trigger) => {
+  const openDialog = (trigger: HTMLElement | null = null) => {
     if (!dialog) return
 
-    previousFocus = trigger ?? document.activeElement
+    previousFocus =
+      trigger ??
+      (document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null)
     dialog.classList.remove('hidden')
     dialog.classList.add('flex')
     document.documentElement.classList.add('overflow-hidden')
