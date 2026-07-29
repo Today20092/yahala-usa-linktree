@@ -9,6 +9,7 @@
     "update:visited-videos": "node scripts/update-visited-videos.mjs",
     "validate:data": "node scripts/validate-youtube-data.mjs",
     "validate:ui": "node scripts/validate-ui-consistency.mjs",
+    "test:ui-validation": "node scripts/test-ui-consistency-validator.mjs",
     "test:locations": "node scripts/test-location-utils.mjs",
     "test:youtube-id": "node scripts/test-youtube-video-id.mjs",
     "test:youtube-catalog": "node scripts/test-youtube-channel-catalog.mjs",
