@@ -2,6 +2,7 @@
 import { getImage, Picture } from 'astro:assets'
 import { Icon } from 'astro-icon/components'
 import { SEO } from 'astro-seo'
+import type { CSSProperties } from 'react'
 
 import './index.css'
 
@@ -59,15 +60,16 @@ const heroPreloadImage = await getImage({
 })
 
 const resolvedVisitedPlaces = resolveVisitedPlaces(visitedPlaces)
+const youtubeLink = socialLinks.find((link) => link.id === 'youtube')
 const latestVideoByChannel = Object.fromEntries(
-  youtubeChannels
-    .map((channel) => {
-      const latestVideoId = latestYoutubeVideos[channel.id]?.latestVideoId
+  youtubeChannels.flatMap((channel) => {
+      const latestVideoId = (
+        latestYoutubeVideos as Record<string, { latestVideoId?: string }>
+      )[channel.id]?.latestVideoId
       const video = resolveYoutubeVideo({ videoId: latestVideoId })
 
-      return video ? [channel.id, video] : null
-    })
-    .filter(Boolean),
+      return video ? [[channel.id, video] as const] : []
+    }),
 )
 const latestVideoChannels = youtubeChannels.filter((channel) =>
   Boolean(latestVideoByChannel[channel.id]),
@@ -91,9 +93,8 @@ const channelBranding = Object.fromEntries(
   ]),
 )
 
-const youtubeLink = socialLinks.find((link) => link.id === 'youtube')
 const sameAsUrls = socialLinks.map((link) => link.url)
-const socialIconBodies = {
+const socialIconBodies: Record<string, string> = {
   youtube:
     '<path fill="currentColor" d="M23.498 6.186a3.02 3.02 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.02 3.02 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.02 3.02 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.02 3.02 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814M9.545 15.568V8.432L15.818 12z"/>',
   tiktok:
@@ -291,7 +292,7 @@ const structuredData = {
                     '--brand-color-dark': social.darkColor ?? social.color,
                     '--brand-color-dark-2': social.darkColor2 ?? social.color2,
                     '--brand-color-dark-3': social.darkColor3 ?? social.color3,
-                  }}
+                  } as CSSProperties}
                 >
                   <svg
                     class="size-8"
@@ -459,11 +460,18 @@ const structuredData = {
       ;(() => {
         if (document.documentElement.hasAttribute('data-design-preview')) return
 
-        const preferences = ['system', 'light', 'dark']
+        const preferences = ['system', 'light', 'dark'] as const
+        type ThemePreference = (typeof preferences)[number]
+        const isThemePreference = (
+          value: string | null | undefined,
+        ): value is ThemePreference =>
+          preferences.includes(value as ThemePreference)
         const lightThemeColor = '#ffffff'
         const darkThemeColor = '#1c1917'
         const systemQuery = window.matchMedia('(prefers-color-scheme: dark)')
-        const buttons = [...document.querySelectorAll('[data-theme-option]')]
+        const buttons = [
+          ...document.querySelectorAll<HTMLElement>('[data-theme-option]'),
+        ]
         const hasThemeControls = buttons.length > 0
 
         const getStoredTheme = () => {
@@ -476,30 +484,33 @@ const structuredData = {
           }
         }
 
-        const setStoredTheme = (theme) => {
+        const setStoredTheme = (theme: ThemePreference) => {
           try {
             if (theme === 'system') localStorage.removeItem('theme')
             else localStorage.setItem('theme', theme)
           } catch {}
         }
 
-        const getPreference = () => getStoredTheme() ?? 'system'
+        const getPreference = (): ThemePreference => {
+          const storedTheme = getStoredTheme()
+          return isThemePreference(storedTheme) ? storedTheme : 'system'
+        }
 
-        const resolveTheme = (preference) =>
+        const resolveTheme = (preference: ThemePreference) =>
           preference === 'system'
             ? systemQuery.matches
               ? 'dark'
               : 'light'
             : preference
 
-        const applyTheme = (preference = 'system') => {
+        const applyTheme = (preference: ThemePreference = 'system') => {
           const theme = resolveTheme(preference)
 
           document.documentElement.classList.toggle('dark', theme === 'dark')
           document.documentElement.style.colorScheme = theme
 
           document
-            .querySelectorAll('meta[name="theme-color"]')
+            .querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')
             .forEach((meta) => {
               meta.content = theme === 'dark' ? darkThemeColor : lightThemeColor
               meta.media = ''
@@ -516,7 +527,7 @@ const structuredData = {
         buttons.forEach((button) => {
           button.addEventListener('click', () => {
             const preference = button.dataset.themeOption
-            if (!preferences.includes(preference)) return
+            if (!isThemePreference(preference)) return
 
             setStoredTheme(preference)
             applyTheme(preference)
@@ -564,7 +575,8 @@ const structuredData = {
 
     <script>
       ;(() => {
-        const shareButton = document.querySelector('[data-share-page]')
+        const shareButton =
+          document.querySelector<HTMLElement>('[data-share-page]')
         if (!shareButton) return
 
         const defaultLabel =
@@ -596,7 +608,7 @@ const structuredData = {
             return
           }
 
-          window.location.href = shareData.url
+          window.location.href = shareData.url ?? window.location.href
         }
 
         shareButton.addEventListener('click', async () => {
@@ -608,14 +620,15 @@ const structuredData = {
               await navigator.share(shareData)
               return
             } catch (error) {
-              if (error?.name === 'AbortError') return
+              if (error instanceof DOMException && error.name === 'AbortError')
+                return
             }
           }
 
           try {
             await copyLink()
           } catch {
-            window.location.href = shareData.url
+            window.location.href = shareData.url ?? window.location.href
           }
         })
       })()
