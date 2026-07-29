@@ -13,6 +13,7 @@ No open tickets.
 
 ## Closed
 
+- [0009 — Compare the static sitemap with `@astrojs/sitemap`](0009-evaluate-generated-sitemap.md)
 - [0001 — Make semantic tokens the single styling authority](0001-semantic-token-authority.md)
 - [0002 — Introduce a shared branded page-document seam](0002-branded-page-document-seam.md)
 - [0003 — Separate production Atlas styling from preview themes](0003-separate-atlas-from-preview-themes.md)
