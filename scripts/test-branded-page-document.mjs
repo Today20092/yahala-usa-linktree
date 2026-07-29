@@ -43,9 +43,14 @@ for (const page of editorialPages) {
 }
 
 const home = await readFile('src/pages/index.astro', 'utf8')
+const storiesPage = await readFile('src/pages/stories.astro', 'utf8')
 
 if (home.includes('EditorialHeader')) {
   throw new Error('index.astro must not render the editorial header')
+}
+
+if (storiesPage.includes('bodyClass="linktree-page')) {
+  throw new Error('stories.astro must not inherit Linktree page spacing')
 }
 
 const layout = await readFile('src/layouts/BrandedPageDocument.astro', 'utf8')
