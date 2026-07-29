@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises'
 
 const pages = ['index', 'about', 'stories']
+const editorialPages = ['about', 'stories']
 
 for (const page of pages) {
   const source = await readFile(`src/pages/${page}.astro`, 'utf8')
@@ -26,6 +27,25 @@ for (const page of pages) {
   ) {
     throw new Error(`${page}.astro must render through BrandedPageDocument`)
   }
+}
+
+for (const page of editorialPages) {
+  const source = await readFile(`src/pages/${page}.astro`, 'utf8')
+
+  if (
+    !source.includes(
+      "import EditorialHeader from '../components/EditorialHeader.astro'",
+    ) ||
+    !source.includes('<EditorialHeader />')
+  ) {
+    throw new Error(`${page}.astro must use the shared editorial header`)
+  }
+}
+
+const home = await readFile('src/pages/index.astro', 'utf8')
+
+if (home.includes('EditorialHeader')) {
+  throw new Error('index.astro must not render the editorial header')
 }
 
 const layout = await readFile('src/layouts/BrandedPageDocument.astro', 'utf8')

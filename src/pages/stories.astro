@@ -1,5 +1,6 @@
 ---
 import { SEO } from 'astro-seo'
+import EditorialHeader from '../components/EditorialHeader.astro'
 import StoryBrowser from '../components/StoryBrowser'
 import BrandedPageDocument from '../layouts/BrandedPageDocument.astro'
 import { resolveVisitedPlaces } from '../lib/visited-places'
@@ -20,25 +21,9 @@ const canonicalUrl = new URL('/stories', Astro.site).toString()
       canonical={canonicalUrl}
     />
   </Fragment>
+    <EditorialHeader />
     <main class="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:py-12">
-      <nav
-        class="flex items-center gap-5 text-sm font-semibold"
-        aria-label="Primary navigation"
-      >
-        <a
-          href="/"
-          class="text-primary focus-visible:ring-ring rounded-sm focus-visible:ring-2 focus-visible:outline-none"
-        >
-          ← Back to Ya Hala
-        </a>
-        <a
-          href="/about"
-          class="text-muted-foreground hover:text-foreground focus-visible:ring-ring rounded-sm transition-colors focus-visible:ring-2 focus-visible:outline-none"
-        >
-          About Haithem
-        </a>
-      </nav>
-      <header class="mt-6 max-w-3xl">
+      <header class="max-w-3xl">
         <p class="text-primary text-sm font-bold tracking-widest uppercase">
           Ya Hala stories
         </p>

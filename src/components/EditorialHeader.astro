@@ -1,0 +1,33 @@
+---
+import { getBaseUrl } from '../lib/site-config'
+
+const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
+---
+
+<header class="mx-auto w-full max-w-7xl px-4 pt-5 sm:px-6 lg:px-8">
+  <nav
+    class="flex min-h-14 items-center justify-between gap-4"
+    aria-label="Primary navigation"
+  >
+    <a
+      href={baseUrl}
+      class="text-foreground focus-visible:ring-ring rounded-sm text-base font-bold tracking-tight focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:outline-none"
+    >
+      Ya Hala
+    </a>
+    <div class="flex items-center gap-5 text-sm font-semibold">
+      <a
+        href={baseUrl}
+        class="text-muted-foreground hover:text-foreground focus-visible:ring-ring rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:outline-none"
+      >
+        Home
+      </a>
+      <a
+        href={`${baseUrl}stories`}
+        class="text-muted-foreground hover:text-foreground focus-visible:ring-ring rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:outline-none"
+      >
+        Stories
+      </a>
+    </div>
+  </nav>
+</header>
