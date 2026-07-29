@@ -30,9 +30,15 @@ const mapPlaces = visitedPlaces.mapPlaces ?? []
       </div>
 
       <div class="visited-places-frame overflow-hidden p-2.5 sm:p-3">
-        <VisitedPlacesLeafletMap client:load places={mapPlaces} />
+        <VisitedPlacesLeafletMap
+          client:visible={{ rootMargin: '200px' }}
+          places={mapPlaces}
+        />
 
-        <VisitedPlacesExplorer client:load stateGroups={stateGroups} />
+        <VisitedPlacesExplorer
+          client:visible={{ rootMargin: '200px' }}
+          stateGroups={stateGroups}
+        />
       </div>
     </section>
   )

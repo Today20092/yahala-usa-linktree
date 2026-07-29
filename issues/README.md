@@ -20,4 +20,5 @@ No open tickets.
 - [0004 — Restore locality to feature styling](0004-restore-feature-style-locality.md)
 - [0005 — Deepen automated UI consistency validation](0005-deepen-ui-consistency-validation.md)
 - [0006 — Restore metric motion, accessible contrast, and editorial type](0006-restore-motion-contrast-editorial-type.md)
+- [0007 — Right-size React island hydration](0007-audit-island-hydration.md)
 - [0008 — Add Astro type and template checking](0008-add-astro-check.md)
