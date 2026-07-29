@@ -9,7 +9,7 @@ Tickets 0001–0005 are sequential CSS and styling architecture work on
 
 ## Open
 
-No open issues.
+- [0006 — Restore metric motion, accessible contrast, and editorial type](0006-restore-motion-contrast-editorial-type.md)
 
 ## Closed
 
