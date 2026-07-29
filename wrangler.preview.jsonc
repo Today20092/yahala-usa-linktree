@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "yahala-usa-linktree-atlas-preview",
+  "account_id": "fb14df399f96dc019b8a82cb48788654",
   "main": "./src/worker.js",
   "compatibility_date": "2026-06-09",
   "observability": {

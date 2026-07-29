@@ -1,12 +1,12 @@
 ---
-import '../styles.css'
-import '../design-preview.css'
-
 import { getImage, Picture } from 'astro:assets'
 import { Icon } from 'astro-icon/components'
 import { SEO } from 'astro-seo'
 
+import './index.css'
+
 import FeaturedEpisodes from '../components/FeaturedEpisodes.astro'
+import BrandMarquee from '../components/BrandMarquee.astro'
 import LatestChannelVideo from '../components/LatestChannelVideo.astro'
 import QrCodeButton from '../components/QrCodeButton.astro'
 import ReachBadge from '../components/ReachBadge.astro'
@@ -17,6 +17,7 @@ import VideoBentoGrid from '../components/VideoBentoGrid.astro'
 import VisitedPlacesMap from '../components/VisitedPlacesMap.astro'
 import heroCover from '../assets/yahala-hero-cover.png'
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
+import BrandedPageDocument from '../layouts/BrandedPageDocument.astro'
 import { resolveVisitedPlaces } from '../lib/visited-places'
 import { getBaseUrl, resolveSiteAsset, siteConfig } from '../lib/site-config'
 import { resolveYoutubeVideo } from '../lib/youtube-videos'
@@ -37,6 +38,7 @@ const {
   socialReach,
   visitedPlaces,
   videoSearch,
+  collaborationBrands,
 } = siteConfig
 const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
 const profileImageUrl = resolveSiteAsset(baseUrl, profileImage)
@@ -131,15 +133,10 @@ const structuredData = {
 }
 ---
 
-<!doctype html>
-<html lang="en" class="box-border" data-design-preview>
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover"
-    />
+<BrandedPageDocument
+  bodyClass="linktree-page my-0 min-h-screen text-center text-lg subpixel-antialiased"
+>
+  <Fragment slot="head">
     <SEO
       title={pageTitle}
       description={pageDescription}
@@ -174,36 +171,6 @@ const structuredData = {
       }}
     />
 
-    <link rel="icon" href={`${baseUrl}favicon.ico`} sizes="32x32" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href={`${baseUrl}favicon-16x16.png`}
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href={`${baseUrl}favicon-32x32.png`}
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href={`${baseUrl}apple-touch-icon.png`}
-    />
-    <link rel="manifest" href={`${baseUrl}site.webmanifest`} />
-    <meta
-      name="theme-color"
-      content="#fafafa"
-      media="(prefers-color-scheme: light)"
-    />
-    <meta
-      name="theme-color"
-      content="#18181b"
-      media="(prefers-color-scheme: dark)"
-    />
-
     <link
       rel="preload"
       as="image"
@@ -212,57 +179,12 @@ const structuredData = {
       fetchpriority="high"
     />
 
-    <script>
-      ;(() => {
-        const lightThemeColor = '#ffffff'
-        const darkThemeColor = '#1c1917'
-        const systemQuery = window.matchMedia('(prefers-color-scheme: dark)')
-
-        const applyTheme = () => {
-          const isDark = systemQuery.matches
-          const theme = isDark ? 'dark' : 'light'
-
-          document.documentElement.classList.toggle('dark', isDark)
-          document.documentElement.style.colorScheme = theme
-
-          document
-            .querySelectorAll('meta[name="theme-color"]')
-            .forEach((meta) => {
-              meta.content = isDark ? darkThemeColor : lightThemeColor
-              meta.media = ''
-            })
-        }
-
-        applyTheme()
-      })()
-    </script>
-    <script is:inline>
-      ;(() => {
-        const validDesigns = ['field', 'night', 'atlas']
-        const requestedDesign = new URLSearchParams(location.search).get('design')
-        const design = validDesigns.includes(requestedDesign)
-          ? requestedDesign
-          : 'atlas'
-
-        document.documentElement.dataset.design = design
-        document.documentElement.classList.toggle('dark', design === 'night')
-        document.documentElement.style.colorScheme = design === 'night' ? 'dark' : 'light'
-      })()
-    </script>
-    <script type="module">
-      import '../scripts/image-fallback'
-    </script>
-
     <link rel="sitemap" type="application/xml" href={sitemapUrl} />
     <script
       type="application/ld+json"
       set:html={JSON.stringify(structuredData)}
     />
-  </head>
-
-  <body
-    class="linktree-page my-0 min-h-screen text-center text-lg subpixel-antialiased"
-  >
+  </Fragment>
     <main class="linktree-shell mx-auto flex w-full flex-col pb-6">
       <div class="desktop-hero-layout">
         <section
@@ -305,10 +227,7 @@ const structuredData = {
             class="animate-fade-in-up mx-auto w-full max-w-xl px-4 pt-6 text-center delay-200 sm:px-6 sm:pt-7"
             aria-labelledby="intro-title"
           >
-            <h2
-              id="intro-title"
-              class="ui-page-title mx-auto max-w-lg"
-            >
+            <h2 id="intro-title" class="ui-page-title mx-auto max-w-lg">
               Arab-American stories, coast to coast.
             </h2>
             <p class="ui-body mx-auto mt-4 max-w-prose sm:text-[1.05rem]">
@@ -335,6 +254,23 @@ const structuredData = {
                 )
               }
             </div>
+            <nav
+              class="mt-5 flex items-center justify-center gap-5 text-sm font-semibold"
+              aria-label="Site navigation"
+            >
+              <a
+                href={`${baseUrl}about`}
+                class="text-primary hover:text-primary/80 focus-visible:ring-ring rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+              >
+                About Haithem
+              </a>
+              <a
+                href={`${baseUrl}stories`}
+                class="text-muted-foreground hover:text-foreground focus-visible:ring-ring rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+              >
+                Browse stories
+              </a>
+            </nav>
           </section>
 
           <nav
@@ -385,19 +321,18 @@ const structuredData = {
           aria-labelledby="about-title"
         >
           <div class="about-copy py-8 sm:py-10">
-            <h2
-              id="about-title"
-              class="ui-section-title"
-            >
+            <h2 id="about-title" class="ui-section-title">
               Stories from Arab America.
             </h2>
             <p class="ui-body mt-4">
-              Haithum covers people, businesses, neighborhoods, restaurants,
-              and community life across the United States.
+              Haithum covers people, businesses, neighborhoods, restaurants, and
+              community life across the United States.
             </p>
           </div>
         </section>
       </div>
+
+      <BrandMarquee brands={collaborationBrands} />
 
       <div class="desktop-latest-grid">
         <section
@@ -458,40 +393,51 @@ const structuredData = {
         aria-labelledby="explore-title"
       >
         <div class="ui-section-header">
-          <h2
-            id="explore-title"
-            class="ui-section-title"
-          >
+          <h2 id="explore-title" class="ui-section-title">
             Explore more stories
           </h2>
           <p class="ui-body mx-auto mt-3 max-w-md text-sm">
-            {videoSearch.enabled
-              ? 'Search video moments, browse popular episodes, and follow the places Ya Hala has visited.'
-              : 'Browse popular episodes and follow the places Ya Hala has visited.'}
+            {
+              videoSearch.enabled
+                ? 'Search video moments, browse popular episodes, and follow the places Ya Hala has visited.'
+                : 'Browse popular episodes and follow the places Ya Hala has visited.'
+            }
           </p>
         </div>
       </section>
 
       <div class="desktop-explore-grid">
-        {videoSearch.enabled && (
-          <VideoSearch
-            copy={videoSearch}
-            client:visible={{ rootMargin: '200px' }}
-          />
-        )}
+        {
+          videoSearch.enabled && (
+            <VideoSearch
+              copy={videoSearch}
+              client:visible={{ rootMargin: '200px' }}
+            />
+          )
+        }
 
         <FeaturedEpisodes />
       </div>
 
       <VisitedPlacesMap visitedPlaces={resolvedVisitedPlaces} />
 
-      <footer
-        class="ui-meta mt-auto w-full px-4 pt-12 pb-4 text-center"
-      >
+      <footer class="ui-meta mt-auto w-full px-4 pt-12 pb-4 text-center">
         <nav
           class="mx-auto mb-3 flex max-w-xl flex-wrap items-center justify-center gap-x-3 gap-y-1"
           aria-label="Page information"
         >
+          <a
+            href={`${baseUrl}about`}
+            class="hover:text-foreground transition-colors"
+          >
+            About Haithem
+          </a>
+          <a
+            href={`${baseUrl}stories`}
+            class="hover:text-foreground transition-colors"
+          >
+            Stories
+          </a>
           <a href="#privacy" class="hover:text-foreground transition-colors">
             Privacy
           </a>
@@ -581,16 +527,15 @@ const structuredData = {
           if (getPreference() === 'system') applyTheme('system')
         }
 
-        systemQuery.addEventListener('change', handleSystemChange)
-        applyTheme(getPreference())
+        if (hasThemeControls)
+          systemQuery.addEventListener('change', handleSystemChange)
+        applyTheme(hasThemeControls ? getPreference() : 'light')
       })()
     </script>
 
     <script>
       ;(() => {
-        const reveals = [
-          ...document.querySelectorAll('.animate-fade-in-up'),
-        ]
+        const reveals = [...document.querySelectorAll('.animate-fade-in-up')]
         const reduceMotion = window.matchMedia(
           '(prefers-reduced-motion: reduce)',
         ).matches
@@ -675,5 +620,4 @@ const structuredData = {
         })
       })()
     </script>
-  </body>
-</html>
+</BrandedPageDocument>

@@ -61,7 +61,9 @@ const videoId = getYoutubeVideoId(video.url)
 const thumbnailFallback = videoId ? youtubeThumbnailFallbackUrl(videoId) : ''
 ---
 
-<div class="latest-channel-video mx-auto w-full max-w-xl px-4 sm:px-6 lg:max-w-none lg:px-0">
+<div
+  class="latest-channel-video mx-auto w-full max-w-xl px-4 sm:px-6 lg:max-w-none lg:px-0"
+>
   <a
     href={video.url}
     target="_blank"
@@ -132,17 +134,13 @@ const thumbnailFallback = videoId ? youtubeThumbnailFallbackUrl(videoId) : ''
           >
             Latest from the channel
           </span>
-          <span
-            class="ui-meta block truncate text-foreground"
-          >
+          <span class="ui-meta text-foreground block truncate">
             {channelName}
           </span>
         </span>
       </span>
 
-      <span
-        class="ui-card-title mb-3 block sm:text-xl"
-      >
+      <span class="ui-card-title mb-3 block sm:text-xl">
         {video.title}
       </span>
 
@@ -151,7 +149,8 @@ const thumbnailFallback = videoId ? youtubeThumbnailFallbackUrl(videoId) : ''
       </span>
 
       <span
-        class="text-primary-foreground mb-5 inline-flex items-center gap-2 rounded-full bg-[var(--channel-active-accent)] px-4 py-2 text-sm font-semibold whitespace-nowrap shadow-sm transition-transform duration-200 group-hover:translate-x-0.5"
+        style="background-color: var(--channel-active-accent)"
+        class="mb-5 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold whitespace-nowrap text-[var(--color-accent-ink)] shadow-sm transition-transform duration-200 group-hover:translate-x-0.5"
       >
         Latest episode
         <Icon
@@ -163,7 +162,7 @@ const thumbnailFallback = videoId ? youtubeThumbnailFallbackUrl(videoId) : ''
 
       {
         publishedDate && (
-          <span class="ui-meta block text-muted-foreground/75 font-normal">
+          <span class="ui-meta text-muted-foreground/75 block font-normal">
             Published {publishedDate}
           </span>
         )

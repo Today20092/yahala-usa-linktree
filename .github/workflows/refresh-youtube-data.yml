@@ -2,7 +2,8 @@ name: Refresh YouTube Data
 
 on:
   schedule:
-    - cron: '17 9 * * *'
+    - cron: '0 19 * * *'
+      timezone: 'America/New_York'
   # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
@@ -35,18 +36,19 @@ jobs:
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - name: Install dependencies
         run: npm ci
-      - name: Refresh latest YouTube videos
+      - name: Refresh YouTube catalog
         run: |
-          npm run update:youtube
+          npm run update:youtube -- --refresh-top-videos
+          npm run update:visited-videos
           npm run validate:data
       - name: Rebase before committing
         run: git pull --rebase --autostash origin master
-      - name: Commit updated video data
+      - name: Commit updated YouTube catalog
         id: commit
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_message: Update YouTube video data
-          file_pattern: src/data/latest-youtube-videos.json src/data/youtube-videos.json
+          commit_message: Update daily YouTube catalog
+          file_pattern: src/data/site.yaml src/data/latest-youtube-videos.json src/data/visited-videos.yaml src/data/youtube-videos.json src/data/geocoded-locations.json
       - name: Build site
         if: steps.commit.outputs.changes_detected == 'true'
         run: npm run build

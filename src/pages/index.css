@@ -1,0 +1,387 @@
+html .reach-summary {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+html .reach-summary__headline {
+  min-width: 0;
+  padding: 0;
+}
+
+html .reach-summary__heading-row {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3xs);
+  text-align: start;
+}
+
+html .reach-summary__heading-row .ui-section-title {
+  font-size: clamp(var(--text-xl), 8vw, var(--text-2xl));
+}
+
+html .reach-summary__stat-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+html .reach-summary__total {
+  margin-block-start: var(--space-md);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 11vw, 4.25rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  text-align: start;
+}
+
+html .reach-summary__description {
+  max-width: 55ch;
+  margin-block-start: var(--space-sm);
+  text-align: start;
+}
+
+html .visited-state-picker {
+  padding-block-start: var(--space-md);
+  border-block-start: var(--rule-hair) solid var(--color-rule);
+}
+
+html .visited-state-picker__intro {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+html .visited-state-picker__control {
+  min-width: 0;
+  margin-block-start: var(--space-md);
+}
+
+html .visited-state-picker__icon {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: var(--radius-pill);
+  background: var(--color-paper-2);
+  color: var(--color-accent-2);
+}
+
+html .visited-state-picker select {
+  border-color: var(--color-rule);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  outline: var(--rule-heavy) solid transparent;
+  outline-offset: var(--rule-hair);
+}
+
+html .visited-state-picker select:hover {
+  border-color: var(--color-accent);
+}
+
+html .visited-state-picker select:focus-visible {
+  border-color: var(--color-accent);
+  outline: var(--rule-heavy) solid var(--color-focus);
+  outline-offset: var(--rule-hair);
+}
+
+html .visited-state-picker select:active {
+  background-color: var(--color-paper-2);
+}
+
+@media (min-width: 768px) {
+  html .visited-state-picker {
+    display: grid;
+    grid-template-columns: minmax(14rem, 0.7fr) minmax(18rem, 1.3fr);
+    align-items: center;
+    gap: var(--space-xl);
+  }
+
+  html .visited-state-picker__control {
+    margin-block-start: 0;
+  }
+}
+
+html .reach-summary__stats {
+  display: grid;
+  gap: var(--space-md);
+  margin: 0;
+}
+
+html .reach-summary__stat {
+  min-width: 0;
+  padding: 0;
+  background: transparent;
+}
+
+html .reach-summary__bar {
+  height: var(--space-3xs);
+  margin-block-start: var(--space-2xs);
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--color-rule);
+}
+
+html .reach-summary__bar > span {
+  display: block;
+  width: var(--platform-share);
+  height: 100%;
+  transform-origin: left;
+  border-radius: inherit;
+  background: var(--platform-active-accent);
+}
+
+html [data-reach-chart].is-visible .reach-summary__bar > span {
+  animation: reach-bar-reveal var(--dur-long) var(--ease-out) both;
+}
+
+@keyframes reach-bar-reveal {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* Story Atlas · Ecosystem Index · N7 slab · Ft8 marquee */
+html body.linktree-page {
+  padding-block-start: clamp(var(--space-lg), 5vw, var(--space-2xl));
+}
+
+html .linktree-shell {
+  max-width: 92rem;
+  padding-inline: clamp(var(--space-md), 4vw, var(--space-2xl));
+}
+
+html .desktop-hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: var(--space-lg);
+  align-items: stretch;
+}
+
+html .linktree-hero {
+  grid-column: 2;
+  min-height: 35rem;
+  border-radius: 0;
+  background: transparent;
+}
+
+html .linktree-hero__fade {
+  display: none;
+}
+
+html .desktop-intro-panel {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+html .desktop-intro-panel > section,
+html .desktop-intro-panel > nav {
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 0;
+  text-align: start;
+}
+
+html #intro-title {
+  max-width: 12ch;
+  margin: 0;
+  font-size: clamp(2.25rem, 4.4vw, 4.25rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+html .desktop-intro-panel > nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+}
+
+html .brand-social-link {
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-pill);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  box-shadow: none;
+  transition:
+    transform var(--dur-short) var(--ease-out),
+    box-shadow var(--dur-short) var(--ease-out);
+}
+
+html :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid) {
+  display: grid;
+  max-width: none;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+
+html .ui-section-block,
+html .latest-channel-video {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 0;
+}
+
+html .linktree-shell > :is(section, div):not(.desktop-hero-layout) {
+  max-width: none;
+}
+
+html :is(.ui-surface-card, .collaboration-cta) {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+html .collaboration-cta {
+  padding: 0;
+  background: transparent;
+}
+
+html :is(.video-bento-frame, .visited-places-frame) {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+html .video-bento-header {
+  padding-inline: 0;
+  border: 0;
+  background: transparent;
+}
+
+html .visited-places-frame {
+  padding-inline: 0;
+}
+
+html .bento-video-link {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+html .latest-channel-video__link {
+  overflow: visible;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+  --tw-ring-shadow: 0 0 #0000;
+}
+
+html .latest-channel-video__link:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+html .latest-channel-video__link > span:first-child {
+  overflow: hidden;
+  border-radius: var(--radius-card);
+}
+
+html .latest-channel-video__details {
+  padding-inline: 0;
+  padding-block-end: 0;
+  background: transparent;
+}
+
+html .ui-section-header {
+  text-align: start;
+}
+
+html .ui-section-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+html .about-copy {
+  max-width: 62ch;
+}
+
+html .about-copy .ui-section-title,
+html .featured-episodes-title {
+  font-size: var(--text-xl);
+}
+
+html footer {
+  overflow: hidden;
+  max-width: none;
+  border-top: 0;
+}
+
+html footer::before {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html .brand-social-link:hover {
+    border-color: var(--color-ink-2);
+    background: var(--color-paper-2);
+    transform: translateY(calc(var(--rule-hair) * -1));
+  }
+}
+
+@media (max-width: 59.99rem) {
+  html :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid),
+  html .desktop-hero-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  html .linktree-hero,
+  html .desktop-intro-panel {
+    grid-column: 1;
+  }
+
+  html .linktree-hero {
+    grid-row: 1;
+    min-height: clamp(20rem, 80vw, 30rem);
+  }
+
+  html .desktop-intro-panel {
+    grid-row: 2;
+  }
+}
+
+@media (max-width: 39.99rem) {
+  .design-label-full {
+    display: none;
+  }
+
+  .design-label-short {
+    display: inline;
+  }
+
+  html .desktop-latest-grid,
+  html .desktop-latest-grid > *,
+  html .ui-section-header {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  html .desktop-intro-panel > nav {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  html .desktop-intro-panel {
+    padding: 0;
+  }
+}

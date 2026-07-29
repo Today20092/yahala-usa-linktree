@@ -67,6 +67,23 @@ export type SocialReach = {
   items: SocialReachItem[]
 }
 
+export type AboutPageContent = {
+  pageTitle: string
+  pageDescription: string
+  name: string
+  role: string
+  heroStatement: string
+  story: string[]
+  mission: string[]
+  viewerValue: string[]
+  selectionPrinciples: {
+    title: string
+    description: string
+  }[]
+  viewerCtaLabel: string
+  partnerCtaLabel: string
+}
+
 export type CityVideo = {
   videoId?: string
   title?: string
@@ -124,12 +141,17 @@ export type VisitedPlaces = {
 
 export type SiteConfig = {
   site: SiteInfo
+  about: AboutPageContent
   socialLinks: SocialLink[]
   youtubeChannels: YoutubeChannel[]
   featuredEpisodes: FeaturedEpisode[]
   visitedPlaces: VisitedPlaces
   socialReach: SocialReach
   videoSearch: VideoSearchCopy
+  collaborationBrands: {
+    name: string
+    logo?: string
+  }[]
 }
 
 export const siteConfig = parse(siteYaml) as SiteConfig

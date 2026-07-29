@@ -25,3 +25,4 @@ missing-transcripts-report.json
 
 # ai stuff
 .claude
+.codex-remote-attachments/

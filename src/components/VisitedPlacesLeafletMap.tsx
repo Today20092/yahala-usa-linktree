@@ -38,7 +38,6 @@ export default function VisitedPlacesLeafletMap({ places }: Props) {
         scrollWheelZoom: false,
         dragging: !isTouchDevice,
         touchZoom: true,
-        tap: true,
         preferCanvas: true,
       })
 
@@ -179,8 +178,8 @@ export default function VisitedPlacesLeafletMap({ places }: Props) {
         <div
           className={
             status === 'error'
-              ? 'bg-muted/95 text-foreground z-[500] col-start-1 row-start-1 grid place-items-center p-6 text-center backdrop-blur-sm'
-              : 'bg-background/90 text-foreground pointer-events-none z-[500] col-start-1 row-start-1 m-3 place-self-start rounded-full px-3 py-2 text-left shadow-sm ring-1 ring-black/5 backdrop-blur-sm'
+              ? 'bg-muted text-foreground z-[500] col-start-1 row-start-1 grid place-items-center p-6 text-center'
+              : 'bg-background text-foreground pointer-events-none z-[500] col-start-1 row-start-1 m-3 place-self-start rounded-full px-3 py-2 text-left shadow-sm ring-1 ring-black/5'
           }
           role={statusContent.role}
           aria-live="polite"

@@ -1,0 +1,97 @@
+/* Shared Atlas document foundations. Feature styling belongs with its page. */
+html,
+html body {
+  overflow-x: clip;
+}
+
+html {
+  color-scheme: light;
+}
+
+html body {
+  min-width: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+html :is(h1, h2, h3, .ui-page-title, .ui-section-title) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-family: var(--font-display);
+  font-style: normal;
+}
+
+html :is(a, button) {
+  white-space: nowrap;
+}
+
+html :is(a, button):focus-visible {
+  outline: var(--rule-heavy) solid var(--color-focus);
+  outline-offset: var(--space-2xs);
+}
+
+html * {
+  transition-property:
+    color, background-color, border-color, opacity, transform, box-shadow;
+}
+
+html.motion-ready .animate-fade-in-up {
+  animation: none;
+  opacity: 0;
+  transform: translateY(var(--space-md));
+  transition:
+    opacity var(--dur-long) var(--ease-out),
+    transform var(--dur-long) var(--ease-out);
+}
+
+html.motion-ready .animate-fade-in-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+html.motion-ready .animate-fade-in-up.delay-200 {
+  transition-delay: 80ms;
+}
+
+html.motion-ready .animate-fade-in-up.delay-300 {
+  transition-delay: 140ms;
+}
+
+html.motion-ready .animate-fade-in-up.delay-400,
+html.motion-ready .animate-fade-in-up.delay-500 {
+  transition-delay: 200ms;
+}
+
+.design-label-short {
+  display: none;
+}
+
+html .linktree-page {
+  padding-block-start: var(--space-3xl);
+  background: var(--color-paper);
+}
+
+html .linktree-shell {
+  overflow: visible;
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+html :is(.ui-body, .ui-meta) {
+  color: var(--color-ink-2);
+}
+
+html :is(.ui-surface-card, .collaboration-cta) {
+  color: var(--color-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html *,
+  html *::before,
+  html *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

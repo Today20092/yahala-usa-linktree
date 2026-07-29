@@ -8,6 +8,33 @@ site:
   profileImage: yahala-channel-logo.png
   ogImage: og-image.png
 
+about:
+  pageTitle: About Haithem Alqahaf | Ya Hala with Haithem
+  pageDescription: Meet Haithem Alqahaf, the host and storyteller behind Ya Hala, and learn why he shares useful Arab American stories across the United States.
+  name: Haithem Alqahaf
+  role: Host, storyteller, and influencer behind Ya Hala
+  heroStatement: Sharing useful guides and uplifting Arab American stories that help people discover places, support businesses, and work together.
+  story:
+    - I am a Syrian Arab American who came to the United States from Saudi Arabia as a refugee. I brought experience in accounting, business management, and business consulting. Today, Ya Hala is my full-time work.
+    - I started Ya Hala in 2021 because I wanted social media to be healthier, more useful, and more beneficial to the community. My earliest videos guided people to parks and places around Tampa.
+    - A video I made about a local shawarma business went viral. The attention helped the business and showed me how one constructive story could create real momentum. That response inspired me to keep building the channel.
+  mission:
+    - To me, Ya Hala means everyone is welcome. I want the channel to connect Arabs from different countries, religions, generations, and life experiences around the values we share.
+    - My goal is not only to entertain. I want to repeat useful ideas, celebrate good examples, challenge prejudice, and encourage people to support one another and take action.
+  viewerValue:
+    - Knowledge and practical guidance about cities, parks, places, businesses, and community life.
+    - Honest stories about how people started, overcame challenges, and built something worthwhile.
+    - A closer look at the character, hospitality, values, and diversity of Arab American communities.
+  selectionPrinciples:
+    - title: A story worth sharing
+      description: The person or business has a meaningful journey, a strong beginning, or lessons that can help others.
+    - title: Good for the community
+      description: The work contributes something useful and carries a constructive message.
+    - title: Quality people can trust
+      description: Featured businesses must offer strong quality and be halal or otherwise consistent with Islamic principles.
+  viewerCtaLabel: Explore the stories
+  partnerCtaLabel: Connect with Ya Hala
+
 socialLinks:
   - id: youtube
     url: https://www.youtube.com/channel/UC26OIuJ19EH6HF6uRJ-N_2A
@@ -58,8 +85,8 @@ youtubeChannels:
     description: Latest from Ya Hala with Haithum
     branding:
       logoSrc: profileImage
-      accentColor: var(--color-brand-600)
-      darkAccentColor: var(--color-brand-400)
+      accentColor: var(--primary)
+      darkAccentColor: var(--primary)
       cardBackground: var(--card)
       darkCardBackground: var(--card)
       cardTint: var(--muted)
@@ -619,3 +646,24 @@ socialReach:
     - platform: Facebook
       metric: Views
       value: 79423446
+
+collaborationBrands:
+  - name: Aser Time Juice Time
+  - name: Farooj Abo Abed's Shawarma
+  - name: Moka & Co.
+    logo: https://mokanco.com/wp-content/uploads/2025/11/Moka-and-Co-Cafe-logo.png
+  - name: MokCafe
+  - name: Excite Medical
+  - name: Triangle Family Dentistry
+    logo: https://www.trianglefamilydentistry.com/wp-content/uploads/2025/06/tdf-color-logo.png
+  - name: Chocolate House
+  - name: Slap Burger
+  - name: Yafa Coffee & Kunafa
+  - name: Shotted Coffee
+  - name: Abu Omar Halal
+  - name: Autos of Dallas
+  - name: Zyara Restaurant
+  - name: Shawarma Press
+  - name: Melt N Dip
+  - name: Qahwah House
+    logo: https://qahwahhouse.com/images/logo.png
