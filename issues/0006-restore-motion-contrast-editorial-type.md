@@ -21,6 +21,13 @@ and previously assigned to `--font-display`. Restore Newsreader for editorial
 headings/display numbers while retaining Plus Jakarta Sans for body copy and
 interface controls.
 
+## Branch strategy
+
+Continue on `feature/brand-collaborations` as a separate follow-up commit. This
+ticket fixes regressions found while manually reviewing that branch's shared
+Atlas preview, so a second feature branch would add merge overhead without
+isolating independent work.
+
 ## Acceptance criteria
 
 - [ ] The “People reached” total counts from zero to its verified value once
