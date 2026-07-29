@@ -1,14 +1,16 @@
 import { readFile } from 'node:fs/promises'
 
-const [tokens, site, home, reach, latest, map, indexCss] = await Promise.all([
-  readFile('tokens.css', 'utf8'),
-  readFile('src/data/site.yaml', 'utf8'),
-  readFile('src/pages/index.astro', 'utf8'),
-  readFile('src/components/ReachBadge.astro', 'utf8'),
-  readFile('src/components/LatestChannelVideo.astro', 'utf8'),
-  readFile('src/components/VisitedPlacesLeafletMap.tsx', 'utf8'),
-  readFile('src/pages/index.css', 'utf8'),
-])
+const [tokens, site, home, reach, latest, map, indexCss, worker] =
+  await Promise.all([
+    readFile('tokens.css', 'utf8'),
+    readFile('src/data/site.yaml', 'utf8'),
+    readFile('src/pages/index.astro', 'utf8'),
+    readFile('src/components/ReachBadge.astro', 'utf8'),
+    readFile('src/components/LatestChannelVideo.astro', 'utf8'),
+    readFile('src/components/VisitedPlacesLeafletMap.tsx', 'utf8'),
+    readFile('src/pages/index.css', 'utf8'),
+    readFile('src/worker.js', 'utf8'),
+  ])
 
 const requireText = (source, text, message) => {
   if (!source.includes(text)) throw new Error(message)
@@ -64,6 +66,16 @@ requireText(
   home,
   "applyTheme(hasThemeControls ? getPreference() : 'light')",
   'The control-free production document must remain in the light theme.',
+)
+requireText(
+  indexCss,
+  'html body.linktree-page {',
+  'Home spacing must override the shared Atlas page padding.',
+)
+requireText(
+  worker,
+  "headers.set('Cache-Control', 'no-store')",
+  'Nonce-bearing HTML must not be reused with a different CSP nonce.',
 )
 if (
   !/if \(hasThemeControls\)\s+systemQuery\.addEventListener\('change', handleSystemChange\)/.test(

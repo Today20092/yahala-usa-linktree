@@ -43,6 +43,8 @@ const withSecurityHeaders = (response) => {
     headers.set(header, value)
   })
   headers.set('Content-Security-Policy', createContentSecurityPolicy(nonce))
+  if (contentType.includes('text/html'))
+    headers.set('Cache-Control', 'no-store')
 
   const securedResponse = new Response(response.body, {
     status: response.status,

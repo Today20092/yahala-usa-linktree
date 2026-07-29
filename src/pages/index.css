@@ -151,7 +151,7 @@ html [data-reach-chart].is-visible .reach-summary__bar > span {
 }
 
 /* Story Atlas · Ecosystem Index · N7 slab · Ft8 marquee */
-html .linktree-page {
+html body.linktree-page {
   padding-block-start: clamp(var(--space-lg), 5vw, var(--space-2xl));
 }
 
