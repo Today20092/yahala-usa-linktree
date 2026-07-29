@@ -20,6 +20,12 @@ const storyBuilderSource = await readFile(
   new URL('../src/lib/story-browser.ts', import.meta.url),
   'utf8',
 )
+const youtubeVideos = JSON.parse(
+  await readFile(
+    new URL('../src/data/youtube-videos.json', import.meta.url),
+    'utf8',
+  ),
+)
 
 for (const expected of [
   "React.useState<'loading' | 'ready' | 'error'>",
@@ -82,6 +88,10 @@ if (!storyBuilderSource.includes(
   '!youtubeVideosById[story.videoId]?.isShort',
 )) {
   throw new Error('Story Browser must exclude YouTube Shorts')
+}
+
+if (youtubeVideos['7lPoSEkcd18']?.isShort !== true) {
+  throw new Error('Known portrait Short 7lPoSEkcd18 must be excluded')
 }
 
 console.log('Visited map and Story Browser checks pass.')

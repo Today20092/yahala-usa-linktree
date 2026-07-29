@@ -198,7 +198,7 @@ html[data-design='night'] {
   color-scheme: dark;
 }
 
-html[data-design='atlas'] {
+:root {
   --font-display:
     'Plus Jakarta Sans', 'Geist Variable', ui-sans-serif, sans-serif;
   --font-body: 'Plus Jakarta Sans', 'Geist Variable', ui-sans-serif, sans-serif;

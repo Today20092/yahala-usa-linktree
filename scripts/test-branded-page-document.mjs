@@ -43,6 +43,10 @@ for (const invariant of [
   }
 }
 
+if (!layout.includes('class="box-border light"')) {
+  throw new Error('BrandedPageDocument must activate the light Atlas theme')
+}
+
 for (const previewArtifact of [
   'design-preview.css',
   'data-design-preview',
@@ -57,6 +61,15 @@ for (const previewArtifact of [
 }
 
 const atlas = await readFile('src/atlas.css', 'utf8')
+const tokens = await readFile('tokens.css', 'utf8')
+
+if (!atlas.includes('color-scheme: light')) {
+  throw new Error('Atlas styling must declare a light browser color scheme')
+}
+
+if (!/:root\s*{[\s\S]*?--color-paper:/.test(tokens)) {
+  throw new Error('Atlas color tokens must be active at :root')
+}
 
 for (const alternateDesign of ['data-design', 'field', 'night']) {
   if (atlas.includes(alternateDesign)) {

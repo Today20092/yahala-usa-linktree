@@ -31,7 +31,7 @@ const journeyMarkers = [
   ['map', 'aria-label="Map"'],
   ['state selection', 'Choose a state'],
   ['latest-story action', 'Latest From Ya Hala'],
-  ['manual portfolio browsing', 'data-portfolio-scroll="manual"'],
+  ['automatic portfolio browsing', 'data-portfolio-scroll="auto"'],
 ]
 
 const pageFlow = [
@@ -46,6 +46,13 @@ const pageFlow = [
 ]
 
 const assertJourney = (html) => {
+  if (
+    html.includes('data-portfolio-scroll="manual"') ||
+    html.includes('overflow-x-auto')
+  ) {
+    throw new Error('Horizontal touch scrolling is present')
+  }
+
   const missing = journeyMarkers
     .filter(([, marker]) => !html.includes(marker))
     .map(([name]) => name)
@@ -62,9 +69,6 @@ const assertJourney = (html) => {
     previousIndex = index
   }
 
-  if (html.includes('bento-scroll-track')) {
-    throw new Error('Unapproved continuous portfolio motion is present')
-  }
   if (html.includes('collaboration-cta')) {
     throw new Error('Hidden collaboration promotion is present')
   }
