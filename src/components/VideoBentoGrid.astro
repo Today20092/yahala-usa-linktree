@@ -350,103 +350,88 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
         </div>
         <div
           class="space-y-2 p-2.5 sm:space-y-3 sm:p-3"
-          data-portfolio-scroll="auto"
+          data-portfolio-scroll="manual"
         >
-          {bentoRows.map((row, rowIndex) => (
-            <div class="bento-scroll-row pb-1">
-              <div
-                class:list={[
-                  'bento-scroll-track',
-                  { 'bento-scroll-track--reverse': rowIndex === 1 },
-                ]}
-              >
-                {[false, true].map((duplicate) => (
-                  <div
-                    class="bento-scroll-group"
-                    aria-hidden={duplicate}
-                    inert={duplicate}
-                  >
-                    {row.map((item) =>
-                      item.type === 'video' ? (
-                        <a
-                          href={item.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`Watch this Ya Hala story on YouTube: ${item.alt}`}
-                          class="group bento-video-link bg-accent focus-visible:outline-ring dark:bg-accent border-border/60 hover:border-youtube/70 hover:ring-youtube/30 dark:border-border dark:hover:border-youtube/70 relative isolate block aspect-video w-[252px] shrink-0 cursor-pointer overflow-hidden rounded-lg border text-left shadow-sm ring-1 ring-transparent transition duration-200 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-3 focus-visible:outline-offset-2 sm:w-[274px]"
-                        >
-                          {isRemoteImage(item.src) ? (
-                            <img
-                              src={item.src}
-                              alt={item.alt}
-                              width="480"
-                              height="270"
-                              data-fallback-src={getThumbnailFallback(
-                                item.href,
-                              )}
-                              class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                              loading="eager"
-                              decoding="async"
-                            />
-                          ) : (
-                            <Image
-                              src={item.src}
-                              alt={item.alt}
-                              width={480}
-                              height={270}
-                              class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                              loading="eager"
-                              decoding="async"
-                            />
-                          )}
-                          <span
-                            class="from-scrim/80 via-scrim/40 absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-3 bg-gradient-to-t to-transparent p-3 pt-10 text-white opacity-95 transition duration-200 group-hover:opacity-100"
-                            aria-hidden="true"
-                          >
-                            <span class="bg-background/95 text-foreground ring-border dark:bg-card/90 inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold shadow-sm ring-1 backdrop-blur-sm">
-                              Play story
-                            </span>
-                          </span>
-                        </a>
+          {bentoRows.map((row) => (
+            <div class="bento-scroll-row overflow-x-auto pb-1">
+              <div class="flex w-max gap-2 sm:gap-3">
+                {row.map((item, itemIndex) =>
+                  item.type === 'video' ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Watch this Ya Hala story on YouTube: ${item.alt}`}
+                      class="group bento-video-link bg-accent focus-visible:outline-ring dark:bg-accent border-border/60 hover:border-youtube/70 hover:ring-youtube/30 dark:border-border dark:hover:border-youtube/70 relative isolate block aspect-video w-[252px] shrink-0 cursor-pointer overflow-hidden rounded-lg border text-left shadow-sm ring-1 ring-transparent transition duration-200 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-3 focus-visible:outline-offset-2 sm:w-[274px]"
+                    >
+                      {isRemoteImage(item.src) ? (
+                        <img
+                          src={item.src}
+                          alt={item.alt}
+                          width="480"
+                          height="270"
+                          data-fallback-src={getThumbnailFallback(item.href)}
+                          class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                          loading={itemIndex === 0 ? 'eager' : 'lazy'}
+                          decoding="async"
+                        />
                       ) : (
-                        <div
-                          style={`--platform-accent: ${item.accent}; --platform-accent-dark: ${item.darkAccent}; --platform-tint: ${item.tint}; --platform-tint-dark: ${item.darkTint};`}
-                          aria-label={`${item.platform} ${item.metric}: ${item.value}`}
-                          class="bg-card/90 border-border/60 dark:border-border/70 dark:bg-card/75 relative flex aspect-video w-[252px] shrink-0 cursor-default flex-col justify-between overflow-hidden rounded-lg border p-4 text-left shadow-sm transition duration-200 [--platform-active-accent:var(--platform-accent)] [--platform-active-tint:var(--platform-tint)] hover:shadow-md sm:w-[274px] dark:[--platform-active-accent:var(--platform-accent-dark)] dark:[--platform-active-tint:var(--platform-tint-dark)]"
-                        >
-                          <span
-                            class="absolute inset-x-0 top-0 h-1 bg-[var(--platform-active-accent)]"
+                        <Image
+                          src={item.src}
+                          alt={item.alt}
+                          width={480}
+                          height={270}
+                          class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                          loading={itemIndex === 0 ? 'eager' : 'lazy'}
+                          decoding="async"
+                        />
+                      )}
+                      <span
+                        class="from-scrim/80 via-scrim/40 absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-3 bg-gradient-to-t to-transparent p-3 pt-10 text-white opacity-95 transition duration-200 group-hover:opacity-100"
+                        aria-hidden="true"
+                      >
+                        <span class="bg-background/95 text-foreground ring-border dark:bg-card/90 inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold shadow-sm ring-1 backdrop-blur-sm">
+                          Play story
+                        </span>
+                      </span>
+                    </a>
+                  ) : (
+                    <div
+                      style={`--platform-accent: ${item.accent}; --platform-accent-dark: ${item.darkAccent}; --platform-tint: ${item.tint}; --platform-tint-dark: ${item.darkTint};`}
+                      aria-label={`${item.platform} ${item.metric}: ${item.value}`}
+                      class="bg-card/90 border-border/60 dark:border-border/70 dark:bg-card/75 relative flex aspect-video w-[252px] shrink-0 cursor-default flex-col justify-between overflow-hidden rounded-lg border p-4 text-left shadow-sm transition duration-200 [--platform-active-accent:var(--platform-accent)] [--platform-active-tint:var(--platform-tint)] hover:shadow-md sm:w-[274px] dark:[--platform-active-accent:var(--platform-accent-dark)] dark:[--platform-active-tint:var(--platform-tint-dark)]"
+                    >
+                      <span
+                        class="absolute inset-x-0 top-0 h-1 bg-[var(--platform-active-accent)]"
+                        aria-hidden="true"
+                      />
+                      <span
+                        class="absolute inset-0 bg-[linear-gradient(135deg,color-mix(in_srgb,var(--platform-active-tint)_42%,transparent)_0%,transparent_58%)]"
+                        aria-hidden="true"
+                      />
+                      <div class="relative flex min-w-0 items-center gap-2">
+                        <span class="grid size-7 shrink-0 place-items-center rounded-full bg-[color-mix(in_srgb,var(--platform-active-accent)_12%,var(--card))] ring-1 ring-[color-mix(in_srgb,var(--platform-active-accent)_18%,transparent)]">
+                          <Icon
+                            name={item.icon}
+                            class="size-3.5 shrink-0 text-[var(--platform-active-accent)]"
                             aria-hidden="true"
                           />
-                          <span
-                            class="absolute inset-0 bg-[linear-gradient(135deg,color-mix(in_srgb,var(--platform-active-tint)_42%,transparent)_0%,transparent_58%)]"
-                            aria-hidden="true"
-                          />
-                          <div class="relative flex min-w-0 items-center gap-2">
-                            <span class="grid size-7 shrink-0 place-items-center rounded-full bg-[color-mix(in_srgb,var(--platform-active-accent)_12%,var(--card))] ring-1 ring-[color-mix(in_srgb,var(--platform-active-accent)_18%,transparent)]">
-                              <Icon
-                                name={item.icon}
-                                class="size-3.5 shrink-0 text-[var(--platform-active-accent)]"
-                                aria-hidden="true"
-                              />
-                            </span>
-                            <p class="ui-meta text-foreground truncate">
-                              {item.platform}
-                            </p>
-                          </div>
-                          <div class="relative">
-                            <p class="text-foreground text-3xl leading-none font-black tracking-normal tabular-nums sm:text-4xl">
-                              {item.value}
-                            </p>
-                            <p class="ui-meta mt-2 truncate uppercase">
-                              {item.metric}
-                            </p>
-                          </div>
-                        </div>
-                      ),
-                    )}
-                  </div>
-                ))}
+                        </span>
+                        <p class="ui-meta text-foreground truncate">
+                          {item.platform}
+                        </p>
+                      </div>
+                      <div class="relative">
+                        <p class="text-foreground text-3xl leading-none font-black tracking-normal tabular-nums sm:text-4xl">
+                          {item.value}
+                        </p>
+                        <p class="ui-meta mt-2 truncate uppercase">
+                          {item.metric}
+                        </p>
+                      </div>
+                    </div>
+                  ),
+                )}
               </div>
             </div>
           ))}
@@ -455,50 +440,3 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
     </section>
   )
 }
-
-<style>
-  .bento-scroll-row {
-    overflow: hidden;
-  }
-
-  .bento-scroll-track {
-    display: flex;
-    width: max-content;
-    animation: bento-scroll 50s linear infinite;
-  }
-
-  .bento-scroll-track--reverse {
-    animation-direction: reverse;
-    animation-duration: 55s;
-  }
-
-  .bento-scroll-group {
-    display: flex;
-    flex-shrink: 0;
-    gap: 0.5rem;
-    padding-right: 0.5rem;
-  }
-
-  @media (min-width: 40rem) {
-    .bento-scroll-group {
-      gap: 0.75rem;
-      padding-right: 0.75rem;
-    }
-  }
-
-  @keyframes bento-scroll {
-    to {
-      transform: translateX(-50%);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .bento-scroll-track {
-      animation: none;
-    }
-
-    .bento-scroll-group[aria-hidden='true'] {
-      display: none;
-    }
-  }
-</style>

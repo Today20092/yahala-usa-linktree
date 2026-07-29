@@ -268,7 +268,6 @@ html .video-bento-header {
   background: transparent;
 }
 
-html .video-bento-frame .bento-scroll-mask,
 html .visited-places-frame {
   padding-inline: 0;
 }
@@ -330,12 +329,6 @@ html footer {
 
 html footer::before {
   display: none;
-}
-
-@keyframes atlas-marquee {
-  to {
-    transform: translateX(-25%);
-  }
 }
 
 @media (hover: hover) and (pointer: fine) {
