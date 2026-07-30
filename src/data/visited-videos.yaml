@@ -2,38 +2,41 @@
 # State-only videos appear in every visited city for that state.
 # City videos appear only in the matching city drawer.
 videos:
+  - videoId: MWKkfAD5tRg
+    state: "New Jersey"
+    city: "Edison"
   - videoId: JFTjukzbPxE
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: T0wrG8HRXMk
-    state: ""
-    city: ""
+    state: "Michigan"
+    city: "Dearborn"
   - videoId: kllekzPuZkE
     state: ""
     city: ""
   - videoId: r0DeNDBfx_I
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: 9tbGsk7PB_I
-    state: ""
-    city: ""
+    state: "New Jersey"
+    city: "Paterson"
   - videoId: Lgaw_1yjzFg
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: SuKUMhsnLIY
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: lItHVDEnnSI
-    state: ""
+    state: "Indiana"
     city: ""
   - videoId: tdZNsfAwXME
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Dallas"
   - videoId: wVzeEOyjWEM
     state: "New York"
     city: "New York City"
   - videoId: gDbn5G3zuZU
-    state: ""
+    state: "New Jersey"
     city: ""
   - videoId: M6TQFZpcX64
     state: "New York"
@@ -414,7 +417,7 @@ videos:
     state: "New Jersey"
     city: "Jersey City"
   - videoId: voZw2fVa5pM
-    state: ""
+    state: "Indiana"
     city: ""
   - videoId: JCyJ5QIdlck
     state: "Illinois"

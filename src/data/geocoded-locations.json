@@ -864,5 +864,12 @@
     "longitude": -85.6602936,
     "city": "Panama City",
     "state": "Florida"
+  },
+  "Gold, Oregon": {
+    "query": "Gold, Oregon",
+    "latitude": 31.9201188,
+    "longitude": -102.4048042,
+    "city": "Black Gold District",
+    "state": "Texas"
   }
 }
