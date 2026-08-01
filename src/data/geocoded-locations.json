@@ -871,5 +871,12 @@
     "longitude": -102.4048042,
     "city": "Black Gold District",
     "state": "Texas"
+  },
+  "Retail Store, Oregon": {
+    "query": "Retail Store, Oregon",
+    "latitude": 44.0475483,
+    "longitude": -123.1212853,
+    "city": "Eugene",
+    "state": "Oregon"
   }
 }

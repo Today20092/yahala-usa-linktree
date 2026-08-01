@@ -1,13 +1,12 @@
 site:
   pageTitle: Ya Hala with Haithum ياهلا مع هيثم
-  pageDescription: 'Ya Hala with Haithum shares Arab American field stories, community visits, and latest videos across the United States.'
+  pageDescription: Ya Hala with Haithum shares Arab American field stories, community visits, and latest videos across the United States.
   siteName: Ya Hala with Haithum
   profileName: Haithum
-  twitterHandle: '@yahala_usa'
+  twitterHandle: "@yahala_usa"
   heroImageAlt: Ya Hala with Haithum ياهلا مع هيثم social cover
   profileImage: yahala-channel-logo.png
   ogImage: og-image.png
-
 about:
   pageTitle: About Haithem Alqahaf | Ya Hala with Haithem
   pageDescription: Meet Haithem Alqahaf, the host and storyteller behind Ya Hala, and learn why he shares useful Arab American stories across the United States.
@@ -91,11 +90,10 @@ youtubeChannels:
       darkCardBackground: var(--card)
       cardTint: var(--muted)
       darkCardTint: var(--muted)
-      logoBackgroundColor: '#ffffff'
-      darkLogoBackgroundColor: '#ffffff'
+      logoBackgroundColor: "#ffffff"
+      darkLogoBackgroundColor: "#ffffff"
       logoFit: contain
       logoPaddingClass: p-1.5
-
 videoSearch:
   enabled: true
   eyebrow: Semantic video search
@@ -630,9 +628,13 @@ visitedPlaces:
       state: Florida
       latitude: 30.1586518
       longitude: -85.6602936
+    - city: Eugene
+      state: Oregon
+      latitude: 44.0475483
+      longitude: -123.1212853
 
 socialReach:
-  updatedAt: '2026-06-22'
+  updatedAt: "2026-06-22"
   items:
     - platform: YouTube
       metric: Views
@@ -646,7 +648,6 @@ socialReach:
     - platform: Facebook
       metric: Views
       value: 79423446
-
 collaborationBrands:
   - name: Aser Time Juice Time
   - name: Farooj Abo Abed's Shawarma
