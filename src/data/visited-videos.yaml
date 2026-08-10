@@ -759,8 +759,8 @@ videos:
     state: "New York"
     city: "New York City"
   - videoId: grNmU4DWwCE
-    state: ""
-    city: ""
+    state: "New Jersey"
+    city: "Paterson"
   - videoId: 5yCgosRYO8w
     state: "Illinois"
     city: "Chicago"
