@@ -878,5 +878,12 @@
     "longitude": -123.1212853,
     "city": "Eugene",
     "state": "Oregon"
+  },
+  "New Rochelle, New York": {
+    "query": "New Rochelle, New York",
+    "latitude": 40.9115386,
+    "longitude": -73.7826363,
+    "city": "City of New Rochelle",
+    "state": "New York"
   }
 }

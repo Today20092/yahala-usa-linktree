@@ -632,6 +632,10 @@ visitedPlaces:
       state: Oregon
       latitude: 44.0475483
       longitude: -123.1212853
+    - city: City of New Rochelle
+      state: New York
+      latitude: 40.9115386
+      longitude: -73.7826363
 
 socialReach:
   updatedAt: "2026-06-22"
