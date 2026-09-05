@@ -636,6 +636,10 @@ visitedPlaces:
       state: New York
       latitude: 40.9115386
       longitude: -73.7826363
+    - city: Carle Place
+      state: New York
+      latitude: 40.750055
+      longitude: -73.6118258
 
 socialReach:
   updatedAt: "2026-06-22"

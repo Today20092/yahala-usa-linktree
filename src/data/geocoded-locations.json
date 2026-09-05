@@ -885,5 +885,12 @@
     "longitude": -73.7826363,
     "city": "City of New Rochelle",
     "state": "New York"
+  },
+  "Carle Place, New York": {
+    "query": "Carle Place, New York",
+    "latitude": 40.750055,
+    "longitude": -73.6118258,
+    "city": "Carle Place",
+    "state": "New York"
   }
 }

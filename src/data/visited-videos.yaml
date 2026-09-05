@@ -2,6 +2,9 @@
 # State-only videos appear in every visited city for that state.
 # City videos appear only in the matching city drawer.
 videos:
+  - videoId: m8asnsEgkMs
+    state: "New York"
+    city: "Carle Place"
   - videoId: 3qg65IBcd5M
     state: "New York"
     city: "City of New Rochelle"
@@ -75,7 +78,7 @@ videos:
     state: "Florida"
     city: "Tampa"
   - videoId: 3TutPXW79aY
-    state: ""
+    state: "Alabama"
     city: ""
   - videoId: 06LJ9AaClLs
     state: "North Carolina"
