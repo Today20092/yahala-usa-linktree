@@ -2,8 +2,9 @@
   "yahala": {
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum  ياهلا مع هيثم",
-    "latestVideoId": "m8asnsEgkMs",
+    "latestVideoId": "BpOcUAxW7lM",
     "videoIds": [
+      "BpOcUAxW7lM",
       "m8asnsEgkMs",
       "3qg65IBcd5M",
       "xbZRqBViK-Q",
@@ -33,8 +34,6 @@
       "06LJ9AaClLs",
       "uO35D6Gw6Xg",
       "Psn0QTLw7eA",
-      "3sNCePfZJ0o",
-      "BpOcUAxW7lM",
       "cj4he8ovq1U",
       "Dletrct4tX0",
       "3JlWDXcZHFk",
@@ -45,6 +44,11 @@
       "xAnqgHnQdNw",
       "HX5yUg42Xbs",
       "wVlH0fcLrmk"
-    ]
+    ],
+    "topVideoIds": [
+      "qfdYSd4oujc",
+      "cd9mPKBvubo"
+    ],
+    "topVideosUpdatedAt": "2026-09-09T01:19:50.189Z"
   }
 }
