@@ -2,6 +2,9 @@
 # State-only videos appear in every visited city for that state.
 # City videos appear only in the matching city drawer.
 videos:
+  - videoId: c1JGUAQ-aoY
+    state: "Indiana"
+    city: "Columbus"
   - videoId: ljWORq296hQ
     state: "Virginia"
     city: "Falls Church"

@@ -892,5 +892,12 @@
     "longitude": -73.6118258,
     "city": "Carle Place",
     "state": "New York"
+  },
+  "Columbus, Indiana": {
+    "query": "Columbus, Indiana",
+    "latitude": 39.2014405,
+    "longitude": -85.9213796,
+    "city": "Columbus",
+    "state": "Indiana"
   }
 }
