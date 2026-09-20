@@ -12,7 +12,6 @@ import LatestChannelVideo from '../components/LatestChannelVideo.astro'
 import QrCodeButton from '../components/QrCodeButton.astro'
 import ReachBadge from '../components/ReachBadge.astro'
 import TopicCards from '../components/TopicCards.astro'
-import VideoSearch from '../components/VideoSearch'
 import SocialLinkButton from '../components/SocialLinkButton'
 import VideoBentoGrid from '../components/VideoBentoGrid.astro'
 import VisitedPlacesMap from '../components/VisitedPlacesMap.astro'
@@ -38,7 +37,6 @@ const {
   youtubeChannels,
   socialReach,
   visitedPlaces,
-  videoSearch,
   collaborationBrands,
 } = siteConfig
 const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
@@ -389,36 +387,7 @@ const structuredData = {
 
       <VideoBentoGrid />
 
-      <section
-        class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-500 sm:px-6"
-        aria-labelledby="explore-title"
-      >
-        <div class="ui-section-header">
-          <h2 id="explore-title" class="ui-section-title">
-            Explore more stories
-          </h2>
-          <p class="ui-body mx-auto mt-3 max-w-md text-sm">
-            {
-              videoSearch.enabled
-                ? 'Search video moments, browse popular episodes, and follow the places Ya Hala has visited.'
-                : 'Browse popular episodes and follow the places Ya Hala has visited.'
-            }
-          </p>
-        </div>
-      </section>
-
-      <div class="desktop-explore-grid">
-        {
-          videoSearch.enabled && (
-            <VideoSearch
-              copy={videoSearch}
-              client:visible={{ rootMargin: '200px' }}
-            />
-          )
-        }
-
-        <FeaturedEpisodes />
-      </div>
+      <FeaturedEpisodes />
 
       <VisitedPlacesMap visitedPlaces={resolvedVisitedPlaces} />
 
