@@ -2,6 +2,9 @@
 # State-only videos appear in every visited city for that state.
 # City videos appear only in the matching city drawer.
 videos:
+  - videoId: 74B8H8eiP3M
+    state: "Michigan"
+    city: "Dearborn"
   - videoId: hfWfZA44bu8
     state: "Ohio"
     city: "Dublin"
