@@ -899,5 +899,12 @@
     "longitude": -85.9213796,
     "city": "Columbus",
     "state": "Indiana"
+  },
+  "Tinley Park, Illinois": {
+    "query": "Tinley Park, Illinois",
+    "latitude": 41.5733669,
+    "longitude": -87.7844944,
+    "city": "Tinley Park",
+    "state": "Illinois"
   }
 }

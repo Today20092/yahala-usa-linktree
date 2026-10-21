@@ -2,6 +2,9 @@
 # State-only videos appear in every visited city for that state.
 # City videos appear only in the matching city drawer.
 videos:
+  - videoId: TiqQHwESdiE
+    state: "Illinois"
+    city: "Tinley Park"
   - videoId: y7814xk2xs8
     state: "Florida"
     city: "Tampa"

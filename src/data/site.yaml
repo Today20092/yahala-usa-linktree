@@ -644,6 +644,10 @@ visitedPlaces:
       state: Indiana
       latitude: 39.2014405
       longitude: -85.9213796
+    - city: Tinley Park
+      state: Illinois
+      latitude: 41.5733669
+      longitude: -87.7844944
 
 socialReach:
   updatedAt: "2026-06-22"
