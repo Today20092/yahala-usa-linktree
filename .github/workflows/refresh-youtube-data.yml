@@ -2,7 +2,7 @@ name: Refresh YouTube Data
 
 on:
   schedule:
-    - cron: '0 19 * * *'
+    - cron: '17 7,19 * * *'
       timezone: 'America/New_York'
   # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
@@ -60,5 +60,5 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           branch: development
-          commit_message: Update daily YouTube catalog
+          commit_message: Update YouTube catalog
           file_pattern: src/data/site.yaml src/data/latest-youtube-videos.json src/data/visited-videos.yaml src/data/youtube-videos.json src/data/geocoded-locations.json

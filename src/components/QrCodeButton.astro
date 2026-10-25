@@ -58,9 +58,9 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
   </div>
 </a>
 
-<div
+<dialog
   id="qr-dialog"
-  class="bg-foreground/70 fixed inset-0 z-50 hidden items-center justify-center overflow-y-auto px-4 py-6 backdrop-blur-sm target:flex sm:py-8"
+  class="bg-foreground/70 fixed inset-0 z-50 m-0 hidden h-dvh max-h-none w-dvw max-w-none items-center justify-center overflow-y-auto border-0 px-4 py-6 backdrop-blur-sm target:flex sm:py-8"
   role="dialog"
   aria-modal="true"
   aria-labelledby="qr-title"
@@ -73,7 +73,7 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
       <a
         href="#"
         id="qr-close"
-        class="hover:bg-accent focus-visible:ring-ring/30 grid size-10 place-items-center rounded-full transition-colors focus-visible:ring-2 focus-visible:outline-none"
+        class="hover:bg-accent focus-visible:ring-ring/30 grid size-11 place-items-center rounded-full transition-colors focus-visible:ring-2 focus-visible:outline-none"
         aria-label="Close QR code"
       >
         <Icon name="heroicons:x-mark" class="size-6" aria-hidden="true" />
@@ -100,16 +100,16 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
       {displayUrl}
     </a>
   </div>
-</div>
+</dialog>
 
 <script>
-  const dialog = document.getElementById('qr-dialog')
+  const dialog = document.querySelector<HTMLDialogElement>('#qr-dialog')
   const openButtons = document.querySelectorAll<HTMLElement>('[data-qr-open]')
   const closeButton = document.querySelector<HTMLElement>('#qr-close')
   let previousFocus: HTMLElement | null = null
 
   const openDialog = (trigger: HTMLElement | null = null) => {
-    if (!dialog) return
+    if (!dialog || dialog.open) return
 
     previousFocus =
       trigger ??
@@ -118,13 +118,16 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
         : null)
     dialog.classList.remove('hidden')
     dialog.classList.add('flex')
+    dialog.showModal()
     document.documentElement.classList.add('overflow-hidden')
     closeButton?.focus()
   }
 
   const closeDialog = () => {
-    if (!dialog) return
+    dialog?.close()
+  }
 
+  dialog?.addEventListener('close', () => {
     if (dialog.matches(':target')) {
       history.replaceState(null, '', `${location.pathname}${location.search}`)
     }
@@ -135,7 +138,7 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
     if (previousFocus instanceof HTMLElement) {
       previousFocus.focus()
     }
-  }
+  })
 
   openButtons.forEach((button) => {
     button.addEventListener('click', (event) => {
@@ -150,15 +153,6 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
 
   dialog?.addEventListener('click', (event) => {
     if (event.target === dialog) closeDialog()
-  })
-
-  document.addEventListener('keydown', (event) => {
-    if (
-      !dialog ||
-      (dialog.classList.contains('hidden') && !dialog.matches(':target'))
-    )
-      return
-    if (event.key === 'Escape') closeDialog()
   })
 
   if (dialog?.matches(':target')) openDialog()

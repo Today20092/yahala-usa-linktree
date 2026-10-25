@@ -58,6 +58,7 @@ jobs:
           npm run test:preview-smoke
           npm run test:reach-chart
           npm run test:atlas-polish
+          npm run test:motion-toggle
           npm run test:visited-map
           npm run test:video-recency
           npm run test:branded-document
