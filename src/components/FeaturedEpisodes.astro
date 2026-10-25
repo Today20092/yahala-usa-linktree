@@ -47,8 +47,10 @@ const formatViews = (views: number) =>
 
 const placeholderTitles = new Set(['Watch on YouTube', 'Open on YouTube'])
 
-const isUsableTitle = (title?: string) =>
-  Boolean(title?.trim()) && !placeholderTitles.has(title.trim())
+const isUsableTitle = (title?: string) => {
+  const trimmedTitle = title?.trim()
+  return Boolean(trimmedTitle && !placeholderTitles.has(trimmedTitle))
+}
 
 const nestedVideoTitlesById = Object.values(
   youtubeVideosById as Record<string, VideoWithNestedSummaries>,
@@ -131,7 +133,7 @@ const episodes = topVideoIds
                   class="bg-scrim/10 absolute inset-0 grid place-items-center opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
                   aria-hidden="true"
                 >
-                  <IconBadge tone="solid" size="md" class="shadow-lg">
+                  <IconBadge tone="solid" size="md" className="shadow-lg">
                     <Icon
                       name="heroicons:play-solid"
                       class="size-4 translate-x-px"

@@ -2,38 +2,98 @@
 # State-only videos appear in every visited city for that state.
 # City videos appear only in the matching city drawer.
 videos:
+  - videoId: Q8jy35CL-Yk
+    state: "New Jersey"
+    city: "Paterson"
+  - videoId: TiqQHwESdiE
+    state: "Illinois"
+    city: "Tinley Park"
+  - videoId: y7814xk2xs8
+    state: "Florida"
+    city: "Tampa"
+  - videoId: Tk9u7o4S2Ts
+    state: "Ohio"
+    city: "Dublin"
+  - videoId: 74B8H8eiP3M
+    state: "Michigan"
+    city: "Dearborn"
+  - videoId: hfWfZA44bu8
+    state: "Ohio"
+    city: "Dublin"
+  - videoId: l2_0GBn5zdg
+    state: "Michigan"
+    city: "Southfield Township"
+  - videoId: c1JGUAQ-aoY
+    state: "Indiana"
+    city: "Columbus"
+  - videoId: ljWORq296hQ
+    state: "Virginia"
+    city: "Falls Church"
+  - videoId: BpOcUAxW7lM
+    state: "North Carolina"
+    city: "Raleigh"
+  - videoId: m8asnsEgkMs
+    state: "New York"
+    city: "Carle Place"
+  - videoId: 3qg65IBcd5M
+    state: "New York"
+    city: "City of New Rochelle"
+  - videoId: xbZRqBViK-Q
+    state: "Illinois"
+    city: "Chicago"
+  - videoId: Ik_E9ykaeKQ
+    state: "Illinois"
+    city: "Chicago"
+  - videoId: mYXOWsasJOg
+    state: "Indiana"
+    city: ""
+  - videoId: TO2C3BXAfgI
+    state: ""
+    city: ""
+  - videoId: fbo7Ed-I9U8
+    state: ""
+    city: ""
+  - videoId: mP1u2ZNdXWU
+    state: "New Jersey"
+    city: "Paterson"
+  - videoId: VHTETztbEJA
+    state: "New Jersey"
+    city: "Edison"
+  - videoId: MWKkfAD5tRg
+    state: "New Jersey"
+    city: "Edison"
   - videoId: JFTjukzbPxE
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: T0wrG8HRXMk
-    state: ""
-    city: ""
+    state: "Michigan"
+    city: "Dearborn"
   - videoId: kllekzPuZkE
     state: ""
     city: ""
   - videoId: r0DeNDBfx_I
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: 9tbGsk7PB_I
-    state: ""
-    city: ""
+    state: "New Jersey"
+    city: "Paterson"
   - videoId: Lgaw_1yjzFg
-    state: ""
-    city: ""
+    state: "Florida"
+    city: "Tampa"
   - videoId: SuKUMhsnLIY
-    state: ""
-    city: ""
+    state: "Illinois"
+    city: "Chicago"
   - videoId: lItHVDEnnSI
-    state: ""
+    state: "Indiana"
     city: ""
   - videoId: tdZNsfAwXME
-    state: ""
-    city: ""
+    state: "Texas"
+    city: "Dallas"
   - videoId: wVzeEOyjWEM
     state: "New York"
     city: "New York City"
   - videoId: gDbn5G3zuZU
-    state: ""
+    state: "New Jersey"
     city: ""
   - videoId: M6TQFZpcX64
     state: "New York"
@@ -48,7 +108,7 @@ videos:
     state: "Florida"
     city: "Tampa"
   - videoId: 3TutPXW79aY
-    state: ""
+    state: "Alabama"
     city: ""
   - videoId: 06LJ9AaClLs
     state: "North Carolina"
@@ -414,7 +474,7 @@ videos:
     state: "New Jersey"
     city: "Jersey City"
   - videoId: voZw2fVa5pM
-    state: ""
+    state: "Indiana"
     city: ""
   - videoId: JCyJ5QIdlck
     state: "Illinois"
@@ -441,7 +501,7 @@ videos:
     state: "New Jersey"
     city: "Clifton"
   - videoId: aaYMLasAa6s
-    state: ""
+    state: "Indiana"
     city: ""
   - videoId: qbM9qUFzJ10
     state: "Michigan"
@@ -750,8 +810,8 @@ videos:
     state: "New York"
     city: "New York City"
   - videoId: grNmU4DWwCE
-    state: ""
-    city: ""
+    state: "New Jersey"
+    city: "Paterson"
   - videoId: 5yCgosRYO8w
     state: "Illinois"
     city: "Chicago"
@@ -858,7 +918,7 @@ videos:
     state: "Florida"
     city: "Cocoa"
   - videoId: fmoXDJrd1NY
-    state: ""
+    state: "Indiana"
     city: ""
   - videoId: -XEyPSmD1dg
     state: "North Carolina"

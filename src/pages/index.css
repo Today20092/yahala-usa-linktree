@@ -224,7 +224,7 @@ html .brand-social-link {
     box-shadow var(--dur-short) var(--ease-out);
 }
 
-html :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid) {
+html :is(.desktop-primary-grid, .desktop-latest-grid) {
   display: grid;
   max-width: none;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -340,7 +340,7 @@ html footer::before {
 }
 
 @media (max-width: 59.99rem) {
-  html :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid),
+  html :is(.desktop-primary-grid, .desktop-latest-grid),
   html .desktop-hero-layout {
     grid-template-columns: minmax(0, 1fr);
   }

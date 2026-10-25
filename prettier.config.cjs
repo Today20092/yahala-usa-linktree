@@ -6,7 +6,7 @@ module.exports = {
   printWidth: 80,
   singleQuote: true,
   semi: false,
-  htmlWhitespaceSensitivity: "ignore",
+  htmlWhitespaceSensitivity: "css",
 
   // Let the plugin select the right parser; no manual parser override needed
   // If you want it explicit, you can add:

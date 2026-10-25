@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from 'react'
+import { useEffect, useState, type SubmitEvent } from 'react'
 import {
   ArrowUpRightIcon,
   Clock3Icon,
@@ -140,7 +140,7 @@ export default function VideoSearch({ copy }: Props) {
     }
   }
 
-  const submit = (event: FormEvent<HTMLFormElement>) => {
+  const submit = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault()
     void runSearch(query)
   }

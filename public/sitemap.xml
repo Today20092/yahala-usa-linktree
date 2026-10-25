@@ -5,4 +5,10 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://yahalausa.net/about/</loc>
+  </url>
+  <url>
+    <loc>https://yahalausa.net/stories/</loc>
+  </url>
 </urlset>

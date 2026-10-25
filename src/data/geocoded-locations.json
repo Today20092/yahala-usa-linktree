@@ -864,5 +864,47 @@
     "longitude": -85.6602936,
     "city": "Panama City",
     "state": "Florida"
+  },
+  "Gold, Oregon": {
+    "query": "Gold, Oregon",
+    "latitude": 31.9201188,
+    "longitude": -102.4048042,
+    "city": "Black Gold District",
+    "state": "Texas"
+  },
+  "Retail Store, Oregon": {
+    "query": "Retail Store, Oregon",
+    "latitude": 44.0475483,
+    "longitude": -123.1212853,
+    "city": "Eugene",
+    "state": "Oregon"
+  },
+  "New Rochelle, New York": {
+    "query": "New Rochelle, New York",
+    "latitude": 40.9115386,
+    "longitude": -73.7826363,
+    "city": "City of New Rochelle",
+    "state": "New York"
+  },
+  "Carle Place, New York": {
+    "query": "Carle Place, New York",
+    "latitude": 40.750055,
+    "longitude": -73.6118258,
+    "city": "Carle Place",
+    "state": "New York"
+  },
+  "Columbus, Indiana": {
+    "query": "Columbus, Indiana",
+    "latitude": 39.2014405,
+    "longitude": -85.9213796,
+    "city": "Columbus",
+    "state": "Indiana"
+  },
+  "Tinley Park, Illinois": {
+    "query": "Tinley Park, Illinois",
+    "latitude": 41.5733669,
+    "longitude": -87.7844944,
+    "city": "Tinley Park",
+    "state": "Illinois"
   }
 }
