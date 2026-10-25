@@ -30,7 +30,7 @@ The playbook was run against source revision `320b0c76e77512547114f6902a52bb744c
 | Setup and verification | Existing; navigation added | [Local development](../README.md#local-development), [CI](../.github/workflows/ci.yml), and [package scripts](../package.json). All 16 Node script paths exist. Commands were inspected, not executed in this audit. |
 | Specifications and tickets | Existing | [Tracker policy](agents/issue-tracker.md), [triage vocabulary](agents/triage-labels.md), [ticket template](../issues/TEMPLATE.md), and [tracker index](../issues/README.md). |
 | Domain language and decisions | Existing | [CONTEXT.md](../CONTEXT.md) and [consumer rules](agents/domain.md). No ADR directory exists; no new architectural decision requires one. |
-| Git integration and promotion | Development/main migration prepared locally | [Git workflow](branch-workflow.md) defines integration and promotion. Local CI checks both branches; deployment is restricted to `main`. GitHub cutover is pending. |
+| Git integration and promotion | Development/main migration published | [Git workflow](branch-workflow.md) defines integration and promotion. GitHub's default is `main`; CI checks both branches and production deployment is restricted to `main`. |
 | Versioning and releases | Added earlier in this worktree | [Release policy](releasing.md), linked from AGENTS.md. Package and both root lockfile version fields agree at `0.0.1`. |
 | Documentation entry point | Updated | [Project guides](../README.md#project-guides) links to the existing setup, tracker, domain, release, and preview guides. |
 
@@ -44,14 +44,14 @@ The explicit-only skills remain available for the next relevant task: invoke `$t
 
 ## Git migration selected
 
-The user invoked project-git-workflow and selected the `development`/`main` migration. The [canonical Git guide](branch-workflow.md) records the local branches, preserved histories, automation changes, and remaining remote cutover. GitHub's default branch was verified as `master`; remote branch protection and external Cloudflare settings remain unverified. No remote branch publication, PR retargeting, production promotion, or deployment was performed.
+The user invoked project-git-workflow, selected `development`/`main`, and authorized full publication and production deployment. The [canonical Git guide](branch-workflow.md) records the published branches, preserved histories, retargeted PRs, production verification, and external Cloudflare Builds verification limit.
 
 ## Other findings
 
-- README.md links the selected Git workflow and distinguishes migrated local configuration from the still-active remote `master` configuration.
+- README.md links the published Git workflow and names `main` as the GitHub default and production source.
 - Existing tracker, triage, and single-context domain setup is already present. Rerunning the setup skill would duplicate completed setup.
 - Existing `docs/specs/ai-discoverability-plan.md` coexists with a tracker policy that publishes new specifications into `issues/`. Preserve the historical file and follow the configured tracker for new specs.
-- No local version tags were found. Remote releases, branch protection, default branch, deployed version, account credentials, and live deployment health were not checked.
+- No version tag or package-version bump was created. GitHub default and merge settings, branch safeguards, production Actions deployment, and live site smoke behavior were verified during cutover. External Cloudflare Builds settings remain unverified.
 
 ## Study coverage
 
@@ -73,4 +73,4 @@ Both the repository skill and installed copy passed the bundled skill-creator va
 
 The playbook rerun checked instruction-file scope, the existence of package-script targets, version alignment, workflow triggers, and documentation navigation. The existing README badge group was retained; badge endpoints and rendered desktop/mobile layout were not checked. Documentation links, heading anchors, whitespace, and the scoped diff were checked after the edits.
 
-The subsequent Git migration passed `test:branch-workflow`, `validate:data`, `validate:ui`, `test:locations`, `test:preview-smoke`, `build`, and `smoke:preview -- dist` on the combined source. The build reported a missing optional `src/icons` directory warning but completed successfully. Live Actions runs, browser behavior, production deployment, and catalog writes were not exercised. Remote migration remains pending authorization.
+The subsequent authorized migration passed all 17 local CI checks and built-asset smoke verification on the combined source. GitHub CI, preview smoke, and production deployment succeeded for promotion PR #55. Live smoke verification passed, with HTTP 200 for all three public routes. Detailed results and the catalog verification run are linked from the [migration record](branch-workflow.md).

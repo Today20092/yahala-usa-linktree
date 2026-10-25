@@ -35,17 +35,17 @@ These stages need not occur in sequence. Stable does not mean finished or fully 
 
 [CI](../.github/workflows/ci.yml) validates pushes and pull requests to `development` and `main`, and supports manual dispatch. [Deploy](../.github/workflows/deploy.yml) builds and deploys pushes to `main` and manual runs on `main` only. [YouTube refresh](../.github/workflows/refresh-youtube-data.yml) validates and commits refreshed content to `development` without deployment. [Preview smoke](../.github/workflows/preview-smoke.yml) runs on pull requests and manual dispatch.
 
-These are the migrated local configurations. GitHub still runs the legacy `master` configuration until remote cutover. Follow [the Git workflow and migration record](branch-workflow.md) for integration, promotion, and the remaining cutover steps.
+These configurations are published. GitHub's default branch is `main`; retained `master` also contains the migrated branch guards. Follow [the Git workflow and migration record](branch-workflow.md) for integration, promotion, and cutover verification.
 
-These workflows do not establish a version-tag publication pipeline. A production deployment and a versioned release are distinct records. Live repository settings and external Cloudflare integrations have not been verified here.
+These workflows do not establish a version-tag publication pipeline. A production deployment and a versioned release are distinct records. The default branch, merge-commit availability, and production Actions deployment were verified. External Cloudflare Builds configuration remains unverified because the available OAuth credential lacks access and the dashboard requires sign-in.
 
 ## Preparing a release
 
 1. Identify the reviewed source revision and its intended version/readiness. Synchronize package and lockfile identities to an unused version. Preserve historical release records.
 2. Prepare release notes with changed behavior, breaking changes, migration/recovery, and known limitations. Check current status/help wording against the intended readiness. Identify the actual artifact or source revision being verified.
-3. Follow `npm ci` and the relevant checks defined by CI and package scripts. The current CI baseline is `npm run test:branch-workflow`, `npm run validate:data`, `npm run validate:ui`, `npm run test:locations`, and `npm run build`. Preview smoke additionally uses `npm run test:preview-smoke` and `npm run smoke:preview -- dist`. Add focused behavior checks appropriate to the change. Record actual results and browser/device checks separately; a build does not establish real viewer behavior.
+3. Run `npm ci`, then every check in [CI](../.github/workflows/ci.yml), including `npm run check`, the data/UI validations, `npm run test:branch-workflow`, the full regression-test block, `npm run build`, and `npm run smoke:preview -- dist`. Add focused behavior checks appropriate to the change. Record actual results and browser/device checks separately; a build does not establish real viewer behavior.
 4. Inspect current automation for branch triggers, hard-coded versions, prerelease flags, notes, and channels. Review resulting candidate metadata before publication. Confirm source identity and intended promotion destination before any push that can deploy.
 5. Follow the preview/production authorization boundaries in [AGENTS.md](../AGENTS.md). Use its pinned preview configuration for authorized development deployments. Tags, production deployment, and publication require scope covering those actions.
 6. After an authorized publication, verify the public version or deployed revision and actual viewer workflows. Record publication separately from preparation and authorization, including any checks omitted or failed.
 
-This policy-only change performs none of these release actions. AGENTS.md links to this guide; the selected instruction improvements are recorded in [the foundation review](project-foundation-review.md).
+AGENTS.md links to this guide. The later authorized branch migration and production deployment are recorded in [the Git workflow](branch-workflow.md); they did not bump the package version or publish a version tag.
