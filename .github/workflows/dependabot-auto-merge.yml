@@ -39,23 +39,18 @@ jobs:
           script: |
             const tested = JSON.parse(require('node:fs').readFileSync('ci-evidence/dependabot-ci.json', 'utf8'));
             if (!Number.isSafeInteger(tested.number) || tested.number <= 0 ||
-                tested.head !== context.payload.workflow_run.head_sha || !/^[a-f0-9]{40}$/.test(tested.base)) {
+                tested.head !== context.payload.workflow_run.head_sha || !/^[a-f0-9]{40}$/.test(tested.base) ||
+                typeof tested.updateType !== 'string') {
               throw new Error('Invalid CI evidence.');
             }
             core.setOutput('number', tested.number);
             core.setOutput('base', tested.base);
-
-      - name: Read Dependabot update metadata
-        id: metadata
-        uses: dependabot/fetch-metadata@v3
-        with:
-          pr-number: ${{ steps.tested.outputs.number }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+            core.setOutput('update-type', tested.updateType);
 
       - name: Merge tested update and dispatch deployment
         uses: actions/github-script@v9
         env:
-          UPDATE_TYPE: ${{ steps.metadata.outputs.update-type }}
+          UPDATE_TYPE: ${{ steps.tested.outputs.update-type }}
           PR_NUMBER: ${{ steps.tested.outputs.number }}
           TESTED_BASE: ${{ steps.tested.outputs.base }}
         with:
