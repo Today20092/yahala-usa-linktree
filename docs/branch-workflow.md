@@ -55,6 +55,7 @@ Completed cutover actions:
 3. Retargeted open PRs #3, #32, #39, and #53 to `development` and inspected their resulting diffs. PR #3 remains conflicted; its feature work was preserved rather than merged as part of migration. The other PRs remain their own review tasks.
 4. Synchronized `development` with the promotion merge and configured local `main`/`development` upstreams to their matching remote branches.
 5. Inspected branch protection and rulesets. Branches were unprotected and the existing no-delete/no-force-push ruleset was disabled; these settings were preserved. No GitHub repository webhooks were configured.
+6. Updated the retained GitHub Pages source reference and its `github-pages` environment branch policy from `master` to `main`, preserving its existing workflow build mode.
 
 The [manual catalog verification](https://github.com/Today20092/yahala-usa-linktree/actions/runs/40225235824) was dispatched on `main` to exercise the workflow that checks out and writes `development` without deployment.
 
