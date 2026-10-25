@@ -1,4 +1,6 @@
 ---
+import MotionToggle from './MotionToggle.astro'
+
 type Props = {
   brands: {
     name: string
@@ -19,13 +21,14 @@ const rows = [
       class="brand-marquee ui-section-block"
       aria-labelledby="brand-marquee-title"
     >
-      <div class="brand-marquee__header ui-section-header">
+      <div class="brand-marquee__header ui-section-header flex items-start justify-between gap-3">
         <h2 id="brand-marquee-title" class="ui-section-title">
           Brands we've collaborated with
         </h2>
+        <MotionToggle controls="brand-marquee-rows" />
       </div>
 
-      <div class="brand-marquee__viewport">
+      <div id="brand-marquee-rows" class="brand-marquee__viewport">
         {rows.map((row, rowIndex) => (
           <div
             class:list={[
@@ -94,7 +97,9 @@ const rows = [
     animation-duration: 50s;
   }
 
-  .brand-marquee__viewport:hover .brand-marquee__track {
+  .brand-marquee__viewport:hover .brand-marquee__track,
+  .brand-marquee__viewport:focus-within .brand-marquee__track,
+  [data-motion-paused] .brand-marquee__track {
     animation-play-state: paused;
   }
 
