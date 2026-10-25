@@ -63,7 +63,7 @@ The site content is configured in `src/data/site.yaml`, so updates to links, lab
 
 ## Deployment
 
-The [Git workflow](docs/branch-workflow.md) uses `development` for integration and `main` for reviewed releases. The migrated [Deploy workflow](.github/workflows/deploy.yml) deploys pushes to `main` and manual runs on `main`. Catalog refreshes update `development` and reach production through promotion. Remote cutover is pending; GitHub still uses the legacy `master` workflows until the migration is published. Follow [AGENTS.md](AGENTS.md) for the pinned development target and production authorization boundary, and [the release policy](docs/releasing.md) for release preparation.
+The [Git workflow](docs/branch-workflow.md) uses `development` for integration and `main` for reviewed releases. GitHub's default branch is `main`. The [Deploy workflow](.github/workflows/deploy.yml) deploys pushes to `main` and manual runs on `main`. Catalog refreshes update `development` and reach production through promotion. Follow [AGENTS.md](AGENTS.md) for the pinned development target and production authorization boundary, and [the release policy](docs/releasing.md) for release preparation.
 
 Before deploying, it is a good idea to:
 
