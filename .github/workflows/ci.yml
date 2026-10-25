@@ -24,10 +24,14 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 22
+          check-latest: true
           cache: npm
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Check Astro and TypeScript
+        run: npm run check
 
       - name: Validate data
         run: npm run validate:data
@@ -35,8 +39,40 @@ jobs:
       - name: Validate UI consistency
         run: npm run validate:ui
 
-      - name: Test location utilities
-        run: npm run test:locations
-
       - name: Build site
         run: npm run build
+
+      - name: Run regression tests
+        run: |
+          npm run test:ui-validation
+          npm run test:locations
+          npm run test:youtube-id
+          npm run test:youtube-catalog
+          npm run test:video-search
+          npm run test:preview-smoke
+          npm run test:reach-chart
+          npm run test:atlas-polish
+          npm run test:visited-map
+          npm run test:video-recency
+          npm run test:branded-document
+          npm run test:dependabot
+
+      - name: Verify production assets
+        run: npm run smoke:preview -- dist
+
+      - name: Record tested pull request
+        if: github.event_name == 'pull_request'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: >-
+          node -e "require('fs').writeFileSync('dependabot-ci.json', JSON.stringify({number: Number(process.env.PR_NUMBER), head: process.env.PR_HEAD_SHA, base: process.env.PR_BASE_SHA}))"
+
+      - name: Upload tested pull request
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v7
+        with:
+          name: dependabot-ci
+          path: dependabot-ci.json
+          retention-days: 7
