@@ -56,8 +56,8 @@ for (const update of dependabot.updates) {
   assert.equal(update['target-branch'], 'development')
 }
 assert.ok(
-  workflow('dependabot-auto-merge').jobs.merge.if.includes(
-    ".base.ref == 'development'",
+  workflow('dependabot-auto-merge').jobs.merge.steps.some((step) =>
+    step.with?.script?.includes("pr.base.ref !== 'development'"),
   ),
   'Dependency auto-merge must be restricted to integration PRs',
 )
@@ -69,6 +69,10 @@ for (const name of readdirSync(
   const config = readYaml(`../.github/workflows/${name}`)
   for (const job of Object.values(config.jobs)) {
     for (const step of job.steps ?? []) {
+      assert.ok(
+        !step.with?.script?.includes("workflow_id: 'deploy.yml'"),
+        'Integration automation must not dispatch production deployment',
+      )
       const isDeployment =
         step.uses?.startsWith('cloudflare/wrangler-action@') ||
         /\bwrangler\s+deploy\b/.test(step.run ?? '')

@@ -5,6 +5,11 @@ updates:
     directory: /
     schedule:
       interval: weekly
+      day: monday
+      time: '09:00'
+      timezone: America/New_York
+    cooldown:
+      default-days: 3
     open-pull-requests-limit: 5
     labels:
       - dependencies
@@ -13,12 +18,21 @@ updates:
         update-types:
           - minor
           - patch
+      npm-security-updates:
+        applies-to: security-updates
+        patterns:
+          - '*'
 
   - package-ecosystem: github-actions
     target-branch: development
     directory: /
     schedule:
       interval: weekly
+      day: monday
+      time: '09:00'
+      timezone: America/New_York
+    cooldown:
+      default-days: 3
     open-pull-requests-limit: 5
     labels:
       - dependencies

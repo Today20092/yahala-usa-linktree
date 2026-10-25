@@ -21,6 +21,7 @@
     "test:visited-map": "node scripts/test-visited-map.mjs",
     "test:video-recency": "node scripts/test-video-recency.mjs",
     "test:branded-document": "node scripts/test-branded-page-document.mjs",
+    "test:dependabot": "node scripts/test-dependabot-automation.mjs",
     "smoke:preview": "node scripts/smoke-preview.mjs",
     "check": "astro check",
     "build": "astro build",

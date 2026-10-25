@@ -6,8 +6,13 @@ on:
     types: [completed]
 
 permissions:
+  actions: write
   contents: write
   pull-requests: write
+
+concurrency:
+  group: dependabot-auto-merge
+  cancel-in-progress: false
 
 jobs:
   merge:
@@ -15,22 +20,69 @@ jobs:
     if: >
       github.event.workflow_run.conclusion == 'success' &&
       github.event.workflow_run.event == 'pull_request' &&
-      github.event.workflow_run.pull_requests[0] != null &&
-      github.event.workflow_run.pull_requests[0].base.ref == 'development'
+      github.event.workflow_run.actor.login == 'dependabot[bot]' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
-      - name: Read Dependabot update metadata
-        id: metadata
-        uses: dependabot/fetch-metadata@v3
+      - name: Download tested pull request
+        uses: actions/download-artifact@v8
         with:
-          pr-number: ${{ github.event.workflow_run.pull_requests[0].number }}
+          name: dependabot-ci
+          path: ci-evidence
+          run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Squash and merge patch or minor update
-        if: >
-          steps.metadata.outputs.update-type == 'version-update:semver-patch' ||
-          steps.metadata.outputs.update-type == 'version-update:semver-minor'
+      - name: Read tested pull request
+        id: tested
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const tested = JSON.parse(require('node:fs').readFileSync('ci-evidence/dependabot-ci.json', 'utf8'));
+            if (!Number.isSafeInteger(tested.number) || tested.number <= 0 ||
+                tested.head !== context.payload.workflow_run.head_sha || !/^[a-f0-9]{40}$/.test(tested.base) ||
+                typeof tested.updateType !== 'string') {
+              throw new Error('Invalid CI evidence.');
+            }
+            core.setOutput('number', tested.number);
+            core.setOutput('base', tested.base);
+            core.setOutput('update-type', tested.updateType);
+
+      - name: Merge tested update and dispatch integration CI
+        uses: actions/github-script@v9
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_URL: ${{ github.event.workflow_run.pull_requests[0].url }}
-        run: gh pr merge --squash "$PR_URL"
+          UPDATE_TYPE: ${{ steps.tested.outputs.update-type }}
+          PR_NUMBER: ${{ steps.tested.outputs.number }}
+          TESTED_BASE: ${{ steps.tested.outputs.base }}
+        with:
+          script: |
+            if (!['version-update:semver-patch', 'version-update:semver-minor'].includes(process.env.UPDATE_TYPE)) {
+              core.info('Major or unknown update: manual review required.');
+              return;
+            }
+            const run = context.payload.workflow_run;
+            const params = { ...context.repo, pull_number: Number(process.env.PR_NUMBER) };
+            const { data: pr } = await github.rest.pulls.get(params);
+            const repository = `${context.repo.owner}/${context.repo.repo}`;
+            if (pr.user.login !== 'dependabot[bot]' || pr.draft ||
+                pr.base.ref !== 'development' || pr.base.repo.full_name !== repository ||
+                pr.head.repo?.full_name !== repository || pr.head.sha !== run.head_sha) {
+              core.info('PR is untrusted, a draft, or changed since CI. Skipping.');
+              return;
+            }
+            if (!pr.merged) {
+              if (pr.state !== 'open') return;
+              const { data: branch } = await github.rest.repos.getBranch({ ...context.repo, branch: 'development' });
+              if (process.env.TESTED_BASE !== branch.commit.sha) {
+                core.info('Development changed since CI. Dependabot must rebase and pass CI again.');
+                return;
+              }
+              const { data: result } = await github.rest.pulls.merge({
+                ...params, sha: run.head_sha, merge_method: 'squash'
+              });
+              if (!result.merged) throw new Error(result.message);
+            }
+            // Token-driven merges do not trigger push workflows; dispatch also supports retry after a failed dispatch.
+            await github.rest.actions.createWorkflowDispatch({
+              ...context.repo, workflow_id: 'ci.yml', ref: 'development'
+            });
+            core.info(`Integration CI dispatched for merged Dependabot PR #${params.pull_number}.`);
