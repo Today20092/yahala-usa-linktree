@@ -28,6 +28,20 @@ const { controls } = Astro.props
 </script>
 
 <style>
+  @media (max-width: 59.99rem) {
+    .motion-toggle:not(:focus-visible) {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      min-height: 0;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .motion-toggle {
       display: none;
