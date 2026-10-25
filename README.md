@@ -20,6 +20,7 @@ OAuth, deployment, and backfill instructions.
 - [Specifications and issue tracking](docs/agents/issue-tracker.md)
 - [Domain language](CONTEXT.md)
 - [Versioning and releases](docs/releasing.md)
+- [Git integration and promotion](docs/branch-workflow.md)
 - [Preview smoke checks](docs/preview-smoke.md)
 
 ## Overview
@@ -62,7 +63,7 @@ The site content is configured in `src/data/site.yaml`, so updates to links, lab
 
 ## Deployment
 
-The checked-in [Deploy workflow](.github/workflows/deploy.yml) builds and deploys to Cloudflare on pushes to `master` and manual dispatch. The [YouTube refresh workflow](.github/workflows/refresh-youtube-data.yml) can also deploy after updating the catalog. Follow [AGENTS.md](AGENTS.md) for the pinned development target and production authorization boundary, and [the release policy](docs/releasing.md) for version selection and release preparation.
+The [Git workflow](docs/branch-workflow.md) uses `development` for integration and `main` for reviewed releases. The migrated [Deploy workflow](.github/workflows/deploy.yml) deploys pushes to `main` and manual runs on `main`. Catalog refreshes update `development` and reach production through promotion. Remote cutover is pending; GitHub still uses the legacy `master` workflows until the migration is published. Follow [AGENTS.md](AGENTS.md) for the pinned development target and production authorization boundary, and [the release policy](docs/releasing.md) for release preparation.
 
 Before deploying, it is a good idea to:
 

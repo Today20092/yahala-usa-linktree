@@ -30,7 +30,7 @@ The playbook was run against source revision `320b0c76e77512547114f6902a52bb744c
 | Setup and verification | Existing; navigation added | [Local development](../README.md#local-development), [CI](../.github/workflows/ci.yml), and [package scripts](../package.json). All 16 Node script paths exist. Commands were inspected, not executed in this audit. |
 | Specifications and tickets | Existing | [Tracker policy](agents/issue-tracker.md), [triage vocabulary](agents/triage-labels.md), [ticket template](../issues/TEMPLATE.md), and [tracker index](../issues/README.md). |
 | Domain language and decisions | Existing | [CONTEXT.md](../CONTEXT.md) and [consumer rules](agents/domain.md). No ADR directory exists; no new architectural decision requires one. |
-| Git integration and promotion | Existing automation; separate policy not formalized | [CI](../.github/workflows/ci.yml) targets pull requests to `master`; [Deploy](../.github/workflows/deploy.yml) deploys pushes to `master`. The current scoped branch is `codex/project-playbook`. No branch migration was requested. |
+| Git integration and promotion | Development/main migration prepared locally | [Git workflow](branch-workflow.md) defines integration and promotion. Local CI checks both branches; deployment is restricted to `main`. GitHub cutover is pending. |
 | Versioning and releases | Added earlier in this worktree | [Release policy](releasing.md), linked from AGENTS.md. Package and both root lockfile version fields agree at `0.0.1`. |
 | Documentation entry point | Updated | [Project guides](../README.md#project-guides) links to the existing setup, tracker, domain, release, and preview guides. |
 
@@ -42,13 +42,13 @@ Tracker setup and domain layout already exist, so setup-matt-pocock-skills was n
 
 The explicit-only skills remain available for the next relevant task: invoke `$to-spec` to turn an agreed feature into a specification, then `$to-tickets` when it needs dependent implementation slices. Invoke `$setup-matt-pocock-skills` only if changing the tracker foundation, or `$agents-md-field-study` for another instruction review. None is needed to finish the gaps selected in this run.
 
-## Optional next decision
+## Git migration selected
 
-A dedicated Git collaboration policy is absent. If the owner wants to formalize it, use `$project-git-workflow` and decide whether to document the existing `master` workflow or explicitly migrate to `development` and `main`. This run preserves the existing branch and deployment configuration. Remote default branch and protection settings remain unknown; that optional policy work is not a prerequisite for the documentation changes here.
+The user invoked project-git-workflow and selected the `development`/`main` migration. The [canonical Git guide](branch-workflow.md) records the local branches, preserved histories, automation changes, and remaining remote cutover. GitHub's default branch was verified as `master`; remote branch protection and external Cloudflare settings remain unverified. No remote branch publication, PR retargeting, production promotion, or deployment was performed.
 
 ## Other findings
 
-- README.md now names the checked-in `master` deployment trigger and the data-refresh deployment path. A development/main migration remains separate work.
+- README.md links the selected Git workflow and distinguishes migrated local configuration from the still-active remote `master` configuration.
 - Existing tracker, triage, and single-context domain setup is already present. Rerunning the setup skill would duplicate completed setup.
 - Existing `docs/specs/ai-discoverability-plan.md` coexists with a tracker policy that publishes new specifications into `issues/`. Preserve the historical file and follow the configured tracker for new specs.
 - No local version tags were found. Remote releases, branch protection, default branch, deployed version, account credentials, and live deployment health were not checked.
@@ -72,3 +72,5 @@ The skill is also installed at `~/.codex/skills/project-playbook` for use across
 Both the repository skill and installed copy passed the bundled skill-creator validator using an isolated uv runtime with PyYAML. Their contents match, and every relative Markdown link in the new files resolves. Package scripts, workflow triggers, version metadata, and named source paths were checked by inspection. No application build, behavior tests, deployment, tag, publication, or remote configuration change was performed for these documentation and skill additions.
 
 The playbook rerun checked instruction-file scope, the existence of package-script targets, version alignment, workflow triggers, and documentation navigation. The existing README badge group was retained; badge endpoints and rendered desktop/mobile layout were not checked. Documentation links, heading anchors, whitespace, and the scoped diff were checked after the edits.
+
+The subsequent Git migration passed `test:branch-workflow`, `validate:data`, `validate:ui`, `test:locations`, `test:preview-smoke`, `build`, and `smoke:preview -- dist` on the combined source. The build reported a missing optional `src/icons` directory warning but completed successfully. Live Actions runs, browser behavior, production deployment, and catalog writes were not exercised. Remote migration remains pending authorization.

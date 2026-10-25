@@ -29,6 +29,10 @@ This is a single-context repository. Read the root domain context and relevant a
 
 For version selection, release-status wording or release preparation, read [the versioning policy](docs/releasing.md).
 
+### Git workflow
+
+For branch setup, integration, promotion or cleanup, read [the Git workflow](docs/branch-workflow.md).
+
 ## Verification
 
 For the CI baseline, read [the validation workflow](.github/workflows/ci.yml). Choose focused checks from [package scripts](package.json) for the behavior changed. Report checks actually run and their results separately from commands verified only by inspection.

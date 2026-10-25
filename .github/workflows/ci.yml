@@ -1,8 +1,10 @@
 name: CI
 
 on:
+  push:
+    branches: [development, main]
   pull_request:
-    branches: [master]
+    branches: [development, main]
   workflow_dispatch:
 
 permissions:
@@ -28,6 +30,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Verify branch workflow boundaries
+        run: npm run test:branch-workflow
 
       - name: Validate data
         run: npm run validate:data

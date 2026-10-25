@@ -33,7 +33,9 @@ These stages need not occur in sequence. Stable does not mean finished or fully 
 
 ## Actual automation
 
-[CI](../.github/workflows/ci.yml) validates pull requests to `master` and supports manual dispatch. [Deploy](../.github/workflows/deploy.yml) builds and deploys on pushes to `master` and manual dispatch. [YouTube refresh](../.github/workflows/refresh-youtube-data.yml) can commit refreshed content and deploy it. [Preview smoke](../.github/workflows/preview-smoke.yml) runs on pull requests and manual dispatch.
+[CI](../.github/workflows/ci.yml) validates pushes and pull requests to `development` and `main`, and supports manual dispatch. [Deploy](../.github/workflows/deploy.yml) builds and deploys pushes to `main` and manual runs on `main` only. [YouTube refresh](../.github/workflows/refresh-youtube-data.yml) validates and commits refreshed content to `development` without deployment. [Preview smoke](../.github/workflows/preview-smoke.yml) runs on pull requests and manual dispatch.
+
+These are the migrated local configurations. GitHub still runs the legacy `master` configuration until remote cutover. Follow [the Git workflow and migration record](branch-workflow.md) for integration, promotion, and the remaining cutover steps.
 
 These workflows do not establish a version-tag publication pipeline. A production deployment and a versioned release are distinct records. Live repository settings and external Cloudflare integrations have not been verified here.
 
@@ -41,7 +43,7 @@ These workflows do not establish a version-tag publication pipeline. A productio
 
 1. Identify the reviewed source revision and its intended version/readiness. Synchronize package and lockfile identities to an unused version. Preserve historical release records.
 2. Prepare release notes with changed behavior, breaking changes, migration/recovery, and known limitations. Check current status/help wording against the intended readiness. Identify the actual artifact or source revision being verified.
-3. Follow `npm ci` and the relevant checks defined by CI and package scripts. The current CI baseline is `npm run validate:data`, `npm run validate:ui`, `npm run test:locations`, and `npm run build`. Preview smoke additionally uses `npm run test:preview-smoke` and `npm run smoke:preview -- dist`. Add focused behavior checks appropriate to the change. Record actual results and browser/device checks separately; a build does not establish real viewer behavior.
+3. Follow `npm ci` and the relevant checks defined by CI and package scripts. The current CI baseline is `npm run test:branch-workflow`, `npm run validate:data`, `npm run validate:ui`, `npm run test:locations`, and `npm run build`. Preview smoke additionally uses `npm run test:preview-smoke` and `npm run smoke:preview -- dist`. Add focused behavior checks appropriate to the change. Record actual results and browser/device checks separately; a build does not establish real viewer behavior.
 4. Inspect current automation for branch triggers, hard-coded versions, prerelease flags, notes, and channels. Review resulting candidate metadata before publication. Confirm source identity and intended promotion destination before any push that can deploy.
 5. Follow the preview/production authorization boundaries in [AGENTS.md](../AGENTS.md). Use its pinned preview configuration for authorized development deployments. Tags, production deployment, and publication require scope covering those actions.
 6. After an authorized publication, verify the public version or deployed revision and actual viewer workflows. Record publication separately from preparation and authorization, including any checks omitted or failed.
