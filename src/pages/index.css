@@ -359,8 +359,15 @@ html :is(nav[aria-label='Site navigation'], nav[aria-label='Page information']) 
     order: -1;
   }
 
+  html .desktop-hero-layout .linktree-hero {
+    min-height: 0;
+    aspect-ratio: 1500 / 635;
+    align-self: center;
+  }
+
   html .desktop-hero-layout .linktree-hero__image {
-    object-position: right center;
+    object-fit: contain;
+    object-position: center;
   }
 }
 
