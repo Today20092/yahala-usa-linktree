@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 concurrency:
   group: ci-${{ github.event.pull_request.number || github.ref }}
@@ -60,14 +61,22 @@ jobs:
       - name: Verify production assets
         run: npm run smoke:preview -- dist
 
+      - name: Read Dependabot update metadata
+        id: metadata
+        if: github.event_name == 'pull_request' && github.actor == 'dependabot[bot]'
+        uses: dependabot/fetch-metadata@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Record tested pull request
         if: github.event_name == 'pull_request'
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_UPDATE_TYPE: ${{ steps.metadata.outputs.update-type }}
         run: >-
-          node -e "require('fs').writeFileSync('dependabot-ci.json', JSON.stringify({number: Number(process.env.PR_NUMBER), head: process.env.PR_HEAD_SHA, base: process.env.PR_BASE_SHA}))"
+          node -e "require('fs').writeFileSync('dependabot-ci.json', JSON.stringify({number: Number(process.env.PR_NUMBER), head: process.env.PR_HEAD_SHA, base: process.env.PR_BASE_SHA, updateType: process.env.PR_UPDATE_TYPE}))"
 
       - name: Upload tested pull request
         if: github.event_name == 'pull_request'

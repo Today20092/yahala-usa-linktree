@@ -143,18 +143,39 @@ async function evidence(value) {
   return outputs
 }
 assert.deepEqual(
-  await evidence({ number: 1, head: 'tested', base: 'a'.repeat(40) }),
-  { number: 1, base: 'a'.repeat(40) },
+  await evidence({
+    number: 1,
+    head: 'tested',
+    base: 'a'.repeat(40),
+    updateType: 'version-update:semver-patch',
+  }),
+  {
+    number: 1,
+    base: 'a'.repeat(40),
+    'update-type': 'version-update:semver-patch',
+  },
 )
 for (const value of [
   { number: -1, head: 'tested', base: 'a'.repeat(40) },
   { number: 1, head: 'stale', base: 'a'.repeat(40) },
   { number: 1, head: 'tested', base: 'invalid' },
+  { number: 1, head: 'tested', base: 'a'.repeat(40) },
 ])
   await assert.rejects(evidence(value), /Invalid CI evidence/)
 const ciCommands = ci.jobs.validate.steps
   .map((item) => item.run ?? '')
   .join('\n')
+const metadata = ci.jobs.validate.steps.find((item) => item.id === 'metadata')
+assert.equal(metadata.uses, 'dependabot/fetch-metadata@v3')
+assert.ok(metadata.if.includes("github.actor == 'dependabot[bot]'"))
+assert.ok(metadata.if.includes("github.event_name == 'pull_request'"))
+assert.equal(metadata.with['pr-number'], undefined)
+assert.equal(step.env.UPDATE_TYPE, '${{ steps.tested.outputs.update-type }}')
+assert.ok(
+  !workflow.jobs.merge.steps.some((item) =>
+    item.uses?.startsWith('dependabot/fetch-metadata'),
+  ),
+)
 const pkg = JSON.parse(await readFile('package.json', 'utf8'))
 for (const name of [
   'check',
