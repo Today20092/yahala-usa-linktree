@@ -5,6 +5,7 @@ import { Icon } from 'astro-icon/components'
 import { parse } from 'yaml'
 
 import { IconBadge } from './ui/icon-badge'
+import MotionToggle from './MotionToggle.astro'
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
 import visitedVideosYaml from '../data/visited-videos.yaml?raw'
 import { siteConfig } from '../lib/site-config'
@@ -348,9 +349,10 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
               </h2>
             </span>
           </div>
-          <span class="ui-meta hidden sm:inline">Stories in motion</span>
+          <MotionToggle controls="story-motion-rows" />
         </div>
         <div
+          id="story-motion-rows"
           class="space-y-2 p-2.5 sm:space-y-3 sm:p-3"
           data-portfolio-scroll="auto"
         >
@@ -473,6 +475,12 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
   .bento-scroll-track--reverse {
     animation-direction: reverse;
     animation-duration: 55s;
+  }
+
+  .bento-scroll-row:hover .bento-scroll-track,
+  .bento-scroll-row:focus-within .bento-scroll-track,
+  [data-motion-paused] .bento-scroll-track {
+    animation-play-state: paused;
   }
 
   .bento-scroll-group {

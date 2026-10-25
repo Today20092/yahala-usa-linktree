@@ -1,7 +1,7 @@
 {
   "name": "yahala-usa-linktree",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -18,6 +18,7 @@
     "test:preview-smoke": "node scripts/test-preview-smoke.mjs",
     "test:reach-chart": "node scripts/test-reach-chart.mjs",
     "test:atlas-polish": "node scripts/test-atlas-polish.mjs",
+    "test:motion-toggle": "node scripts/test-motion-toggle.mjs",
     "test:visited-map": "node scripts/test-visited-map.mjs",
     "test:video-recency": "node scripts/test-video-recency.mjs",
     "test:branded-document": "node scripts/test-branded-page-document.mjs",

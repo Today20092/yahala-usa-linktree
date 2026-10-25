@@ -87,12 +87,12 @@ const platformTotals = Object.values(
   data-reach-card
   data-reach-chart
   class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 delay-300 sm:px-6"
-  aria-label="Total people reached"
+  aria-label="Total video views"
 >
   <div class="reach-summary">
     <header class="reach-summary__headline">
       <div class="reach-summary__heading-row">
-        <h2 class="ui-section-title">People reached</h2>
+        <h2 class="ui-section-title">Total views</h2>
         <p class="ui-meta">Updated {updatedDate}</p>
       </div>
 
@@ -106,7 +106,7 @@ const platformTotals = Object.values(
         /><span class="text-primary">+</span>
       </p>
       <p class="ui-body reach-summary__description">
-        Total audience across YouTube, TikTok, Instagram, and Facebook.
+        Combined video views across YouTube, TikTok, Instagram, and Facebook.
       </p>
     </header>
 
@@ -135,6 +135,9 @@ const platformTotals = Object.values(
                   inViewOnce
                   delay={100}
                 />
+                <span class="text-muted-foreground ml-1 text-xs font-normal">
+                  views
+                </span>
               </dd>
             </div>
             <div class="reach-summary__bar" aria-hidden="true">

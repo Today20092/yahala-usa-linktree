@@ -331,11 +331,36 @@ html footer::before {
   display: none;
 }
 
+html :is(nav[aria-label='Site navigation'], nav[aria-label='Page information']) a {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  padding-inline: var(--space-2xs);
+}
+
 @media (hover: hover) and (pointer: fine) {
   html .brand-social-link:hover {
     border-color: var(--color-ink-2);
     background: var(--color-paper-2);
     transform: translateY(calc(var(--rule-hair) * -1));
+  }
+}
+
+@media (min-width: 60rem) {
+  html .desktop-hero-layout {
+    order: -3;
+  }
+
+  html .desktop-primary-grid {
+    order: -2;
+  }
+
+  html .brand-marquee {
+    order: -1;
+  }
+
+  html .desktop-hero-layout .linktree-hero__image {
+    object-position: right center;
   }
 }
 
@@ -357,6 +382,12 @@ html footer::before {
 
   html .desktop-intro-panel {
     grid-row: 2;
+  }
+}
+
+@media (min-width: 40rem) and (max-width: 59.99rem) {
+  html .linktree-hero {
+    min-height: clamp(20rem, 42vw, 24rem);
   }
 }
 

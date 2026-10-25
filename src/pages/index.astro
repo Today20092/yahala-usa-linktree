@@ -12,6 +12,7 @@ import LatestChannelVideo from '../components/LatestChannelVideo.astro'
 import QrCodeButton from '../components/QrCodeButton.astro'
 import ReachBadge from '../components/ReachBadge.astro'
 import TopicCards from '../components/TopicCards.astro'
+import VideoSearch from '../components/VideoSearch'
 import SocialLinkButton from '../components/SocialLinkButton'
 import VideoBentoGrid from '../components/VideoBentoGrid.astro'
 import VisitedPlacesMap from '../components/VisitedPlacesMap.astro'
@@ -37,6 +38,7 @@ const {
   youtubeChannels,
   socialReach,
   visitedPlaces,
+  videoSearch,
   collaborationBrands,
 } = siteConfig
 const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
@@ -91,6 +93,7 @@ const channelBranding = Object.fromEntries(
   ]),
 )
 
+const instagramUrl = socialLinks.find((link) => link.id === 'instagram')?.url
 const sameAsUrls = socialLinks.map((link) => link.url)
 const socialIconBodies: Record<string, string> = {
   youtube:
@@ -230,8 +233,8 @@ const structuredData = {
               Arab-American stories, coast to coast.
             </h2>
             <p class="ui-body mx-auto mt-4 max-w-prose sm:text-[1.05rem]">
-              Watch Arab American stories, community visits, and creator-led
-              field interviews from across the United States.
+              Watch Arab American stories, community visits, and creator-led field
+              interviews from across the United States.
             </p>
             <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
               {
@@ -254,7 +257,7 @@ const structuredData = {
               }
             </div>
             <nav
-              class="mt-5 flex items-center justify-center gap-5 text-sm font-semibold"
+              class="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-sm font-semibold"
               aria-label="Site navigation"
             >
               <a
@@ -269,6 +272,19 @@ const structuredData = {
               >
                 Browse stories
               </a>
+              {
+                instagramUrl && (
+                  <a
+                    href={instagramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Contact or sponsor Ya Hala on Instagram"
+                    class="text-foreground hover:text-primary focus-visible:ring-ring inline-flex min-h-11 items-center rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+                  >
+                    Contact / Sponsor
+                  </a>
+                )
+              }
             </nav>
           </section>
 
@@ -306,32 +322,6 @@ const structuredData = {
           <QrCodeButton />
         </div>
       </div>
-
-      <div class="desktop-primary-grid">
-        <ReachBadge
-          total={totalReach}
-          updatedAt={socialReach.updatedAt}
-          items={socialReach.items}
-        />
-
-        <section
-          id="about"
-          class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-300 sm:px-6"
-          aria-labelledby="about-title"
-        >
-          <div class="about-copy py-8 sm:py-10">
-            <h2 id="about-title" class="ui-section-title">
-              Stories from Arab America.
-            </h2>
-            <p class="ui-body mt-4">
-              Haithum covers people, businesses, neighborhoods, restaurants, and
-              community life across the United States.
-            </p>
-          </div>
-        </section>
-      </div>
-
-      <BrandMarquee brands={collaborationBrands} />
 
       <div class="desktop-latest-grid">
         <section
@@ -385,11 +375,71 @@ const structuredData = {
         <TopicCards />
       </div>
 
+      <div class="desktop-primary-grid">
+        <ReachBadge
+          total={totalReach}
+          updatedAt={socialReach.updatedAt}
+          items={socialReach.items}
+        />
+
+        <section
+          id="about"
+          class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-300 sm:px-6"
+          aria-labelledby="about-title"
+        >
+          <div class="about-copy py-8 sm:py-10">
+            <h2 id="about-title" class="ui-section-title">
+              Stories from Arab America.
+            </h2>
+            <p class="ui-body mt-4">
+              Haithum covers people, businesses, neighborhoods, restaurants, and
+              community life across the United States.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <BrandMarquee brands={collaborationBrands} />
+
       <VideoBentoGrid />
+
+      {
+        videoSearch.enabled && <VideoSearch copy={videoSearch} client:idle />
+      }
 
       <FeaturedEpisodes />
 
       <VisitedPlacesMap visitedPlaces={resolvedVisitedPlaces} />
+
+      {
+        instagramUrl && (
+          <section
+            class="ui-section-block mx-auto mt-12 w-full max-w-xl px-4 text-left sm:px-6"
+            aria-labelledby="collaboration-title"
+          >
+            <h2 id="collaboration-title" class="ui-section-title">
+              Sponsor or collaborate
+            </h2>
+            <p class="ui-body mt-3 max-w-prose">
+              Connect with Ya Hala on Instagram to discuss sponsorships and
+              collaborations.
+            </p>
+            <a
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="bg-foreground text-background hover:bg-foreground/90 focus-visible:ring-ring mt-5 inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-base font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+            >
+              <Icon
+                name="simple-icons:instagram"
+                class="size-5"
+                aria-hidden="true"
+              />
+              Contact on Instagram
+            </a>
+          </section>
+        )
+      }
 
       <footer class="ui-meta mt-auto w-full px-4 pt-12 pb-4 text-center">
         <nav
