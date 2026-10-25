@@ -6,12 +6,22 @@
 [![Cloudflare Pages](https://img.shields.io/badge/Cloudflare_Pages-deployed-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)](https://pages.cloudflare.com/)
 [![License](https://img.shields.io/badge/license-proprietary-lightgrey?style=for-the-badge)](#)
 
-> A single-page Ya Hala landing site for Haithum, built to share Arab American stories, featured videos, and official social links in one polished hub.
+> Ya Hala shares Arab American stories, featured videos, and official social links through a landing page, an About Page, and a filterable Story Browser.
 
 The semantic YouTube transcript search uses Workers AI, Vectorize, R2, Queues,
 and owner-authorized YouTube captions. See
 [`docs/video-search-setup.md`](docs/video-search-setup.md) for provisioning,
 OAuth, deployment, and backfill instructions.
+
+## Project guides
+
+- [Project setup and review](docs/project-foundation-review.md)
+- [Agent instructions and preview deployment](AGENTS.md)
+- [Specifications and issue tracking](docs/agents/issue-tracker.md)
+- [Domain language](CONTEXT.md)
+- [Versioning and releases](docs/releasing.md)
+- [Git integration and promotion](docs/branch-workflow.md)
+- [Preview smoke checks](docs/preview-smoke.md)
 
 ## Overview
 
@@ -21,7 +31,7 @@ The project is hosted on Cloudflare Pages/Workers and uses Astro, Tailwind CSS, 
 
 ## Features
 
-- Single-page landing experience
+- Landing page, About Page, and filterable Story Browser
 - Branded social link hub for YouTube, TikTok, Instagram, and Facebook
 - Featured episodes and community-focused content blocks
 - Data-driven site content from `src/data/site.yaml`
@@ -53,7 +63,7 @@ The site content is configured in `src/data/site.yaml`, so updates to links, lab
 
 ## Deployment
 
-This repository is intended to be connected to Cloudflare Pages and/or Workers through GitHub. When changes land on the main branch, the deployed site should be updated through that integration.
+The [Git workflow](docs/branch-workflow.md) uses `development` for integration and `main` for reviewed releases. The migrated [Deploy workflow](.github/workflows/deploy.yml) deploys pushes to `main` and manual runs on `main`. Catalog refreshes update `development` and reach production through promotion. Remote cutover is pending; GitHub still uses the legacy `master` workflows until the migration is published. Follow [AGENTS.md](AGENTS.md) for the pinned development target and production authorization boundary, and [the release policy](docs/releasing.md) for release preparation.
 
 Before deploying, it is a good idea to:
 

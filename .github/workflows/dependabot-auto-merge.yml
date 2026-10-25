@@ -47,7 +47,7 @@ jobs:
             core.setOutput('base', tested.base);
             core.setOutput('update-type', tested.updateType);
 
-      - name: Merge tested update and dispatch deployment
+      - name: Merge tested update and dispatch integration CI
         uses: actions/github-script@v9
         env:
           UPDATE_TYPE: ${{ steps.tested.outputs.update-type }}
@@ -64,16 +64,16 @@ jobs:
             const { data: pr } = await github.rest.pulls.get(params);
             const repository = `${context.repo.owner}/${context.repo.repo}`;
             if (pr.user.login !== 'dependabot[bot]' || pr.draft ||
-                pr.base.ref !== 'master' || pr.base.repo.full_name !== repository ||
+                pr.base.ref !== 'development' || pr.base.repo.full_name !== repository ||
                 pr.head.repo?.full_name !== repository || pr.head.sha !== run.head_sha) {
               core.info('PR is untrusted, a draft, or changed since CI. Skipping.');
               return;
             }
             if (!pr.merged) {
               if (pr.state !== 'open') return;
-              const { data: branch } = await github.rest.repos.getBranch({ ...context.repo, branch: 'master' });
+              const { data: branch } = await github.rest.repos.getBranch({ ...context.repo, branch: 'development' });
               if (process.env.TESTED_BASE !== branch.commit.sha) {
-                core.info('Master changed since CI. Dependabot must rebase and pass CI again.');
+                core.info('Development changed since CI. Dependabot must rebase and pass CI again.');
                 return;
               }
               const { data: result } = await github.rest.pulls.merge({
@@ -83,6 +83,6 @@ jobs:
             }
             // Token-driven merges do not trigger push workflows; dispatch also supports retry after a failed dispatch.
             await github.rest.actions.createWorkflowDispatch({
-              ...context.repo, workflow_id: 'deploy.yml', ref: 'master'
+              ...context.repo, workflow_id: 'ci.yml', ref: 'development'
             });
-            core.info(`Deployment dispatched for merged Dependabot PR #${params.pull_number}.`);
+            core.info(`Integration CI dispatched for merged Dependabot PR #${params.pull_number}.`);

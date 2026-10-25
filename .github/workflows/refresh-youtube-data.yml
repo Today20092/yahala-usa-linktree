@@ -9,7 +9,6 @@ on:
 
 permissions:
   contents: write
-  deployments: write
 
 concurrency:
   group: youtube-data-refresh
@@ -17,10 +16,14 @@ concurrency:
 
 jobs:
   refresh-youtube-data:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v7
+        with:
+          ref: development
+          fetch-depth: 0
       - name: Set up Node
         uses: actions/setup-node@v7
         with:
@@ -43,19 +46,19 @@ jobs:
           npm run update:visited-videos
           npm run validate:data
       - name: Rebase before committing
-        run: git pull --rebase --autostash origin master
+        run: git pull --rebase --autostash origin development
+      - name: Verify refreshed development source
+        run: |
+          npm run test:branch-workflow
+          npm run validate:data
+          npm run validate:ui
+          npm run test:locations
+          npm run build
+          npm run smoke:preview -- dist
       - name: Commit updated YouTube catalog
         id: commit
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
+          branch: development
           commit_message: Update daily YouTube catalog
           file_pattern: src/data/site.yaml src/data/latest-youtube-videos.json src/data/visited-videos.yaml src/data/youtube-videos.json src/data/geocoded-locations.json
-      - name: Build site
-        if: steps.commit.outputs.changes_detected == 'true'
-        run: npm run build
-      - name: Deploy to Cloudflare
-        if: steps.commit.outputs.changes_detected == 'true'
-        uses: cloudflare/wrangler-action@v4
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          command: deploy

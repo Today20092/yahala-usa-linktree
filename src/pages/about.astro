@@ -167,7 +167,7 @@ const structuredData = {
             From experience to influence
           </h2>
         </div>
-        <div class="typeset typeset-about max-w-3xl">
+        <div class="typeset typeset-about flex max-w-3xl flex-col gap-5">
           {about.story.map((paragraph) => <p>{paragraph}</p>)}
         </div>
       </section>
@@ -212,7 +212,9 @@ const structuredData = {
         >
           Different backgrounds. Shared values. One stronger community.
         </h2>
-        <div class="typeset typeset-about mx-auto mt-8 max-w-3xl">
+        <div
+          class="typeset typeset-about mx-auto mt-8 flex max-w-3xl flex-col gap-5"
+        >
           {about.mission.map((paragraph) => <p>{paragraph}</p>)}
         </div>
       </section>

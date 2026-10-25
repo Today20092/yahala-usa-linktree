@@ -6,7 +6,7 @@ const workflow = parse(
   await readFile('.github/workflows/dependabot-auto-merge.yml', 'utf8'),
 )
 const step = workflow.jobs.merge.steps.find(
-  (item) => item.name === 'Merge tested update and dispatch deployment',
+  (item) => item.name === 'Merge tested update and dispatch integration CI',
 )
 assert.equal(workflow.permissions.actions, 'write')
 assert.ok(workflow.jobs.merge.if.includes("conclusion == 'success'"))
@@ -36,7 +36,7 @@ async function run(overrides = {}) {
     draft: false,
     state: 'open',
     merged: false,
-    base: { ref: 'master', repo: { full_name: 'owner/site' } },
+    base: { ref: 'development', repo: { full_name: 'owner/site' } },
     head: { sha: 'tested', repo: { full_name: 'owner/site' } },
     ...overrides.pr,
   }
@@ -96,8 +96,8 @@ for (const type of [
   )
   assert.equal(calls[0][1].sha, 'tested')
   assert.equal(calls[0][1].merge_method, 'squash')
-  assert.equal(calls[1][1].workflow_id, 'deploy.yml')
-  assert.equal(calls[1][1].ref, 'master')
+  assert.equal(calls[1][1].workflow_id, 'ci.yml')
+  assert.equal(calls[1][1].ref, 'development')
 }
 for (const overrides of [
   { type: 'version-update:semver-major' },
@@ -108,6 +108,7 @@ for (const overrides of [
   { pr: { head: { sha: 'tested', repo: { full_name: 'fork/site' } } } },
   { pr: { head: { sha: 'tested', repo: null } } },
   { pr: { base: { ref: 'other', repo: { full_name: 'owner/site' } } } },
+  { pr: { base: { ref: 'main', repo: { full_name: 'owner/site' } } } },
   { pr: { state: 'closed' } },
   { base: 'new-base' },
 ])
@@ -190,5 +191,5 @@ for (const name of [
 }
 assert.ok(ciCommands.includes('npm run smoke:preview -- dist'))
 console.log(
-  'Dependabot merge guards, SHA matching, deployment dispatch/retry, and CI coverage pass.',
+  'Dependabot merge guards, SHA matching, integration CI dispatch/retry, and CI coverage pass.',
 )
