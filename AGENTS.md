@@ -1,9 +1,8 @@
-- this is linktree type of website for YaHala.
-- single page landing site
+- YaHala is a link hub with a landing page (`/`), an About Page (`/about`), and a filterable Story Browser (`/stories`).
 - built with astro & tailwind & shadcn
 - hosted on cloudflare pages/workers and linked to the github repo that we push to
 - uses shadcn components and color tokens
-- site variables are are at `src/data/site.yaml`
+- site variables are at `src/data/site.yaml`
 
 ## Cloudflare development deployment
 
@@ -26,6 +25,14 @@ Use the standard `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-hum
 
 This is a single-context repository. Read the root domain context and relevant architectural decisions when they exist. See `docs/agents/domain.md`.
 
+### Releases
+
+For version selection, release-status wording or release preparation, read [the versioning policy](docs/releasing.md).
+
+## Verification
+
+For the CI baseline, read [the validation workflow](.github/workflows/ci.yml). Choose focused checks from [package scripts](package.json) for the behavior changed. Report checks actually run and their results separately from commands verified only by inspection.
+
 ## Astro 7 AI development workflow
 
 - This project uses Astro 7. Follow Astro's agent-oriented development workflow when running and testing the site.
@@ -38,9 +45,11 @@ This is a single-context repository. Read the root domain context and relevant a
 - Run `npm run build` after changes that may affect compilation or production output. Check managed dev-server logs when runtime behavior also needs verification.
 - Astro AI workflow reference: https://docs.astro.build/en/guides/build-with-ai/
 
-# context-mode — MANDATORY routing rules
+# context-mode routing
 
-context-mode MCP tools available. Rules protect context window from flooding. One unrouted command dumps 56 KB into context.
+When context-mode MCP tools are available, follow the routing rules below to keep raw output out of context.
+
+When they are unavailable, use the available execution tools to filter, count, parse, and summarize data before returning bounded findings. Read exact file content when needed for an edit. Use available search or fetch tools for web research. Report unavailable context-mode commands instead of claiming they ran. The context-mode-specific requirements below apply only when those tools are available.
 
 ## Think in Code — MANDATORY
 
