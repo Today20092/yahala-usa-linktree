@@ -1,8 +1,13 @@
+import { execFile } from 'node:child_process'
+import { promisify } from 'node:util'
+
 import {
   getYoutubeVideoId,
   youtubeThumbnailUrl,
   youtubeWatchUrl,
 } from '../src/lib/youtube-video-id.js'
+
+const execFileAsync = promisify(execFile)
 
 export { getYoutubeVideoId, youtubeWatchUrl }
 
@@ -146,7 +151,11 @@ export const normalizeVideoMetadata = (video, existing = {}) => {
     viewCount: Number.isFinite(viewCount) ? viewCount : undefined,
     fullMetadataFetchedAt:
       video?.fullMetadataFetchedAt ?? existing.fullMetadataFetchedAt,
-    isShort: video?.isShort ?? existing.isShort ?? false,
+    isShort: video?.isShort === true || existing.isShort === true
+      ? true
+      : video?.isShort ?? existing.isShort,
+    width: video?.width ?? existing.width,
+    height: video?.height ?? existing.height,
   }
 }
 
@@ -259,50 +268,32 @@ export const videoMetadataFromWatchPage = async (videoId) => {
     thumbnail: decodeXml(thumbnail),
     published,
     updated: published,
-    isShort,
+    isShort: isShort || undefined,
   })
+}
+
+export const regularVideosFromPlaylist = (playlist) => {
+  if (!/\/videos\/?$/.test(playlist?.webpage_url ?? '')) {
+    throw new Error('Regular uploads must come from the channel Videos tab')
+  }
+  return uniqueVideos((playlist.entries ?? [])
+    .filter((video) => /^[\w-]{11}$/.test(video?.id ?? '') &&
+      !video.url?.includes('/shorts/'))
+    .map((video) => normalizeVideoMetadata({
+      videoId: video.id,
+      title: video.title,
+      thumbnail: video.thumbnail,
+      isShort: false,
+    })))
 }
 
 export const videosFromVideosTab = async (videosUrl) => {
   if (!videosUrl) return []
 
-  const response = await fetch(videosUrl, {
-    headers: {
-      'user-agent':
-        'Mozilla/5.0 (compatible; YaHalaBot/1.0; +https://github.com/)',
-    },
-  })
-
-  if (!response.ok) {
-    throw new Error(
-      `YouTube videos tab request failed for ${videosUrl}: ${response.status} ${response.statusText}`,
-    )
-  }
-
-  const html = await response.text()
-  const videoIds = [
-    ...new Set(
-      [...html.matchAll(/watch\?v=([a-zA-Z0-9_-]{11})/g)].map(
-        (match) => match[1],
-      ),
-    ),
-  ]
-
-  const videos = []
-  const requestDelayMs = Number(process.env.YOUTUBE_REQUEST_DELAY_MS ?? 1500)
-
-  for (const videoId of videoIds) {
-    if (requestDelayMs > 0) {
-      await new Promise((resolve) => setTimeout(resolve, requestDelayMs))
-    }
-
-    const video = await videoMetadataFromWatchPage(videoId).catch(() =>
-      normalizeVideoMetadata({ videoId }),
-    )
-    if (video) videos.push(video)
-  }
-
-  return uniqueVideos(videos)
+  const { stdout } = await execFileAsync('yt-dlp', [
+    '--ignore-config', '--flat-playlist', '--dump-single-json', videosUrl,
+  ], { maxBuffer: 1024 * 1024 * 32 })
+  return regularVideosFromPlaylist(JSON.parse(stdout))
 }
 
 export const mergeVideoCache = (cache, videos) => {

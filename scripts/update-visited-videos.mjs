@@ -87,6 +87,7 @@ const fetchPlaylistVideos = async () => {
         title: video.title,
         thumbnail: video.thumbnail,
         duration: video.duration_string ?? '',
+        isShort: false,
       }))
   } catch (error) {
     console.warn(`Unable to fetch Ya Hala playlist with yt-dlp: ${error.message}`)
@@ -118,6 +119,8 @@ const fetchFullVideoMetadata = async (videoId) => {
       title: video.title,
       thumbnail: video.thumbnail,
       duration: video.duration_string ?? '',
+      width: video.width,
+      height: video.height,
       published: youtubePublishedTimestamp(video.timestamp),
       updated: youtubePublishedTimestamp(video.timestamp),
       description: video.description ?? '',

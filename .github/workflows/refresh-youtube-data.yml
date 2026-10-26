@@ -53,6 +53,8 @@ jobs:
           npm run validate:data
           npm run validate:ui
           npm run test:locations
+          npm run test:youtube-catalog
+          npm run test:visited-map
           npm run build
           npm run smoke:preview -- dist
       - name: Commit updated YouTube catalog

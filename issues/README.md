@@ -9,7 +9,9 @@ Tickets 0001–0005 are sequential CSS and styling architecture work on
 
 ## Open
 
-No open tickets.
+- [0010 — Adopt content collections when structured content outgrows site YAML](0010-adopt-content-collections-on-trigger.md)
+- [0011 — Use Actions when the site introduces a form](0011-use-actions-for-site-forms.md)
+- [0012 — Evaluate internal prefetch when navigation needs it](0012-evaluate-internal-prefetch.md)
 
 ## Closed
 
