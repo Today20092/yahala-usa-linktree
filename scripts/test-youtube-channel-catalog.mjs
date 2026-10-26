@@ -2,10 +2,40 @@ import {
   deriveChannelCatalog,
   isValidYoutubePublishedDate,
   mergeVideoCache,
+  normalizeVideoMetadata,
+  regularVideosFromPlaylist,
   youtubePublishedTimestamp,
 } from './youtube-video-utils.mjs'
 
 const channel = { id: 'main', channelId: 'channel', name: 'YaHala' }
+const regularUploads = regularVideosFromPlaylist({
+  webpage_url: 'https://www.youtube.com/@YaHalaUSA/videos',
+  entries: [
+    { id: 'aaaaaaaaaaa', url: 'https://www.youtube.com/watch?v=aaaaaaaaaaa' },
+    { id: 'bbbbbbbbbbb', url: 'https://www.youtube.com/shorts/bbbbbbbbbbb' },
+    { id: 'aaaaaaaaaaa' }, null,
+  ],
+})
+if (regularUploads.length !== 1 || regularUploads[0].isShort !== false) {
+  throw new Error('Only regular Videos-tab entries may be confirmed uploads')
+}
+try {
+  regularVideosFromPlaylist({ webpage_url: 'https://www.youtube.com/@YaHalaUSA/shorts' })
+  throw new Error('Expected the Shorts tab to be rejected')
+} catch (error) {
+  if (!error.message.includes('must come from')) throw error
+}
+if (mergeVideoCache({ known: { videoId: 'known', isShort: true } }, [
+  { videoId: 'known', isShort: false },
+]).known.isShort !== true) {
+  throw new Error('Stale metadata must never undo a confirmed Short classification')
+}
+if (normalizeVideoMetadata({ videoId: 'unknown' }).isShort !== undefined) {
+  throw new Error('Unclassified feed videos must not default to regular uploads')
+}
+if (normalizeVideoMetadata({ videoId: 'known' }, { isShort: true }).isShort !== true) {
+  throw new Error('Metadata refreshes must preserve confirmed Shorts')
+}
 const result = deriveChannelCatalog({
   channel,
   feedChannelTitle: 'YaHala USA',

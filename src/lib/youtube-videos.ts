@@ -26,6 +26,8 @@ export type YoutubeVideo = {
   duration?: string
   viewCount?: number
   isShort?: boolean
+  width?: number
+  height?: number
 }
 
 export type YoutubeVideoRef = {

@@ -1,4 +1,6 @@
 import { readFile } from 'node:fs/promises'
+import assert from 'node:assert/strict'
+import { stripTypeScriptTypes } from 'node:module'
 
 const source = await readFile(
   new URL('../src/components/VisitedPlacesLeafletMap.tsx', import.meta.url),
@@ -85,13 +87,38 @@ if (!pageSource.includes('canonical={canonicalUrl}')) {
 }
 
 if (!storyBuilderSource.includes(
-  '!youtubeVideosById[story.videoId]?.isShort',
+  'video.isShort === false',
 )) {
   throw new Error('Story Browser must exclude YouTube Shorts')
 }
 
 if (youtubeVideos['7lPoSEkcd18']?.isShort !== true) {
   throw new Error('Known portrait Short 7lPoSEkcd18 must be excluded')
+}
+
+const catalog = {
+  landscape: { videoId: 'landscape', isShort: false, width: 1920, height: 1080 },
+  short: { videoId: 'short', isShort: true },
+  portrait: { videoId: 'portrait', isShort: false, width: 1080, height: 1920 },
+  square: { videoId: 'square', isShort: false, width: 1080, height: 1080 },
+  unknown: { videoId: 'unknown' },
+  regular: { videoId: 'regular', isShort: false },
+}
+const testSource = stripTypeScriptTypes(storyBuilderSource)
+  .replace("'./video-recency.js'", JSON.stringify(new URL('../src/lib/video-recency.js', import.meta.url).href))
+  .replace("import { youtubeVideosById } from './youtube-videos'", `const youtubeVideosById = ${JSON.stringify(catalog)}`)
+const { buildStories } = await import(`data:text/javascript;base64,${Buffer.from(testSource).toString('base64')}`)
+const places = {
+  stateGroups: [{
+    state: 'Texas', abbreviation: 'TX',
+    stateVideos: [{ videoId: 'short' }, { videoId: 'portrait' }, { videoId: 'missing' }],
+    places: [{ city: 'Austin', videos: [{ videoId: 'landscape' }] }],
+  }],
+}
+assert.deepEqual(buildStories(places).map((video) => video.videoId).sort(), ['landscape', 'regular'])
+assert.deepEqual(buildStories({}).map((video) => video.videoId).sort(), ['landscape', 'regular'])
+for (const id of ['vDtTkpHzg18', 'WFRFSj-kioo', 'rrdjvuYfXFc']) {
+  assert.equal(youtubeVideos[id]?.isShort, true, `Known Short ${id} must stay excluded`)
 }
 
 console.log('Visited map and Story Browser checks pass.')
