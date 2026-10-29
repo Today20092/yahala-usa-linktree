@@ -2,6 +2,9 @@
 # State-only videos appear in every visited city for that state.
 # City videos appear only in the matching city drawer.
 videos:
+  - videoId: hcMk8nH4K9g
+    state: "Michigan"
+    city: "Warren"
   - videoId: Q8jy35CL-Yk
     state: "New Jersey"
     city: "Paterson"

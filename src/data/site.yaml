@@ -648,6 +648,10 @@ visitedPlaces:
       state: Illinois
       latitude: 41.5733669
       longitude: -87.7844944
+    - city: Warren
+      state: Michigan
+      latitude: 42.4932575
+      longitude: -83.0062746
 
 socialReach:
   updatedAt: "2026-06-22"
