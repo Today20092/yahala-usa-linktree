@@ -24,7 +24,10 @@ import type {
   VideoSearchResponse,
   VideoSearchResult,
 } from '@/lib/video-search'
-import { youtubeThumbnailFallbackUrl, getYoutubeVideoId } from '@/lib/youtube-videos'
+import {
+  youtubeThumbnailFallbackUrl,
+  getYoutubeVideoId,
+} from '@/lib/youtube-videos'
 
 type Props = {
   copy: VideoSearchCopy
@@ -47,9 +50,7 @@ function ResultCard({
   copy: VideoSearchCopy
 }) {
   const videoId = getYoutubeVideoId(result.url)
-  const thumbnailFallback = videoId
-    ? youtubeThumbnailFallbackUrl(videoId)
-    : ''
+  const thumbnailFallback = videoId ? youtubeThumbnailFallbackUrl(videoId) : ''
 
   return (
     <Card size="sm" className="text-left">
@@ -64,7 +65,10 @@ function ResultCard({
             data-fallback-src={thumbnailFallback}
           />
           <div className="min-w-0 flex-1">
-            <h3 dir="auto" className="ui-card-title text-sm break-words sm:text-base">
+            <h3
+              dir="auto"
+              className="ui-card-title text-sm break-words sm:text-base"
+            >
               {result.title}
             </h3>
             <CardDescription className="ui-meta mt-2 flex flex-wrap items-center gap-2">
@@ -82,17 +86,27 @@ function ResultCard({
       <CardContent>
         <p
           dir={isRtl(result.excerpt) ? 'rtl' : 'ltr'}
-          className="ui-meta line-clamp-4 font-normal leading-relaxed"
+          className="ui-meta line-clamp-4 leading-relaxed font-normal"
         >
           {result.excerpt}
         </p>
       </CardContent>
       <CardFooter className="justify-end">
-        <Button asChild size="sm">
-          <a href={result.url} target="_blank" rel="noreferrer" aria-label={`${copy.watchLabel}: ${result.title} at ${formatTimestamp(result.startSeconds)}`}>
-            {copy.watchLabel}
-            <ArrowUpRightIcon data-icon="inline-end" />
-          </a>
+        <Button
+          size="sm"
+          nativeButton={false}
+          role="link"
+          render={
+            <a
+              href={result.url}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${copy.watchLabel}: ${result.title} at ${formatTimestamp(result.startSeconds)}`}
+            />
+          }
+        >
+          {copy.watchLabel}
+          <ArrowUpRightIcon data-icon="inline-end" />
         </Button>
       </CardFooter>
     </Card>
@@ -160,17 +174,11 @@ export default function VideoSearch({ copy }: Props) {
     >
       <Card className="gap-5 py-5 shadow-xs">
         <CardHeader className="gap-3 px-5 sm:px-6">
-          <Badge
-            variant="secondary"
-            className="ui-meta bg-muted w-fit"
-          >
+          <Badge variant="secondary" className="ui-meta bg-muted w-fit">
             <SparklesIcon data-icon="inline-start" />
             {copy.eyebrow}
           </Badge>
-          <h2
-            id="video-search-title"
-            className="ui-section-title max-w-md"
-          >
+          <h2 id="video-search-title" className="ui-section-title max-w-md">
             {copy.title}
           </h2>
           <CardDescription className="ui-body max-w-prose text-sm sm:text-base">
@@ -178,10 +186,15 @@ export default function VideoSearch({ copy }: Props) {
           </CardDescription>
         </CardHeader>
         <CardContent className="px-5 sm:px-6">
-          <label htmlFor="video-search-query" className="text-foreground mb-2 block text-sm font-semibold">
+          <label
+            htmlFor="video-search-query"
+            className="text-foreground mb-2 block text-sm font-semibold"
+          >
             {copy.title}
           </label>
-          <p id="video-search-help" className="ui-meta mb-2">Enter at least 2 characters.</p>
+          <p id="video-search-help" className="ui-meta mb-2">
+            Enter at least 2 characters.
+          </p>
           <form
             onSubmit={submit}
             className="flex flex-col gap-2 sm:flex-row"
@@ -239,10 +252,15 @@ export default function VideoSearch({ copy }: Props) {
 
           <p role="status" aria-atomic="true" className="ui-meta mt-5">
             {status === 'loading' && copy.loadingLabel}
-            {status === 'error' && `${copy.errorLabel} ${copy.errorDescription}`}
-            {status === 'done' && `${results.length} ${copy.resultLabel} for "${lastQuery}"`}
+            {status === 'error' &&
+              `${copy.errorLabel} ${copy.errorDescription}`}
+            {status === 'done' &&
+              `${results.length} ${copy.resultLabel} for "${lastQuery}"`}
           </p>
-          <div className="mt-3 flex flex-col gap-3" aria-busy={status === 'loading'}>
+          <div
+            className="mt-3 flex flex-col gap-3"
+            aria-busy={status === 'loading'}
+          >
             {status === 'loading' && (
               <>
                 {[0, 1, 2].map((item) => (

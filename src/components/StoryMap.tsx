@@ -109,10 +109,15 @@ export default function StoryMap({
                         Browse stories
                       </Button>
                     ) : (
-                      <Button asChild className="mt-3 min-h-11">
-                        <a href={storyBrowserHref(place.state, place.city)}>
-                          Browse stories
-                        </a>
+                      <Button
+                        className="mt-3 min-h-11"
+                        nativeButton={false}
+                        role="link"
+                        render={
+                          <a href={storyBrowserHref(place.state, place.city)} />
+                        }
+                      >
+                        Browse stories
                       </Button>
                     )}
                   </div>
