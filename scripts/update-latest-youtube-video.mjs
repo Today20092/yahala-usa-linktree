@@ -82,6 +82,7 @@ const fetchPlaylistVideos = async (videosUrl, channel) => {
         title: video.title,
         thumbnail: video.thumbnail,
         duration: video.duration_string ?? '',
+        isShort: false,
         channelId: channel.channelId,
         channelTitle: channel.name,
       }))
@@ -109,6 +110,8 @@ const fetchVideoStats = async (video, channel) => {
         title: metadata.title,
         thumbnail: metadata.thumbnail,
         duration: metadata.duration_string ?? video.duration,
+        width: metadata.width,
+        height: metadata.height,
         published: ytdlpDate(metadata.upload_date) || video.published,
         updated: ytdlpDate(metadata.upload_date) || video.updated,
         viewCount: metadata.view_count,

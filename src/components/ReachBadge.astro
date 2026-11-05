@@ -87,12 +87,12 @@ const platformTotals = Object.values(
   data-reach-card
   data-reach-chart
   class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 delay-300 sm:px-6"
-  aria-label="Total people reached"
+  aria-label="Total video views"
 >
   <div class="reach-summary">
     <header class="reach-summary__headline">
       <div class="reach-summary__heading-row">
-        <h2 class="ui-section-title">People reached</h2>
+        <h2 class="ui-section-title">Total views</h2>
         <p class="ui-meta">Updated {updatedDate}</p>
       </div>
 
@@ -106,18 +106,18 @@ const platformTotals = Object.values(
         /><span class="text-primary">+</span>
       </p>
       <p class="ui-body reach-summary__description">
-        Total audience across YouTube, TikTok, Instagram, and Facebook.
+        Combined video views across YouTube, TikTok, Instagram, and Facebook.
       </p>
     </header>
 
-    <dl class="reach-summary__stats">
+    <div class="reach-summary__stats">
       {
         platformTotals.map((item) => (
           <div
             style={`--platform-accent: ${item.accent}; --platform-accent-dark: ${item.darkAccent}; --platform-share: ${item.share}%;`}
             class="reach-summary__stat [--platform-active-accent:var(--platform-accent)] dark:[--platform-active-accent:var(--platform-accent-dark)]"
           >
-            <div class="reach-summary__stat-row">
+            <dl class="reach-summary__stat-row m-0">
               <dt class="ui-meta flex min-w-0 items-center gap-2 truncate">
                 <Icon
                   name={item.icon}
@@ -135,15 +135,18 @@ const platformTotals = Object.values(
                   inViewOnce
                   delay={100}
                 />
+                <span class="text-muted-foreground ml-1 text-xs font-normal">
+                  views
+                </span>
               </dd>
-            </div>
+            </dl>
             <div class="reach-summary__bar" aria-hidden="true">
               <span />
             </div>
           </div>
         ))
       }
-    </dl>
+    </div>
   </div>
 </aside>
 

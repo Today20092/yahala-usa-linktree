@@ -5,7 +5,7 @@ import path from 'node:path'
 import { spawn } from 'node:child_process'
 
 const script = path.resolve('scripts/smoke-preview.mjs')
-const html = `<!doctype html><link rel="stylesheet" href="./_astro/site.css"><script type="module" src="/_astro/site.js"></script><a>Watch latest</a><nav aria-label="Official social links"></nav><a href="#qr-dialog" data-qr-open>QR</a><div id="qr-dialog" role="dialog"><a href="/" data-qr-destination>Destination</a></div><aside data-reach-card></aside><a>Latest From Ya Hala</a><section data-portfolio-scroll="auto"><div class="bento-scroll-track"></div>Moments from Ya Hala stories</section><div aria-label="Map"></div><p>Choose a state to watch stories</p><footer></footer>`
+const html = `<!doctype html><link rel="stylesheet" href="./_astro/site.css"><script type="module" src="/_astro/site.js"></script><a>Watch latest</a><nav aria-label="Official social links"></nav><a href="#qr-dialog" data-qr-open>QR</a><div id="qr-dialog" role="dialog"><a href="/" data-qr-destination>Destination</a></div><a>Latest From Ya Hala</a><aside data-reach-card></aside><section data-portfolio-scroll="auto"><div class="bento-scroll-track"></div>Moments from Ya Hala stories</section><div aria-label="Map"></div><p>Choose a state to watch stories</p><footer></footer>`
 
 const run = (target) =>
   new Promise((resolve) => {
@@ -29,8 +29,8 @@ try {
   await writeFile(
     path.join(directory, 'index.html'),
     html.replace(
-      '<aside data-reach-card></aside><a>Latest From Ya Hala</a>',
       '<a>Latest From Ya Hala</a><aside data-reach-card></aside>',
+      '<aside data-reach-card></aside><a>Latest From Ya Hala</a>',
     ),
   )
   const orderFailure = await run(directory)

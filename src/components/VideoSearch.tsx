@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import {
   ArrowUpRightIcon,
   Clock3Icon,
@@ -15,7 +15,6 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from '@/components/ui/card'
 import { Empty, EmptyDescription, EmptyTitle } from '@/components/ui/empty'
 import { Input } from '@/components/ui/input'
@@ -65,9 +64,9 @@ function ResultCard({
             data-fallback-src={thumbnailFallback}
           />
           <div className="min-w-0 flex-1">
-            <CardTitle className="ui-card-title line-clamp-2 text-sm sm:text-base">
+            <h3 dir="auto" className="ui-card-title text-sm break-words sm:text-base">
               {result.title}
-            </CardTitle>
+            </h3>
             <CardDescription className="ui-meta mt-2 flex flex-wrap items-center gap-2">
               <Badge variant="secondary">
                 <Clock3Icon data-icon="inline-start" />
@@ -90,7 +89,7 @@ function ResultCard({
       </CardContent>
       <CardFooter className="justify-end">
         <Button asChild size="sm">
-          <a href={result.url} target="_blank" rel="noreferrer">
+          <a href={result.url} target="_blank" rel="noreferrer" aria-label={`${copy.watchLabel}: ${result.title} at ${formatTimestamp(result.startSeconds)}`}>
             {copy.watchLabel}
             <ArrowUpRightIcon data-icon="inline-end" />
           </a>
@@ -108,6 +107,7 @@ export default function VideoSearch({ copy }: Props) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'done' | 'error'>(
     'idle',
   )
+  const searchPending = useRef(false)
 
   useEffect(() => {
     fetch('/api/video-search/availability')
@@ -120,8 +120,9 @@ export default function VideoSearch({ copy }: Props) {
 
   const runSearch = async (searchQuery: string) => {
     const normalizedQuery = searchQuery.trim()
-    if (normalizedQuery.length < 2) return
+    if (normalizedQuery.length < 2 || searchPending.current) return
 
+    searchPending.current = true
     setLastQuery(normalizedQuery)
     setStatus('loading')
     try {
@@ -137,6 +138,8 @@ export default function VideoSearch({ copy }: Props) {
     } catch {
       setResults([])
       setStatus('error')
+    } finally {
+      searchPending.current = false
     }
   }
 
@@ -164,27 +167,30 @@ export default function VideoSearch({ copy }: Props) {
             <SparklesIcon data-icon="inline-start" />
             {copy.eyebrow}
           </Badge>
-          <CardTitle
+          <h2
             id="video-search-title"
             className="ui-section-title max-w-md"
           >
             {copy.title}
-          </CardTitle>
+          </h2>
           <CardDescription className="ui-body max-w-prose text-sm sm:text-base">
             {copy.description}
           </CardDescription>
         </CardHeader>
         <CardContent className="px-5 sm:px-6">
+          <label htmlFor="video-search-query" className="text-foreground mb-2 block text-sm font-semibold">
+            {copy.title}
+          </label>
+          <p id="video-search-help" className="ui-meta mb-2">Enter at least 2 characters.</p>
           <form
             onSubmit={submit}
             className="flex flex-col gap-2 sm:flex-row"
             role="search"
           >
-            <label htmlFor="video-search-query" className="sr-only">
-              {copy.title}
-            </label>
             <Input
               id="video-search-query"
+              aria-describedby="video-search-help"
+              required
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder={copy.placeholder}
@@ -231,10 +237,14 @@ export default function VideoSearch({ copy }: Props) {
             </div>
           )}
 
-          <div className="mt-5 flex flex-col gap-3" aria-live="polite">
+          <p role="status" aria-atomic="true" className="ui-meta mt-5">
+            {status === 'loading' && copy.loadingLabel}
+            {status === 'error' && `${copy.errorLabel} ${copy.errorDescription}`}
+            {status === 'done' && `${results.length} ${copy.resultLabel} for "${lastQuery}"`}
+          </p>
+          <div className="mt-3 flex flex-col gap-3" aria-busy={status === 'loading'}>
             {status === 'loading' && (
               <>
-                <span className="sr-only">{copy.loadingLabel}</span>
                 {[0, 1, 2].map((item) => (
                   <div key={item} className="flex gap-3 rounded-xl border p-3">
                     <Skeleton className="aspect-video w-28 shrink-0" />
@@ -267,10 +277,6 @@ export default function VideoSearch({ copy }: Props) {
 
             {status === 'done' && results.length > 0 && (
               <>
-                <p className="ui-meta">
-                  {results.length} {copy.resultLabel}
-                  {lastQuery ? ` for "${lastQuery}"` : ''}
-                </p>
                 {results.map((result) => (
                   <ResultCard
                     key={`${result.videoId}:${result.startSeconds}`}

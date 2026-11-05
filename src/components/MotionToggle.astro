@@ -1,0 +1,36 @@
+---
+type Props = { controls: string }
+const { controls } = Astro.props
+---
+
+<button
+  type="button"
+  data-motion-toggle
+  aria-controls={controls}
+  class="motion-toggle text-foreground hover:text-primary focus-visible:ring-ring inline-flex min-h-11 shrink-0 items-center rounded-sm px-2 text-sm font-semibold underline underline-offset-4 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+>
+  Pause motion
+</button>
+
+<script>
+  document.querySelectorAll('[data-motion-toggle]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const target = document.getElementById(
+        button.getAttribute('aria-controls') ?? '',
+      )
+      if (!target) return
+
+      const paused = !target.hasAttribute('data-motion-paused')
+      target.toggleAttribute('data-motion-paused', paused)
+      button.textContent = paused ? 'Resume motion' : 'Pause motion'
+    })
+  })
+</script>
+
+<style>
+  @media (prefers-reduced-motion: reduce) {
+    .motion-toggle {
+      display: none;
+    }
+  }
+</style>

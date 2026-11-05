@@ -146,7 +146,9 @@ export const normalizeVideoMetadata = (video, existing = {}) => {
     viewCount: Number.isFinite(viewCount) ? viewCount : undefined,
     fullMetadataFetchedAt:
       video?.fullMetadataFetchedAt ?? existing.fullMetadataFetchedAt,
-    isShort: video?.isShort ?? existing.isShort ?? false,
+    isShort: video?.isShort ?? existing.isShort,
+    width: video?.width ?? existing.width,
+    height: video?.height ?? existing.height,
   }
 }
 
@@ -259,7 +261,7 @@ export const videoMetadataFromWatchPage = async (videoId) => {
     thumbnail: decodeXml(thumbnail),
     published,
     updated: published,
-    isShort,
+    isShort: isShort || undefined,
   })
 }
 
@@ -299,7 +301,8 @@ export const videosFromVideosTab = async (videosUrl) => {
     const video = await videoMetadataFromWatchPage(videoId).catch(() =>
       normalizeVideoMetadata({ videoId }),
     )
-    if (video) videos.push(video)
+    // The channel's Videos tab contains regular uploads; feeds also contain Shorts.
+    if (video) videos.push({ ...video, isShort: false })
   }
 
   return uniqueVideos(videos)

@@ -45,7 +45,11 @@ export const buildStories = (visitedPlaces: VisitedPlaces): Story[] => {
 
   return sortVideosByPublishedDate(
     [...locatedStories, ...unassignedStories].filter(
-      (story) => !story.videoId || !youtubeVideosById[story.videoId]?.isShort,
+      (story) => {
+        const video = story.videoId && youtubeVideosById[story.videoId]
+        return video && video.isShort === false &&
+          !(video.width && video.height && video.width <= video.height)
+      },
     ),
   )
 }

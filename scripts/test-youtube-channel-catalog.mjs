@@ -2,10 +2,17 @@ import {
   deriveChannelCatalog,
   isValidYoutubePublishedDate,
   mergeVideoCache,
+  normalizeVideoMetadata,
   youtubePublishedTimestamp,
 } from './youtube-video-utils.mjs'
 
 const channel = { id: 'main', channelId: 'channel', name: 'YaHala' }
+if (normalizeVideoMetadata({ videoId: 'unknown' }).isShort !== undefined) {
+  throw new Error('Unclassified feed videos must not default to regular uploads')
+}
+if (normalizeVideoMetadata({ videoId: 'known' }, { isShort: true }).isShort !== true) {
+  throw new Error('Metadata refreshes must preserve confirmed Shorts')
+}
 const result = deriveChannelCatalog({
   channel,
   feedChannelTitle: 'YaHala USA',

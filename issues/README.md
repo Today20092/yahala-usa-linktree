@@ -9,7 +9,12 @@ Tickets 0001–0005 are sequential CSS and styling architecture work on
 
 ## Open
 
-No open tickets.
+- [0013 — Web UI accessibility review and implementation specification](0013-web-ui-accessibility.md)
+
+- [0009 — Compare the static sitemap with `@astrojs/sitemap`](0009-evaluate-generated-sitemap.md)
+- [0010 — Adopt content collections when structured content outgrows site YAML](0010-adopt-content-collections-on-trigger.md)
+- [0011 — Use Astro Actions for the first site-owned form](0011-use-actions-for-site-forms.md)
+- [0012 — Evaluate prefetch for internal page navigation](0012-evaluate-internal-prefetch.md)
 
 ## Closed
 

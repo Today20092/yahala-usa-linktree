@@ -92,6 +92,7 @@ const channelBranding = Object.fromEntries(
 )
 
 const youtubeLink = socialLinks.find((link) => link.id === 'youtube')
+const instagramUrl = socialLinks.find((link) => link.id === 'instagram')?.url
 const sameAsUrls = socialLinks.map((link) => link.url)
 const socialIconBodies = {
   youtube:
@@ -185,439 +186,482 @@ const structuredData = {
       set:html={JSON.stringify(structuredData)}
     />
   </Fragment>
-    <main class="linktree-shell mx-auto flex w-full flex-col pb-6">
-      <div class="desktop-hero-layout">
-        <section
-          class="linktree-hero animate-fade-in-up"
-          aria-labelledby="profile-title"
+  <main
+    id="main-content"
+    tabindex="-1"
+    class="linktree-shell mx-auto flex w-full flex-col pb-6"
+  >
+    <p data-share-status role="status" aria-atomic="true" class="ui-meta"></p>
+    <div class="desktop-hero-layout">
+      <section
+        class="linktree-hero animate-fade-in-up"
+        aria-labelledby="profile-title"
+      >
+        <button
+          type="button"
+          class="linktree-hero__share"
+          aria-label="Share Ya Hala with Haithum"
+          data-share-page
+          data-share-title={pageTitle}
+          data-share-text={pageDescription}
+          data-share-url={canonicalUrl}
         >
-          <button
-            type="button"
-            class="linktree-hero__share"
-            aria-label="Share Ya Hala with Haithum"
-            data-share-page
-            data-share-title={pageTitle}
-            data-share-text={pageDescription}
-            data-share-url={canonicalUrl}
-          >
-            <Icon
-              name="heroicons:arrow-up-tray"
-              class="size-5"
-              aria-hidden="true"
-            />
-          </button>
-          <Picture
-            alt={heroImageAlt}
-            src={heroCover}
-            formats={['avif', 'webp']}
-            fallbackFormat="webp"
-            class="linktree-hero__image"
-            decoding="async"
-            fetchpriority="high"
-            loading="eager"
+          <Icon
+            name="heroicons:arrow-up-tray"
+            class="size-5"
+            aria-hidden="true"
           />
-          <div class="linktree-hero__fade" aria-hidden="true"></div>
-        </section>
+        </button>
+        <Picture
+          alt={heroImageAlt}
+          src={heroCover}
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
+          class="linktree-hero__image"
+          decoding="async"
+          fetchpriority="high"
+          loading="eager"
+        />
+        <div class="linktree-hero__fade" aria-hidden="true"></div>
+      </section>
 
-        <div class="desktop-intro-panel">
-          <h1 id="profile-title" class="sr-only">
-            Ya Hala with Haithum ياهلا مع هيثم
-          </h1>
-          <section
-            class="animate-fade-in-up mx-auto w-full max-w-xl px-4 pt-6 text-center delay-200 sm:px-6 sm:pt-7"
-            aria-labelledby="intro-title"
-          >
-            <h2 id="intro-title" class="ui-page-title mx-auto max-w-lg">
-              Arab-American stories, coast to coast.
-            </h2>
-            <p class="ui-body mx-auto mt-4 max-w-prose sm:text-[1.05rem]">
-              Watch Arab American stories, community visits, and creator-led
-              field interviews from across the United States.
-            </p>
-            <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
-              {
-                latestEpisodeUrl && (
-                  <a
-                    href={latestEpisodeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Watch latest episode"
-                    class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring/30 focus-visible:ring-offset-background inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-base font-semibold whitespace-nowrap shadow-lg transition-[background-color,transform,box-shadow] hover:-translate-y-0.5 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0"
-                  >
-                    <Icon
-                      name="simple-icons:youtube"
-                      class="size-[1.125rem]"
-                      aria-hidden="true"
-                    />
-                    Watch latest
-                  </a>
-                )
-              }
-            </div>
-            <nav
-              class="mt-5 flex items-center justify-center gap-5 text-sm font-semibold"
-              aria-label="Site navigation"
-            >
-              <a
-                href={`${baseUrl}about`}
-                class="text-primary hover:text-primary/80 focus-visible:ring-ring rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-              >
-                About Haithem
-              </a>
-              <a
-                href={`${baseUrl}stories`}
-                class="text-muted-foreground hover:text-foreground focus-visible:ring-ring rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-              >
-                Browse stories
-              </a>
-            </nav>
-          </section>
-
-          <nav
-            class="animate-fade-in-up mx-auto mt-6 flex w-full max-w-xl flex-col gap-3 px-4 delay-300 sm:px-6"
-            aria-label="Official social links"
-          >
+      <div class="desktop-intro-panel">
+        <h1 id="profile-title" class="sr-only">
+          Ya Hala with Haithum ياهلا مع هيثم
+        </h1>
+        <section
+          class="animate-fade-in-up mx-auto w-full max-w-xl px-4 pt-6 text-center delay-200 sm:px-6 sm:pt-7"
+          aria-labelledby="intro-title"
+        >
+          <h2 id="intro-title" class="ui-page-title mx-auto max-w-lg">
+            Arab-American stories, coast to coast.
+          </h2>
+          <p class="ui-body mx-auto mt-4 max-w-prose sm:text-[1.05rem]">
+            Watch Arab American stories, community visits, and creator-led field
+            interviews from across the United States.
+          </p>
+          <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
             {
-              socialLinks.map((social) => (
-                <SocialLinkButton
-                  label={social.label.replace(/^Ya Hala\s+/, '')}
-                  ariaLabel={social.label}
-                  href={social.url}
-                  id={social.id}
-                  style={{
-                    '--brand-color': social.color,
-                    '--brand-color-2': social.color2,
-                    '--brand-color-3': social.color3,
-                    '--brand-color-dark': social.darkColor ?? social.color,
-                    '--brand-color-dark-2': social.darkColor2 ?? social.color2,
-                    '--brand-color-dark-3': social.darkColor3 ?? social.color3,
-                  }}
+              latestEpisodeUrl && (
+                <a
+                  href={latestEpisodeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Watch latest episode"
+                  class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring/30 focus-visible:ring-offset-background inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-base font-semibold whitespace-nowrap shadow-lg transition-[background-color,transform,box-shadow] hover:-translate-y-0.5 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0"
                 >
-                  <svg
-                    class="size-8"
-                    viewBox="0 0 24 24"
+                  <Icon
+                    name="simple-icons:youtube"
+                    class="size-[1.125rem]"
                     aria-hidden="true"
-                    set:html={socialIconBodies[social.id]}
                   />
-                </SocialLinkButton>
-              ))
+                  Watch latest
+                </a>
+              )
+            }
+          </div>
+          <nav
+            class="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-sm font-semibold"
+            aria-label="Site navigation"
+          >
+            <a
+              href={`${baseUrl}about`}
+              class="text-primary hover:text-primary/80 focus-visible:ring-ring rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+            >
+              About Haithem
+            </a>
+            <a
+              href={`${baseUrl}stories`}
+              class="text-muted-foreground hover:text-foreground focus-visible:ring-ring rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+            >
+              Browse stories
+            </a>
+            {
+              instagramUrl && (
+                <a
+                  href={instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Contact or sponsor Ya Hala on Instagram"
+                  class="text-foreground hover:text-primary focus-visible:ring-ring inline-flex min-h-11 items-center rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+                >
+                  Contact / Sponsor
+                </a>
+              )
             }
           </nav>
-
-          <QrCodeButton />
-        </div>
-      </div>
-
-      <div class="desktop-primary-grid">
-        <ReachBadge
-          total={totalReach}
-          updatedAt={socialReach.updatedAt}
-          items={socialReach.items}
-        />
-
-        <section
-          id="about"
-          class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-300 sm:px-6"
-          aria-labelledby="about-title"
-        >
-          <div class="about-copy py-8 sm:py-10">
-            <h2 id="about-title" class="ui-section-title">
-              Stories from Arab America.
-            </h2>
-            <p class="ui-body mt-4">
-              Haithum covers people, businesses, neighborhoods, restaurants, and
-              community life across the United States.
-            </p>
-          </div>
         </section>
-      </div>
 
-      <BrandMarquee brands={collaborationBrands} />
-
-      <div class="desktop-latest-grid">
-        <section
-          class="animate-fade-in-up mt-8 mb-5 flex flex-col delay-400"
-          aria-labelledby="latest-video-title"
+        <nav
+          class="animate-fade-in-up mx-auto mt-6 flex w-full max-w-xl flex-col gap-3 px-4 delay-300 sm:px-6"
+          aria-label="Official social links"
         >
-          <div class="ui-section-header">
-            <h2 id="latest-video-title" class="ui-section-title">
-              Latest From Ya Hala
-            </h2>
-            <p class="ui-body mx-auto mt-3 max-w-md text-sm">
-              The newest story, updated automatically from the channel.
-            </p>
-          </div>
-          <div class="flex flex-col gap-4">
-            {
-              latestVideoChannels.map((channel) => (
-                <LatestChannelVideo
-                  channelName={channel.name}
-                  channelDescription={channel.description}
-                  channelLogoSrc={channelBranding[channel.id].logoSrc}
-                  channelAccentColor={channelBranding[channel.id].accentColor}
-                  channelDarkAccentColor={
-                    channelBranding[channel.id].darkAccentColor
-                  }
-                  channelCardBackground={
-                    channelBranding[channel.id].cardBackground
-                  }
-                  channelDarkCardBackground={
-                    channelBranding[channel.id].darkCardBackground
-                  }
-                  channelCardTint={channelBranding[channel.id].cardTint}
-                  channelDarkCardTint={channelBranding[channel.id].darkCardTint}
-                  channelLogoBackgroundColor={
-                    channelBranding[channel.id].logoBackgroundColor
-                  }
-                  channelDarkLogoBackgroundColor={
-                    channelBranding[channel.id].darkLogoBackgroundColor
-                  }
-                  channelLogoFit={channelBranding[channel.id].logoFit}
-                  channelLogoPaddingClass={
-                    channelBranding[channel.id].logoPaddingClass
-                  }
-                  video={latestVideoByChannel[channel.id]}
+          {
+            socialLinks.map((social) => (
+              <SocialLinkButton
+                label={social.label.replace(/^Ya Hala\s+/, '')}
+                ariaLabel={social.label}
+                href={social.url}
+                id={social.id}
+                style={{
+                  '--brand-color': social.color,
+                  '--brand-color-2': social.color2,
+                  '--brand-color-3': social.color3,
+                  '--brand-color-dark': social.darkColor ?? social.color,
+                  '--brand-color-dark-2': social.darkColor2 ?? social.color2,
+                  '--brand-color-dark-3': social.darkColor3 ?? social.color3,
+                }}
+              >
+                <svg
+                  class="size-8"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  set:html={socialIconBodies[social.id]}
                 />
-              ))
-            }
-          </div>
-        </section>
+              </SocialLinkButton>
+            ))
+          }
+        </nav>
 
-        <TopicCards />
+        <QrCodeButton />
       </div>
+    </div>
 
-      <VideoBentoGrid />
-
+    <div class="desktop-latest-grid">
       <section
-        class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-500 sm:px-6"
-        aria-labelledby="explore-title"
+        class="animate-fade-in-up mt-8 mb-5 flex flex-col delay-400"
+        aria-labelledby="latest-video-title"
       >
         <div class="ui-section-header">
-          <h2 id="explore-title" class="ui-section-title">
-            Explore more stories
+          <h2 id="latest-video-title" class="ui-section-title">
+            Latest From Ya Hala
           </h2>
           <p class="ui-body mx-auto mt-3 max-w-md text-sm">
-            {
-              videoSearch.enabled
-                ? 'Search video moments, browse popular episodes, and follow the places Ya Hala has visited.'
-                : 'Browse popular episodes and follow the places Ya Hala has visited.'
-            }
+            The newest story, updated automatically from the channel.
           </p>
+        </div>
+        <div class="flex flex-col gap-4">
+          {
+            latestVideoChannels.map((channel) => (
+              <LatestChannelVideo
+                channelName={channel.name}
+                channelDescription={channel.description}
+                channelLogoSrc={channelBranding[channel.id].logoSrc}
+                channelAccentColor={channelBranding[channel.id].accentColor}
+                channelDarkAccentColor={
+                  channelBranding[channel.id].darkAccentColor
+                }
+                channelCardBackground={
+                  channelBranding[channel.id].cardBackground
+                }
+                channelDarkCardBackground={
+                  channelBranding[channel.id].darkCardBackground
+                }
+                channelCardTint={channelBranding[channel.id].cardTint}
+                channelDarkCardTint={channelBranding[channel.id].darkCardTint}
+                channelLogoBackgroundColor={
+                  channelBranding[channel.id].logoBackgroundColor
+                }
+                channelDarkLogoBackgroundColor={
+                  channelBranding[channel.id].darkLogoBackgroundColor
+                }
+                channelLogoFit={channelBranding[channel.id].logoFit}
+                channelLogoPaddingClass={
+                  channelBranding[channel.id].logoPaddingClass
+                }
+                video={latestVideoByChannel[channel.id]}
+              />
+            ))
+          }
         </div>
       </section>
 
-      <div class="desktop-explore-grid">
-        {
-          videoSearch.enabled && (
-            <VideoSearch
-              copy={videoSearch}
-              client:visible={{ rootMargin: '200px' }}
-            />
-          )
-        }
+      <TopicCards />
+    </div>
 
-        <FeaturedEpisodes />
-      </div>
+    <div class="desktop-primary-grid">
+      <ReachBadge
+        total={totalReach}
+        updatedAt={socialReach.updatedAt}
+        items={socialReach.items}
+      />
 
-      <VisitedPlacesMap visitedPlaces={resolvedVisitedPlaces} />
+      <section
+        id="about"
+        class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-300 sm:px-6"
+        aria-labelledby="about-title"
+      >
+        <div class="about-copy py-8 sm:py-10">
+          <h2 id="about-title" class="ui-section-title">
+            Stories from Arab America.
+          </h2>
+          <p class="ui-body mt-4">
+            Haithum covers people, businesses, neighborhoods, restaurants, and
+            community life across the United States.
+          </p>
+        </div>
+      </section>
+    </div>
 
-      <footer class="ui-meta mt-auto w-full px-4 pt-12 pb-4 text-center">
-        <nav
-          class="mx-auto mb-3 flex max-w-xl flex-wrap items-center justify-center gap-x-3 gap-y-1"
-          aria-label="Page information"
-        >
-          <a
-            href={`${baseUrl}about`}
-            class="hover:text-foreground transition-colors"
-          >
-            About Haithem
-          </a>
-          <a
-            href={`${baseUrl}stories`}
-            class="hover:text-foreground transition-colors"
-          >
-            Stories
-          </a>
-          <a href="#privacy" class="hover:text-foreground transition-colors">
-            Privacy
-          </a>
-        </nav>
-        <p
-          id="privacy"
-          class="text-muted-foreground/80 mx-auto mb-3 max-w-xl text-[0.7rem] text-balance"
-        >
-          Privacy: this page links to third-party platforms and remote media.
-        </p>
-        <p class="mb-0.5">
-          &copy; {currentYear}
-          {pageTitle}. All rights reserved.
-        </p>
-      </footer>
-    </main>
+    <BrandMarquee brands={collaborationBrands} />
 
-    <script>
-      ;(() => {
-        if (document.documentElement.hasAttribute('data-design-preview')) return
+    <VideoBentoGrid />
 
-        const preferences = ['system', 'light', 'dark']
-        const lightThemeColor = '#ffffff'
-        const darkThemeColor = '#1c1917'
-        const systemQuery = window.matchMedia('(prefers-color-scheme: dark)')
-        const buttons = [...document.querySelectorAll('[data-theme-option]')]
-        const hasThemeControls = buttons.length > 0
-
-        const getStoredTheme = () => {
-          if (!hasThemeControls) return null
-
-          try {
-            return localStorage.getItem('theme')
-          } catch {
-            return null
+    <section
+      class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-500 sm:px-6"
+      aria-labelledby="explore-title"
+    >
+      <div class="ui-section-header">
+        <h2 id="explore-title" class="ui-section-title">
+          Explore more stories
+        </h2>
+        <p class="ui-body mx-auto mt-3 max-w-md text-sm">
+          {
+            videoSearch.enabled
+              ? 'Search video moments, browse popular episodes, and follow the places Ya Hala has visited.'
+              : 'Browse popular episodes and follow the places Ya Hala has visited.'
           }
+        </p>
+      </div>
+    </section>
+
+    <div class="desktop-explore-grid">
+      {videoSearch.enabled && <VideoSearch copy={videoSearch} client:idle />}
+
+      <FeaturedEpisodes />
+    </div>
+
+    <VisitedPlacesMap visitedPlaces={resolvedVisitedPlaces} />
+
+    {
+      instagramUrl && (
+        <section
+          class="ui-section-block mx-auto mt-12 w-full max-w-xl px-4 text-left sm:px-6"
+          aria-labelledby="collaboration-title"
+        >
+          <h2 id="collaboration-title" class="ui-section-title">
+            Sponsor or collaborate
+          </h2>
+          <p class="ui-body mt-3 max-w-prose">
+            Connect with Ya Hala on Instagram to discuss sponsorships and
+            collaborations.
+          </p>
+          <a
+            href={instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bg-foreground text-background hover:bg-foreground/90 focus-visible:ring-ring mt-5 inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-base font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+          >
+            <Icon
+              name="simple-icons:instagram"
+              class="size-5"
+              aria-hidden="true"
+            />
+            Contact on Instagram
+          </a>
+        </section>
+      )
+    }
+
+    <footer class="ui-meta mt-auto w-full px-4 pt-12 pb-4 text-center">
+      <nav
+        class="mx-auto mb-3 flex max-w-xl flex-wrap items-center justify-center gap-x-3 gap-y-1"
+        aria-label="Page information"
+      >
+        <a
+          href={`${baseUrl}about`}
+          class="hover:text-foreground transition-colors"
+        >
+          About Haithem
+        </a>
+        <a
+          href={`${baseUrl}stories`}
+          class="hover:text-foreground transition-colors"
+        >
+          Stories
+        </a>
+        <a href="#privacy" class="hover:text-foreground transition-colors">
+          Privacy
+        </a>
+      </nav>
+      <p
+        id="privacy"
+          class="text-muted-foreground mx-auto mb-3 max-w-xl text-[0.7rem] text-balance"
+      >
+        Privacy: this page links to third-party platforms and remote media.
+      </p>
+      <p class="mb-0.5">
+        &copy; {currentYear}
+        {pageTitle}. All rights reserved.
+      </p>
+    </footer>
+  </main>
+
+  <script>
+    ;(() => {
+      if (document.documentElement.hasAttribute('data-design-preview')) return
+
+      const preferences = ['system', 'light', 'dark']
+      const lightThemeColor = '#ffffff'
+      const darkThemeColor = '#1c1917'
+      const systemQuery = window.matchMedia('(prefers-color-scheme: dark)')
+      const buttons = [...document.querySelectorAll('[data-theme-option]')]
+      const hasThemeControls = buttons.length > 0
+
+      const getStoredTheme = () => {
+        if (!hasThemeControls) return null
+
+        try {
+          return localStorage.getItem('theme')
+        } catch {
+          return null
         }
+      }
 
-        const setStoredTheme = (theme) => {
-          try {
-            if (theme === 'system') localStorage.removeItem('theme')
-            else localStorage.setItem('theme', theme)
-          } catch {}
-        }
+      const setStoredTheme = (theme) => {
+        try {
+          if (theme === 'system') localStorage.removeItem('theme')
+          else localStorage.setItem('theme', theme)
+        } catch {}
+      }
 
-        const getPreference = () => getStoredTheme() ?? 'system'
+      const getPreference = () => getStoredTheme() ?? 'system'
 
-        const resolveTheme = (preference) =>
-          preference === 'system'
-            ? systemQuery.matches
-              ? 'dark'
-              : 'light'
-            : preference
+      const resolveTheme = (preference) =>
+        preference === 'system'
+          ? systemQuery.matches
+            ? 'dark'
+            : 'light'
+          : preference
 
-        const applyTheme = (preference = 'system') => {
-          const theme = resolveTheme(preference)
+      const applyTheme = (preference = 'system') => {
+        const theme = resolveTheme(preference)
 
-          document.documentElement.classList.toggle('dark', theme === 'dark')
-          document.documentElement.style.colorScheme = theme
+        document.documentElement.classList.toggle('dark', theme === 'dark')
+        document.documentElement.style.colorScheme = theme
 
-          document
-            .querySelectorAll('meta[name="theme-color"]')
-            .forEach((meta) => {
-              meta.content = theme === 'dark' ? darkThemeColor : lightThemeColor
-              meta.media = ''
-            })
-
-          buttons.forEach((button) => {
-            button.setAttribute(
-              'aria-pressed',
-              String(button.dataset.themeOption === preference),
-            )
+        document
+          .querySelectorAll('meta[name="theme-color"]')
+          .forEach((meta) => {
+            meta.content = theme === 'dark' ? darkThemeColor : lightThemeColor
+            meta.media = ''
           })
-        }
 
         buttons.forEach((button) => {
-          button.addEventListener('click', () => {
-            const preference = button.dataset.themeOption
-            if (!preferences.includes(preference)) return
-
-            setStoredTheme(preference)
-            applyTheme(preference)
-          })
+          button.setAttribute(
+            'aria-pressed',
+            String(button.dataset.themeOption === preference),
+          )
         })
+      }
 
-        const handleSystemChange = () => {
-          if (getPreference() === 'system') applyTheme('system')
-        }
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const preference = button.dataset.themeOption
+          if (!preferences.includes(preference)) return
 
-        if (hasThemeControls)
-          systemQuery.addEventListener('change', handleSystemChange)
-        applyTheme(hasThemeControls ? getPreference() : 'light')
-      })()
-    </script>
+          setStoredTheme(preference)
+          applyTheme(preference)
+        })
+      })
 
-    <script>
-      ;(() => {
-        const reveals = [...document.querySelectorAll('.animate-fade-in-up')]
-        const reduceMotion = window.matchMedia(
-          '(prefers-reduced-motion: reduce)',
-        ).matches
+      const handleSystemChange = () => {
+        if (getPreference() === 'system') applyTheme('system')
+      }
 
-        document.documentElement.classList.add('motion-ready')
+      if (hasThemeControls)
+        systemQuery.addEventListener('change', handleSystemChange)
+      applyTheme(hasThemeControls ? getPreference() : 'light')
+    })()
+  </script>
 
-        if (reduceMotion || !('IntersectionObserver' in window)) {
-          reveals.forEach((element) => element.classList.add('is-visible'))
+  <script>
+    ;(() => {
+      const reveals = [...document.querySelectorAll('.animate-fade-in-up')]
+      const reduceMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches
+
+      document.documentElement.classList.add('motion-ready')
+
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        reveals.forEach((element) => element.classList.add('is-visible'))
+        return
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return
+            entry.target.classList.add('is-visible')
+            observer.unobserve(entry.target)
+          })
+        },
+        { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+      )
+
+      reveals.forEach((element) => observer.observe(element))
+    })()
+  </script>
+
+  <script>
+    ;(() => {
+      const shareButton = document.querySelector('[data-share-page]')
+      if (!shareButton) return
+
+      const shareStatus = document.querySelector('[data-share-status]')
+      let sharing = false
+      const shareData = {
+        title: shareButton.dataset.shareTitle,
+        text: shareButton.dataset.shareText,
+        url: shareButton.dataset.shareUrl,
+      }
+      const fallbackShareText = [shareData.title, shareData.text, shareData.url]
+        .filter(Boolean)
+        .join('\n')
+
+      const copyLink = async () => {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(fallbackShareText)
+          shareStatus.textContent =
+            'Share text copied. You can paste it into a message.'
           return
         }
+        throw new Error('Clipboard unavailable')
+      }
 
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (!entry.isIntersecting) return
-              entry.target.classList.add('is-visible')
-              observer.unobserve(entry.target)
-            })
-          },
-          { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
-        )
-
-        reveals.forEach((element) => observer.observe(element))
-      })()
-    </script>
-
-    <script>
-      ;(() => {
-        const shareButton = document.querySelector('[data-share-page]')
-        if (!shareButton) return
-
-        const defaultLabel =
-          shareButton.getAttribute('aria-label') || 'Share Ya Hala with Haithum'
-        const shareData = {
-          title: shareButton.dataset.shareTitle,
-          text: shareButton.dataset.shareText,
-          url: shareButton.dataset.shareUrl,
-        }
-        const fallbackShareText = [
-          shareData.title,
-          shareData.text,
-          shareData.url,
-        ]
-          .filter(Boolean)
-          .join('\n')
-
-        const restoreLabel = () => {
-          window.setTimeout(() => {
-            shareButton.setAttribute('aria-label', defaultLabel)
-          }, 2200)
-        }
-
-        const copyLink = async () => {
-          if (navigator.clipboard?.writeText) {
-            await navigator.clipboard.writeText(fallbackShareText)
-            shareButton.setAttribute('aria-label', 'Share text copied')
-            restoreLabel()
-            return
-          }
-
-          window.location.href = shareData.url
-        }
-
-        shareButton.addEventListener('click', async () => {
+      shareButton.addEventListener('click', async () => {
+        if (sharing) return
+        sharing = true
+        shareButton.setAttribute('aria-disabled', 'true')
+        shareStatus.textContent = 'Preparing to share…'
+        try {
           if (
             navigator.share &&
             (!navigator.canShare || navigator.canShare(shareData))
           ) {
             try {
               await navigator.share(shareData)
+              shareStatus.textContent = 'Share completed.'
               return
             } catch (error) {
-              if (error?.name === 'AbortError') return
+              if (error?.name === 'AbortError') {
+                shareStatus.textContent = 'Sharing canceled.'
+                return
+              }
             }
           }
 
           try {
             await copyLink()
           } catch {
-            window.location.href = shareData.url
+            shareStatus.textContent = `Unable to share automatically. Copy this page address: ${shareData.url}`
           }
-        })
-      })()
-    </script>
+        } finally {
+          sharing = false
+          shareButton.removeAttribute('aria-disabled')
+        }
+      })
+    })()
+  </script>
 </BrandedPageDocument>

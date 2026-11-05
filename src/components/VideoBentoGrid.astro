@@ -5,6 +5,7 @@ import { Icon } from 'astro-icon/components'
 import { parse } from 'yaml'
 
 import { IconBadge } from './ui/icon-badge'
+import MotionToggle from './MotionToggle.astro'
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
 import visitedVideosYaml from '../data/visited-videos.yaml?raw'
 import { siteConfig } from '../lib/site-config'
@@ -346,9 +347,10 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
               </h2>
             </span>
           </div>
-          <span class="ui-meta hidden sm:inline">Stories in motion</span>
+          <MotionToggle controls="story-motion-rows" />
         </div>
         <div
+          id="story-motion-rows"
           class="space-y-2 p-2.5 sm:space-y-3 sm:p-3"
           data-portfolio-scroll="auto"
         >
@@ -411,7 +413,6 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
                       ) : (
                         <div
                           style={`--platform-accent: ${item.accent}; --platform-accent-dark: ${item.darkAccent}; --platform-tint: ${item.tint}; --platform-tint-dark: ${item.darkTint};`}
-                          aria-label={`${item.platform} ${item.metric}: ${item.value}`}
                           class="bg-card/90 border-border/60 dark:border-border/70 dark:bg-card/75 relative flex aspect-video w-[252px] shrink-0 cursor-default flex-col justify-between overflow-hidden rounded-lg border p-4 text-left shadow-sm transition duration-200 [--platform-active-accent:var(--platform-accent)] [--platform-active-tint:var(--platform-tint)] hover:shadow-md sm:w-[274px] dark:[--platform-active-accent:var(--platform-accent-dark)] dark:[--platform-active-tint:var(--platform-tint-dark)]"
                         >
                           <span
@@ -473,6 +474,12 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
     animation-duration: 55s;
   }
 
+  .bento-scroll-row:hover .bento-scroll-track,
+  .bento-scroll-row:focus-within .bento-scroll-track,
+  [data-motion-paused] .bento-scroll-track {
+    animation-play-state: paused;
+  }
+
   .bento-scroll-group {
     display: flex;
     flex-shrink: 0;
@@ -493,9 +500,41 @@ const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
     }
   }
 
+  [data-portfolio-scroll]:is([data-motion-paused], :focus-within) .bento-scroll-track {
+    width: 100%;
+    animation: none;
+    transform: none;
+  }
+
+  [data-portfolio-scroll]:is([data-motion-paused], :focus-within) .bento-scroll-group {
+    width: 100%;
+    flex-wrap: wrap;
+    padding-right: 0;
+  }
+
+  [data-portfolio-scroll]:is([data-motion-paused], :focus-within) .bento-scroll-group > * {
+    max-width: 100%;
+  }
+
+  [data-portfolio-scroll]:is([data-motion-paused], :focus-within) .bento-scroll-group[aria-hidden='true'] {
+    display: none;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .bento-scroll-track {
+      width: 100%;
       animation: none;
+      transform: none;
+    }
+
+    .bento-scroll-group {
+      width: 100%;
+      flex-wrap: wrap;
+      padding-right: 0;
+    }
+
+    .bento-scroll-group > * {
+      max-width: 100%;
     }
 
     .bento-scroll-group[aria-hidden='true'] {
