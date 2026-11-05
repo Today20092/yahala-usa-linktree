@@ -58,20 +58,22 @@ export default function VisitedPlacesExplorer({ stateGroups }: Props) {
             aria-hidden="true"
           />
         </div>
-        {selectedState && (
+        <div className="mt-3 flex flex-col items-start gap-x-6 gap-y-2 sm:flex-row sm:flex-wrap sm:items-center">
+          {selectedState && (
+            <a
+              href={storyBrowserHref(selectedState)}
+              className="text-primary focus-visible:ring-ring inline-flex min-h-11 items-center rounded-sm text-sm font-semibold underline underline-offset-4 focus-visible:ring-2 focus-visible:outline-none"
+            >
+              Browse stories in {selectedState}
+            </a>
+          )}
           <a
-            href={storyBrowserHref(selectedState)}
-            className="text-primary focus-visible:ring-ring mt-3 inline-flex min-h-11 items-center rounded-sm text-sm font-semibold underline underline-offset-4 focus-visible:ring-2 focus-visible:outline-none"
+            href="/stories"
+            className="text-primary focus-visible:ring-ring inline-flex min-h-11 items-center rounded-sm text-sm font-semibold underline underline-offset-4 focus-visible:ring-2 focus-visible:outline-none"
           >
-            Browse stories in {selectedState}
+            Browse all stories
           </a>
-        )}
-        <a
-          href="/stories"
-          className="text-primary focus-visible:ring-ring mt-3 inline-flex rounded-sm text-sm font-semibold underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:outline-none"
-        >
-          Browse all stories
-        </a>
+        </div>
       </div>
     </div>
   )

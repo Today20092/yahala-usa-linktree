@@ -11,7 +11,10 @@ type Props = {
 
 const { visitedPlaces } = Astro.props
 const stateGroups = visitedPlaces.stateGroups ?? []
-const mapPlaces = buildStoryMapPlaces(visitedPlaces.mapPlaces ?? [], buildStories(visitedPlaces))
+const mapPlaces = buildStoryMapPlaces(
+  visitedPlaces.mapPlaces ?? [],
+  buildStories(visitedPlaces),
+)
 ---
 
 {
@@ -33,7 +36,7 @@ const mapPlaces = buildStoryMapPlaces(visitedPlaces.mapPlaces ?? [], buildStorie
 
       <div class="visited-places-frame overflow-hidden p-2.5 sm:p-3">
         <VisitedPlacesLeafletMap
-          client:visible={{ rootMargin: '200px' }}
+          client:idle={{ timeout: 2000 }}
           places={mapPlaces}
         />
 

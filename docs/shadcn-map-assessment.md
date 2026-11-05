@@ -2,6 +2,8 @@
 
 Reviewed November 5, 2026. Recommendation: adopt it first for the homepage visited-places map, then consider an optional map view in the story browser.
 
+Implemented November 5: homepage replacement and `/stories?view=map`, city popups with counts, clustering, filter synchronization, expanded map dialog, vector-to-raster fallback and map data tests. The assessment below records the original proposal; individual story pages remain conditional future work. The adopted component subset uses the existing light theme and excludes drawing, public autocomplete and geolocation.
+
 ## Current usage and opportunities
 
 Source inspection found one interactive map implementation in `src`: `VisitedPlacesLeafletMap.tsx`, mounted through `VisitedPlacesMap.astro` on the homepage. It uses Leaflet directly with OpenStreetMap raster tiles. The state selector underneath is navigation, not a separate mapping plugin.

@@ -1,0 +1,26 @@
+{
+  "checked": "2026-11-05",
+  "note": "Original brand assets; trademarks remain with their owners. Yafa is matched to Yaffa Coffee & Kunafa; confirm the spelling before publishing. No site configuration changed.",
+  "logos": [
+    {"name":"Lipari Foods","file":"lipari-foods.svg","url":"https://liparifoods.com/wp-content/uploads/2025/11/lipari-logo-macadamia.svg","website":"https://liparifoods.com/","video":"https://youtu.be/hcMk8nH4K9g","status":"name and website confirmed from video description"},
+    {"name":"Damaski","arabicName":"دمشقي","file":"damaski.png","url":"https://www.sirprize.com/web/image/2224-9f4ff0e3/Damaski-Logo-Green-Ciricle.png","website":"https://www.sirprize.com/","video":"https://youtu.be/Q8jy35CL-Yk","status":"brand described in video; official distributor Sirprize LLC supplies logo and English spelling"},
+    {"name":"MokCafe","brandName":"MOKAFÉ","file":"mokafe.png","url":"https://mymokafe.com/cdn/shop/files/LOGO_VERSIONS-03.png?v=1711258621","website":"https://mymokafe.com/","instagram":"https://www.instagram.com/mymokafe/","status":"confirmed by user; official website links the same Instagram account"},
+    {"name":"Aser Time Juice Time","file":"aseer-time.png","url":"https://aseertime.com/wp-content/uploads/2025/06/cropped-Aseer-Time-Logo-e1757107144511.png"},
+    {"name":"Farooj Abo Abed's Shawarma","file":"farooj.png","url":"https://aboalabedva.com/wp-content/uploads/2025/12/Logo-PNG-e1765837726138.png"},
+    {"name":"Moka & Co.","file":"moka-and-co.png","url":"https://mokanco.com/wp-content/uploads/2025/11/Moka-and-Co-Cafe-logo.png"},
+    {"name":"Excite Medical","file":"excite-medical.png","url":"https://www.excitemedical.com/wp-content/uploads/2020/03/excite-medica-logo-300x119-1.png"},
+    {"name":"Triangle Family Dentistry","file":"triangle-family-dentistry.png","url":"https://www.trianglefamilydentistry.com/wp-content/uploads/2025/06/tdf-color-logo.png"},
+    {"name":"Chocolate House","file":"chocolate-house.png","url":"https://chocolatehouseus.com/wp-content/uploads/2024/12/Chocolate-House-small.png"},
+    {"name":"Slap Burger","file":"slap-burger.png","url":"https://slapburgerus.com/wp-content/uploads/2023/01/Slap-Burger-Transparet.png"},
+    {"name":"Yafa Coffee & Kunafa","file":"yaffa.png","url":"https://yaffacoffeeandkunafa.com/wp-content/uploads/2026/03/logo.png","status":"candidate: confirm Yafa/Yaffa identity"},
+    {"name":"Shotted Coffee","file":"shotted.webp","url":"https://images.squarespace-cdn.com/content/v1/65a75801255f093bdec1abdf/584f002a-c929-436b-b4e7-90a2f295ac41/newlogo-black.png?format=1500w"},
+    {"name":"Abu Omar Halal","file":"abu-omar-halal.svg","url":"https://abuomarhalal.com/wp-content/themes/abu-omar-halal/assets/img/brand/Logo.svg"},
+    {"name":"Autos of Dallas","file":"autos-of-dallas.webp","url":"https://static.overfuel.com/dealers/autos-of-dallas/image/aog-logo.webp"},
+    {"name":"Shawarma Press","file":"shawarma-press.png","url":"https://shawarmapress.com/wp-content/uploads/2021/03/New-Logo-300x73.png"},
+    {"name":"Melt N Dip","file":"melt-n-dip.png","url":"https://meltndip.com/wp-content/uploads/2019/06/meltndip_logo.png"},
+    {"name":"Qahwah House","file":"qahwah-house.png","url":"https://qahwahhouse.com/images/logo.png"}
+  ],
+  "unresolved": [
+    {"name":"Zyara Restaurant","website":"https://zyara.com/","reason":"Astoria location confirmed in channel video descriptions; official website fetch fails."}
+  ]
+}

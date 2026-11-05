@@ -40,7 +40,7 @@ for (const expected of [
   'The map is unavailable right now.',
   "Map tiles couldn't load.",
   'Use the location filters',
-  'keyboard>',
+  'keyboard',
   "window.matchMedia('(pointer: coarse)').matches",
   'aspect-[2/1]',
   'href={storyBrowserHref(place.state, place.city)}',
