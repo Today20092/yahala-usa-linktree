@@ -52,6 +52,7 @@ For example, `npm run test:visited-map` checks map behavior without running the 
 ## Astro development and verification
 
 - Start a managed development server with `npm run dev -- --background`. Confirm readiness at `/_astro/status` (`{"ok":true}`).
+- For phone or Tailscale previews, use `npm run dev -- --host 0.0.0.0 --background` so the server accepts network connections. If the existing server listens only on localhost, stop it with `npm run astro -- dev stop` before starting it with `--host`; verify the Tailscale health URL as well as localhost.
 - After changes affecting compilation or production output, run `npm run build`. For production-output checks, start a managed local server with `npm run preview -- --background` and verify the affected routes; the health endpoint is dev-only.
 - Inspect, read logs, or stop either server with `npm run astro -- <dev|preview> <status|logs|stop>`. Reuse the server recorded in `.astro/dev.json` or `.astro/preview.json`; after dependency upgrades, restart it before verification.
 - Use `--json` for machine-readable logs. Inspect server logs when verifying runtime behavior.
