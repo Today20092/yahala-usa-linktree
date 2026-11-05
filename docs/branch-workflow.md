@@ -2,9 +2,9 @@
 
 ## Branch roles
 
-- `development` is the everyday working and integration branch. Sequential solo work can commit directly here. Push useful checkpoints as backups when authorized.
+- `development` combines selected concurrent features, branches, or commits for a shared development preview. Sequential work belonging to that batch can commit directly here. Push useful checkpoints as backups when authorized.
 - `main` contains reviewed release source and is the GitHub default branch. A push to `main` triggers production deployment, so promotion needs production authorization.
-- Temporary `codex/<scope>` branches and managed worktrees isolate parallel work. Start from current `development` and integrate finished changes back there. External contributions target `development`.
+- Temporary `codex/<scope>` branches and managed worktrees isolate feature work. Start from current `main` for an independent release, or current `development` for work depending on the integrated batch. Contributions target `development` for a batch or `main` for an independently reviewed feature.
 - `master` is retained as the legacy branch during migration. Preserve existing branches and worktrees until their work and integrations have been accounted for.
 
 For compatibility, version increments, and readiness, read [the release policy](releasing.md).
@@ -13,15 +13,17 @@ For compatibility, version increments, and readiness, read [the release policy](
 
 Fetch with `git fetch origin` before synchronization decisions. Once matching remote upstreams exist, use `git pull --ff-only` when the branch can advance without divergence. Inspect divergent commits and merge deliberately while preserving both histories.
 
-Merge completed scoped branches into `development`, then verify the combined source. Later feature-branch changes need another integration before they are in the development build. A merge does not rebuild an existing artifact.
+Select the completed feature branches or commits to combine in `development`, then verify the combined source and use it for the shared development preview. Later feature-branch changes need another integration before they are in that preview. A merge does not rebuild an existing artifact.
+
+A single completed feature can remain on its scoped branch and open a PR directly to `main`; merging it into `development` first is optional. Check the PR against current `main` to ensure it contains only the intended release work. In particular, a branch based on `development` may carry other unfinished features.
 
 Run `npm ci`, then every check in [CI](../.github/workflows/ci.yml), including `npm run check`, data/UI validation, `npm run test:branch-workflow`, the full regression-test block, build, and built-asset smoke verification. Add focused tests and viewer checks for the behavior changed. Record the source revision, results, tested artifacts, and omissions. For authorized development deployment, use the pinned preview target in [AGENTS.md](../AGENTS.md).
 
 ## Promotion
 
-Open a tested `development` to `main` PR when authorized. Use a merge commit to preserve ancestry. Squash merges remain acceptable for isolated dependency updates into `development`; promotion uses a merge commit. GitHub's merge-commit option was verified enabled during discovery.
+For a combined batch, open a tested `development` to `main` PR when authorized and use a merge commit to preserve ancestry. For one completed feature, open a tested scoped-branch to `main` PR and ship when authorized; the feature does not need a preceding development merge. Verify the actual release diff and CI for either route. Squash merges remain acceptable for isolated dependency updates into `development`; batch promotion uses a merge commit. GitHub's merge-commit option was verified enabled during discovery.
 
-Publishing a PR does not authorize merging or deploying production. Review the exact source and checks before promotion. Merge main-only fixes and release metadata back into `development` before the next batch. Preserve reviewed behavior when resolving conflicts.
+Publishing a PR does not authorize merging or deploying production. Review the exact source and checks before promotion. Merge independently shipped features, main-only fixes and release metadata back into `development` before the next batch. Preserve reviewed behavior when resolving conflicts.
 
 Version tagging, release publication, source promotion, and deployment are separate actions. Keep release records tied to actual source and artifact identities.
 

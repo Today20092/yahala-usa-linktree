@@ -1,0 +1,37 @@
+---
+import { Icon } from 'astro-icon/components'
+import { buttonVariants } from './ui/button'
+import { getBaseUrl, siteConfig } from '../lib/site-config'
+import './partnership.css'
+
+interface Props {
+  id?: string
+  eyebrow?: string
+  title: string
+  body: string
+}
+
+const { id = 'contact', eyebrow, title, body } = Astro.props
+const titleId = `${id}-title`
+const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
+---
+
+<section
+  id={id}
+  class="ui-section-block partnership-section mx-auto mt-12 w-full px-4 text-left sm:px-6"
+  aria-labelledby={titleId}
+>
+  {eyebrow && <p class="ui-kicker-accent">{eyebrow}</p>}
+  <h2 id={titleId} class="ui-section-title mt-3">{title}</h2>
+  <p class="ui-body mt-4 max-w-prose">{body}</p>
+  <a
+    href={`${baseUrl}contact`}
+    class={buttonVariants({
+      className:
+        'mt-6 h-auto min-h-12 max-w-full px-6 py-3 text-base whitespace-normal',
+    })}
+  >
+    {siteConfig.about.partnerCtaLabel}
+    <Icon name="heroicons:arrow-right" class="size-5" aria-hidden="true" />
+  </a>
+</section>

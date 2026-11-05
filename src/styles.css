@@ -634,32 +634,6 @@
       font-size: 0.95rem;
     }
 
-    .desktop-intro-panel .qr-desktop-panel {
-      position: static;
-      z-index: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      width: 100%;
-      margin-top: 1rem;
-      padding: 0.75rem;
-      transform: none;
-      box-shadow:
-        0 10px 28px color-mix(in oklch, var(--color-shadow) 8%, transparent),
-        0 1px 0 color-mix(in srgb, white 42%, transparent) inset;
-    }
-
-    .desktop-intro-panel .qr-desktop-panel p {
-      margin: 0;
-      text-align: left;
-    }
-
-    .desktop-intro-panel .qr-desktop-panel img {
-      width: 5.5rem;
-      height: 5.5rem;
-    }
-
     .desktop-primary-grid,
     .desktop-explore-grid,
     .desktop-latest-grid {
@@ -720,16 +694,6 @@
 
     footer {
       max-width: none;
-    }
-  }
-
-  @media (min-width: 1180px) {
-    .qr-desktop-panel {
-      top: 50%;
-      right: max(1.5rem, calc((100vw - 42.5rem) / 2 - 16rem));
-      bottom: auto;
-      width: 13rem;
-      transform: translateY(-50%);
     }
   }
 
@@ -860,7 +824,17 @@
 }
 
 /* Respect user's motion preferences */
+[data-motion-paused] [data-scroll-reveal],
+[data-scroll-reveal]:focus-within {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  [data-scroll-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
   *,
   *::before,
   *::after {
@@ -873,4 +847,16 @@
   .animate-fade-in-up {
     animation: none !important;
   }
+}
+
+:root {
+  --destructive-foreground: var(--color-red-700);
+}
+
+.dark {
+  --destructive-foreground: var(--color-red-400);
+}
+
+@theme inline {
+  --color-destructive-foreground: var(--destructive-foreground);
 }

@@ -26,3 +26,12 @@ missing-transcripts-report.json
 # ai stuff
 .claude
 .codex-remote-attachments/
+
+# accessibility test caches and reports
+.cache/
+artifacts/a11y-report/
+artifacts/a11y-results/
+
+# Lighthouse CI reports
+.lighthouseci/
+artifacts/lighthouse/

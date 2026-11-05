@@ -37,6 +37,8 @@ These stages need not occur in sequence. Stable does not mean finished or fully 
 
 These configurations are published. GitHub's default branch is `main`; retained `master` also contains the migrated branch guards. Follow [the Git workflow and migration record](branch-workflow.md) for integration, promotion, and cutover verification.
 
+Release source may arrive through a tested `development` to `main` batch PR or a completed scoped-feature to `main` PR. Development integration is optional for an independent feature release; it is the place to combine selected concurrent work for a shared preview. Both routes require the intended release diff, passing checks, and authorization to merge/deploy production. Synchronize independently shipped changes back into `development` before the next batch.
+
 These workflows do not establish a version-tag publication pipeline. A production deployment and a versioned release are distinct records. The default branch, merge-commit availability, and production Actions deployment were verified. External Cloudflare Builds configuration remains unverified because the available OAuth credential lacks access and the dashboard requires sign-in.
 
 ## Preparing a release

@@ -26,7 +26,7 @@ const journeyMarkers = [
   ['reach section', 'data-reach-card'],
   ['QR interaction', 'data-qr-open'],
   ['QR fallback', 'href="#qr-dialog"'],
-  ['QR dialog', 'role="dialog"'],
+  ['QR dialog', '<dialog id="qr-dialog"'],
   ['QR destination', 'data-qr-destination'],
   ['map', 'aria-label="Map"'],
   ['state selection', 'Choose a state'],
@@ -37,12 +37,12 @@ const journeyMarkers = [
 const pageFlow = [
   ['identity and primary action', 'Watch latest'],
   ['official links', 'aria-label="Official social links"'],
-  ['QR access', 'data-qr-open'],
   ['latest story', 'Latest From Ya Hala'],
   ['credibility', 'data-reach-card'],
   ['portfolio proof', 'Moments from Ya Hala stories'],
   ['geographic discovery', 'aria-label="Map"'],
   ['minimal footer', '<footer'],
+  ['QR access', 'data-qr-open'],
 ]
 
 const assertJourney = (html) => {

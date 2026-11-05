@@ -1,0 +1,29 @@
+---
+import { BarList } from './ui/bar-list'
+import { buildStoryCoverage } from '../lib/story-coverage'
+import type { Story } from '../lib/story-browser'
+
+const { stories } = Astro.props as { stories: Story[] }
+const data = buildStoryCoverage(stories).slice(0, 5)
+---
+
+{data.length > 0 && (
+  <section
+    class="border-border mt-6 border-t px-1 pt-5"
+    aria-labelledby="story-coverage-title"
+  >
+    <div class="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+      <h3 id="story-coverage-title" class="ui-card-title">
+        Where the stories take us
+      </h3>
+      <span class="text-muted-foreground text-xs">
+        Top states in our catalog
+      </span>
+    </div>
+    <BarList data={data} label="Stories by state" />
+    <p class="text-muted-foreground mt-3 text-xs leading-relaxed">
+      Explore a state to meet the people behind the numbers. Counts reflect
+      catalog stories with an assigned state.
+    </p>
+  </section>
+)}

@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils'
 type SocialLinkButtonProps = {
   href: string
   label: string
+  description?: string
   id?: string
   ariaLabel?: string
   style?: CSSProperties
@@ -16,6 +17,7 @@ type SocialLinkButtonProps = {
 export default function SocialLinkButton({
   href,
   label,
+  description,
   id,
   ariaLabel,
   style,
@@ -24,7 +26,18 @@ export default function SocialLinkButton({
 }: SocialLinkButtonProps) {
   return (
     <Button
-      asChild
+      nativeButton={false}
+      role="link"
+      render={
+        <a
+          href={href}
+          id={id}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${ariaLabel ?? label}${description ? ` ${description}` : ''} (opens in a new tab)`}
+          style={style}
+        />
+      }
       variant="outline"
       size="lg"
       className={cn(
@@ -32,23 +45,30 @@ export default function SocialLinkButton({
         className,
       )}
     >
-      <a
-        href={href}
-        id={id}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={ariaLabel ?? label}
-        style={style}
-      >
-        <span className="flex w-full items-center">
-          <span className="grid size-9 shrink-0 place-items-center">
-            {children}
-          </span>
-          <span className="min-w-0 flex-1 pl-3 text-left leading-none font-medium whitespace-nowrap">
-            {label}
-          </span>
+      <span className="flex w-full items-center">
+        <span className="grid size-9 shrink-0 place-items-center">
+          {children}
         </span>
-      </a>
+        <span className="min-w-0 flex-1 pl-3 text-left leading-none font-medium whitespace-nowrap">
+          <span className="block">{label}{' '}</span>
+          {description && (
+            <span className="text-muted-foreground mt-1 block text-xs leading-snug font-normal whitespace-normal">
+              {description}
+            </span>
+          )}
+        </span>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          aria-hidden="true"
+        >
+          <path d="M7 17 17 7M7 7h10v10" />
+        </svg>
+      </span>
     </Button>
   )
 }

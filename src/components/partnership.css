@@ -1,0 +1,37 @@
+html .partnership-section {
+  max-width: 72rem;
+  scroll-margin-top: 6rem;
+}
+.partnership-layout {
+  display: grid;
+  min-width: 0;
+  max-width: 44rem;
+  gap: var(--space-xl);
+}
+.partnership-choice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+}
+.partnership-choice [data-slot='radio'] {
+  margin-top: 0.2rem;
+}
+.partnership-choice:has([data-checked]) {
+  border-color: var(--foreground);
+  background: var(--muted);
+}
+.partnership-choice:has(:focus-visible) {
+  outline: 2px solid var(--foreground);
+  outline-offset: 3px;
+}
+.partnership-hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

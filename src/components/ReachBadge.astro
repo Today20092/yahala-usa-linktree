@@ -56,9 +56,7 @@ const updatedDate = new Intl.DateTimeFormat('en-US', {
   timeZone: 'UTC',
 }).format(new Date(updatedAt))
 
-const largestPlatformTotal = Math.max(...items.map((item) => item.value), 0)
-
-const platformTotals = Object.values(
+const groupedPlatforms = Object.values(
   items.reduce<Record<string, { platform: string; total: number }>>(
     (totals, item) => {
       totals[item.platform] ??= { platform: item.platform, total: 0 }
@@ -67,7 +65,9 @@ const platformTotals = Object.values(
     },
     {},
   ),
-).map((item) => {
+).sort((a, b) => b.total - a.total || a.platform.localeCompare(b.platform))
+const largestPlatformTotal = groupedPlatforms[0]?.total ?? 0
+const platformTotals = groupedPlatforms.map((item) => {
   const colors = platformColors[item.platform] ?? {
     accent: 'var(--primary)',
     darkAccent: 'var(--primary)',
@@ -103,50 +103,52 @@ const platformTotals = Object.values(
           locale="en-US"
           inView
           inViewOnce
-        /><span class="text-primary">+</span>
+        />
+        <span class="text-primary">+</span>
       </p>
       <p class="ui-body reach-summary__description">
         Combined video views across YouTube, TikTok, Instagram, and Facebook.
       </p>
+      <p class="ui-meta mt-2">
+        Recorded views, not unique viewers. Snapshot as of {updatedDate}.
+      </p>
     </header>
 
-    <dl class="reach-summary__stats">
-      {
-        platformTotals.map((item) => (
-          <div
-            style={`--platform-accent: ${item.accent}; --platform-accent-dark: ${item.darkAccent}; --platform-share: ${item.share}%;`}
-            class="reach-summary__stat [--platform-active-accent:var(--platform-accent)] dark:[--platform-active-accent:var(--platform-accent-dark)]"
-          >
-            <div class="reach-summary__stat-row">
-              <dt class="ui-meta flex min-w-0 items-center gap-2 truncate">
-                <Icon
-                  name={item.icon}
-                  class="size-3.5 shrink-0 text-[var(--platform-active-accent)]"
-                  aria-hidden="true"
-                />
-                <span class="truncate">{item.platform}</span>
-              </dt>
-              <dd class="text-foreground text-sm font-semibold tabular-nums sm:text-base">
-                <CountingNumber
-                  client:visible
-                  number={item.total}
-                  locale="en-US"
-                  inView
-                  inViewOnce
-                  delay={100}
-                />
-                <span class="text-muted-foreground ml-1 text-xs font-normal">
-                  views
-                </span>
-              </dd>
-            </div>
-            <div class="reach-summary__bar" aria-hidden="true">
-              <span />
-            </div>
+    <div class="reach-summary__stats">
+      {platformTotals.map((item) => (
+        <div
+          style={`--platform-accent: ${item.accent}; --platform-accent-dark: ${item.darkAccent}; --platform-share: ${item.share}%;`}
+          class="reach-summary__stat [--platform-active-accent:var(--platform-accent)] dark:[--platform-active-accent:var(--platform-accent-dark)]"
+        >
+          <dl class="reach-summary__stat-row m-0">
+            <dt class="ui-meta flex min-w-0 items-center gap-2 truncate">
+              <Icon
+                name={item.icon}
+                class="size-3.5 shrink-0 text-[var(--platform-active-accent)]"
+                aria-hidden="true"
+              />
+              <span class="truncate">{item.platform}</span>
+            </dt>
+            <dd class="text-foreground text-sm font-semibold tabular-nums sm:text-base">
+              <CountingNumber
+                client:visible
+                number={item.total}
+                locale="en-US"
+                inView
+                inViewOnce
+                delay={100}
+              />
+              <span class="text-muted-foreground ml-1 text-xs font-normal">
+                views
+              </span>
+            </dd>
+          </dl>
+          <div class="reach-summary__bar" aria-hidden="true">
+            <span />
           </div>
-        ))
-      }
-    </dl>
+        </div>
+      ))}
+    </div>
   </div>
 </aside>
 

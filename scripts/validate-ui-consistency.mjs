@@ -87,6 +87,16 @@ for (const file of files) {
     )
   }
 
+  if (
+    !isUiFile &&
+    /<h[1-3]\b(?![^>]*\b(?:ui-(?:page|section|card)-title|sr-only)\b)[^>]*>/.test(text)
+  ) {
+    report(
+      relative,
+      'h1-h3 without a shared heading class. Use ui-page-title, ui-section-title or ui-card-title.',
+    )
+  }
+
   if (path.extname(file) === '.css') {
     for (const match of text.matchAll(/^\s*(--[\w-]+)\s*:/gm)) {
       if (sharedTokens.has(match[1])) {

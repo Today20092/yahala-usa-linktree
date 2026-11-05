@@ -1,0 +1,58 @@
+---
+import { SEO } from 'astro-seo'
+import PartnershipForm from '../components/PartnershipForm'
+import '../components/partnership.css'
+import SiteFooter from '../components/SiteFooter.astro'
+import BrandedPageDocument from '../layouts/BrandedPageDocument.astro'
+import { getBaseUrl, siteConfig, socialSeo } from '../lib/site-config'
+
+const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
+const instagramUrl = siteConfig.socialLinks.find(
+  (link) => link.id === 'instagram',
+)?.url
+const canonicalUrl = new URL(`${baseUrl}contact`, Astro.site).toString()
+---
+
+<BrandedPageDocument bodyClass="min-h-screen text-lg text-foreground">
+  <Fragment slot="head">
+    <SEO
+      title="Contact & partnerships | Ya Hala"
+      description="Sponsor a Ya Hala video, introduce your local business, or share an Arab-American story."
+      canonical={canonicalUrl}
+      {...socialSeo('contact', {
+        title: 'Contact & partnerships | Ya Hala',
+        description:
+          'Sponsor a Ya Hala video, introduce your local business, or share an Arab-American story.',
+        url: canonicalUrl,
+        alt: 'Ya Hala share card for contact and partnerships',
+        baseUrl,
+        origin: Astro.site,
+      })}
+    />
+  </Fragment>
+  <main
+    id="main-content"
+    tabindex="-1"
+    class="partnership-section mx-auto w-full px-4 py-10 sm:px-6 sm:py-14"
+  >
+    <a
+      href={baseUrl}
+      class="ui-body inline-flex min-h-11 items-center underline underline-offset-4"
+    >
+      Back to Ya Hala
+    </a>
+    <h1 class="ui-page-title mt-5 max-w-3xl">
+      Let’s make the next story happen.
+    </h1>
+    <p class="ui-body mt-3 mb-6 max-w-prose">
+      Sponsor a video, introduce your business, or share an Arab-American story.
+    </p>
+    <PartnershipForm
+      email={siteConfig.partnership.email}
+      turnstileSiteKey={siteConfig.partnership.turnstileSiteKey}
+      instagramUrl={instagramUrl}
+      client:load
+    />
+  </main>
+  <SiteFooter />
+</BrandedPageDocument>

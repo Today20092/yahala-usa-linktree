@@ -9,6 +9,10 @@ Tickets 0001–0005 are sequential CSS and styling architecture work on
 
 ## Open
 
+- [0014 — Evaluate useful channel growth and collaboration history](0014-evaluate-channel-growth-history.md)
+
+- [0013 — Web UI accessibility review and implementation specification](0013-web-ui-accessibility.md)
+
 - [0010 — Adopt content collections when structured content outgrows site YAML](0010-adopt-content-collections-on-trigger.md)
 - [0011 — Use Actions when the site introduces a form](0011-use-actions-for-site-forms.md)
 - [0012 — Evaluate internal prefetch when navigation needs it](0012-evaluate-internal-prefetch.md)

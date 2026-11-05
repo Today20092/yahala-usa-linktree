@@ -5,7 +5,7 @@ import path from 'node:path'
 import { spawn } from 'node:child_process'
 
 const script = path.resolve('scripts/smoke-preview.mjs')
-const html = `<!doctype html><link rel="stylesheet" href="./_astro/site.css"><script type="module" src="/_astro/site.js"></script><a>Watch latest</a><nav aria-label="Official social links"></nav><a href="#qr-dialog" data-qr-open>QR</a><div id="qr-dialog" role="dialog"><a href="/" data-qr-destination>Destination</a></div><a>Latest From Ya Hala</a><aside data-reach-card></aside><section data-portfolio-scroll="auto"><div class="bento-scroll-track"></div>Moments from Ya Hala stories</section><div aria-label="Map"></div><p>Choose a state to watch stories</p><footer></footer>`
+const html = `<!doctype html><link rel="stylesheet" href="./_astro/site.css"><script type="module" src="/_astro/site.js"></script><a>Watch latest</a><nav aria-label="Official social links"></nav><a>Latest From Ya Hala</a><aside data-reach-card></aside><section data-portfolio-scroll="auto"><div class="bento-scroll-track"></div>Moments from Ya Hala stories</section><div aria-label="Map"></div><p>Choose a state to watch stories</p><footer><a href="#qr-dialog" data-qr-open>QR</a><dialog id="qr-dialog"><a href="/" data-qr-destination>Destination</a></dialog></footer>`
 
 const run = (target) =>
   new Promise((resolve) => {
@@ -25,6 +25,18 @@ await writeFile(path.join(directory, '_astro/site.js'), '')
 try {
   const localPass = await run(directory)
   if (localPass.status !== 0) throw new Error(localPass.output)
+
+  await writeFile(
+    path.join(directory, 'index.html'),
+    html.replace('<dialog id="qr-dialog">', '<div id="qr-dialog">'),
+  )
+  const dialogFailure = await run(directory)
+  if (
+    dialogFailure.status === 0 ||
+    !dialogFailure.output.includes('Missing smoke journey: QR dialog')
+  ) {
+    throw new Error('Missing native QR dialog must fail the smoke check')
+  }
 
   await writeFile(
     path.join(directory, 'index.html'),

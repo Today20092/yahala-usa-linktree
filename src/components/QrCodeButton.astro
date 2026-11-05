@@ -22,66 +22,40 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
 })
 ---
 
-<div class="mx-auto mt-5 flex justify-center lg:hidden">
+<div class="mx-auto mb-5 flex justify-center">
   <a
     href="#qr-dialog"
     data-qr-open
-    class="text-foreground bg-accent elevation-2 hover:elevation-4 focus-visible:ring-ring/30 inline-flex items-center gap-2 rounded-full px-4 py-3 text-base font-semibold transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:outline-none"
+    class="text-muted-foreground hover:text-foreground focus-visible:ring-ring inline-flex min-h-11 items-center gap-2 rounded-xl px-3 py-2 text-sm underline underline-offset-4 focus-visible:ring-2 focus-visible:outline-none"
     aria-haspopup="dialog"
     aria-controls="qr-dialog"
   >
     <Icon name="heroicons:qr-code" class="size-5" aria-hidden="true" />
-    <span>QR code</span>
+    <span>Share with a QR code</span>
   </a>
 </div>
-
-<a
-  href="#qr-dialog"
-  data-qr-open
-  class="qr-desktop-panel border-border/30 bg-accent/95 elevation-3 focus-visible:ring-ring/30 fixed right-7 bottom-7 z-40 hidden rounded-xl border p-3 text-center backdrop-blur-sm focus-visible:ring-2 focus-visible:outline-none lg:block"
-  aria-label="Open view on mobile QR code"
-  aria-haspopup="dialog"
-  aria-controls="qr-dialog"
->
-  <p class="text-foreground mb-2 text-sm font-semibold">View on mobile</p>
-  <div
-    class="elevation-3 to-primary/10 from-background via-background rounded-xl bg-gradient-to-br p-2"
-  >
-    <img
-      src={qrDataUrl}
-      alt=""
-      width="168"
-      height="168"
-      class="bg-background size-42 rounded-xl p-1"
-      aria-hidden="true"
-    />
-  </div>
-</a>
 
 <dialog
   id="qr-dialog"
   class="bg-foreground/70 fixed inset-0 z-50 m-0 hidden h-dvh max-h-none w-dvw max-w-none items-center justify-center overflow-y-auto border-0 px-4 py-6 backdrop-blur-sm target:flex sm:py-8"
-  role="dialog"
   aria-modal="true"
   aria-labelledby="qr-title"
 >
-  <div
-    class="bg-background text-foreground elevation-4 max-h-[calc(100dvh-3rem)] w-full max-w-[22rem] overflow-y-auto rounded-xl p-4 text-center sm:p-5"
-  >
+  <div class="bg-background text-foreground elevation-4 max-h-[calc(100dvh-3rem)] w-full max-w-[22rem] overflow-y-auto rounded-xl p-4 text-center sm:p-5">
     <div class="mb-4 flex items-center justify-between gap-4 text-left">
-      <h2 id="qr-title" class="text-lg font-bold">Share this page</h2>
-      <a
-        href="#"
+      <h2 id="qr-title" class="ui-card-title">
+        Share this page
+      </h2>
+      <button
+        type="button"
         id="qr-close"
         class="hover:bg-accent focus-visible:ring-ring/30 grid size-11 place-items-center rounded-full transition-colors focus-visible:ring-2 focus-visible:outline-none"
         aria-label="Close QR code"
       >
         <Icon name="heroicons:x-mark" class="size-6" aria-hidden="true" />
-      </a>
+      </button>
     </div>
-    <div
-      class="to-primary/10 from-background via-background elevation-3 mx-auto grid aspect-square w-full max-w-64 place-items-center rounded-xl bg-gradient-to-br p-3"
-    >
+    <div class="to-primary/10 from-background via-background elevation-3 mx-auto grid aspect-square w-full max-w-64 place-items-center rounded-xl bg-gradient-to-br p-3">
       <img
         src={qrDataUrl}
         alt=""
@@ -141,6 +115,12 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
   })
 
   openButtons.forEach((button) => {
+    button.setAttribute('role', 'button')
+    button.addEventListener('keydown', (event: KeyboardEvent) => {
+      if (event.key !== ' ') return
+      event.preventDefault()
+      openDialog(button)
+    })
     button.addEventListener('click', (event) => {
       event.preventDefault()
       openDialog(button)

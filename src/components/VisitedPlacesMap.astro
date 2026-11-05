@@ -2,6 +2,9 @@
 import VisitedPlacesLeafletMap from './VisitedPlacesLeafletMap'
 import VisitedPlacesExplorer from './VisitedPlacesExplorer'
 import type { VisitedPlaces } from '../lib/site-config'
+import { buildStories } from '../lib/story-browser'
+import { buildStoryMapPlaces } from '../lib/story-map'
+import StoryCoverage from './StoryCoverage.astro'
 
 type Props = {
   visitedPlaces: VisitedPlaces
@@ -9,37 +12,37 @@ type Props = {
 
 const { visitedPlaces } = Astro.props
 const stateGroups = visitedPlaces.stateGroups ?? []
-const mapPlaces = visitedPlaces.mapPlaces ?? []
+const stories = buildStories(visitedPlaces)
+const mapPlaces = buildStoryMapPlaces(visitedPlaces.mapPlaces ?? [], stories)
 ---
 
-{
-  visitedPlaces.places?.length > 0 && (
-    <section
-      class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-400 sm:px-6"
-      aria-labelledby="visited-places-title"
-    >
-      <div class="ui-section-header">
-        <h2 id="visited-places-title" class="ui-section-title">
-          {visitedPlaces.title}
-        </h2>
-        {visitedPlaces.description && (
-          <p class="ui-body mx-auto mt-3 max-w-md text-center text-sm">
-            {visitedPlaces.description}
-          </p>
-        )}
-      </div>
+{visitedPlaces.places?.length > 0 && (
+  <section
+    class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-400 sm:px-6"
+    aria-labelledby="visited-places-title"
+  >
+    <div class="ui-section-header">
+      <h2 id="visited-places-title" class="ui-section-title">
+        {visitedPlaces.title}
+      </h2>
+      {visitedPlaces.description && (
+        <p class="ui-body mx-auto mt-3 max-w-md text-center text-sm">
+          {visitedPlaces.description}
+        </p>
+      )}
+    </div>
 
-      <div class="visited-places-frame overflow-hidden p-2.5 sm:p-3">
-        <VisitedPlacesLeafletMap
-          client:visible={{ rootMargin: '200px' }}
-          places={mapPlaces}
-        />
+    <div class="visited-places-frame overflow-hidden p-2.5 sm:p-3">
+      <VisitedPlacesLeafletMap
+        client:visible={{ rootMargin: '200px' }}
+        places={mapPlaces}
+      />
 
-        <VisitedPlacesExplorer
-          client:visible={{ rootMargin: '200px' }}
-          stateGroups={stateGroups}
-        />
-      </div>
-    </section>
-  )
-}
+      <VisitedPlacesExplorer
+        client:visible={{ rootMargin: '200px' }}
+        stateGroups={stateGroups}
+      />
+      <StoryCoverage stories={stories} />
+    </div>
+  </section>
+)}

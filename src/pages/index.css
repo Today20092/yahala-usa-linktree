@@ -17,10 +17,6 @@ html .reach-summary__heading-row {
   text-align: start;
 }
 
-html .reach-summary__heading-row .ui-section-title {
-  font-size: clamp(var(--text-xl), 8vw, var(--text-2xl));
-}
-
 html .reach-summary__stat-row {
   display: flex;
   align-items: baseline;
@@ -152,7 +148,52 @@ html [data-reach-chart].is-visible .reach-summary__bar > span {
 
 /* Story Atlas · Ecosystem Index · N7 slab · Ft8 marquee */
 html body.linktree-page {
-  padding-block-start: clamp(var(--space-lg), 5vw, var(--space-2xl));
+  padding-block-start: 0;
+}
+
+html .linktree-shell {
+  padding-block-start: var(--space-lg);
+}
+html :is(#watch, #follow, #explore, #contact) {
+  scroll-margin-top: var(--space-md);
+}
+html .follow-intro {
+  margin-block-start: var(--space-lg);
+  text-align: start;
+}
+html .hero-explore-link {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--space-md);
+  color: var(--color-ink);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+html .hero-explore-link:hover {
+  color: var(--color-accent);
+}
+html .hero-explore-link:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+html .follow-intro .ui-body {
+  margin-block-start: var(--space-2xs);
+  font-size: var(--text-sm);
+}
+html .brand-social-link {
+  min-height: 4.25rem;
+  height: auto;
+  padding-block: var(--space-sm);
+}
+
+@media (max-width: 39.99rem) {
+  html .linktree-hero {
+    min-height: clamp(13rem, 57vw, 22rem);
+  }
 }
 
 html .linktree-shell {
@@ -224,7 +265,7 @@ html .brand-social-link {
     box-shadow var(--dur-short) var(--ease-out);
 }
 
-html :is(.desktop-primary-grid, .desktop-latest-grid) {
+html :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid) {
   display: grid;
   max-width: none;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -306,32 +347,22 @@ html .ui-section-header {
   text-align: start;
 }
 
-html .ui-section-title {
-  font-size: var(--text-2xl);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-}
-
 html .about-copy {
   max-width: 62ch;
-}
-
-html .about-copy .ui-section-title,
-html .featured-episodes-title {
-  font-size: var(--text-xl);
 }
 
 html footer {
   overflow: hidden;
   max-width: none;
-  border-top: 0;
 }
 
 html footer::before {
   display: none;
 }
 
-html :is(nav[aria-label='Site navigation'], nav[aria-label='Page information']) a {
+html
+  :is(nav[aria-label='Site navigation'], nav[aria-label='Page information'])
+  a {
   display: inline-flex;
   min-height: 2.75rem;
   align-items: center;
@@ -348,15 +379,15 @@ html :is(nav[aria-label='Site navigation'], nav[aria-label='Page information']) 
 
 @media (min-width: 60rem) {
   html .desktop-hero-layout {
-    order: -3;
+    order: 0;
   }
 
   html .desktop-primary-grid {
-    order: -2;
+    order: 0;
   }
 
   html .brand-marquee {
-    order: -1;
+    order: 0;
   }
 
   html .desktop-hero-layout .linktree-hero {
@@ -372,7 +403,7 @@ html :is(nav[aria-label='Site navigation'], nav[aria-label='Page information']) 
 }
 
 @media (max-width: 59.99rem) {
-  html :is(.desktop-primary-grid, .desktop-latest-grid),
+  html :is(.desktop-primary-grid, .desktop-explore-grid, .desktop-latest-grid),
   html .desktop-hero-layout {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -384,7 +415,7 @@ html :is(nav[aria-label='Site navigation'], nav[aria-label='Page information']) 
 
   html .linktree-hero {
     grid-row: 1;
-    min-height: clamp(20rem, 80vw, 30rem);
+    min-height: clamp(13rem, 57vw, 30rem);
   }
 
   html .desktop-intro-panel {
