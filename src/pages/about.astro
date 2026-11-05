@@ -6,7 +6,6 @@ import { Icon } from 'astro-icon/components'
 import { SEO } from 'astro-seo'
 
 import haithemHeadshot from '../assets/haithem-alqahaf-headshot.jpg'
-import EditorialHeader from '../components/EditorialHeader.astro'
 import BrandedPageDocument from '../layouts/BrandedPageDocument.astro'
 import { getBaseUrl, resolveSiteAsset, siteConfig } from '../lib/site-config'
 
@@ -95,7 +94,6 @@ const structuredData = {
       set:html={JSON.stringify(structuredData)}
     />
   </Fragment>
-    <EditorialHeader />
 
     <main id="main-content" tabindex="-1">
       <section

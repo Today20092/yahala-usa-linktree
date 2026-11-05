@@ -52,6 +52,7 @@ jobs:
         run: |
           npm run test:ui-validation
           npm run test:base-ui
+          npm run test:site-navigation
           npm run test:accessibility
           npm run test:locations
           npm run test:youtube-id

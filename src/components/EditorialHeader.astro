@@ -1,39 +1,191 @@
 ---
-import { getBaseUrl } from '../lib/site-config'
+import LandingNavigation from './LandingNavigation'
+import { getBaseUrl, resolveSiteAsset } from '../lib/site-config'
 
 const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
 ---
 
-<header class="mx-auto w-full max-w-7xl px-4 pt-5 sm:px-6 lg:px-8">
-  <nav
-    class="flex min-h-14 flex-wrap items-center justify-between gap-4"
-    aria-label="Primary navigation"
+<header class="site-header" data-site-header data-hidden="false">
+  <a
+    class="site-header__brand"
+    href={baseUrl}
+    aria-label="Ya Hala with Haithum home"
+    aria-current={
+      currentPath === (baseUrl.replace(/\/$/, '') || '/') ? 'page' : undefined
+    }
   >
-    <a
-      href={baseUrl}
-      class="text-foreground focus-visible:ring-ring rounded-sm text-base font-bold tracking-tight focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:outline-none"
-    >
-      Ya Hala
-    </a>
-    <div class="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm font-semibold">
-      <a
-        href={baseUrl}
-        class="text-muted-foreground hover:text-foreground focus-visible:ring-ring rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:outline-none"
-      >
-        Home
-      </a>
-      <a
-        href={`${baseUrl}stories`}
-        class="text-muted-foreground hover:text-foreground focus-visible:ring-ring rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:outline-none"
-      >
-        Stories
-      </a>
-      <a
-        href={`${baseUrl}about`}
-        class="text-muted-foreground hover:text-foreground focus-visible:ring-ring rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:outline-none"
-      >
-        About
-      </a>
-    </div>
-  </nav>
+    <img
+      src={resolveSiteAsset(baseUrl, 'yahala-channel-logo-88.png')}
+      width="40"
+      height="40"
+      alt=""
+    />
+    <span>
+      Ya Hala{' '}
+      <span lang="ar" dir="rtl">
+        ياهلا
+      </span>
+    </span>
+  </a>
+  <LandingNavigation baseUrl={baseUrl} currentPath={currentPath} client:load />
 </header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-site-header]')
+  if (header) {
+    const mobile = window.matchMedia('(max-width: 39.99rem)')
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let previousY = Math.max(0, window.scrollY)
+    const show = () => {
+      header.dataset.hidden = 'false'
+    }
+    const measure = () => {
+      document.documentElement.style.setProperty(
+        '--site-header-height',
+        `${header.offsetHeight}px`,
+      )
+      show()
+      previousY = Math.max(0, window.scrollY)
+    }
+    measure()
+    new ResizeObserver(measure).observe(header)
+    mobile.addEventListener('change', measure)
+    reducedMotion.addEventListener('change', measure)
+    header.addEventListener('focusin', show)
+    window.addEventListener(
+      'scroll',
+      () => {
+        const y = Math.max(0, window.scrollY)
+        if (
+          !mobile.matches ||
+          reducedMotion.matches ||
+          header.contains(document.activeElement) ||
+          y <= header.offsetHeight
+        ) {
+          show()
+          previousY = y
+          return
+        }
+        // Ignore small direction changes from touch scrolling and browser chrome.
+        if (Math.abs(y - previousY) < 10) return
+        header.dataset.hidden = String(y > previousY)
+        previousY = y
+      },
+      { passive: true },
+    )
+  }
+</script>
+
+<style is:global>
+  html {
+    scroll-padding-top: calc(var(--site-header-height, 7rem) + var(--space-md));
+  }
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm) var(--space-lg);
+    width: 100%;
+    max-width: 92rem;
+    margin-inline: auto;
+    padding: var(--space-xs) clamp(var(--space-md), 4vw, var(--space-2xl));
+    border-bottom: var(--rule-hair) solid var(--color-rule);
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+  .site-header__brand {
+    display: inline-flex;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: var(--space-xs);
+    color: inherit;
+    font-size: var(--text-md);
+    font-weight: 700;
+    white-space: normal;
+  }
+  .site-header__brand img {
+    flex-shrink: 0;
+    border-radius: 50%;
+  }
+  .site-header__brand span[lang] {
+    margin-inline-start: var(--space-xs);
+  }
+  .site-header .landing-navigation {
+    min-width: 0;
+  }
+  .site-header .landing-navigation__links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2xs);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .site-header .landing-navigation a {
+    min-height: 2.75rem;
+    height: auto;
+    padding: var(--space-xs) var(--space-sm);
+    color: inherit;
+    font-size: var(--text-sm);
+  }
+  .site-header .landing-navigation a[aria-current='page'] {
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.4em;
+  }
+  .site-header a:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+  }
+  @media (max-width: 39.99rem) {
+    .site-header {
+      flex-direction: column;
+      gap: 0;
+      padding-block: var(--space-2xs);
+      transition: transform 180ms ease-out;
+    }
+    .site-header[data-hidden='true']:not(:focus-within) {
+      transform: translateY(-100%);
+    }
+    .site-header:focus-within {
+      transition: none;
+    }
+    .site-header__brand {
+      font-size: var(--text-base);
+    }
+    .site-header__brand img {
+      width: 32px;
+      height: 32px;
+    }
+    .site-header .landing-navigation {
+      width: 100%;
+    }
+    .site-header .landing-navigation__links {
+      justify-content: space-between;
+      gap: 0;
+    }
+    .site-header .landing-navigation a {
+      padding-inline: var(--space-2xs);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-header {
+      transition: none;
+      transform: none;
+    }
+  }
+  @media (forced-colors: active) {
+    .site-header {
+      border-bottom: 1px solid CanvasText;
+    }
+  }
+</style>

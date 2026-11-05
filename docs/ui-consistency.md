@@ -12,6 +12,8 @@ This site uses a single visual system for repeated UI.
 
 ## Shared Primitives
 
+- `BrandedPageDocument` renders `EditorialHeader` once on every public route. Keep primary navigation labels and order in `LandingNavigation`; section links return to Home from other routes. The mobile header hides on deliberate downward scrolling and returns on upward scrolling or keyboard focus. Desktop and reduced-motion navigation stay visible.
+
 - `Button` for action buttons.
 - `Badge` for small status labels.
 - `IconBadge` for repeated icon bubbles, play markers, and icon chips.

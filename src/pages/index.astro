@@ -7,7 +7,6 @@ import type { CSSProperties } from 'react'
 import './index.css'
 
 import FeaturedEpisodes from '../components/FeaturedEpisodes.astro'
-import LandingNavigation from '../components/LandingNavigation'
 import BrandMarquee from '../components/BrandMarquee.astro'
 import LatestChannelVideo from '../components/LatestChannelVideo.astro'
 import QrCodeButton from '../components/QrCodeButton.astro'
@@ -195,17 +194,6 @@ const structuredData = {
       set:html={JSON.stringify(structuredData)}
     />
   </Fragment>
-  <header class="landing-header">
-    <a
-      class="landing-header__brand"
-      href={baseUrl}
-      aria-label="Ya Hala with Haithum home"
-    >
-      <img src={channelLogoImageUrl} width="44" height="44" alt="" />
-      <span>Ya Hala <span lang="ar" dir="rtl">ياهلا</span></span>
-    </a>
-    <LandingNavigation baseUrl={baseUrl} client:load />
-  </header>
   <main
     id="main-content"
     tabindex="-1"

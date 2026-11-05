@@ -1,7 +1,6 @@
 import { readFile } from 'node:fs/promises'
 
 const pages = ['index', 'about', 'stories']
-const editorialPages = ['about', 'stories']
 
 for (const page of pages) {
   const source = await readFile(`src/pages/${page}.astro`, 'utf8')
@@ -29,37 +28,19 @@ for (const page of pages) {
   }
 }
 
-for (const page of editorialPages) {
-  const source = await readFile(`src/pages/${page}.astro`, 'utf8')
-
-  if (
-    !source.includes(
-      "import EditorialHeader from '../components/EditorialHeader.astro'",
-    ) ||
-    !source.includes('<EditorialHeader />')
-  ) {
-    throw new Error(`${page}.astro must use the shared editorial header`)
-  }
-}
-
-const home = await readFile('src/pages/index.astro', 'utf8')
 const storiesPage = await readFile('src/pages/stories.astro', 'utf8')
-const editorialHeader = await readFile(
-  'src/components/EditorialHeader.astro',
+const navigation = await readFile(
+  'src/components/LandingNavigation.tsx',
   'utf8',
 )
-
-if (home.includes('EditorialHeader')) {
-  throw new Error('index.astro must not render the editorial header')
-}
 
 if (storiesPage.includes('bodyClass="linktree-page')) {
   throw new Error('stories.astro must not inherit Linktree page spacing')
 }
 
-for (const destination of ['Home', 'Stories', 'About']) {
-  if (!new RegExp(`>\\s*${destination}\\s*<`).test(editorialHeader)) {
-    throw new Error(`EditorialHeader must link to ${destination}`)
+for (const destination of ['Watch', 'Stories', 'Follow', 'About', 'Contact']) {
+  if (!navigation.includes(`label: '${destination}'`)) {
+    throw new Error(`Shared navigation must link to ${destination}`)
   }
 }
 
@@ -72,6 +53,7 @@ for (const invariant of [
   'name="viewport"',
   '<slot name="head" />',
   '<slot />',
+  '<EditorialHeader />',
 ]) {
   if (!layout.includes(invariant)) {
     throw new Error(`BrandedPageDocument is missing ${invariant}`)
