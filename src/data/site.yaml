@@ -42,10 +42,10 @@ about:
 
 partnership:
   # Set the inbox that should receive partnership inquiries.
-  email: ''
+  email: 'yahalaflorida@gmail.com'
   # Public Cloudflare Turnstile site key (not the secret). Leave empty to turn
   # off direct sending: the form then only prepares an email draft.
-  turnstileSiteKey: ''
+  turnstileSiteKey: '0x4AAAAAAF1b4faVt03avKGw'
 
 analytics:
   # Cloudflare Web Analytics (cookieless) site token. Leave empty to load no
