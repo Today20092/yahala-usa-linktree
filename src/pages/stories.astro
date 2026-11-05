@@ -1,9 +1,12 @@
 ---
 import { SEO } from 'astro-seo'
 import StoryBrowser from '../components/StoryBrowser'
+import SiteFooter from '../components/SiteFooter.astro'
+import MotionToggle from '../components/MotionToggle.astro'
+import TextReveal from '../components/TextReveal.astro'
 import BrandedPageDocument from '../layouts/BrandedPageDocument.astro'
 import { resolveVisitedPlaces } from '../lib/visited-places'
-import { siteConfig } from '../lib/site-config'
+import { siteConfig, socialSeo } from '../lib/site-config'
 import { buildStories } from '../lib/story-browser'
 
 const visitedPlaces = resolveVisitedPlaces(siteConfig.visitedPlaces)
@@ -11,43 +14,61 @@ const stories = buildStories(visitedPlaces)
 const canonicalUrl = new URL('/stories', Astro.site).toString()
 ---
 
-<BrandedPageDocument
-  bodyClass="bg-background text-foreground min-h-screen text-lg subpixel-antialiased"
->
+<BrandedPageDocument bodyClass="bg-background text-foreground min-h-screen text-lg subpixel-antialiased">
   <Fragment slot="head">
     <SEO
       title={`Story Browser | ${siteConfig.site.siteName}`}
       description="Browse Ya Hala stories by state and city."
       canonical={canonicalUrl}
+      {...socialSeo('stories', {
+        title: `Story Browser | ${siteConfig.site.siteName}`,
+        description: 'Browse Ya Hala stories by state and city.',
+        url: canonicalUrl,
+        alt: 'Ya Hala share card for the Story Browser',
+        baseUrl: import.meta.env.BASE_URL,
+        origin: Astro.site,
+      })}
     />
   </Fragment>
-    <main id="main-content" tabindex="-1" class="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:py-12">
-      <header class="max-w-3xl">
-        <p class="text-primary text-sm font-bold tracking-widest uppercase">
-          Ya Hala stories
+  <main
+    id="main-content"
+    tabindex="-1"
+    class="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:py-12"
+  >
+    <header class="max-w-3xl">
+      <p class="ui-kicker-accent">
+        Ya Hala stories
+      </p>
+      <h1 class="ui-page-title mt-2">
+        <TextReveal text="Story Browser" preset="slide" />
+      </h1>
+      <p class="text-muted-foreground mt-4 text-base leading-relaxed sm:text-lg">
+        Browse community stories across the United States, then filter by state
+        and city. Your selected location stays in the URL so it is easy to
+        share.
+      </p>
+    </header>
+    <div class="mt-4 flex justify-end">
+      <MotionToggle controls="main-content" />
+    </div>
+    <section class="mt-8" aria-label="Story filters and results">
+      <StoryBrowser
+        client:only="react"
+        stories={stories}
+        places={visitedPlaces.mapPlaces ?? []}
+      >
+        <p slot="fallback" class="text-muted-foreground">
+          Story filters are loading and require JavaScript.
+          <a
+            class="text-primary underline"
+            href={siteConfig.youtubeChannels[0].videosUrl}
+          >
+            Browse all Ya Hala stories on YouTube
+          </a>
+          .
         </p>
-        <h1
-          class="text-foreground mt-2 text-3xl font-bold tracking-tight sm:text-5xl"
-        >
-          Story Browser
-        </h1>
-        <p
-          class="text-muted-foreground mt-4 text-base leading-relaxed sm:text-lg"
-        >
-          Browse community stories across the United States, then filter by
-          state and city. Your selected location stays in the URL so it is easy
-          to share.
-        </p>
-      </header>
-      <section class="mt-8" aria-label="Story filters and results">
-        <StoryBrowser client:only="react" stories={stories} places={visitedPlaces.mapPlaces ?? []}>
-          <p slot="fallback" class="text-muted-foreground">
-            Story filters are loading and require JavaScript.
-            <a class="text-primary underline" href={siteConfig.youtubeChannels[0].videosUrl}>
-              Browse all Ya Hala stories on YouTube
-            </a>.
-          </p>
-        </StoryBrowser>
-      </section>
-    </main>
+      </StoryBrowser>
+    </section>
+  </main>
+  <SiteFooter />
 </BrandedPageDocument>

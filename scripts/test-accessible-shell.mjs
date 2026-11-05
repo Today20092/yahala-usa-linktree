@@ -52,11 +52,14 @@ assert.equal(dialog.open, true)
 const layout = await readFile('src/layouts/BrandedPageDocument.astro', 'utf8')
 assert.ok(layout.includes('href="#main-content"'))
 for (const page of ['about', 'stories']) {
-  assert.match(await readFile(`src/pages/${page}.astro`, 'utf8'), /<main id="main-content" tabindex="-1"/)
+  assert.match(await readFile(`src/pages/${page}.astro`, 'utf8'), /<main\s+id="main-content"\s+tabindex="-1"/)
 }
 const stories = await readFile('src/pages/stories.astro', 'utf8')
 assert.ok(stories.includes('slot="fallback"') && stories.includes('siteConfig.youtubeChannels[0].videosUrl'))
 const about = await readFile('src/pages/about.astro', 'utf8')
-assert.ok(about.includes('class="text-primary-foreground text-sm font-bold"'))
-assert.ok(!about.includes('text-primary-foreground/80'), 'Small CTA copy must retain full foreground contrast')
+const contactCta = await readFile('src/components/ContactCta.astro', 'utf8')
+assert.ok(about.includes('<ContactCta'), 'About must use the shared contact CTA')
+for (const source of [about, contactCta]) {
+  assert.ok(!source.includes('text-primary-foreground/80'), 'Small CTA copy must retain full foreground contrast')
+}
 console.log('QR keyboard activation, modal focus return, skip targets and story fallback passed.')

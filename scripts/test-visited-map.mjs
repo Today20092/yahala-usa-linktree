@@ -55,7 +55,7 @@ for (const expected of [
 
 for (const expected of [
   'href={storyBrowserHref(selectedState)}',
-  'setSelectedState(event.currentTarget.value)',
+  'onValueChange={setSelectedState}',
   'Browse stories in {selectedState}',
   'href="/stories"',
   'Browse stories by state',
@@ -85,9 +85,10 @@ for (const expected of [
   'setVisibleCount(PAGE_SIZE)',
   'visibleCount < matches.length',
   'No stories match these filters.',
-  'aria-label={`Open ${story.title ??',
+  'Open on YouTube',
   'dir="auto"',
-  'whitespace-normal text-start',
+  'whitespace-normal',
+  'text-start',
   '[overflow-wrap:anywhere]',
   '{isNew && <Badge>New</Badge>}',
   'event.currentTarget.src = fallback',

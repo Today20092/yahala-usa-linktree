@@ -28,6 +28,7 @@ export default function VisitedPlacesLeafletMap(props: Props) {
   const content = (
     <div
       className={`story-map-shell bg-muted border-border relative aspect-[2/1] min-h-72 overflow-hidden rounded-xl border ${expanded ? 'story-map-expanded' : ''} ${props.spacious ? 'sm:min-h-[28rem]' : ''}`}
+      role="region"
       aria-label="Map"
     >
       <MapErrorBoundary>
@@ -90,6 +91,10 @@ function MapLoading() {
       className="bg-background text-foreground absolute inset-0 grid place-items-center text-sm"
     >
       Loading the map…
+      <noscript>
+        {' '}
+        The interactive map needs JavaScript. Use the state list below.
+      </noscript>
     </p>
   )
 }

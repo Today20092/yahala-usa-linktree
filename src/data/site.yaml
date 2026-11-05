@@ -3,36 +3,55 @@ site:
   pageDescription: Ya Hala with Haithum shares Arab American field stories, community visits, and latest videos across the United States.
   siteName: Ya Hala with Haithum
   profileName: Haithum
-  twitterHandle: "@yahala_usa"
+  twitterHandle: '@yahala_usa'
   heroImageAlt: Ya Hala with Haithum ياهلا مع هيثم social cover
   profileImage: yahala-channel-logo.png
   ogImage: og-image.png
+  # Per-page share images from `npm run generate:og`; pages fall back to ogImage.
+  ogImages:
+    index: og/index.png
+    about: og/about.png
+    stories: og/stories.png
+    contact: og/contact.png
 about:
   pageTitle: About Haithem Alqahaf | Ya Hala with Haithem
   pageDescription: Meet Haithem Alqahaf, the host and storyteller behind Ya Hala, and learn why he shares useful Arab American stories across the United States.
   name: Haithem Alqahaf
   role: Host, storyteller, and influencer behind Ya Hala
-  heroStatement: Sharing useful guides and uplifting Arab American stories that help people discover places, support businesses, and work together.
+  heroStatement: I share Arab American stories and guides to local places so viewers can find places to visit, support local businesses, and connect with their communities.
   story:
     - I am a Syrian Arab American who came to the United States from Saudi Arabia as a refugee. I brought experience in accounting, business management, and business consulting. Today, Ya Hala is my full-time work.
     - I started Ya Hala in 2021 because I wanted social media to be healthier, more useful, and more beneficial to the community. My earliest videos guided people to parks and places around Tampa.
-    - A video I made about a local shawarma business went viral. The attention helped the business and showed me how one constructive story could create real momentum. That response inspired me to keep building the channel.
+    - A video I made about a local shawarma business went viral and helped the business. It showed me that a video could make a difference for a local business, and I kept building the channel.
   mission:
     - To me, Ya Hala means everyone is welcome. I want the channel to connect Arabs from different countries, religions, generations, and life experiences around the values we share.
-    - My goal is not only to entertain. I want to repeat useful ideas, celebrate good examples, challenge prejudice, and encourage people to support one another and take action.
+    - I want the videos to entertain and be useful. I share ideas people can put into practice and examples of people helping their communities. I also want to challenge prejudice and encourage people to support one another.
   viewerValue:
-    - Knowledge and practical guidance about cities, parks, places, businesses, and community life.
-    - Honest stories about how people started, overcame challenges, and built something worthwhile.
-    - A closer look at the character, hospitality, values, and diversity of Arab American communities.
+    - Guides to cities, parks, and local businesses, with information you can use when you visit.
+    - Stories about people's lives and work, including how they started and handled challenges.
+    - Visits with Arab American communities that introduce their hospitality, values, and different ways of life.
   selectionPrinciples:
     - title: A story worth sharing
-      description: The person or business has a meaningful journey, a strong beginning, or lessons that can help others.
+      description: I look for people and businesses whose experiences can teach viewers something.
     - title: Good for the community
-      description: The work contributes something useful and carries a constructive message.
+      description: I look for work that helps the community and gives viewers ideas they can use.
     - title: Quality people can trust
-      description: Featured businesses must offer strong quality and be halal or otherwise consistent with Islamic principles.
+      description: I choose businesses that offer quality products or services and are halal or otherwise consistent with Islamic principles.
   viewerCtaLabel: Explore the stories
   partnerCtaLabel: Connect with Ya Hala
+
+partnership:
+  # Set the inbox that should receive partnership inquiries.
+  email: ''
+  # Public Cloudflare Turnstile site key (not the secret). Leave empty to turn
+  # off direct sending: the form then only prepares an email draft.
+  turnstileSiteKey: ''
+
+analytics:
+  # Cloudflare Web Analytics (cookieless) site token. Leave empty to load no
+  # analytics. Create the site in Cloudflare > Analytics & Logs > Web
+  # Analytics, then paste its token here. PUBLIC_CF_BEACON_TOKEN overrides it.
+  cloudflareBeaconToken: ''
 
 socialLinks:
   - id: youtube
@@ -90,8 +109,8 @@ youtubeChannels:
       darkCardBackground: var(--card)
       cardTint: var(--muted)
       darkCardTint: var(--muted)
-      logoBackgroundColor: "#ffffff"
-      darkLogoBackgroundColor: "#ffffff"
+      logoBackgroundColor: '#ffffff'
+      darkLogoBackgroundColor: '#ffffff'
       logoFit: contain
       logoPaddingClass: p-1.5
 videoSearch:
@@ -654,7 +673,7 @@ visitedPlaces:
       longitude: -83.0062746
 
 socialReach:
-  updatedAt: "2026-06-22"
+  updatedAt: '2026-06-22'
   items:
     - platform: YouTube
       metric: Views
@@ -673,7 +692,8 @@ collaborationBrands:
     logo: /brands/lipari-foods.svg
   - name: Damaski
     logo: /brands/damaski.png
-  - name: Aser Time Juice Time
+  - name: Juice Time
+    logo: /brands/juice-time.png
   - name: Farooj Abo Abed's Shawarma
   - name: Moka & Co.
     logo: https://mokanco.com/wp-content/uploads/2025/11/Moka-and-Co-Cafe-logo.png

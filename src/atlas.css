@@ -66,6 +66,12 @@ html.motion-ready .animate-fade-in-up.is-visible {
   transform: translateY(0);
 }
 
+html.motion-ready [data-motion-paused] .animate-fade-in-up {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
 html.motion-ready .animate-fade-in-up.delay-200 {
   transition-delay: 80ms;
 }

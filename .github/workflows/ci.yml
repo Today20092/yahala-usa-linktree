@@ -45,8 +45,33 @@ jobs:
       - name: Validate UI consistency
         run: npm run validate:ui
 
+      - name: Lint accessibility
+        run: npm run lint:a11y
+
       - name: Build site
         run: npm run build
+
+      - name: Cache accessibility browser
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-a11y-${{ hashFiles('package-lock.json') }}
+
+      - name: Install accessibility browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Test rendered accessibility
+        run: npm run test:a11y
+
+      - name: Upload accessibility failures
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: accessibility-failures
+          path: |
+            artifacts/a11y-report/
+            artifacts/a11y-results/
+          if-no-files-found: ignore
 
       - name: Run regression tests
         run: |
@@ -63,6 +88,8 @@ jobs:
           npm run test:atlas-polish
           npm run test:motion-toggle
           npm run test:visited-map
+          npm run test:story-coverage
+          npm run test:editorial-motion
           npm run test:video-recency
           npm run test:branded-document
           npm run test:dependabot

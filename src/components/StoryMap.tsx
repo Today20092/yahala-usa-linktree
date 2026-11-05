@@ -69,7 +69,7 @@ export default function StoryMap({
         <Map
           center={[39.8283, -98.5795]}
           zoom={4}
-          minZoom={3}
+          minZoom={2}
           maxZoom={18}
           zoomControl={false}
           scrollWheelZoom={false}
@@ -114,7 +114,10 @@ export default function StoryMap({
                         nativeButton={false}
                         role="link"
                         render={
-                          <a href={storyBrowserHref(place.state, place.city)} />
+                          <a
+                            href={storyBrowserHref(place.state, place.city)}
+                            aria-label="Browse stories"
+                          />
                         }
                       >
                         Browse stories

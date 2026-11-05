@@ -17,10 +17,6 @@ html .reach-summary__heading-row {
   text-align: start;
 }
 
-html .reach-summary__heading-row .ui-section-title {
-  font-size: clamp(var(--text-xl), 8vw, var(--text-2xl));
-}
-
 html .reach-summary__stat-row {
   display: flex;
   align-items: baseline;
@@ -177,10 +173,12 @@ html .hero-explore-link {
   text-decoration: underline;
   text-underline-offset: 0.25em;
 }
-html .hero-explore-link:hover { color: var(--color-accent); }
-html .hero-explore-link:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
-html .follow-intro .ui-section-title {
-  font-size: var(--text-lg);
+html .hero-explore-link:hover {
+  color: var(--color-accent);
+}
+html .hero-explore-link:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
 }
 html .follow-intro .ui-body {
   margin-block-start: var(--space-2xs);
@@ -349,25 +347,13 @@ html .ui-section-header {
   text-align: start;
 }
 
-html .ui-section-title {
-  font-size: var(--text-2xl);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-}
-
 html .about-copy {
   max-width: 62ch;
-}
-
-html .about-copy .ui-section-title,
-html .featured-episodes-title {
-  font-size: var(--text-xl);
 }
 
 html footer {
   overflow: hidden;
   max-width: none;
-  border-top: 0;
 }
 
 html footer::before {

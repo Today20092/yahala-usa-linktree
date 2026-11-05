@@ -17,7 +17,7 @@ export default function LandingNavigation({
     { label: 'Stories', href: `${baseUrl}stories` },
     { label: 'Follow', href: `${baseUrl}#follow` },
     { label: 'About', href: `${baseUrl}about` },
-    { label: 'Contact', href: `${baseUrl}#contact` },
+    { label: 'Contact', href: `${baseUrl}contact` },
   ]
   return (
     <NavigationMenu

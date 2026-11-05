@@ -3,7 +3,7 @@ import '../styles.css'
 import '../atlas.css'
 import EditorialHeader from '../components/EditorialHeader.astro'
 
-import { getBaseUrl } from '../lib/site-config'
+import { cloudflareBeaconToken, getBaseUrl } from '../lib/site-config'
 
 type Props = {
   bodyClass: string
@@ -53,6 +53,14 @@ const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
     </a>
     <EditorialHeader />
     <slot />
+    {cloudflareBeaconToken && (
+      <script
+        is:inline
+        type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: cloudflareBeaconToken })}
+      />
+    )}
   </body>
 </html>
 

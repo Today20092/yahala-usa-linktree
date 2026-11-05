@@ -37,12 +37,12 @@ const journeyMarkers = [
 const pageFlow = [
   ['identity and primary action', 'Watch latest'],
   ['official links', 'aria-label="Official social links"'],
-  ['QR access', 'data-qr-open'],
   ['latest story', 'Latest From Ya Hala'],
   ['credibility', 'data-reach-card'],
   ['portfolio proof', 'Moments from Ya Hala stories'],
   ['geographic discovery', 'aria-label="Map"'],
   ['minimal footer', '<footer'],
+  ['QR access', 'data-qr-open'],
 ]
 
 const assertJourney = (html) => {

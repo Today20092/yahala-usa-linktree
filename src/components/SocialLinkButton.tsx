@@ -34,7 +34,7 @@ export default function SocialLinkButton({
           id={id}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`${ariaLabel ?? label} (opens in a new tab)`}
+          aria-label={`${ariaLabel ?? label}${description ? ` ${description}` : ''} (opens in a new tab)`}
           style={style}
         />
       }
@@ -50,7 +50,7 @@ export default function SocialLinkButton({
           {children}
         </span>
         <span className="min-w-0 flex-1 pl-3 text-left leading-none font-medium whitespace-nowrap">
-          <span className="block">{label}</span>
+          <span className="block">{label}{' '}</span>
           {description && (
             <span className="text-muted-foreground mt-1 block text-xs leading-snug font-normal whitespace-normal">
               {description}

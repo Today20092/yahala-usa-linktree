@@ -1,4 +1,4 @@
-- YaHala is a link hub with a landing page (`/`), an About Page (`/about`), and a filterable Story Browser (`/stories`).
+- YaHala is a link hub with a landing page (`/`), an About Page (`/about`), a filterable Story Browser (`/stories`), and a partnership contact page (`/contact`).
 - built with astro & tailwind & shadcn
 - hosted on cloudflare pages/workers and linked to the github repo that we push to
 - uses shadcn components and color tokens
@@ -6,8 +6,9 @@
 
 ## Project map and UI conventions
 
-- `src/pages/` owns the three public routes; shared page framing lives in `src/layouts/`.
+- `src/pages/` owns the public routes; shared page framing lives in `src/layouts/`.
 - `src/components/` contains Astro sections and React islands; reuse `src/components/ui/` primitives and shared color tokens. For UI changes, read [the consistency rules](docs/ui-consistency.md) and run `npm run validate:ui`.
+- After UI changes, follow [the accessibility test workflow](docs/accessibility-testing.md): cached source lint while editing, the focused browser check for changed interactions, and the default rendered gate before handoff. Shared-token/component changes also require affected consumers and themes. Record incomplete/manual checks; a passing scan is not full WCAG conformance.
 - `src/data/` holds site content and generated story catalogs; `scripts/` holds refresh, validation, and regression commands.
 - `src/worker.js` and `src/worker/` provide Cloudflare service behavior. For search provisioning or credentials, read [the search setup](docs/video-search-setup.md); Astro development serves the UI without emulating those bindings.
 - Follow [the Prettier configuration](prettier.config.cjs) when formatting touched files.

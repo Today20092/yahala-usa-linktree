@@ -67,7 +67,7 @@ function ResultCard({
           <div className="min-w-0 flex-1">
             <h3
               dir="auto"
-              className="ui-card-title text-sm break-words sm:text-base"
+              className="ui-card-title break-words"
             >
               {result.title}
             </h3>

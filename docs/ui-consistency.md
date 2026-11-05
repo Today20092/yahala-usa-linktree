@@ -18,6 +18,7 @@ This site uses a single visual system for repeated UI.
 - `Badge` for small status labels.
 - `IconBadge` for repeated icon bubbles, play markers, and icon chips.
 - `ui-surface-card` for recurring card shells and content panels.
+- Headings use `ui-page-title` (page h1), `ui-section-title` (section h2), `ui-card-title` (card or panel heading) and `ui-kicker-accent` (eyebrow), without size, weight or tracking overrides. `npm run validate:ui` flags h1-h3 without one of the title classes.
 
 ## Review Checklist
 
@@ -28,5 +29,11 @@ This site uses a single visual system for repeated UI.
 - If this is an exception, is the exception documented in the shared primitive instead of inline?
 
 ## Guardrail
+
+Commands, setup, and the fast/manual review split live in [accessibility testing](accessibility-testing.md). Use that workflow after UI changes and before handoff.
+
+After UI changes, apply the `web-ui-accessibility` skill to the changed routes, affected shared consumers, and relevant states. Measure rendered text and control contrast, including hover/focus/selected states; check keyboard access, validation and recovery, 320px reflow, text resizing/spacing, and supported themes. Record executed checks and unavailable manual/device checks beside the work. Source inspection and passing builds alone do not complete the accessibility review.
+
+Use automated browser accessibility scans and focused regression assertions when available. Treat scanner passes as bounded evidence, and review incomplete results. Automated checks do not replace the skill’s manual usability and accessibility checks.
 
 Run `npm run validate:ui` before merge. It catches the highest-risk drift patterns, especially raw play/media icons and accidental one-off surface styling in page components.

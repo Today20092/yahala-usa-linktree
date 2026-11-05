@@ -7,6 +7,11 @@
   "observability": {
     "enabled": true,
   },
+  // Partnership form delivery. Needs a verified sending domain and the
+  // TURNSTILE_SECRET secret; without them the form falls back to mailto.
+  "send_email": [{ "name": "EMAIL" }],
+  // The Worker reads the receiving inbox from src/data/site.yaml.
+  "rules": [{ "type": "Text", "globs": ["**/*.yaml"] }],
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",

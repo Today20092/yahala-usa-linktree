@@ -7,9 +7,13 @@ import type { CSSProperties } from 'react'
 import './index.css'
 
 import FeaturedEpisodes from '../components/FeaturedEpisodes.astro'
+import TextReveal from '../components/TextReveal.astro'
+import MotionToggle from '../components/MotionToggle.astro'
 import BrandMarquee from '../components/BrandMarquee.astro'
 import LatestChannelVideo from '../components/LatestChannelVideo.astro'
 import QrCodeButton from '../components/QrCodeButton.astro'
+import SiteFooter from '../components/SiteFooter.astro'
+import ContactCta from '../components/ContactCta.astro'
 import ReachBadge from '../components/ReachBadge.astro'
 import TopicCards from '../components/TopicCards.astro'
 import VideoSearch from '../components/VideoSearch'
@@ -20,7 +24,12 @@ import heroCover from '../assets/yahala-hero-cover.png'
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
 import BrandedPageDocument from '../layouts/BrandedPageDocument.astro'
 import { resolveVisitedPlaces } from '../lib/visited-places'
-import { getBaseUrl, resolveSiteAsset, siteConfig } from '../lib/site-config'
+import {
+  getBaseUrl,
+  getPageOgImage,
+  resolveSiteAsset,
+  siteConfig,
+} from '../lib/site-config'
 import { resolveYoutubeVideo } from '../lib/youtube-videos'
 
 const {
@@ -31,7 +40,6 @@ const {
   twitterHandle,
   heroImageAlt,
   profileImage,
-  ogImage,
 } = siteConfig.site
 const {
   socialLinks,
@@ -47,13 +55,9 @@ const channelLogoImageUrl = resolveSiteAsset(
   baseUrl,
   'yahala-channel-logo-88.png',
 )
-const currentYear = new Date().getFullYear()
 const canonicalUrl = new URL(baseUrl, Astro.site).toString()
 const sitemapUrl = new URL(`${baseUrl}sitemap.xml`, Astro.site).toString()
-const heroImageUrl = new URL(
-  resolveSiteAsset(baseUrl, ogImage),
-  Astro.site,
-).toString()
+const heroImageUrl = getPageOgImage('index', baseUrl, Astro.site)
 const heroPreloadImage = await getImage({
   src: heroCover,
   format: 'webp',
@@ -61,15 +65,14 @@ const heroPreloadImage = await getImage({
 
 const resolvedVisitedPlaces = resolveVisitedPlaces(visitedPlaces)
 const latestVideoByChannel = Object.fromEntries(
-  youtubeChannels
-    .flatMap((channel) => {
-      const latestVideoId = (
-        latestYoutubeVideos as Record<string, { latestVideoId?: string }>
-      )[channel.id]?.latestVideoId
-      const video = resolveYoutubeVideo({ videoId: latestVideoId })
+  youtubeChannels.flatMap((channel) => {
+    const latestVideoId = (
+      latestYoutubeVideos as Record<string, { latestVideoId?: string }>
+    )[channel.id]?.latestVideoId
+    const video = resolveYoutubeVideo({ videoId: latestVideoId })
 
-      return video ? [[channel.id, video] as const] : []
-    }),
+    return video ? [[channel.id, video] as const] : []
+  }),
 )
 const latestVideoChannels = youtubeChannels.filter((channel) =>
   Boolean(latestVideoByChannel[channel.id]),
@@ -94,7 +97,6 @@ const channelBranding = Object.fromEntries(
   ]),
 )
 
-const instagramUrl = socialLinks.find((link) => link.id === 'instagram')?.url
 const socialDescriptions: Record<string, string> = {
   youtube: 'Full episodes & interviews',
   instagram: 'Reels & behind the scenes',
@@ -142,9 +144,7 @@ const structuredData = {
 }
 ---
 
-<BrandedPageDocument
-  bodyClass="linktree-page my-0 min-h-screen text-center text-lg subpixel-antialiased"
->
+<BrandedPageDocument bodyClass="linktree-page my-0 min-h-screen text-center text-lg subpixel-antialiased">
   <Fragment slot="head">
     <SEO
       title={pageTitle}
@@ -238,36 +238,37 @@ const structuredData = {
           Ya Hala with Haithum ياهلا مع هيثم
         </h1>
         <section
-          class="animate-fade-in-up mx-auto w-full max-w-xl px-4 pt-6 text-center delay-200 sm:px-6 sm:pt-7"
+          class="mx-auto w-full max-w-xl px-4 pt-6 text-center sm:px-6 sm:pt-7"
           aria-labelledby="intro-title"
         >
           <h2 id="intro-title" class="ui-page-title mx-auto max-w-lg">
-            Arab-American stories, coast to coast.
+            <TextReveal text="Arab-American stories, coast to coast." />
           </h2>
           <p class="ui-body mx-auto mt-4 max-w-prose sm:text-[1.05rem]">
             Watch Arab American stories, community visits, and creator-led field
             interviews from across the United States.
           </p>
+          <MotionToggle controls="main-content" />
           <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
-            {
-              latestEpisodeUrl && (
-                <a
-                  href={latestEpisodeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Watch latest episode"
-                  class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring/30 focus-visible:ring-offset-background inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-base font-semibold whitespace-nowrap shadow-lg transition-[background-color,transform,box-shadow] hover:-translate-y-0.5 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0"
-                >
-                  <Icon
-                    name="simple-icons:youtube"
-                    class="size-[1.125rem]"
-                    aria-hidden="true"
-                  />
-                  Watch latest
-                </a>
-              )
-            }
-            <a href="#explore" class="hero-explore-link">Explore stories</a>
+            {latestEpisodeUrl && (
+              <a
+                href={latestEpisodeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Watch latest episode"
+                class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring/30 focus-visible:ring-offset-background inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-base font-semibold whitespace-nowrap shadow-lg transition-[background-color,transform,box-shadow] hover:-translate-y-0.5 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0"
+              >
+                <Icon
+                  name="simple-icons:youtube"
+                  class="size-[1.125rem]"
+                  aria-hidden="true"
+                />
+                Watch latest
+              </a>
+            )}
+            <a href="#explore" class="hero-explore-link">
+              Explore stories
+            </a>
           </div>
         </section>
 
@@ -279,35 +280,33 @@ const structuredData = {
           class="animate-fade-in-up mx-auto mt-6 flex w-full max-w-xl flex-col gap-3 px-4 delay-300 sm:px-6"
           aria-label="Official social links"
         >
-          {
-            socialLinks.map((social) => (
-              <SocialLinkButton
-                label={social.label.replace(/^Ya Hala\s+/, '')}
-                description={socialDescriptions[social.id]}
-                ariaLabel={social.label}
-                href={social.url}
-                id={social.id}
-                style={{
+          {socialLinks.map((social) => (
+            <SocialLinkButton
+              label={social.label.replace(/^Ya Hala\s+/, '')}
+              description={socialDescriptions[social.id]}
+              ariaLabel={social.label}
+              href={social.url}
+              id={social.id}
+              style={
+                {
                   '--brand-color': social.color,
                   '--brand-color-2': social.color2,
                   '--brand-color-3': social.color3,
                   '--brand-color-dark': social.darkColor ?? social.color,
                   '--brand-color-dark-2': social.darkColor2 ?? social.color2,
                   '--brand-color-dark-3': social.darkColor3 ?? social.color3,
-                } as CSSProperties}
-              >
-                <svg
-                  class="size-8"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                  set:html={socialIconBodies[social.id]}
-                />
-              </SocialLinkButton>
-            ))
-          }
+                } as CSSProperties
+              }
+            >
+              <svg
+                class="size-8"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                set:html={socialIconBodies[social.id]}
+              />
+            </SocialLinkButton>
+          ))}
         </nav>
-
-        <QrCodeButton />
       </div>
     </div>
 
@@ -326,38 +325,34 @@ const structuredData = {
           </p>
         </div>
         <div class="flex flex-col gap-4">
-          {
-            latestVideoChannels.map((channel) => (
-              <LatestChannelVideo
-                channelName={channel.name}
-                channelDescription={channel.description}
-                channelLogoSrc={channelBranding[channel.id].logoSrc}
-                channelAccentColor={channelBranding[channel.id].accentColor}
-                channelDarkAccentColor={
-                  channelBranding[channel.id].darkAccentColor
-                }
-                channelCardBackground={
-                  channelBranding[channel.id].cardBackground
-                }
-                channelDarkCardBackground={
-                  channelBranding[channel.id].darkCardBackground
-                }
-                channelCardTint={channelBranding[channel.id].cardTint}
-                channelDarkCardTint={channelBranding[channel.id].darkCardTint}
-                channelLogoBackgroundColor={
-                  channelBranding[channel.id].logoBackgroundColor
-                }
-                channelDarkLogoBackgroundColor={
-                  channelBranding[channel.id].darkLogoBackgroundColor
-                }
-                channelLogoFit={channelBranding[channel.id].logoFit}
-                channelLogoPaddingClass={
-                  channelBranding[channel.id].logoPaddingClass
-                }
-                video={latestVideoByChannel[channel.id]}
-              />
-            ))
-          }
+          {latestVideoChannels.map((channel) => (
+            <LatestChannelVideo
+              channelName={channel.name}
+              channelDescription={channel.description}
+              channelLogoSrc={channelBranding[channel.id].logoSrc}
+              channelAccentColor={channelBranding[channel.id].accentColor}
+              channelDarkAccentColor={
+                channelBranding[channel.id].darkAccentColor
+              }
+              channelCardBackground={channelBranding[channel.id].cardBackground}
+              channelDarkCardBackground={
+                channelBranding[channel.id].darkCardBackground
+              }
+              channelCardTint={channelBranding[channel.id].cardTint}
+              channelDarkCardTint={channelBranding[channel.id].darkCardTint}
+              channelLogoBackgroundColor={
+                channelBranding[channel.id].logoBackgroundColor
+              }
+              channelDarkLogoBackgroundColor={
+                channelBranding[channel.id].darkLogoBackgroundColor
+              }
+              channelLogoFit={channelBranding[channel.id].logoFit}
+              channelLogoPaddingClass={
+                channelBranding[channel.id].logoPaddingClass
+              }
+              video={latestVideoByChannel[channel.id]}
+            />
+          ))}
         </div>
       </section>
 
@@ -378,7 +373,7 @@ const structuredData = {
       >
         <div class="about-copy py-8 sm:py-10">
           <h2 id="about-title" class="ui-section-title">
-            Stories from Arab America.
+            <TextReveal text="Stories from Arab America." preset="slide" />
           </h2>
           <p class="ui-body mt-4">
             Haithum covers people, businesses, neighborhoods, restaurants, and
@@ -399,14 +394,12 @@ const structuredData = {
     >
       <div class="ui-section-header">
         <h2 id="explore-title" class="ui-section-title">
-          Explore more stories
+          <TextReveal text="Explore more stories" preset="slide" />
         </h2>
         <p class="ui-body mx-auto mt-3 max-w-md text-sm">
-          {
-            videoSearch.enabled
-              ? 'Search video moments, browse popular episodes, and follow the places Ya Hala has visited.'
-              : 'Browse popular episodes and follow the places Ya Hala has visited.'
-          }
+          {videoSearch.enabled
+            ? 'Search video moments, browse popular episodes, and follow the places Ya Hala has visited.'
+            : 'Browse popular episodes and follow the places Ya Hala has visited.'}
         </p>
       </div>
     </section>
@@ -419,158 +412,104 @@ const structuredData = {
 
     <VisitedPlacesMap visitedPlaces={resolvedVisitedPlaces} />
 
-    {
-      instagramUrl && (
-        <section
-          id="contact"
-          class="ui-section-block mx-auto mt-12 w-full max-w-xl px-4 text-left sm:px-6"
-          aria-labelledby="collaboration-title"
-        >
-          <h2 id="collaboration-title" class="ui-section-title">
-            Sponsor or collaborate
-          </h2>
-          <p class="ui-body mt-3 max-w-prose">
-            Connect with Ya Hala on Instagram to discuss sponsorships and
-            collaborations.
-          </p>
-          <a
-            href={instagramUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-foreground text-background hover:bg-foreground/90 focus-visible:ring-ring mt-5 inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-base font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-          >
-            <Icon
-              name="simple-icons:instagram"
-              class="size-5"
-              aria-hidden="true"
-            />
-            Contact on Instagram
-          </a>
-        </section>
-      )
-    }
-
-    <footer class="ui-meta mt-auto w-full px-4 pt-12 pb-4 text-center">
-      <nav
-        class="mx-auto mb-3 flex max-w-xl flex-wrap items-center justify-center gap-x-3 gap-y-1"
-        aria-label="Page information"
-      >
-        <a
-          href={`${baseUrl}about`}
-          class="hover:text-foreground transition-colors"
-        >
-          About Haithem
-        </a>
-        <a
-          href={`${baseUrl}stories`}
-          class="hover:text-foreground transition-colors"
-        >
-          Stories
-        </a>
-        <a href="#privacy" class="hover:text-foreground transition-colors">
-          Privacy
-        </a>
-      </nav>
-      <p
-        id="privacy"
-        class="text-muted-foreground mx-auto mb-3 max-w-xl text-sm text-balance"
-      >
-        Privacy: this page links to third-party platforms and remote media.
-      </p>
-      <p class="mb-0.5">
-        &copy; {currentYear}
-        {pageTitle}. All rights reserved.
-      </p>
-    </footer>
+    <ContactCta
+      eyebrow="Be part of what’s next"
+      title="Your story. Your brand. Our next stop."
+      body="Sponsor a video, introduce your local business, or share an Arab-American story our community should hear."
+    />
   </main>
 
+  <SiteFooter>
+    <QrCodeButton />
+  </SiteFooter>
+
   <script>
-      ;(() => {
-        if (document.documentElement.hasAttribute('data-design-preview')) return
+    ;(() => {
+      if (document.documentElement.hasAttribute('data-design-preview')) return
 
-        const preferences = ['system', 'light', 'dark'] as const
-        type ThemePreference = (typeof preferences)[number]
-        const isThemePreference = (
-          value: string | null | undefined,
-        ): value is ThemePreference =>
-          preferences.includes(value as ThemePreference)
-        const lightThemeColor = '#ffffff'
-        const darkThemeColor = '#1c1917'
-        const systemQuery = window.matchMedia('(prefers-color-scheme: dark)')
-        const buttons = [
-          ...document.querySelectorAll<HTMLElement>('[data-theme-option]'),
-        ]
-        const hasThemeControls = buttons.length > 0
+      const preferences = ['system', 'light', 'dark'] as const
+      type ThemePreference = (typeof preferences)[number]
+      const isThemePreference = (
+        value: string | null | undefined,
+      ): value is ThemePreference =>
+        preferences.includes(value as ThemePreference)
+      const lightThemeColor = '#ffffff'
+      const darkThemeColor = '#1c1917'
+      const systemQuery = window.matchMedia('(prefers-color-scheme: dark)')
+      const buttons = [
+        ...document.querySelectorAll<HTMLElement>('[data-theme-option]'),
+      ]
+      const hasThemeControls = buttons.length > 0
 
-        const getStoredTheme = () => {
-          if (!hasThemeControls) return null
+      const getStoredTheme = () => {
+        if (!hasThemeControls) return null
 
-          try {
-            return localStorage.getItem('theme')
-          } catch {
-            return null
-          }
+        try {
+          return localStorage.getItem('theme')
+        } catch {
+          return null
         }
+      }
 
-        const setStoredTheme = (theme: ThemePreference) => {
-          try {
-            if (theme === 'system') localStorage.removeItem('theme')
-            else localStorage.setItem('theme', theme)
-          } catch {}
-        }
+      const setStoredTheme = (theme: ThemePreference) => {
+        try {
+          if (theme === 'system') localStorage.removeItem('theme')
+          else localStorage.setItem('theme', theme)
+        } catch {}
+      }
 
-        const getPreference = (): ThemePreference => {
-          const storedTheme = getStoredTheme()
-          return isThemePreference(storedTheme) ? storedTheme : 'system'
-        }
+      const getPreference = (): ThemePreference => {
+        const storedTheme = getStoredTheme()
+        return isThemePreference(storedTheme) ? storedTheme : 'system'
+      }
 
-        const resolveTheme = (preference: ThemePreference) =>
-          preference === 'system'
-            ? systemQuery.matches
-              ? 'dark'
-              : 'light'
-            : preference
+      const resolveTheme = (preference: ThemePreference) =>
+        preference === 'system'
+          ? systemQuery.matches
+            ? 'dark'
+            : 'light'
+          : preference
 
-        const applyTheme = (preference: ThemePreference = 'system') => {
-          const theme = resolveTheme(preference)
+      const applyTheme = (preference: ThemePreference = 'system') => {
+        const theme = resolveTheme(preference)
 
-          document.documentElement.classList.toggle('dark', theme === 'dark')
-          document.documentElement.style.colorScheme = theme
+        document.documentElement.classList.toggle('dark', theme === 'dark')
+        document.documentElement.style.colorScheme = theme
 
-          document
-            .querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')
-            .forEach((meta) => {
-              meta.content = theme === 'dark' ? darkThemeColor : lightThemeColor
-              meta.media = ''
-            })
-
-          buttons.forEach((button) => {
-            button.setAttribute(
-              'aria-pressed',
-              String(button.dataset.themeOption === preference),
-            )
+        document
+          .querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')
+          .forEach((meta) => {
+            meta.content = theme === 'dark' ? darkThemeColor : lightThemeColor
+            meta.media = ''
           })
-        }
 
         buttons.forEach((button) => {
-          button.addEventListener('click', () => {
-            const preference = button.dataset.themeOption
-            if (!isThemePreference(preference)) return
-
-            setStoredTheme(preference)
-            applyTheme(preference)
-          })
+          button.setAttribute(
+            'aria-pressed',
+            String(button.dataset.themeOption === preference),
+          )
         })
+      }
 
-        const handleSystemChange = () => {
-          if (getPreference() === 'system') applyTheme('system')
-        }
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const preference = button.dataset.themeOption
+          if (!isThemePreference(preference)) return
 
-        if (hasThemeControls)
-          systemQuery.addEventListener('change', handleSystemChange)
-        applyTheme(hasThemeControls ? getPreference() : 'light')
-      })()
-    </script>
+          setStoredTheme(preference)
+          applyTheme(preference)
+        })
+      })
+
+      const handleSystemChange = () => {
+        if (getPreference() === 'system') applyTheme('system')
+      }
+
+      if (hasThemeControls)
+        systemQuery.addEventListener('change', handleSystemChange)
+      applyTheme(hasThemeControls ? getPreference() : 'light')
+    })()
+  </script>
 
   <script>
     ;(() => {
@@ -603,8 +542,11 @@ const structuredData = {
 
   <script>
     ;(() => {
-      const shareButton = document.querySelector<HTMLElement>('[data-share-page]')
-      const shareStatus = document.querySelector<HTMLElement>('[data-share-status]')
+      const shareButton =
+        document.querySelector<HTMLElement>('[data-share-page]')
+      const shareStatus = document.querySelector<HTMLElement>(
+        '[data-share-status]',
+      )
       if (!shareButton || !shareStatus) return
       let sharing = false
       const shareData = {
@@ -641,7 +583,12 @@ const structuredData = {
               shareStatus.textContent = 'Share completed.'
               return
             } catch (error) {
-              if (error && typeof error === 'object' && 'name' in error && error.name === 'AbortError') {
+              if (
+                error &&
+                typeof error === 'object' &&
+                'name' in error &&
+                error.name === 'AbortError'
+              ) {
                 shareStatus.textContent = 'Sharing canceled.'
                 return
               }

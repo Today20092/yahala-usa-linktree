@@ -18,10 +18,11 @@ const createContentSecurityPolicy = (nonce) =>
     "object-src 'none'",
     "frame-ancestors 'none'",
     "img-src 'self' data: https://i.ytimg.com https://img.youtube.com https://tile.openstreetmap.org",
-    `script-src 'self' 'nonce-${nonce}'`,
+    `script-src 'self' 'nonce-${nonce}' https://static.cloudflareinsights.com https://challenges.cloudflare.com`,
+    'frame-src https://challenges.cloudflare.com',
     "style-src 'self' 'unsafe-inline'",
     "font-src 'self' data:",
-    "connect-src 'self' https://tiles.openfreemap.org https://tile.openstreetmap.org",
+    "connect-src 'self' https://tiles.openfreemap.org https://tile.openstreetmap.org https://cloudflareinsights.com",
     "worker-src 'self' blob:",
     'upgrade-insecure-requests',
   ].join('; ')
@@ -74,6 +75,12 @@ export default {
       return Response.redirect(url.toString(), 301)
     }
 
+    if (url.pathname === partnershipPath) {
+      return createPartnership(env, {
+        to: String(parse(siteYaml)?.partnership?.email ?? '').trim(),
+      }).submit(request)
+    }
+
     if (url.pathname === '/api/video-search' && request.method === 'GET') {
       return videoSearch.search(request)
     }
@@ -113,4 +120,8 @@ export default {
     }
   },
 }
+import { parse } from 'yaml'
+import siteYaml from './data/site.yaml'
+import { partnershipPath } from './lib/partnership.ts'
+import { createPartnership } from './worker/partnership.js'
 import { createVideoSearch } from './worker/video-search.js'

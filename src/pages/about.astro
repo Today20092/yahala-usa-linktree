@@ -6,25 +6,26 @@ import { Icon } from 'astro-icon/components'
 import { SEO } from 'astro-seo'
 
 import haithemHeadshot from '../assets/haithem-alqahaf-headshot.jpg'
+import EditorialMotion from '../components/EditorialMotion.astro'
+import MotionToggle from '../components/MotionToggle.astro'
+import TextReveal from '../components/TextReveal.astro'
+import MostWatchedStories from '../components/MostWatchedStories.astro'
+import { buttonVariants } from '../components/ui/button'
+import SiteFooter from '../components/SiteFooter.astro'
+import ContactCta from '../components/ContactCta.astro'
 import BrandedPageDocument from '../layouts/BrandedPageDocument.astro'
-import { getBaseUrl, resolveSiteAsset, siteConfig } from '../lib/site-config'
+import { getBaseUrl, getPageOgImage, siteConfig } from '../lib/site-config'
 
 const { about, site, socialLinks, socialReach } = siteConfig
 const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
 const canonicalUrl = new URL(`${baseUrl}about`, Astro.site).toString()
 const homeUrl = new URL(baseUrl, Astro.site).toString()
-const imageUrl = new URL(
-  resolveSiteAsset(baseUrl, site.ogImage),
-  Astro.site,
-).toString()
-const instagramUrl =
-  socialLinks.find((link) => link.id === 'instagram')?.url ?? homeUrl
+const imageUrl = getPageOgImage('about', baseUrl, Astro.site)
 const totalReach = socialReach.items.reduce((sum, item) => sum + item.value, 0)
 const compactReach = new Intl.NumberFormat('en-US', {
   notation: 'compact',
   maximumFractionDigits: 0,
 }).format(totalReach)
-const currentYear = new Date().getFullYear()
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -52,9 +53,7 @@ const structuredData = {
 }
 ---
 
-<BrandedPageDocument
-  bodyClass="bg-background text-foreground min-h-screen text-lg subpixel-antialiased"
->
+<BrandedPageDocument bodyClass="bg-background text-foreground min-h-screen text-lg subpixel-antialiased">
   <Fragment slot="head">
     <SEO
       title={about.pageTitle}
@@ -76,7 +75,7 @@ const structuredData = {
         image: {
           width: 1200,
           height: 630,
-          alt: `Ya Hala cover artwork featuring ${about.name}`,
+          alt: `Ya Hala share card for ${about.name}`,
         },
       }}
       twitter={{
@@ -86,7 +85,7 @@ const structuredData = {
         title: about.pageTitle,
         description: about.pageDescription,
         image: imageUrl,
-        imageAlt: `Ya Hala cover artwork featuring ${about.name}`,
+        imageAlt: `Ya Hala share card for ${about.name}`,
       }}
     />
     <script
@@ -95,225 +94,192 @@ const structuredData = {
     />
   </Fragment>
 
-    <main id="main-content" tabindex="-1">
-      <section
-        class="mx-auto grid min-h-[calc(100dvh-4.75rem)] w-full max-w-7xl items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-14"
-        aria-labelledby="about-title"
-      >
-        <div class="max-w-2xl">
-          <p class="text-primary text-sm font-bold tracking-[0.16em] uppercase">
-            About Haithem | ياهلا مع هيثم
-          </p>
-          <h1
-            id="about-title"
-            class="text-foreground mt-4 text-4xl leading-[1.02] font-bold tracking-[-0.045em] text-balance sm:text-6xl"
-          >
-            Stories can move a community forward.
-          </h1>
-          <p
-            class="text-foreground mt-4 max-w-xl text-base leading-7 font-semibold sm:mt-5 sm:text-xl sm:leading-relaxed"
-          >
-            {about.role}
-          </p>
-          <p
-            class="text-muted-foreground mt-4 max-w-xl text-base leading-relaxed sm:text-lg"
-          >
-            {about.heroStatement}
-          </p>
-          <div class="mt-8 flex flex-wrap gap-3">
-            <a
-              href={`${baseUrl}stories`}
-              class="bg-foreground text-background hover:bg-foreground/90 focus-visible:ring-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-base font-semibold whitespace-nowrap transition-[background-color,transform] hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0"
-            >
-              {about.viewerCtaLabel}
-              <Icon
-                name="heroicons:arrow-right"
-                class="size-4"
-                aria-hidden="true"
-              />
-            </a>
-          </div>
-        </div>
-
-        <div
-          class="bg-muted relative mx-auto aspect-[4/5] w-full max-w-lg overflow-hidden rounded-2xl"
+  <main id="main-content" tabindex="-1" class="[overflow-wrap:anywhere]">
+    <EditorialMotion />
+    <section
+      class="mx-auto grid w-full max-w-7xl items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16 lg:px-8 lg:py-16"
+      aria-labelledby="about-title"
+    >
+      <div class="max-w-2xl">
+        <p class="ui-kicker-accent">
+          Meet the host ·{' '}
+          <span lang="ar" dir="rtl">
+            ياهلا مع هيثم
+          </span>
+        </p>
+        <h1
+          id="about-title"
+          class="ui-page-title mt-4"
         >
-          <Picture
-            src={haithemHeadshot}
-            alt={`Portrait of ${about.name}`}
-            formats={['avif', 'webp']}
-            fallbackFormat="webp"
-            widths={[480, 720, 960]}
-            sizes="(min-width: 1024px) 42vw, 92vw"
-            class="h-full w-full object-cover object-center"
-            loading="eager"
-            fetchpriority="high"
-          />
-        </div>
-      </section>
-
-      <section
-        class="border-border/70 mx-auto grid w-full max-w-7xl gap-8 border-t px-4 py-16 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:px-8 lg:py-24"
-        aria-labelledby="journey-title"
-      >
-        <div>
-          <p class="text-primary text-sm font-bold">My journey</p>
-          <h2
-            id="journey-title"
-            class="text-foreground mt-3 text-3xl font-bold tracking-tight sm:text-4xl"
+          <TextReveal text={`I'm ${about.name}.`} />
+        </h1>
+        <p class="text-foreground mt-4 max-w-xl text-base leading-7 font-semibold sm:mt-5 sm:text-xl sm:leading-relaxed">
+          The host and storyteller behind Ya Hala.
+        </p>
+        <p class="text-muted-foreground mt-4 max-w-xl text-base leading-relaxed sm:text-lg">
+          {about.heroStatement}
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a
+            href="#journey-title"
+            class={buttonVariants({
+              variant: 'outline',
+              className:
+                'h-auto min-h-12 min-w-0 max-w-full px-6 py-3 text-center text-base whitespace-normal',
+            })}
           >
-            From experience to influence
-          </h2>
+            Get to know me
+            <Icon
+              name="heroicons:arrow-right"
+              class="size-4"
+              aria-hidden="true"
+            />
+          </a>
+          <a
+            href={`${baseUrl}stories`}
+            class={buttonVariants({
+              variant: 'link',
+              className:
+                'h-auto min-h-12 min-w-0 max-w-full px-3 py-3 text-center text-base whitespace-normal underline',
+            })}
+          >
+            {about.viewerCtaLabel}
+          </a>
         </div>
-        <div class="typeset typeset-about flex max-w-3xl flex-col gap-5">
-          {about.story.map((paragraph) => <p>{paragraph}</p>)}
+        <div class="mt-5">
+          <MotionToggle controls="main-content" />
         </div>
-      </section>
+      </div>
 
-      <section
-        class="bg-muted/45 mx-auto w-full max-w-7xl rounded-2xl px-4 py-14 sm:px-8 lg:px-12 lg:py-20"
-        aria-labelledby="viewer-value-title"
+      <figure
+        data-image-reveal
+        class="bg-muted relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl"
       >
+        <Picture
+          src={haithemHeadshot}
+          alt={`Portrait of ${about.name}`}
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
+          widths={[480, 720, 960]}
+          sizes="(min-width: 416px) 384px, calc(100vw - 32px)"
+          class="h-full w-full object-cover object-center"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </figure>
+    </section>
+
+    <section
+      class="border-border/70 mx-auto grid w-full max-w-7xl gap-8 border-t px-4 py-12 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:px-8 lg:py-16"
+      aria-labelledby="journey-title"
+    >
+      <div>
+        <p class="ui-kicker-accent">My journey</p>
         <h2
-          id="viewer-value-title"
-          class="text-foreground max-w-xl text-3xl font-bold tracking-tight sm:text-4xl"
+          id="journey-title"
+          class="ui-section-title mt-3 scroll-mt-28"
         >
-          Useful stories for real life
+          <TextReveal text="Why I started Ya Hala" preset="slide" />
         </h2>
-        <div class="mt-10 grid gap-0 md:grid-cols-3">
-          {
-            about.viewerValue.map((value, index) => (
-              <div
-                class:list={[
-                  'border-border py-6 md:px-7 md:py-2',
-                  index > 0 && 'border-t md:border-t-0 md:border-l',
-                  index === 0 && 'md:pl-0',
-                ]}
-              >
-                <p class="text-foreground text-base leading-7 font-semibold">
-                  {value}
-                </p>
-              </div>
-            ))
-          }
-        </div>
-      </section>
+      </div>
+      <div data-scroll-section class="typeset typeset-about max-w-prose">
+        {about.story.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    </section>
 
-      <section
-        class="mx-auto w-full max-w-5xl px-4 py-20 text-center sm:px-6 lg:py-28"
-        aria-labelledby="mission-title"
+    <section
+      class="ui-surface-card mx-auto w-[calc(100%-2rem)] max-w-7xl px-6 py-10 sm:w-[calc(100%-3rem)] sm:px-8 lg:px-12 lg:py-14"
+      aria-labelledby="viewer-value-title"
+    >
+      <h2
+        id="viewer-value-title"
+        class="ui-section-title max-w-xl"
       >
-        <p class="text-primary text-sm font-bold">Everyone is welcome</p>
+        <TextReveal text="What you'll find on Ya Hala" preset="slide" />
+      </h2>
+      <div class="mt-10 grid gap-0 md:grid-cols-3">
+        {about.viewerValue.map((value, index) => (
+          <div
+            data-scroll-section
+            class:list={[
+              'border-border py-6 md:px-7 md:py-2',
+              index > 0 && 'border-t md:border-t-0 md:border-l',
+              index === 0 && 'md:pl-0',
+            ]}
+          >
+            <p class="text-foreground text-base leading-7 font-semibold">
+              {value}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section
+      class="mx-auto grid w-full max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:px-8 lg:py-16"
+      aria-labelledby="mission-title"
+    >
+      <div>
+        <p class="ui-kicker-accent">What Ya Hala means to me</p>
         <h2
           id="mission-title"
-          class="text-foreground mx-auto mt-4 max-w-3xl text-3xl leading-tight font-bold tracking-tight text-balance sm:text-5xl"
+          class="ui-section-title mt-3 max-w-xl"
         >
-          Different backgrounds. Shared values. One stronger community.
+          Everyone is <span data-text-highlight>welcome.</span>
         </h2>
-        <div
-          class="typeset typeset-about mx-auto mt-8 flex max-w-3xl flex-col gap-5"
-        >
-          {about.mission.map((paragraph) => <p>{paragraph}</p>)}
-        </div>
-      </section>
+      </div>
+      <div class="typeset typeset-about max-w-prose">
+        {about.mission.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    </section>
 
-      <section
-        class="border-border/70 mx-auto w-full max-w-7xl border-t px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
-        aria-labelledby="selection-title"
-      >
-        <h2
-          id="selection-title"
-          class="text-foreground max-w-xl text-3xl font-bold tracking-tight sm:text-4xl"
-        >
-          Every feature needs a reason
-        </h2>
-        <div class="mt-10 grid gap-5 lg:grid-cols-12">
-          {
-            about.selectionPrinciples.map((principle, index) => (
-              <article
-                class:list={[
-                  'border-border bg-card rounded-2xl border p-7',
-                  index === 0 ? 'lg:col-span-7 lg:row-span-2' : 'lg:col-span-5',
-                ]}
-              >
-                <h3
-                  class:list={[
-                    'text-foreground font-bold tracking-tight',
-                    index === 0 ? 'text-3xl sm:text-4xl' : 'text-2xl',
-                  ]}
-                >
-                  {principle.title}
-                </h3>
-                <p class="text-muted-foreground mt-4 max-w-xl text-base leading-7">
-                  {principle.description}
-                </p>
-              </article>
-            ))
-          }
-        </div>
-      </section>
-
-      <section
-        class="bg-primary text-primary-foreground mx-auto mb-8 w-[calc(100%-2rem)] max-w-7xl rounded-2xl px-6 py-14 sm:w-[calc(100%-3rem)] sm:px-10 lg:px-14 lg:py-16"
-        aria-labelledby="cta-title"
-      >
-        <div class="grid items-end gap-8 lg:grid-cols-[1fr_auto]">
-          <div>
-            <p class="text-primary-foreground text-sm font-bold">
-              Come along
-            </p>
-            <h2
-              id="cta-title"
-              class="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-balance sm:text-5xl"
-            >
-              Get inspired, support good work, and take action.
-            </h2>
-          </div>
-          <div class="flex flex-wrap gap-3">
-            <a
-              href={`${baseUrl}stories`}
-              class="bg-background text-foreground focus-visible:ring-ring inline-flex min-h-12 items-center justify-center rounded-full px-6 text-base font-bold whitespace-nowrap transition-transform hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0"
-            >
-              {about.viewerCtaLabel}
-            </a>
-            <a
-              href={instagramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10 focus-visible:ring-ring inline-flex min-h-12 items-center justify-center rounded-full border px-6 text-base font-bold whitespace-nowrap transition-[background-color,transform] hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0"
-            >
-              {about.partnerCtaLabel}
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <aside
-        class="text-muted-foreground mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-6 text-sm sm:px-6 lg:px-8"
-        aria-label="Ya Hala reach"
-      >
-        <p>
-          <strong class="text-foreground">{compactReach}+ views</strong>
-          {' '}across official Ya Hala channels
-        </p>
-        <p>Updated {socialReach.updatedAt}</p>
-      </aside>
-    </main>
-
-    <footer
-      class="border-border/70 mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-3 border-t px-4 py-8 text-sm sm:px-6 lg:px-8"
+    <section
+      class="border-border/70 mx-auto w-full max-w-7xl border-t px-4 py-12 sm:px-6 lg:px-8 lg:py-16"
+      aria-labelledby="selection-title"
     >
-      <p class="text-muted-foreground">
-        &copy; {currentYear} Ya Hala with Haithem
+      <h2
+        id="selection-title"
+        class="ui-section-title max-w-xl"
+      >
+        What makes a story worth sharing?
+      </h2>
+      <div class="mt-8 grid gap-5 md:grid-cols-3">
+        {about.selectionPrinciples.map((principle) => (
+          <article data-scroll-section class="ui-surface-card p-6">
+            <h3 class="ui-card-title">
+              {principle.title}
+            </h3>
+            <p class="text-muted-foreground mt-4 max-w-xl text-base leading-7">
+              {principle.description}
+            </p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <MostWatchedStories />
+
+    <aside
+      class="text-muted-foreground mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-6 text-sm sm:px-6 lg:px-8"
+      aria-label="Ya Hala reach"
+    >
+      <p>
+        <strong class="text-foreground">{compactReach}+ views</strong> across
+        official Ya Hala channels
       </p>
-      <nav class="flex gap-5 font-semibold" aria-label="Footer navigation">
-        <a href={baseUrl} class="hover:text-primary transition-colors">Home</a>
-        <a
-          href={`${baseUrl}stories`}
-          class="hover:text-primary transition-colors"
-        >
-          Stories
-        </a>
-      </nav>
-    </footer>
+      <p>Updated {socialReach.updatedAt}</p>
+    </aside>
+
+    <ContactCta
+      eyebrow="Contact Ya Hala"
+      title="Suggest a story or work with Ya Hala."
+      body="Know someone we should meet? Have a business to introduce or a partnership in mind? Tell us a little about it."
+    />
+  </main>
+
+  <SiteFooter />
 </BrandedPageDocument>

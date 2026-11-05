@@ -2,8 +2,9 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 
 const source = await readFile('src/components/VideoBentoGrid.astro', 'utf8')
+const normalizedSource = source.replace(/\s+/g, ' ')
 for (const selector of ['.bento-scroll-track', '.bento-scroll-group']) {
-  assert.ok(source.includes(`[data-portfolio-scroll]:is([data-motion-paused], :focus-within) ${selector}`))
+  assert.ok(normalizedSource.includes(`[data-portfolio-scroll]:is([data-motion-paused], :focus-within) ${selector}`))
 }
 const reduced = source.slice(source.indexOf('@media (prefers-reduced-motion: reduce)'))
 for (const state of [reduced, source.slice(source.indexOf('[data-portfolio-scroll]:is'))]) {

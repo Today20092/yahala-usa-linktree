@@ -1,0 +1,58 @@
+---
+import { BarList } from './ui/bar-list'
+import snapshot from '../data/story-view-snapshot.json'
+import { youtubeVideosById, youtubeWatchUrl } from '../lib/youtube-videos'
+
+const data = snapshot.entries.map(({ videoId, views }) => ({
+  name: youtubeVideosById[videoId].title,
+  value: views,
+  href: youtubeWatchUrl(videoId),
+}))
+const capturedDate = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(snapshot.capturedAt))
+---
+
+<section
+  class="border-border/70 mx-auto w-full max-w-7xl border-t px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
+  aria-labelledby="most-watched-title"
+  data-most-watched-stories
+>
+  <div class="grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
+    <div>
+      <p class="ui-kicker-accent">Stories reaching further</p>
+      <h2
+        id="most-watched-title"
+        class="ui-section-title mt-3"
+      >
+        Most-watched catalog stories
+      </h2>
+      <p class="text-muted-foreground mt-4 max-w-md text-base leading-7">
+        A few of the stories finding an audience on YouTube. Choose a story to
+        watch it.
+      </p>
+    </div>
+    <div class="min-w-0">
+      <BarList
+        data={data}
+        label="Most-watched catalog stories by recorded YouTube views"
+        valueLabel="views"
+      />
+      <p class="text-muted-foreground mt-4 text-sm leading-relaxed">
+        Approximate public YouTube views, captured {capturedDate}. Ranked among{' '}
+        {snapshot.recordedCount} of {snapshot.eligibleCount} long-form catalog
+        stories with available counts in this snapshot. Views are not unique
+        viewers.
+        <a
+          href={snapshot.source}
+          class="text-foreground underline underline-offset-4"
+        >
+          Source: YouTube
+        </a>
+      </p>
+    </div>
+  </div>
+</section>

@@ -9,13 +9,23 @@ assert.equal(
   1,
   'The shared layout owns one header',
 )
-for (const page of ['index', 'about', 'stories']) {
+for (const page of ['index', 'about', 'stories', 'contact']) {
   const source = await readFile(`src/pages/${page}.astro`, 'utf8')
   assert.ok(
     !source.includes('<EditorialHeader') &&
       !source.includes('<LandingNavigation'),
     `${page} must use layout navigation`,
   )
+  assert.ok(
+    /<SiteFooter[\s/>]/.test(source) && !source.includes('<footer'),
+    `${page} must render the shared SiteFooter`,
+  )
+  if (page === 'index' || page === 'about') {
+    assert.ok(
+      /<ContactCta[\s/>]/.test(source) && !source.includes('}contact`}'),
+      `${page} must use the shared ContactCta for its contact action`,
+    )
+  }
 }
 
 const header = await readFile('src/components/EditorialHeader.astro', 'utf8')

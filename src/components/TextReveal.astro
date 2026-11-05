@@ -1,0 +1,97 @@
+---
+// Inspired by Cnippet Text Reveal, adapted to server-rendered Astro headings.
+type Props = {
+  text: string
+  preset?: 'blur' | 'slide'
+}
+const { text, preset = 'blur' } = Astro.props
+const segments = text.split(/(\s+)/u)
+---
+
+<span data-text-reveal={preset}>
+  <span class="sr-only">{text}</span>
+  <span aria-hidden="true">
+    {segments.map((segment, index) =>
+      segment.trim() ? (
+        <span
+          class="text-reveal-word"
+          style={`--word-delay: ${Math.min(index / 2, 10) * 45}ms`}
+        >
+          {segment}
+        </span>
+      ) : (
+        segment
+      ),
+    )}
+  </span>
+</span>
+
+<script>
+  const headings = document.querySelectorAll<HTMLElement>('[data-text-reveal]')
+  if (
+    !matchMedia('(prefers-reduced-motion: reduce)').matches &&
+    'IntersectionObserver' in window
+  ) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue
+          entry.target.classList.add('text-reveal-visible')
+          observer.unobserve(entry.target)
+        }
+      },
+      { threshold: 0.1 },
+    )
+    headings.forEach((heading) => {
+      heading.classList.add('text-reveal-ready')
+      observer.observe(heading)
+    })
+  }
+</script>
+
+<style>
+  .text-reveal-word {
+    display: inline-block;
+    max-width: 100%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .text-reveal-ready .text-reveal-word {
+      opacity: 0;
+    }
+    .text-reveal-visible .text-reveal-word {
+      animation: text-reveal-blur 550ms var(--ease-out) both;
+      animation-delay: var(--word-delay);
+    }
+    [data-text-reveal='slide'].text-reveal-visible .text-reveal-word {
+      animation-name: text-reveal-slide;
+    }
+  }
+  @keyframes text-reveal-blur {
+    from {
+      opacity: 0;
+      filter: blur(5px);
+      transform: translateY(0.2em);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: none;
+    }
+  }
+  @keyframes text-reveal-slide {
+    from {
+      opacity: 0;
+      transform: translateY(0.45em);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  :global([data-motion-paused]) [data-text-reveal] .text-reveal-word {
+    animation: none;
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+</style>
