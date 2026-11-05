@@ -4,6 +4,14 @@
 - uses shadcn components and color tokens
 - site variables are at `src/data/site.yaml`
 
+## Project map and UI conventions
+
+- `src/pages/` owns the three public routes; shared page framing lives in `src/layouts/`.
+- `src/components/` contains Astro sections and React islands; reuse `src/components/ui/` primitives and shared color tokens. For UI changes, read [the consistency rules](docs/ui-consistency.md) and run `npm run validate:ui`.
+- `src/data/` holds site content and generated story catalogs; `scripts/` holds refresh, validation, and regression commands.
+- `src/worker.js` and `src/worker/` provide Cloudflare service behavior. For search provisioning or credentials, read [the search setup](docs/video-search-setup.md); Astro development serves the UI without emulating those bindings.
+- Follow [the Prettier configuration](prettier.config.cjs) when formatting touched files.
+
 ## Cloudflare development deployment
 
 - The shared development target is the Worker named `yahala-usa-linktree-atlas-preview` in the Haithum Cloudflare account. Its account ID is pinned in `wrangler.preview.jsonc`; do not probe or deploy to the Ayoub account.
@@ -35,7 +43,11 @@ For branch setup, integration, promotion or cleanup, read [the Git workflow](doc
 
 ## Verification
 
+Install the lockfile dependencies with `npm ci`; CI uses Node 22. Run commands from the repository root.
+
 For the CI baseline, read [the validation workflow](.github/workflows/ci.yml). Choose focused checks from [package scripts](package.json) for the behavior changed. Report checks actually run and their results separately from commands verified only by inspection.
+
+For example, `npm run test:visited-map` checks map behavior without running the whole suite. Accessibility regressions also have focused `scripts/test-*-accessibility.mjs` checks; run the relevant script directly with Node when changing those interactions.
 
 ## Astro development and verification
 
