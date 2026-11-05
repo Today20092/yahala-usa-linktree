@@ -26,7 +26,7 @@ const journeyMarkers = [
   ['reach section', 'data-reach-card'],
   ['QR interaction', 'data-qr-open'],
   ['QR fallback', 'href="#qr-dialog"'],
-  ['QR dialog', 'role="dialog"'],
+  ['QR dialog', '<dialog id="qr-dialog"'],
   ['QR destination', 'data-qr-destination'],
   ['map', 'aria-label="Map"'],
   ['state selection', 'Choose a state'],

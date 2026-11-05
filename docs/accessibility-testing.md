@@ -67,6 +67,12 @@ Local measurements and remaining gaps are recorded below after validation. These
 
 ## Validation notes — November 5, 2026
 
+Release verification reran `npm ci` successfully after the interrupted tool host
+was recovered, and the complete 30-test matrix passed on the integrated catalog.
+CI now runs `test:a11y:full` so the existing automatic dependency merge guard
+covers every `test:*` entry. The earlier installation and CI limitations below
+describe the initial setup, not this later release verification.
+
 The initial browser gate caught low contrast in bar-list labels and accessible names that omitted visible link text in social links, story cards and bento links. Those were fixed in the shared components. On a 320px map, the previous minimum zoom prevented `fitBounds` from keeping cluster targets inside the viewport; allowing zoom level 2 resolved the observed clipped targets. A named map shell now exposes a region role. Source lint also caught redundant native-dialog ARIA and generic component patterns needing explicit children/labels. These checks failed before the corrections; no blanket violation baseline was added.
 
 Cached source lint passed in 1.06 seconds. The final default suite passed ten tests in 13.7 seconds; the broader matrix passed thirty in 37.9 seconds on this Windows machine before the final small map-region correction. Browser download, first dependency install and build costs are separate. Both suites use one in-process Vite preview with explicit cleanup to avoid slow Windows process-tree shutdown; the final default run verified that port 4337 was closed afterward. `vite.a11y.config.mjs` serves Astro directory indexes without an SPA homepage fallback. CI wiring is configured locally; no remote CI run or deployment was started.
