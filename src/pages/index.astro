@@ -6,6 +6,7 @@ import { SEO } from 'astro-seo'
 import './index.css'
 
 import FeaturedEpisodes from '../components/FeaturedEpisodes.astro'
+import LandingNavigation from '../components/LandingNavigation'
 import BrandMarquee from '../components/BrandMarquee.astro'
 import LatestChannelVideo from '../components/LatestChannelVideo.astro'
 import QrCodeButton from '../components/QrCodeButton.astro'
@@ -74,6 +75,7 @@ const latestVideoChannels = youtubeChannels.filter((channel) =>
 )
 const totalReach = socialReach.items.reduce((sum, item) => sum + item.value, 0)
 const primaryYoutubeChannel = youtubeChannels[0]
+const youtubeLink = socialLinks.find((link) => link.id === 'youtube')
 const latestEpisodeUrl =
   (primaryYoutubeChannel &&
     latestVideoByChannel[primaryYoutubeChannel.id]?.url) ||
@@ -91,8 +93,13 @@ const channelBranding = Object.fromEntries(
   ]),
 )
 
-const youtubeLink = socialLinks.find((link) => link.id === 'youtube')
 const instagramUrl = socialLinks.find((link) => link.id === 'instagram')?.url
+const socialDescriptions = {
+  youtube: 'Full episodes & interviews',
+  instagram: 'Reels & behind the scenes',
+  tiktok: 'Quick stories & highlights',
+  facebook: 'Videos & community updates',
+}
 const sameAsUrls = socialLinks.map((link) => link.url)
 const socialIconBodies = {
   youtube:
@@ -186,6 +193,17 @@ const structuredData = {
       set:html={JSON.stringify(structuredData)}
     />
   </Fragment>
+  <header class="landing-header">
+    <a
+      class="landing-header__brand"
+      href={baseUrl}
+      aria-label="Ya Hala with Haithum home"
+    >
+      <img src={channelLogoImageUrl} width="44" height="44" alt="" />
+      <span>Ya Hala <span lang="ar" dir="rtl">ياهلا</span></span>
+    </a>
+    <LandingNavigation baseUrl={baseUrl} client:load />
+  </header>
   <main
     id="main-content"
     tabindex="-1"
@@ -259,39 +277,14 @@ const structuredData = {
                 </a>
               )
             }
+            <a href="#explore" class="hero-explore-link">Explore stories</a>
           </div>
-          <nav
-            class="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-sm font-semibold"
-            aria-label="Site navigation"
-          >
-            <a
-              href={`${baseUrl}about`}
-              class="text-primary hover:text-primary/80 focus-visible:ring-ring rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-            >
-              About Haithem
-            </a>
-            <a
-              href={`${baseUrl}stories`}
-              class="text-muted-foreground hover:text-foreground focus-visible:ring-ring rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-            >
-              Browse stories
-            </a>
-            {
-              instagramUrl && (
-                <a
-                  href={instagramUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Contact or sponsor Ya Hala on Instagram"
-                  class="text-foreground hover:text-primary focus-visible:ring-ring inline-flex min-h-11 items-center rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-                >
-                  Contact / Sponsor
-                </a>
-              )
-            }
-          </nav>
         </section>
 
+        <div id="follow" class="follow-intro">
+          <h2 class="ui-section-title">Follow Ya Hala</h2>
+          <p class="ui-body">Choose where to catch the next story.</p>
+        </div>
         <nav
           class="animate-fade-in-up mx-auto mt-6 flex w-full max-w-xl flex-col gap-3 px-4 delay-300 sm:px-6"
           aria-label="Official social links"
@@ -300,6 +293,7 @@ const structuredData = {
             socialLinks.map((social) => (
               <SocialLinkButton
                 label={social.label.replace(/^Ya Hala\s+/, '')}
+                description={socialDescriptions[social.id]}
                 ariaLabel={social.label}
                 href={social.url}
                 id={social.id}
@@ -329,6 +323,7 @@ const structuredData = {
 
     <div class="desktop-latest-grid">
       <section
+        id="watch"
         class="animate-fade-in-up mt-8 mb-5 flex flex-col delay-400"
         aria-labelledby="latest-video-title"
       >
@@ -337,7 +332,7 @@ const structuredData = {
             Latest From Ya Hala
           </h2>
           <p class="ui-body mx-auto mt-3 max-w-md text-sm">
-            The newest story, updated automatically from the channel.
+            Start with the latest episode, then explore more from the community.
           </p>
         </div>
         <div class="flex flex-col gap-4">
@@ -408,6 +403,7 @@ const structuredData = {
     <VideoBentoGrid />
 
     <section
+      id="explore"
       class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-500 sm:px-6"
       aria-labelledby="explore-title"
     >
@@ -436,6 +432,7 @@ const structuredData = {
     {
       instagramUrl && (
         <section
+          id="contact"
           class="ui-section-block mx-auto mt-12 w-full max-w-xl px-4 text-left sm:px-6"
           aria-labelledby="collaboration-title"
         >
@@ -486,7 +483,7 @@ const structuredData = {
       </nav>
       <p
         id="privacy"
-          class="text-muted-foreground mx-auto mb-3 max-w-xl text-[0.7rem] text-balance"
+        class="text-muted-foreground mx-auto mb-3 max-w-xl text-sm text-balance"
       >
         Privacy: this page links to third-party platforms and remote media.
       </p>

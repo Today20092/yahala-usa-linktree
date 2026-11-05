@@ -152,7 +152,114 @@ html [data-reach-chart].is-visible .reach-summary__bar > span {
 
 /* Story Atlas · Ecosystem Index · N7 slab · Ft8 marquee */
 html body.linktree-page {
-  padding-block-start: clamp(var(--space-lg), 5vw, var(--space-2xl));
+  padding-block-start: 0;
+}
+
+html .landing-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  max-width: 92rem;
+  margin-inline: auto;
+  padding: var(--space-sm) clamp(var(--space-md), 4vw, var(--space-2xl));
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  background: var(--color-paper);
+}
+
+html .landing-header__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--color-ink);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+html .landing-header__brand img {
+  border-radius: 50%;
+}
+html .landing-header__brand span[lang] {
+  margin-inline-start: var(--space-sm);
+}
+html .landing-navigation__links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+html .landing-navigation a {
+  min-height: 2.75rem;
+}
+html .landing-header a:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+html .linktree-shell {
+  padding-block-start: var(--space-lg);
+}
+html :is(#watch, #follow, #explore, #contact) {
+  scroll-margin-top: 9rem;
+}
+html .follow-intro {
+  margin-block-start: var(--space-lg);
+  text-align: start;
+}
+html .hero-explore-link {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--space-md);
+  color: var(--color-ink);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+html .hero-explore-link:hover { color: var(--color-accent); }
+html .hero-explore-link:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+html .follow-intro .ui-section-title {
+  font-size: var(--text-lg);
+}
+html .follow-intro .ui-body {
+  margin-block-start: var(--space-2xs);
+  font-size: var(--text-sm);
+}
+html .brand-social-link {
+  min-height: 4.25rem;
+  height: auto;
+  padding-block: var(--space-sm);
+}
+
+@media (max-width: 39.99rem) {
+  html .landing-header {
+    flex-direction: column;
+    gap: var(--space-2xs);
+    padding-block: var(--space-2xs);
+  }
+  html .landing-header__brand img {
+    width: 32px;
+    height: 32px;
+  }
+  html .landing-navigation {
+    width: 100%;
+    min-width: 0;
+  }
+  html .landing-navigation__links {
+    justify-content: space-between;
+    gap: 0;
+  }
+  html .landing-navigation a {
+    padding-inline: 0.375rem;
+    font-size: 0.8125rem;
+  }
+  html .linktree-hero {
+    min-height: clamp(13rem, 57vw, 22rem);
+  }
 }
 
 html .linktree-shell {
@@ -331,7 +438,9 @@ html footer::before {
   display: none;
 }
 
-html :is(nav[aria-label='Site navigation'], nav[aria-label='Page information']) a {
+html
+  :is(nav[aria-label='Site navigation'], nav[aria-label='Page information'])
+  a {
   display: inline-flex;
   min-height: 2.75rem;
   align-items: center;
@@ -348,15 +457,15 @@ html :is(nav[aria-label='Site navigation'], nav[aria-label='Page information']) 
 
 @media (min-width: 60rem) {
   html .desktop-hero-layout {
-    order: -3;
+    order: 0;
   }
 
   html .desktop-primary-grid {
-    order: -2;
+    order: 0;
   }
 
   html .brand-marquee {
-    order: -1;
+    order: 0;
   }
 
   html .desktop-hero-layout .linktree-hero__image {
@@ -377,7 +486,7 @@ html :is(nav[aria-label='Site navigation'], nav[aria-label='Page information']) 
 
   html .linktree-hero {
     grid-row: 1;
-    min-height: clamp(20rem, 80vw, 30rem);
+    min-height: clamp(13rem, 57vw, 30rem);
   }
 
   html .desktop-intro-panel {
