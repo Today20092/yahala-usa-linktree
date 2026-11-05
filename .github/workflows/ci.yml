@@ -73,6 +73,9 @@ jobs:
             artifacts/a11y-results/
           if-no-files-found: ignore
 
+      - name: Check speed and accessibility with Lighthouse
+        run: npx --yes @lhci/cli@0.16.0 autorun
+
       - name: Run regression tests
         run: |
           npm run test:ui-validation
