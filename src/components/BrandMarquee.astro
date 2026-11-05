@@ -145,14 +145,55 @@ const rows = [
     }
   }
 
+  .brand-marquee__viewport[data-motion-paused] {
+    overflow: visible;
+    mask-image: none;
+  }
+
+  [data-motion-paused] .brand-marquee__track {
+    width: 100%;
+    animation: none;
+    transform: none;
+  }
+
+  [data-motion-paused] .brand-marquee__group {
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 0;
+  }
+
+  [data-motion-paused] .brand-marquee__brand {
+    min-width: 0;
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+
+  [data-motion-paused] .brand-marquee__group[aria-hidden='true'] {
+    display: none;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .brand-marquee__viewport {
-      overflow-x: auto;
+      overflow: visible;
       mask-image: none;
     }
 
     .brand-marquee__track {
       animation: none;
+      width: 100%;
+      transform: none;
+    }
+
+    .brand-marquee__group {
+      flex-wrap: wrap;
+      width: 100%;
+      padding: 0;
+    }
+
+    .brand-marquee__brand {
+      min-width: 0;
+      max-width: 100%;
+      flex-wrap: wrap;
     }
 
     .brand-marquee__group[aria-hidden='true'] {

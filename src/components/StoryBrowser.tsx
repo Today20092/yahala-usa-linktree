@@ -5,13 +5,16 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import type { Story } from '@/lib/story-browser'
+import type { VisitedMapPlace } from '@/lib/site-config'
+import { buildStoryMapPlaces } from '@/lib/story-map'
+import VisitedPlacesLeafletMap from './VisitedPlacesLeafletMap'
 import {
   isRecentVideo,
   sortVideosByPublishedDate,
 } from '@/lib/video-recency.js'
 import { resolveYoutubeReference } from '@/lib/youtube-video-id.js'
 
-type Props = { stories: Story[] }
+type Props = { stories: Story[]; places: VisitedMapPlace[] }
 const PAGE_SIZE = 24
 const UNASSIGNED_FILTER = 'unassigned'
 
@@ -21,12 +24,21 @@ const readFilters = () => {
     state: params.get('state') ?? '',
     city: params.get('city') ?? '',
     sort: params.get('sort') === 'oldest' ? 'oldest' : 'newest',
+    view: params.get('view') === 'map' ? 'map' : 'list',
   }
 }
 
-export default function StoryBrowser({ stories }: Props) {
+export default function StoryBrowser({ stories, places }: Props) {
   const [filters, setFilters] = React.useState(readFilters)
   const [visibleCount, setVisibleCount] = React.useState(PAGE_SIZE)
+  const firstAddedStory = React.useRef<HTMLAnchorElement | null>(null)
+  const focusAddedStory = React.useRef(false)
+
+  React.useEffect(() => {
+    if (!focusAddedStory.current) return
+    firstAddedStory.current?.focus()
+    focusAddedStory.current = false
+  }, [visibleCount])
 
   React.useEffect(() => {
     const sync = () => {
@@ -74,19 +86,22 @@ export default function StoryBrowser({ stories }: Props) {
         )
       : []
   const sortedMatches = sortVideosByPublishedDate(matches, filters.sort)
+  const mapPlaces = React.useMemo(() => buildStoryMapPlaces(places, matches), [places, stories, filters.state, filters.city])
 
   const updateFilters = (
     state: string,
     city = '',
     sort = filters.sort,
+    view = filters.view,
   ) => {
     const params = new URLSearchParams()
     if (state) params.set('state', state)
     if (state && city) params.set('city', city)
     if (sort === 'oldest') params.set('sort', sort)
+    if (view === 'map') params.set('view', view)
     const query = params.toString()
     history.pushState(null, '', `/stories${query ? `?${query}` : ''}`)
-    setFilters({ state, city, sort })
+    setFilters({ state, city, sort, view })
     setVisibleCount(PAGE_SIZE)
   }
 
@@ -144,15 +159,27 @@ export default function StoryBrowser({ stories }: Props) {
         </label>
       </div>
 
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+        <p className="text-muted-foreground text-sm">Explore by location or browse every story.</p>
+        <div className="flex gap-2" role="group" aria-label="Story view">
+          <Button type="button" variant={filters.view === 'list' ? 'default' : 'outline'} className="min-h-11" aria-pressed={filters.view === 'list'} onClick={() => updateFilters(filters.state, filters.city, filters.sort, 'list')}>List view</Button>
+          <Button type="button" variant={filters.view === 'map' ? 'default' : 'outline'} className="min-h-11" aria-pressed={filters.view === 'map'} onClick={() => updateFilters(filters.state, filters.city, filters.sort, 'map')}>Map view</Button>
+        </div>
+      </div>
+      {filters.view === 'map' && <div className="mt-4">
+        <VisitedPlacesLeafletMap places={mapPlaces} selectedCity={filters.city} spacious onSelectPlace={(state, city) => updateFilters(state, city)} />
+        <p className="text-muted-foreground mt-2 text-sm">Pins show cities, not filming addresses. Numbers on grouped pins count cities. Stories without city coordinates remain in the list.</p>
+      </div>}
+
       <p className="text-muted-foreground mt-5 text-sm" aria-live="polite">
-        {matches.length} {matches.length === 1 ? 'story' : 'stories'},{' '}
+        Showing {Math.min(visibleCount, matches.length)} of {matches.length} {matches.length === 1 ? 'story' : 'stories'},{' '}
         {filters.sort === 'oldest' ? 'oldest first' : 'newest first'}
       </p>
 
       {matches.length > 0 ? (
         <>
           <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {sortedMatches.slice(0, visibleCount).map((story) => {
+            {sortedMatches.slice(0, visibleCount).map((story, index) => {
               if (!story.url) return null
               const thumbnail = story.thumbnail ?? resolveYoutubeReference(story.url)?.thumbnail
               const fallback = resolveYoutubeReference(story.url)?.thumbnailFallback
@@ -164,6 +191,7 @@ export default function StoryBrowser({ stories }: Props) {
               return (
                 <Card key={`${story.videoId}-${story.location}`} className="gap-0 py-0">
                   <a
+                    ref={index === visibleCount - PAGE_SIZE ? firstAddedStory : undefined}
                     href={story.url}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -207,7 +235,10 @@ export default function StoryBrowser({ stories }: Props) {
           </div>
           {visibleCount < matches.length && (
             <div className="mt-8 text-center">
-              <Button type="button" size="lg" onClick={() => setVisibleCount((count) => count + PAGE_SIZE)}>
+              <Button type="button" size="lg" onClick={() => {
+                focusAddedStory.current = true
+                setVisibleCount((count) => count + PAGE_SIZE)
+              }}>
                 Load more
               </Button>
             </div>

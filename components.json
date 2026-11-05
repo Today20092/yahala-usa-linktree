@@ -1,6 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "radix-rhea",
+  "style": "base-rhea",
   "rsc": false,
   "tsx": true,
   "tailwind": {
@@ -22,6 +22,8 @@
     "hooks": "@/hooks"
   },
   "registries": {
-    "@animate-ui": "https://animate-ui.com/r/{name}.json"
+    "@shadcn-map": "https://shadcn-map.vercel.app/r/{name}.json",
+    "@animate-ui": "https://animate-ui.com/r/{name}.json",
+    "@cnippet": "https://ui.cnippet.dev/r/{name}.json"
   }
 }

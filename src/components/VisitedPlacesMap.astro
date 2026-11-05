@@ -2,6 +2,8 @@
 import VisitedPlacesLeafletMap from './VisitedPlacesLeafletMap'
 import VisitedPlacesExplorer from './VisitedPlacesExplorer'
 import type { VisitedPlaces } from '../lib/site-config'
+import { buildStories } from '../lib/story-browser'
+import { buildStoryMapPlaces } from '../lib/story-map'
 
 type Props = {
   visitedPlaces: VisitedPlaces
@@ -9,7 +11,10 @@ type Props = {
 
 const { visitedPlaces } = Astro.props
 const stateGroups = visitedPlaces.stateGroups ?? []
-const mapPlaces = visitedPlaces.mapPlaces ?? []
+const mapPlaces = buildStoryMapPlaces(
+  visitedPlaces.mapPlaces ?? [],
+  buildStories(visitedPlaces),
+)
 ---
 
 {
@@ -31,7 +36,7 @@ const mapPlaces = visitedPlaces.mapPlaces ?? []
 
       <div class="visited-places-frame overflow-hidden p-2.5 sm:p-3">
         <VisitedPlacesLeafletMap
-          client:visible={{ rootMargin: '200px' }}
+          client:idle={{ timeout: 2000 }}
           places={mapPlaces}
         />
 

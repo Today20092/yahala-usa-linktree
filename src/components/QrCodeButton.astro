@@ -70,14 +70,14 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
   >
     <div class="mb-4 flex items-center justify-between gap-4 text-left">
       <h2 id="qr-title" class="text-lg font-bold">Share this page</h2>
-      <a
-        href="#"
+      <button
+        type="button"
         id="qr-close"
         class="hover:bg-accent focus-visible:ring-ring/30 grid size-11 place-items-center rounded-full transition-colors focus-visible:ring-2 focus-visible:outline-none"
         aria-label="Close QR code"
       >
         <Icon name="heroicons:x-mark" class="size-6" aria-hidden="true" />
-      </a>
+      </button>
     </div>
     <div
       class="to-primary/10 from-background via-background elevation-3 mx-auto grid aspect-square w-full max-w-64 place-items-center rounded-xl bg-gradient-to-br p-3"
@@ -141,6 +141,12 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
   })
 
   openButtons.forEach((button) => {
+    button.setAttribute('role', 'button')
+    button.addEventListener('keydown', (event: KeyboardEvent) => {
+      if (event.key !== ' ') return
+      event.preventDefault()
+      openDialog(button)
+    })
     button.addEventListener('click', (event) => {
       event.preventDefault()
       openDialog(button)

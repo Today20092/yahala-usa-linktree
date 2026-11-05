@@ -2,10 +2,13 @@ import { readFile } from 'node:fs/promises'
 import assert from 'node:assert/strict'
 import { stripTypeScriptTypes } from 'node:module'
 
-const source = await readFile(
+const wrapperSource = await readFile(
   new URL('../src/components/VisitedPlacesLeafletMap.tsx', import.meta.url),
   'utf8',
 )
+const mapSource = await readFile(new URL('../src/components/StoryMap.tsx', import.meta.url), 'utf8')
+const uiMapSource = await readFile(new URL('../src/components/ui/map.tsx', import.meta.url), 'utf8')
+const source = wrapperSource + mapSource + uiMapSource
 const explorerSource = await readFile(
   new URL('../src/components/VisitedPlacesExplorer.tsx', import.meta.url),
   'utf8',
@@ -31,16 +34,19 @@ const youtubeVideos = JSON.parse(
 
 for (const expected of [
   "React.useState<'loading' | 'ready' | 'error'>",
-  "tileLayer.on('load'",
-  "tileLayer.on('tileerror'",
-  'if (isMounted && !hasTileError)',
+  "glMap.once('load'",
+  "glMap.on('error', fallback)",
+  'rasterFailed.current',
   'The map is unavailable right now.',
   "Map tiles couldn't load.",
-  'Browse the states below',
-  'keyboard: true',
+  'Use the location filters',
+  'keyboard',
   "window.matchMedia('(pointer: coarse)').matches",
   'aspect-[2/1]',
-  'window.location.assign(storyBrowserHref(place.state, place.city))',
+  'href={storyBrowserHref(place.state, place.city)}',
+  'MapMarkerClusterGroup',
+  'MapFullscreenControl',
+  'maxZoom={18}',
 ]) {
   if (!source.includes(expected)) {
     throw new Error(`Visited map is missing: ${expected}`)
@@ -48,7 +54,9 @@ for (const expected of [
 }
 
 for (const expected of [
-  'window.location.assign(storyBrowserHref(state))',
+  'href={storyBrowserHref(selectedState)}',
+  'setSelectedState(event.currentTarget.value)',
+  'Browse stories in {selectedState}',
   'href="/stories"',
   'Browse stories by state',
 ]) {
@@ -56,6 +64,13 @@ for (const expected of [
     throw new Error(`Visited story entry point is missing: ${expected}`)
   }
 }
+
+assert.ok(!explorerSource.includes('window.location.assign'), 'Selecting a state must not unexpectedly navigate')
+assert.ok(!source.includes('event.ctrlKey'), 'Map must preserve native browser Ctrl+wheel zoom')
+assert.ok(source.includes("inert={status === 'error'}"), 'Failed map controls must leave keyboard navigation')
+assert.ok(source.includes('iconSize: [32, 32]'), 'Map marker target must exceed 24 CSS pixels')
+assert.ok(browserSource.includes('Showing {Math.min(visibleCount, matches.length)} of'), 'Pagination must announce visible and total counts')
+assert.ok(browserSource.includes('firstAddedStory.current?.focus()'), 'Pagination must move focus to new stories')
 
 for (const expected of [
   "const PAGE_SIZE = 24",
@@ -117,7 +132,7 @@ const places = {
 }
 assert.deepEqual(buildStories(places).map((video) => video.videoId).sort(), ['landscape', 'regular'])
 assert.deepEqual(buildStories({}).map((video) => video.videoId).sort(), ['landscape', 'regular'])
-for (const id of ['vDtTkpHzg18', 'WFRFSj-kioo', 'rrdjvuYfXFc']) {
+for (const id of ['vDtTkpHzg18', 'WFRFSj-kioo', 'rrdjvuYfXFc', 'jdM-uQmte7g']) {
   assert.equal(youtubeVideos[id]?.isShort, true, `Known Short ${id} must stay excluded`)
 }
 

@@ -669,6 +669,10 @@ socialReach:
       metric: Views
       value: 79423446
 collaborationBrands:
+  - name: Lipari Foods
+    logo: /brands/lipari-foods.svg
+  - name: Damaski
+    logo: /brands/damaski.png
   - name: Aser Time Juice Time
   - name: Farooj Abo Abed's Shawarma
   - name: Moka & Co.

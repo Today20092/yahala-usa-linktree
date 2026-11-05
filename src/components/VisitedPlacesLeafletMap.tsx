@@ -1,199 +1,95 @@
 import * as React from 'react'
-import 'leaflet/dist/leaflet.css'
+import { createPortal } from 'react-dom'
+import type { StoryMapPlace } from '@/lib/story-map'
 import './VisitedPlacesLeafletMap.css'
 
-import type { VisitedMapPlace } from '@/lib/site-config'
-import { storyBrowserHref } from '@/lib/story-browser'
-
+const StoryMap = React.lazy(() => import('./StoryMap'))
 type Props = {
-  places: VisitedMapPlace[]
+  places: StoryMapPlace[]
+  selectedCity?: string
+  onSelectPlace?: (state: string, city: string) => void
+  spacious?: boolean
 }
 
-const mapContainerClass =
-  'visited-places-leaflet-map bg-muted dark:bg-background/35 border-border/70 relative isolate aspect-[2/1] overflow-hidden rounded-lg border shadow-inner'
-
-const mapBoundsPadding: [number, number] = [32, 32]
-
-export default function VisitedPlacesLeafletMap({ places }: Props) {
-  const mapRef = React.useRef<HTMLDivElement | null>(null)
-  const mapInstanceRef = React.useRef<import('leaflet').Map | null>(null)
-  const [status, setStatus] = React.useState<'loading' | 'ready' | 'error'>(
-    'loading',
-  )
-
+export default function VisitedPlacesLeafletMap(props: Props) {
+  const [mounted, setMounted] = React.useState(false)
+  const [expanded, setExpanded] = React.useState(false)
+  const dialog = React.useRef<HTMLDialogElement>(null)
+  React.useEffect(() => setMounted(true), [])
   React.useEffect(() => {
-    if (!mapRef.current || mapInstanceRef.current) return
-    if (typeof window === 'undefined') return
-
-    let isMounted = true
-
-    const loadMap = async () => {
-      const L = await import('leaflet')
-      if (!isMounted || !mapRef.current || mapInstanceRef.current) return
-
-      const isTouchDevice = window.matchMedia('(pointer: coarse)').matches
-
-      const map = L.map(mapRef.current, {
-        zoomControl: false,
-        scrollWheelZoom: false,
-        dragging: !isTouchDevice,
-        touchZoom: true,
-        preferCanvas: true,
-      })
-
-      mapInstanceRef.current = map
-
-      L.control.zoom({ position: 'topright' }).addTo(map)
-
-      const tileLayer = L.tileLayer(
-        'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-        {
-          maxZoom: 19,
-          minZoom: 3,
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>',
-        },
-      )
-      let hasTileError = false
-
-      tileLayer.on('load', () => {
-        if (isMounted && !hasTileError) setStatus('ready')
-      })
-      tileLayer.on('tileerror', () => {
-        hasTileError = true
-        if (isMounted) setStatus('error')
-      })
-      tileLayer.addTo(map)
-
-      const markerIcon = L.divIcon({
-        className: '',
-        html: `
-          <span aria-hidden="true" class="group relative grid size-5 -translate-x-1/2 -translate-y-full place-items-center border-0 bg-transparent p-0">
-            <span class="bg-foreground/20 absolute top-full left-1/2 h-1 w-3 -translate-x-1/2 -translate-y-1 rounded-full blur-[1px] dark:bg-black/45"></span>
-            <span class="bg-primary ring-primary/35 dark:ring-background/80 relative grid size-4 -rotate-45 place-items-center rounded-[50%_50%_50%_0] shadow-sm ring-1 transition duration-200 group-hover:-translate-y-0.5 group-hover:shadow-md dark:shadow-sm dark:group-hover:shadow-md">
-              <span class="bg-primary-foreground dark:bg-background size-1.5 rounded-full ring-1 ring-[color-mix(in_oklch,var(--primary)_18%,transparent)]"></span>
-            </span>
-          </span>
-        `,
-        iconSize: [20, 20],
-        iconAnchor: [10, 20],
-      })
-
-      const markerGroup = L.featureGroup()
-
-      places.forEach((place) => {
-        const label = place.label
-        const marker = L.marker([place.latitude, place.longitude], {
-          icon: markerIcon,
-          keyboard: true,
-          title: label,
-        })
-
-        marker.on('click', () => {
-          window.location.assign(storyBrowserHref(place.state, place.city))
-        })
-
-        marker.bindTooltip(label, {
-          direction: 'top',
-          offset: [0, -18],
-          opacity: 1,
-          className:
-            'visited-places-tooltip rounded-md border border-border bg-background px-2 py-1 text-xs font-semibold text-foreground shadow-lg',
-        })
-
-        marker.addTo(markerGroup)
-      })
-
-      markerGroup.addTo(map)
-
-      const bounds = markerGroup.getBounds()
-
-      if (bounds.isValid()) {
-        map.fitBounds(bounds.pad(0.18), {
-          padding: mapBoundsPadding,
-          maxZoom: 5,
-        })
-      } else {
-        map.setView([39.8283, -98.5795], 4)
-      }
-
-      const handleResize = () => {
-        map.invalidateSize()
-      }
-
-      const handleWheel = (event: WheelEvent) => {
-        if (!event.ctrlKey) return
-
-        event.preventDefault()
-        const point = map.mouseEventToContainerPoint(event)
-        map.setZoomAround(point, map.getZoom() + (event.deltaY < 0 ? 1 : -1))
-      }
-
-      window.addEventListener('resize', handleResize)
-      mapRef.current.addEventListener('wheel', handleWheel, { passive: false })
-
-      const cleanup = () => {
-        window.removeEventListener('resize', handleResize)
-        mapRef.current?.removeEventListener('wheel', handleWheel)
-        map.remove()
-        mapInstanceRef.current = null
-      }
-
-      return cleanup
-    }
-
-    let cleanup: undefined | (() => void)
-    loadMap()
-      .then((result) => {
-        cleanup = result
-      })
-      .catch(() => {
-        if (isMounted) setStatus('error')
-      })
-
+    if (!expanded) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    dialog.current?.showModal()
     return () => {
-      isMounted = false
-      cleanup?.()
+      document.body.style.overflow = previousOverflow
     }
-  }, [places])
-
-  const statusContent =
-    status === 'error'
-      ? {
-          role: 'alert' as const,
-          title: 'The map is unavailable right now.',
-          description:
-            "Map tiles couldn't load. Browse the states below to keep exploring stories by city.",
-        }
-      : {
-          role: 'status' as const,
-          title: 'Loading the map…',
-          description: 'You can browse the states below while it loads.',
-        }
-
-  return (
-    <div className={`${mapContainerClass} grid`} aria-label="Map">
-      <div ref={mapRef} className="col-start-1 row-start-1 min-h-full" />
-      {status !== 'ready' && (
-        <div
-          className={
-            status === 'error'
-              ? 'bg-muted text-foreground z-[500] col-start-1 row-start-1 grid place-items-center p-6 text-center'
-              : 'bg-background text-foreground pointer-events-none z-[500] col-start-1 row-start-1 m-3 place-self-start rounded-full px-3 py-2 text-left shadow-sm ring-1 ring-black/5'
-          }
-          role={statusContent.role}
-          aria-live="polite"
-        >
-          <div className="max-w-sm">
-            <p className="text-sm font-semibold">{statusContent.title}</p>
-            {status === 'error' && (
-              <p className="text-muted-foreground mt-1 text-sm">
-                {statusContent.description}
-              </p>
-            )}
-          </div>
-        </div>
-      )}
+  }, [expanded])
+  const content = (
+    <div
+      className={`story-map-shell bg-muted border-border relative aspect-[2/1] min-h-72 overflow-hidden rounded-xl border ${expanded ? 'story-map-expanded' : ''} ${props.spacious ? 'sm:min-h-[28rem]' : ''}`}
+      aria-label="Map"
+    >
+      <MapErrorBoundary>
+        <React.Suspense fallback={<MapLoading />}>
+          {mounted ? (
+            <StoryMap
+              {...props}
+              expanded={expanded}
+              onToggleExpanded={() => setExpanded(!expanded)}
+            />
+          ) : (
+            <MapLoading />
+          )}
+        </React.Suspense>
+      </MapErrorBoundary>
     </div>
+  )
+  return expanded
+    ? createPortal(
+        <dialog
+          ref={dialog}
+          className="story-map-dialog"
+          aria-label="Expanded story map"
+          onCancel={() => setExpanded(false)}
+        >
+          {content}
+        </dialog>,
+        document.body,
+      )
+    : content
+}
+
+class MapErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  { failed: boolean }
+> {
+  state = { failed: false }
+  static getDerivedStateFromError() {
+    return { failed: true }
+  }
+  render() {
+    return this.state.failed ? (
+      <p
+        role="alert"
+        className="bg-muted text-foreground absolute inset-0 grid place-content-center p-6 text-center"
+      >
+        The map is unavailable right now. Use the location filters to keep
+        browsing stories.
+      </p>
+    ) : (
+      this.props.children
+    )
+  }
+}
+
+function MapLoading() {
+  return (
+    <p
+      role="status"
+      className="bg-background text-foreground absolute inset-0 grid place-items-center text-sm"
+    >
+      Loading the map…
+    </p>
   )
 }

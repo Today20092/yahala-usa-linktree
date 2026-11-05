@@ -21,7 +21,8 @@ const createContentSecurityPolicy = (nonce) =>
     `script-src 'self' 'nonce-${nonce}'`,
     "style-src 'self' 'unsafe-inline'",
     "font-src 'self' data:",
-    "connect-src 'self'",
+    "connect-src 'self' https://tiles.openfreemap.org https://tile.openstreetmap.org",
+    "worker-src 'self' blob:",
     'upgrade-insecure-requests',
   ].join('; ')
 

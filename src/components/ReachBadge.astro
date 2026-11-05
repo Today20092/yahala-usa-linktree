@@ -110,14 +110,14 @@ const platformTotals = Object.values(
       </p>
     </header>
 
-    <dl class="reach-summary__stats">
+    <div class="reach-summary__stats">
       {
         platformTotals.map((item) => (
           <div
             style={`--platform-accent: ${item.accent}; --platform-accent-dark: ${item.darkAccent}; --platform-share: ${item.share}%;`}
             class="reach-summary__stat [--platform-active-accent:var(--platform-accent)] dark:[--platform-active-accent:var(--platform-accent-dark)]"
           >
-            <div class="reach-summary__stat-row">
+            <dl class="reach-summary__stat-row m-0">
               <dt class="ui-meta flex min-w-0 items-center gap-2 truncate">
                 <Icon
                   name={item.icon}
@@ -139,14 +139,14 @@ const platformTotals = Object.values(
                   views
                 </span>
               </dd>
-            </div>
+            </dl>
             <div class="reach-summary__bar" aria-hidden="true">
               <span />
             </div>
           </div>
         ))
       }
-    </dl>
+    </div>
   </div>
 </aside>
 
