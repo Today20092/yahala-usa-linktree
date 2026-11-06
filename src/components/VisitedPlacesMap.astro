@@ -1,5 +1,5 @@
 ---
-import VisitedPlacesLeafletMap from './VisitedPlacesLeafletMap'
+import StoryMapShell from './StoryMapShell'
 import VisitedPlacesExplorer from './VisitedPlacesExplorer'
 import type { VisitedPlaces } from '../lib/site-config'
 import { buildStories } from '../lib/story-browser'
@@ -11,7 +11,10 @@ type Props = {
 }
 
 const { visitedPlaces } = Astro.props
-const stateGroups = visitedPlaces.stateGroups ?? []
+// The island only needs the picker fields; full groups embed every video (~800 KB of props).
+const stateGroups = (visitedPlaces.stateGroups ?? []).map(
+  ({ state, videoCount }) => ({ state, videoCount }),
+)
 const stories = buildStories(visitedPlaces)
 const mapPlaces = buildStoryMapPlaces(visitedPlaces.mapPlaces ?? [], stories)
 ---
@@ -33,10 +36,15 @@ const mapPlaces = buildStoryMapPlaces(visitedPlaces.mapPlaces ?? [], stories)
     </div>
 
     <div class="visited-places-frame overflow-hidden p-2.5 sm:p-3">
-      <VisitedPlacesLeafletMap
+      <StoryMapShell
         client:visible={{ rootMargin: '200px' }}
         places={mapPlaces}
       />
+
+      <p class="text-muted-foreground mt-2 px-2 text-sm">
+        Business addresses where available; city pins are approximate. Grouped
+        pins count locations, not stories.
+      </p>
 
       <VisitedPlacesExplorer
         client:visible={{ rootMargin: '200px' }}

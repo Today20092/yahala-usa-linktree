@@ -1,11 +1,20 @@
 import type { CityVideo, VisitedPlaces } from './site-config'
 import { sortVideosByPublishedDate } from './video-recency.js'
 import { youtubeVideosById } from './youtube-videos'
+import businessLocations from '../data/business-locations.json'
+
+export type BusinessLocation = {
+  name: string
+  address: string
+  latitude: number
+  longitude: number
+}
 
 export type Story = CityVideo & {
   state: string
   city?: string
   location: string
+  businessLocation?: BusinessLocation
 }
 
 export const storyBrowserHref = (state?: string, city?: string) => {
@@ -44,12 +53,20 @@ export const buildStories = (visitedPlaces: VisitedPlaces): Story[] => {
     }))
 
   return sortVideosByPublishedDate(
-    [...locatedStories, ...unassignedStories].filter(
-      (story) => {
+    [...locatedStories, ...unassignedStories]
+      .map((story) => ({
+        ...story,
+        businessLocation: (
+          businessLocations as Record<string, BusinessLocation>
+        )[story.videoId ?? ''],
+      }))
+      .filter((story) => {
         const video = story.videoId && youtubeVideosById[story.videoId]
-        return video && video.isShort === false &&
+        return (
+          video &&
+          video.isShort === false &&
           !(video.width && video.height && video.width <= video.height)
-      },
-    ),
+        )
+      }),
   )
 }

@@ -1,0 +1,4 @@
+npm notice run yahala-usa-linktree@0.2.0 test:reach-chart
+npm notice run node scripts/test-reach-chart.mjs
+Audience chart is server-rendered with all verified values.
+Reach ranking, snapshot integrity, server-rendered story links, units and disclosures pass.

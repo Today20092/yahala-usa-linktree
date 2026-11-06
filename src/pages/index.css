@@ -12,9 +12,9 @@ html .reach-summary__heading-row {
   display: flex;
   min-width: 0;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--space-3xs);
-  text-align: start;
+  text-align: center;
 }
 
 html .reach-summary__stat-row {
@@ -34,13 +34,14 @@ html .reach-summary__total {
   letter-spacing: -0.055em;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
-  text-align: start;
+  text-align: center;
 }
 
 html .reach-summary__description {
   max-width: 55ch;
   margin-block-start: var(--space-sm);
-  text-align: start;
+  margin-inline: auto;
+  text-align: center;
 }
 
 html .visited-state-picker {
@@ -159,9 +160,10 @@ html :is(#watch, #follow, #explore, #contact) {
 }
 html .follow-intro {
   margin-block-start: var(--space-lg);
-  text-align: start;
+  text-align: center;
 }
 html .hero-explore-link {
+  gap: 0.5rem;
   display: inline-flex;
   min-height: 3rem;
   align-items: center;
@@ -203,13 +205,15 @@ html .linktree-shell {
 
 html .desktop-hero-layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-lg);
-  align-items: stretch;
+  justify-items: center;
 }
 
 html .linktree-hero {
-  grid-column: 2;
+  grid-column: 1;
+  width: 100%;
+  max-width: 64rem;
   min-height: 35rem;
   border-radius: 0;
   background: transparent;
@@ -221,7 +225,9 @@ html .linktree-hero__fade {
 
 html .desktop-intro-panel {
   grid-column: 1;
-  grid-row: 1;
+  grid-row: 2;
+  width: 100%;
+  align-items: center;
   display: flex;
   min-width: 0;
   flex-direction: column;
@@ -233,15 +239,15 @@ html .desktop-intro-panel {
 
 html .desktop-intro-panel > section,
 html .desktop-intro-panel > nav {
-  max-width: none;
-  margin-inline: 0;
+  max-width: 44rem;
+  margin-inline: auto;
   padding-inline: 0;
-  text-align: start;
+  text-align: center;
 }
 
 html #intro-title {
-  max-width: 12ch;
-  margin: 0;
+  max-width: 16ch;
+  margin-inline: auto;
   font-size: clamp(2.25rem, 4.4vw, 4.25rem);
   font-weight: 700;
   line-height: 1;
@@ -256,7 +262,7 @@ html .desktop-intro-panel > nav {
 
 html .brand-social-link {
   border: var(--rule-hair) solid var(--color-rule);
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-card);
   background: var(--color-paper);
   color: var(--color-ink);
   box-shadow: none;
@@ -281,7 +287,14 @@ html .latest-channel-video {
 }
 
 html .linktree-shell > :is(section, div):not(.desktop-hero-layout) {
-  max-width: none;
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+}
+
+html .desktop-primary-grid {
+  max-width: 44rem;
+  grid-template-columns: minmax(0, 1fr);
 }
 
 html :is(.ui-surface-card, .collaboration-cta) {
@@ -344,7 +357,7 @@ html .latest-channel-video__details {
 }
 
 html .ui-section-header {
-  text-align: start;
+  text-align: center;
 }
 
 html .about-copy {
@@ -360,19 +373,10 @@ html footer::before {
   display: none;
 }
 
-html
-  :is(nav[aria-label='Site navigation'], nav[aria-label='Page information'])
-  a {
-  display: inline-flex;
-  min-height: 2.75rem;
-  align-items: center;
-  padding-inline: var(--space-2xs);
-}
-
 @media (hover: hover) and (pointer: fine) {
   html .brand-social-link:hover {
-    border-color: var(--color-ink-2);
-    background: var(--color-paper-2);
+    border-color: color-mix(in srgb, var(--brand-color) 45%, var(--color-rule));
+    background: color-mix(in srgb, var(--brand-color) 6%, var(--color-paper));
     transform: translateY(calc(var(--rule-hair) * -1));
   }
 }
@@ -393,6 +397,8 @@ html
   html .desktop-hero-layout .linktree-hero {
     min-height: 0;
     aspect-ratio: 1500 / 635;
+    width: min(100%, 52rem);
+    justify-self: center;
     align-self: center;
   }
 
@@ -453,4 +459,54 @@ html
   html .desktop-intro-panel {
     padding: 0;
   }
+}
+
+/* Centered single-column blocks; a grid with one child should not sit in half the page. */
+html .linktree-shell > .desktop-primary-grid:not(.desktop-hero-layout),
+html .linktree-shell > .desktop-explore-grid:not(.desktop-hero-layout) {
+  max-width: 44rem;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+html .linktree-shell > #contact {
+  max-width: 44rem;
+  text-align: center;
+}
+
+html .linktree-shell > #contact :is(p, a) {
+  margin-inline: auto;
+}
+
+html .desktop-intro-panel > section > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+html .desktop-intro-panel > section > div > a {
+  width: auto;
+}
+
+/* Match the other routes: full-width header/footer; the shell owns the gutters. */
+html body.linktree-page {
+  padding-inline: 0;
+}
+
+/* Platform color lives on the icon tile only; the row stays neutral. The solid main color keeps the white logo readable. */
+html .social-icon-tile {
+  background: var(--brand-color);
+}
+
+html.dark .social-icon-tile {
+  background: var(--brand-color-dark);
+}
+
+/* Instagram's mark is a gradient; all three stops are dark enough for a white logo. */
+html #instagram .social-icon-tile {
+  background: linear-gradient(
+    135deg,
+    var(--brand-color-2),
+    var(--brand-color),
+    var(--brand-color-3)
+  );
 }

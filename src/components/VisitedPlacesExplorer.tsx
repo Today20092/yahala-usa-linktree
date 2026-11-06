@@ -5,7 +5,9 @@ import type { VisitedStateGroup } from '@/lib/site-config'
 import { storyBrowserHref } from '@/lib/story-browser'
 import { SearchableSelect } from '@/components/ui/searchable-select'
 
-type Props = { stateGroups: VisitedStateGroup[] }
+type Props = {
+  stateGroups: Pick<VisitedStateGroup, 'state' | 'videoCount'>[]
+}
 
 export default function VisitedPlacesExplorer({ stateGroups }: Props) {
   const [selectedState, setSelectedState] = React.useState('')

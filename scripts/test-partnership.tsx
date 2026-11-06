@@ -26,15 +26,13 @@ assert.doesNotMatch(
   'Tailwind’s accent alias resolves to a pale surface and makes the action unreadable',
 )
 
-const unavailable = renderToStaticMarkup(
-  <PartnershipForm email="" instagramUrl="https://instagram.com/yahala_usa" />,
-)
+const unavailable = renderToStaticMarkup(<PartnershipForm />)
 assert.match(
   unavailable,
   /<form/,
   'The full form must stay available with a blank receiving inbox',
 )
-assert.match(unavailable, /Email delivery isn’t available yet/)
+assert.match(unavailable, /Send my inquiry/)
 assert.doesNotMatch(
   unavailable,
   /mailto:/,
@@ -43,10 +41,13 @@ assert.doesNotMatch(
 const submit = unavailable.match(/<button\b[^>]*type="submit"[^>]*>/)?.[0]
 assert.ok(submit, 'The inquiry preparation action is available')
 assert.doesNotMatch(submit, /\sdisabled(?:=|\s|>)/)
-assert.match(unavailable, /href="https:\/\/instagram.com\/yahala_usa"/)
+assert.doesNotMatch(
+  unavailable,
+  /instagram\.com|Email directly|Prepare my inquiry/,
+)
 
 const configured = renderToStaticMarkup(
-  <PartnershipForm email="partners@example.test" />,
+  <PartnershipForm turnstileSiteKey="test-key" />,
 )
 assert.match(
   configured,
@@ -68,8 +69,8 @@ for (const name of ['name', 'email', 'message']) {
 }
 assert.match(
   configured,
-  /Nothing|Opens a draft/,
+  /Your message is emailed to Ya Hala/,
   'Delivery must be described honestly',
 )
-assert.match(configured, /mailto:partners@example.test/)
-console.log('Partnership configured and blank-inbox states passed.')
+assert.doesNotMatch(configured, /mailto:/)
+console.log('Partnership form-only markup, labels and submission safety passed.')

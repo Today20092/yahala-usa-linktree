@@ -22,8 +22,8 @@ for (const page of ['index', 'about', 'stories', 'contact']) {
   )
   if (page === 'index' || page === 'about') {
     assert.ok(
-      /<ContactCta[\s/>]/.test(source) && !source.includes('}contact`}'),
-      `${page} must use the shared ContactCta for its contact action`,
+      /<ContactCta[\s/>]/.test(source),
+      `${page} must use the shared ContactCta for its closing contact section`,
     )
   }
 }

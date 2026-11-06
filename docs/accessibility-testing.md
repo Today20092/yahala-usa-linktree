@@ -29,11 +29,15 @@ The browser runner starts an isolated Vite static preview on `127.0.0.1:4337`. V
 - Accessibility lint: recommended Astro and JSX accessibility rules, failing on warnings/errors.
 - Axe: whole-page WCAG A/AA rules through 2.2 for all four routes. Violations fail the run. Every scan attaches both violations and incomplete results; incomplete items require review, not an automatic conformance claim.
 - Explicit contrast: homepage partnership action at rest/actual hover, contact submit hover, and a representative input boundary. The browser resolves OKLCH and alpha colors; input boundaries require 3:1, ordinary action text 4.5:1. The contrast helper assumes flat backgrounds; axe/manual inspection covers other contexts.
-- Contact behavior: real Tab and arrow-key selection, invalid required/email focus, preserved entries, copyable prepared inquiry, clipboard-denied recovery, status text, enlarged text/spacing, clipped-control detection, and a forced-colors visibility smoke check. Current fixtures use a deliberately blank receiving inbox and do not send email.
+- Contact behavior: real Tab and arrow-key selection, invalid required/email focus, preserved entries, mocked delivery success/failures, security-check retry, duplicate activation prevention, status text, enlarged text/spacing, clipped-control detection, and forced-colors visibility. Verification scripts and API responses are intercepted; tests do not send real email.
 - Existing `test:accessibility` scripts retain focused QR, search, share, and motion seams. Use them for relevant changes; they complement the browser gate.
 - The browser gate also checks QR opening by Enter, initial dialog focus, Escape dismissal and return focus, plus the rendered reduced-motion bento state. It verifies each route's canonical URL so a homepage fallback cannot silently pass as another page.
 
 On failure open `artifacts/a11y-report/index.html` (or run `npx playwright show-report artifacts/a11y-report`). The report links screenshots, traces, and axe JSON. `artifacts/a11y-results/*/axe-review.json` also retains incomplete findings on successful scans. Reports/caches are ignored. CI runs cached lint, builds once, caches/installs Chromium, runs the default gate, and uploads failure artifacts. No additional runtime bundle is added to the public website.
+
+## Local speed check
+
+Single Lighthouse runs vary by 0.1 or more, so do not judge speed from one run. `npm run perf:lighthouse` builds into a temporary folder (never `dist/`), runs Lighthouse on the four pages 5 times each (`-- --runs=3` or `LH_RUNS=3` to change), and prints the median and min-max of score, LCP, TBT, CLS, and transfer size. CI uses 3 runs per page via `lighthouserc.json`. It needs Chromium (`CHROME_PATH` or the Playwright install above).
 
 ## Astro Audit during design
 
@@ -81,4 +85,4 @@ The lockfile installation attempt (`npm ci`) hit Windows `EPERM` on native modul
 
 Axe incomplete findings are retained in the reports. Gradient/overlap and image-backed text can prevent automatic contrast determination; assess their actual visible regions manually. The radios deliberately reference their visible titles and separate descriptions; verify their spoken names with a screen reader. The QR `aria-controls` target exists in the DOM and the Enter/Escape/return-focus test exercises it; axe can still mark the hidden dialog relationship incomplete. These items are not included in a claim of complete conformance.
 
-Real screen-reader evaluation, actual 400% browser zoom, physical Android/Brave, and the guided Accessibility Insights session remain manual. The forced-colors check verifies control visibility/enabled state, not all system-color contrast. The default and extended suites exercise the configured blank-inbox draft flow; future direct-send configurations need their own mocked success/failure/duplicate-activation browser cases before being described as covered.
+Real screen-reader evaluation, actual 400% browser zoom, physical Android/Brave, and the guided Accessibility Insights session remain manual. The forced-colors check verifies control visibility/enabled state, not all system-color contrast. Contact tests exercise mocked direct-send success, server/verification/network failures, retry, and duplicate activation; production verification and inbox receipt remain separate checks.

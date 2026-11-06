@@ -35,3 +35,7 @@ artifacts/a11y-results/
 # Lighthouse CI reports
 .lighthouseci/
 artifacts/lighthouse/
+
+# scratch research output (brand audit, reach samples); nothing reads these
+artifacts/brand-audit/
+artifacts/reach-*

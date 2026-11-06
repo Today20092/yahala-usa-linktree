@@ -1,18 +1,22 @@
 # Partnership funnel
 
-The homepage ends with “Your story. Your brand. Our next stop.” and a “Let’s work together” link to `/contact`. That page offers video sponsorships, local business features, and story suggestions in one focused form. The header’s Contact link and the About page’s partnership link also lead there. The old homepage contact anchor remains a valid destination for existing links. QR sharing is a secondary homepage footer action.
+Partnership actions on Home and About, and the shared Contact navigation link, lead to `/contact`. That page offers video sponsorships, local business features, and story suggestions in one focused form. The old homepage contact anchor remains valid. QR sharing is a secondary homepage footer action.
 
-The form reuses Cnippet Field, Textarea, and Radio Group, plus the existing shadcn Input and Button. Shared Atlas token mappings apply to the contact section in both theme states.
+The form reuses the shared Field, Textarea, Radio Group, Input, and Button primitives and existing Atlas tokens.
 
 ## Delivery setup
 
-Set `partnership.email` in `src/data/site.yaml` to the intended receiving inbox. The owner requested that it stay empty for now while the complete form remains visible and usable. Preparing an inquiry creates copyable text; it does not navigate to an unaddressed mailto link. Availability is explained before the fields, and Instagram remains a working alternative. No email delivery provider is configured.
+Set `partnership.email` in `src/data/site.yaml` to the receiving inbox and `partnership.turnstileSiteKey` to the public verification key. The Worker also needs its `EMAIL` binding and `TURNSTILE_SECRET`. The receiving address is chosen by the server, never by the visitor. Source configuration does not prove deployed delivery; verify receipt separately.
 
-The implemented email flow prepares a draft in the visitor’s email app; it does not send automatically. The visitor reviews and sends it. Long encoded drafts remain available to copy, with a direct email link. Entered details are not saved on the site. Native dialog-method submission prevents an unhydrated form from putting personal data in a GET URL.
+The owner selected form-only contact. There are no direct email, Instagram-message, email-draft, or copy-to-email alternatives in the contact flow. Social follow links elsewhere remain viewer destinations.
 
-The receiving inbox is intentionally blank. Do not describe this as a deployed direct-send form.
+The form posts to `/api/partnership` after verification. It confirms a successful response, then clears the submitted fields. During sending it prevents duplicate activation. Validation, unavailable-service, verification, and network errors preserve the inquiry on the current page for retry. A blocked security check can be retried without discarding the fields. A network interruption can leave delivery uncertain; the UI explains that retrying may send it again.
 
-## Verification — November 5, 2026
+The next step is review of the inquiry and an email reply to discuss fit. No response-time commitment is published. Details are not persisted by the site; keep the page open during recovery. Native dialog-method submission prevents unhydrated personal data from appearing in a GET URL.
+
+## Historical verification — earlier draft flow, November 5, 2026
+
+The notes below describe the superseded email-draft implementation, not the current form-only behavior.
 
 - Passed `npx --yes tsx scripts/test-partnership.tsx`: configured/blank-inbox server-rendered states, visible form with enabled preparation, required controls, explicit label associations, safe unhydrated submission method, delivery explanation, and direct email fallback.
 - Passed `npm run check`: zero errors or warnings; two existing unused-code hints.

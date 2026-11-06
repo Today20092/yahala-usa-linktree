@@ -7,7 +7,7 @@ const [tokens, site, home, reach, latest, map, indexCss, worker] =
     readFile('src/pages/index.astro', 'utf8'),
     readFile('src/components/ReachBadge.astro', 'utf8'),
     readFile('src/components/LatestChannelVideo.astro', 'utf8'),
-    readFile('src/components/VisitedPlacesLeafletMap.tsx', 'utf8'),
+    readFile('src/components/StoryMapShell.tsx', 'utf8'),
     readFile('src/pages/index.css', 'utf8'),
     readFile('src/worker.js', 'utf8'),
   ])
@@ -54,13 +54,13 @@ const requireContrast = (foreground, background, minimum, name) => {
 
 requireText(
   tokens,
-  "--font-display: 'Newsreader', ui-serif, serif;",
-  'Production display typography must use Newsreader.',
+  "--font-display: 'Manrope', ui-sans-serif, sans-serif;",
+  'Production display typography must use Manrope.',
 )
 requireText(
   tokens,
-  "--font-body: 'Plus Jakarta Sans', 'Geist Variable', ui-sans-serif, sans-serif;",
-  'Production body typography must use Plus Jakarta Sans.',
+  "--font-body: 'Manrope', ui-sans-serif, sans-serif;",
+  'Production body typography must use Manrope.',
 )
 requireText(
   home,

@@ -1,0 +1,3 @@
+npm notice run yahala-usa-linktree@0.2.0 test:branded-document
+npm notice run node scripts/test-branded-page-document.mjs
+Branded page document seam is consistent.

@@ -3,13 +3,12 @@ import { Icon } from 'astro-icon/components'
 
 import { IconBadge } from './ui/icon-badge'
 
-import latestYoutubeVideos from '../data/latest-youtube-videos.json'
+import snapshot from '../data/story-view-snapshot.json'
 import {
   youtubeThumbnailFallbackUrl,
   youtubeThumbnailUrl,
   youtubeVideosById,
 } from '../lib/youtube-videos'
-import { siteConfig } from '../lib/site-config'
 
 type Episode = {
   thumbnail: string
@@ -19,25 +18,12 @@ type Episode = {
   videoId: string
 }
 
-type ChannelVideoSummary = {
-  topVideoIds?: string[]
-}
-
-type VideoTitleSummary = {
-  videoId?: string
-  title?: string
-}
-
-type VideoWithNestedSummaries = {
-  videos?: VideoTitleSummary[]
-}
-
-const primaryChannel = siteConfig.youtubeChannels[0]
-const primaryChannelSummary = primaryChannel
-  ? (latestYoutubeVideos as Record<string, ChannelVideoSummary>)[
-      primaryChannel.id
-    ]
-  : undefined
+const capturedDate = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(snapshot.capturedAt))
 
 const formatViews = (views: number) =>
   Intl.NumberFormat('en', {
@@ -45,134 +31,101 @@ const formatViews = (views: number) =>
     maximumFractionDigits: views >= 10000 ? 1 : 0,
   }).format(views)
 
-const placeholderTitles = new Set(['Watch on YouTube', 'Open on YouTube'])
-
-const isUsableTitle = (title?: string) => {
-  const trimmedTitle = title?.trim()
-  return Boolean(trimmedTitle && !placeholderTitles.has(trimmedTitle))
-}
-
-const nestedVideoTitlesById = Object.values(
-  youtubeVideosById as Record<string, VideoWithNestedSummaries>,
-).reduce<Record<string, string>>((titles, video) => {
-  video.videos?.forEach((nestedVideo) => {
-    if (nestedVideo.videoId && isUsableTitle(nestedVideo.title)) {
-      titles[nestedVideo.videoId] = nestedVideo.title!.trim()
-    }
-  })
-
-  return titles
-}, {})
-
-const videosWithViews = Object.values(youtubeVideosById)
-  .filter((video) => Number.isFinite(Number(video.viewCount)) && !video.isShort)
-  .sort((a, b) => Number(b.viewCount) - Number(a.viewCount))
-
-const topVideoIds =
-  primaryChannelSummary?.topVideoIds?.length === 3
-    ? primaryChannelSummary.topVideoIds
-    : videosWithViews.slice(0, 3).map((video) => video.videoId)
-
-const episodes = topVideoIds
-  .map((videoId): Episode | null => {
+const episodes = snapshot.entries
+  .slice(0, 3)
+  .map(({ videoId, views }): Episode | null => {
     const video = youtubeVideosById[videoId]
-    const viewCount = Number(video?.viewCount)
-    if (!video || !Number.isFinite(viewCount)) return null
+    if (!video) return null
 
     return {
       thumbnail: video.thumbnail ?? youtubeThumbnailUrl(videoId),
-      title: isUsableTitle(video.title)
-        ? video.title.trim()
-        : nestedVideoTitlesById[videoId] ?? 'View this episode',
+      title: video.title,
       href: video.url ?? `https://www.youtube.com/watch?v=${videoId}`,
-      viewCount,
+      viewCount: views,
       videoId,
     }
   })
   .filter((episode): episode is Episode => Boolean(episode))
 ---
 
-{
-  episodes.length > 0 && (
-    <section
-      class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-400 sm:px-6"
-      aria-labelledby="featured-episodes-title"
-    >
-      <div class="ui-section-header">
-        <h2
-          id="featured-episodes-title"
-          class="ui-section-title"
-        >
-          Most Viewed Episodes
-        </h2>
-      </div>
+{episodes.length > 0 && (
+  <section
+    class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-400 sm:px-6"
+    aria-labelledby="featured-episodes-title"
+  >
+    <div class="ui-section-header">
+      <h2 id="featured-episodes-title" class="ui-section-title">
+        Most Viewed Episodes
+      </h2>
+    </div>
 
-      <ol class="border-border divide-border grid divide-y border-y">
-        {episodes.map((episode) => (
-          <li>
-            <a
-              href={episode.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group hover:bg-card/60 focus-visible:ring-ring/30 focus-visible:ring-offset-background grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-4 py-5 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-5"
-            >
-              <span class="bg-muted relative aspect-video w-full overflow-hidden rounded-lg">
-                <img
-                  src={episode.thumbnail}
-                  alt={episode.title}
-                  width="480"
-                  height="360"
-                  loading="lazy"
-                  decoding="async"
-                  data-fallback-src={youtubeThumbnailFallbackUrl(
-                    episode.videoId,
-                  )}
-                  class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-                <span
-                  class="bg-scrim/10 absolute inset-0 grid place-items-center opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
-                  aria-hidden="true"
-                >
-                  <IconBadge tone="solid" size="md" className="shadow-lg">
-                    <Icon
-                      name="heroicons:play-solid"
-                      class="size-4 translate-x-px"
-                    />
-                  </IconBadge>
+    <ol class="border-border divide-border grid divide-y border-y">
+      {episodes.map((episode) => (
+        <li>
+          <a
+            href={episode.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group hover:bg-card/60 focus-visible:ring-ring/30 focus-visible:ring-offset-background grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-4 py-5 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-5"
+          >
+            <span class="bg-muted relative aspect-video w-full overflow-hidden rounded-lg">
+              <img
+                src={episode.thumbnail}
+                alt={episode.title}
+                width="480"
+                height="360"
+                loading="lazy"
+                decoding="async"
+                data-fallback-src={youtubeThumbnailFallbackUrl(episode.videoId)}
+                class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              <span
+                class="bg-scrim/10 absolute inset-0 grid place-items-center opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+                aria-hidden="true"
+              >
+                <IconBadge tone="solid" size="md" className="shadow-lg">
+                  <Icon
+                    name="heroicons:play-solid"
+                    class="size-4 translate-x-px"
+                  />
+                </IconBadge>
+              </span>
+            </span>
+
+            <span class="min-w-0">
+              <h3 lang="ar" dir="rtl" class="ui-card-title line-clamp-2">
+                {episode.title}
+              </h3>
+              <span class="ui-meta mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
+                <span class="inline-flex items-center gap-1.5">
+                  <Icon
+                    name="heroicons:eye"
+                    class="size-4"
+                    aria-hidden="true"
+                  />
+                  {formatViews(episode.viewCount)} views
+                </span>
+                <span class="inline-flex items-center gap-1.5">
+                  YouTube
+                  <Icon
+                    name="heroicons:arrow-up-right"
+                    class="size-4"
+                    aria-hidden="true"
+                  />
                 </span>
               </span>
-
-              <span class="min-w-0">
-                <h3
-                  lang="ar"
-                  dir="rtl"
-                  class="ui-card-title line-clamp-2"
-                >
-                  {episode.title}
-                </h3>
-                <span class="ui-meta mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
-                  <span class="inline-flex items-center gap-1.5">
-                    <Icon
-                      name="heroicons:eye"
-                      class="size-4"
-                      aria-hidden="true"
-                    />
-                    {formatViews(episode.viewCount)} views
-                  </span>
-                  <span class="inline-flex items-center gap-1.5">
-                    YouTube
-                    <Icon
-                      name="heroicons:arrow-up-right"
-                      class="size-4"
-                      aria-hidden="true"
-                    />
-                  </span>
-                </span>
-              </span>
-            </a>
-          </li>
-        ))}
-      </ol>
-    </section>
-  )
-}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ol>
+    <p class="ui-meta mt-4">
+      Approximate public YouTube views, captured {capturedDate}. Ranked among
+      {snapshot.recordedCount} of {snapshot.eligibleCount} long-form catalog
+      stories. Views are not unique viewers.{' '}
+      <a href={snapshot.source} class="underline underline-offset-4">
+        Source: YouTube
+      </a>
+    </p>
+  </section>
+)}
