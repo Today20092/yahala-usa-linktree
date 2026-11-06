@@ -516,6 +516,55 @@ test('all collaboration brands load local logos under the production image polic
   })
 })
 
+test('collaboration logos preload without changing the scrolling row widths', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  let releaseLogos!: () => void
+  const logosReady = new Promise<void>((resolve) => {
+    releaseLogos = resolve
+  })
+  await page.route('**/brands/*', async (route) => {
+    await logosReady
+    await route.continue()
+  })
+  try {
+    await page.goto('/', { waitUntil: 'domcontentloaded' })
+    await page.evaluate(() => document.fonts.ready)
+    const section = page.locator('.brand-marquee')
+    await section.scrollIntoViewIfNeeded()
+    const groups = section.locator('.brand-marquee__group')
+    const widths = () =>
+      groups.evaluateAll((elements) =>
+        elements.map((element) => element.clientWidth),
+      )
+    const before = await widths()
+    releaseLogos()
+    // Both copies must load, including logos still outside the clipped viewport.
+    await expect
+      .poll(() =>
+        section.locator('img').evaluateAll((images) =>
+          images.every((image) => {
+            const img = image as HTMLImageElement
+            return img.complete && img.naturalWidth > 0
+          }),
+        ),
+      )
+      .toBe(true)
+    expect(await widths()).toEqual(before)
+    expect(before[0]).toBe(before[1])
+    expect(before[2]).toBe(before[3])
+    await reflow(page)
+    await section.getByRole('button', { name: 'Pause motion' }).click()
+    await expect(section.locator('.brand-marquee__track').first()).toHaveCSS(
+      'animation-play-state',
+      'paused',
+    )
+  } finally {
+    releaseLogos()
+  }
+})
+
 test('portfolio uses curated titles, verified locations and consistent proof', async ({
   page,
 }) => {

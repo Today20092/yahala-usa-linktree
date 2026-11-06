@@ -44,7 +44,9 @@ const rows = [
                       src={brand.logo}
                       alt=""
                       class="brand-marquee__logo"
-                      loading="lazy"
+                      width="104"
+                      height="44"
+                      loading="eager"
                       decoding="async"
                     />
                   )}
@@ -130,8 +132,7 @@ const rows = [
   }
 
   .brand-marquee__logo {
-    width: auto;
-    max-width: 6.5rem;
+    width: 6.5rem;
     height: 2.75rem;
     flex-shrink: 0;
     object-fit: contain;
