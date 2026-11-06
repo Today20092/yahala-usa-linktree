@@ -1,6 +1,8 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page, type Locator } from '@playwright/test'
 import storySnapshot from '../../src/data/story-view-snapshot.json' with { type: 'json' }
+import { readFileSync } from 'node:fs'
+import { parse } from 'yaml'
 
 // Keep verification and delivery deterministic; no real inquiry leaves the test.
 test.beforeEach(async ({ page }) => {
@@ -461,6 +463,57 @@ test('mapcn failure keeps the story list available', async ({ page }) => {
     page.getByRole('link', { name: /Inside Lipari Foods/ }),
   ).toBeVisible()
   await expect(page.getByRole('button', { name: 'Reload map' })).toBeVisible()
+})
+
+test('all collaboration brands load local logos under the production image policy', async ({
+  page,
+}) => {
+  const brands: { name: string; logo: string }[] = parse(
+    readFileSync(new URL('../../src/data/site.yaml', import.meta.url), 'utf8'),
+  ).collaborationBrands
+  await page.route('**/*', async (route) => {
+    if (route.request().resourceType() !== 'document') return route.continue()
+    const response = await route.fetch()
+    await route.fulfill({
+      response,
+      headers: {
+        ...response.headers(),
+        'content-security-policy': "img-src 'self' data:",
+      },
+    })
+  })
+  await page.goto('/')
+  const section = page.locator('.brand-marquee')
+  const items = section.locator('ul:not([aria-hidden="true"]) > li')
+  await expect(items).toHaveCount(brands.length)
+  await expect(items.locator('img')).toHaveCount(brands.length)
+  for (const brand of brands) {
+    expect(brand.logo, `${brand.name}: local logo required`).toMatch(
+      /^\/brands\//,
+    )
+    const item = items.filter({
+      has: page.getByText(brand.name, { exact: true }),
+    })
+    await item.scrollIntoViewIfNeeded()
+    const image = item.locator('img')
+    await expect(image).toHaveAttribute('src', brand.logo)
+    await expect(image).toBeVisible()
+    await expect
+      .poll(
+        () =>
+          image.evaluate(
+            (img: HTMLImageElement) =>
+              img.complete && img.naturalWidth > 0 && img.naturalHeight > 0,
+          ),
+        { message: `${brand.name}: logo must decode` },
+      )
+      .toBe(true)
+  }
+  await scan(page, '.brand-marquee')
+  await reflow(page)
+  await section.screenshot({
+    path: test.info().outputPath('collaboration-logos.png'),
+  })
 })
 
 test('portfolio uses curated titles, verified locations and consistent proof', async ({
