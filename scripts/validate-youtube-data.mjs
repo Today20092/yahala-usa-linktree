@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises'
+import { access, readFile } from 'node:fs/promises'
 import { parse } from 'yaml'
 
 import {
@@ -192,6 +192,22 @@ for (const place of siteConfig.visitedPlaces?.places ?? []) {
         `Curated video for ${place.city}, ${place.state} is missing videoId/url`,
       )
     }
+  }
+}
+
+for (const brand of siteConfig.collaborationBrands ?? []) {
+  if (
+    !/^\/brands\/[a-z0-9-]+\.(?:png|webp|svg|jpe?g)$/i.test(brand.logo ?? '')
+  ) {
+    errors.push(`Collaboration brand ${brand.name} needs a local /brands/ logo`)
+    continue
+  }
+  try {
+    await access(new URL(`../public${brand.logo}`, import.meta.url))
+  } catch {
+    errors.push(
+      `Collaboration brand ${brand.name} logo is missing: ${brand.logo}`,
+    )
   }
 }
 

@@ -697,20 +697,32 @@ collaborationBrands:
   - name: Juice Time
     logo: /brands/juice-time.png
   - name: Farooj Abo Abed's Shawarma
+    logo: /brands/farooj.png
   - name: Moka & Co.
-    logo: https://mokanco.com/wp-content/uploads/2025/11/Moka-and-Co-Cafe-logo.png
-  - name: MokCafe
+    logo: /brands/moka-and-co.png
+  - name: MOKAFÉ
+    logo: /brands/mokafe.png
   - name: Excite Medical
+    logo: /brands/excite-medical.png
   - name: Triangle Family Dentistry
-    logo: https://www.trianglefamilydentistry.com/wp-content/uploads/2025/06/tdf-color-logo.png
+    logo: /brands/triangle-family-dentistry.png
   - name: Chocolate House
+    logo: /brands/chocolate-house.png
   - name: Slap Burger
-  - name: Yafa Coffee & Kunafa
+    logo: /brands/slap-burger.png
+  - name: Yaffa Coffee & Kunafa
+    logo: /brands/yaffa.png
   - name: Shotted Coffee
+    logo: /brands/shotted.webp
   - name: Abu Omar Halal
+    logo: /brands/abu-omar-halal.svg
   - name: Autos of Dallas
+    logo: /brands/autos-of-dallas.webp
   - name: Zyara Restaurant
+    logo: /brands/zyara.png
   - name: Shawarma Press
+    logo: /brands/shawarma-press.png
   - name: Melt N Dip
+    logo: /brands/melt-n-dip.png
   - name: Qahwah House
-    logo: https://qahwahhouse.com/images/logo.png
+    logo: /brands/qahwah-house.png

@@ -1,7 +1,7 @@
 {
   "name": "yahala-usa-linktree",
   "type": "module",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "scripts": {
     "lint:a11y": "eslint src --cache --cache-location .cache/eslint-a11y --max-warnings 0",
     "test:a11y": "playwright test --config playwright.a11y.config.ts --project=mobile-light --project=desktop-dark",
