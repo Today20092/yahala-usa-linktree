@@ -5,7 +5,6 @@ import { Icon } from 'astro-icon/components'
 import { parse } from 'yaml'
 
 import { IconBadge } from './ui/icon-badge'
-import MotionToggle from './MotionToggle.astro'
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
 import visitedVideosYaml from '../data/visited-videos.yaml?raw'
 import { siteConfig } from '../lib/site-config'
@@ -22,20 +21,6 @@ type BentoImage = {
   alt: string
   href: string
 }
-
-type StatTile = {
-  type: 'stat'
-  platform: string
-  metric: string
-  value: string
-  icon: string
-  accent: string
-  darkAccent: string
-  tint: string
-  darkTint: string
-}
-
-type BentoTile = BentoImage | StatTile
 
 type GeneratedYoutubeVideo = {
   videoId: string
@@ -58,7 +43,6 @@ const bentoImageModules = import.meta.glob('../bento/*.{png,jpg,jpeg,webp}', {
   import: 'default',
 })
 
-const socialReach = siteConfig.socialReach
 const youtubeChannelUrl =
   siteConfig.socialLinks.find((link) => link.id === 'youtube')?.url ??
   siteConfig.youtubeChannels[0]?.videosUrl ??
@@ -85,98 +69,6 @@ const cleanVideoTitle = (title?: string) => {
 
   return trimmedTitle
 }
-
-const formatStat = (value: number) => {
-  const formatter = new Intl.NumberFormat('en-US', {
-    maximumFractionDigits: value >= 1000000 ? 1 : 0,
-  })
-
-  if (value >= 1000000) return `${formatter.format(value / 1000000)}M`
-  if (value >= 1000) return `${formatter.format(value / 1000)}K`
-  return formatter.format(value)
-}
-
-const platformIcons: Record<string, string> = {
-  YouTube: 'simple-icons:youtube',
-  TikTok: 'simple-icons:tiktok',
-  Instagram: 'simple-icons:instagram',
-  Facebook: 'simple-icons:facebook',
-}
-
-const platformColors: Record<
-  string,
-  {
-    accent: string
-    darkAccent: string
-    tint: string
-    darkTint: string
-  }
-> = {
-  YouTube: {
-    accent: '#ff0000',
-    darkAccent: '#ff5f5f',
-    tint: '#fff1f1',
-    darkTint: '#2a1010',
-  },
-  TikTok: {
-    accent: '#010101',
-    darkAccent: '#25f4ee',
-    tint: '#f3f4f6',
-    darkTint: '#0b1f20',
-  },
-  Instagram: {
-    accent: '#e4405f',
-    darkAccent: '#ff7a9a',
-    tint: '#fff1f6',
-    darkTint: '#2a101b',
-  },
-  Facebook: {
-    accent: '#1877f2',
-    darkAccent: '#74a7ff',
-    tint: '#eef5ff',
-    darkTint: '#0b1a2e',
-  },
-}
-
-const statPlatformPriority = ['TikTok', 'YouTube', 'Instagram', 'Facebook']
-const statMetricPriority = [
-  'Views',
-  'Reach',
-  'Likes',
-  'Posts',
-  'Followers',
-  'Subscribers',
-]
-const statTiles = socialReach.items
-  .sort((a, b) => {
-    const platformComparison =
-      statPlatformPriority.indexOf(a.platform) -
-      statPlatformPriority.indexOf(b.platform)
-
-    if (platformComparison !== 0) return platformComparison
-
-    return (
-      statMetricPriority.indexOf(a.metric) -
-      statMetricPriority.indexOf(b.metric)
-    )
-  })
-  .map((item) => {
-    const colors = platformColors[item.platform] ?? {
-      accent: 'var(--primary)',
-      darkAccent: 'var(--primary)',
-      tint: 'var(--accent)',
-      darkTint: 'var(--accent)',
-    }
-
-    return {
-      type: 'stat' as const,
-      platform: item.platform,
-      metric: item.metric,
-      value: formatStat(item.value),
-      icon: platformIcons[item.platform] ?? 'heroicons:chart-bar',
-      ...colors,
-    }
-  })
 
 const bentoImages = Object.entries(bentoImageModules)
   .filter(([path]) => !path.includes('.DS_Store'))
@@ -240,26 +132,6 @@ const dedupeImagesByHref = (images: BentoImage[]) => {
   })
 }
 
-const getImageKey = (image: BentoImage) => image.href
-
-const getStatKey = (stat: StatTile) =>
-  `${stat.platform}::${stat.metric}::${stat.value}`
-
-const pickNextUnusedStat = (
-  usedKeys: Set<string>,
-  startIndex: number,
-): StatTile | undefined => {
-  if (statTiles.length === 0) return undefined
-
-  for (let offset = 0; offset < statTiles.length; offset += 1) {
-    const stat = statTiles[(startIndex + offset) % statTiles.length]
-
-    if (!usedKeys.has(getStatKey(stat))) return stat
-  }
-
-  return undefined
-}
-
 const videoThumbnailImages = dedupeImagesByHref([
   ...generatedYoutubeImages,
   ...visitedVideoImages,
@@ -271,273 +143,105 @@ const carouselImages = [
   ...bentoImages.filter((image) => !bentoImageHrefs.has(image.href)),
 ].slice(0, maxCarouselImages)
 
-const rowCount = 3
-const bentoRows = Array.from({ length: rowCount }, (_, rowIndex) => {
-  const rowImages = carouselImages.filter(
-    (_, index) => index % rowCount === rowIndex,
-  )
-  const usedKeys = new Set<string>()
-  const rowTiles: BentoTile[] = []
-
-  rowImages.forEach((image, index) => {
-    const imageKey = getImageKey(image)
-    if (usedKeys.has(imageKey)) return
-
-    usedKeys.add(imageKey)
-    rowTiles.push(image)
-
-    const shouldInsertStat =
-      index === 1 || (index > 1 && (index + rowIndex) % 4 === 1)
-    if (!shouldInsertStat) return
-
-    const statTile = pickNextUnusedStat(usedKeys, index + rowIndex * 2)
-    if (!statTile) return
-
-    usedKeys.add(getStatKey(statTile))
-    rowTiles.push(statTile)
-  })
-
-  if (process.env.NODE_ENV !== 'production') {
-    const uniqueKeys = new Set(
-      rowTiles.map((tile) =>
-        tile.type === 'video' ? getImageKey(tile) : getStatKey(tile),
-      ),
-    )
-
-    if (uniqueKeys.size !== rowTiles.length) {
-      throw new Error(
-        `Duplicate carousel tile detected in row ${rowIndex + 1}.`,
-      )
-    }
-  }
-
-  return rowTiles
-})
+const gridImages = carouselImages.slice(0, 6)
 ---
 
-{carouselImages.length > 0 && (
+{gridImages.length > 0 && (
   <section
     class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 delay-300 sm:px-6"
     aria-labelledby="video-showcase-title"
   >
     <div class="video-bento-frame overflow-hidden">
-      <div class="video-bento-header flex items-start justify-between gap-3 px-4 py-3 text-left sm:px-5 sm:py-4">
-        <div class="flex min-w-0 items-start gap-3">
-          <IconBadge
-            tone="solid"
-            size="md"
-            style={{
-              '--ui-icon-badge-accent': 'var(--primary)',
-              '--ui-icon-badge-foreground': 'var(--primary-foreground)',
-            }}
-            className="shadow-sm"
-          >
-            <Icon
-              name="heroicons:play-20-solid"
-              class="size-4"
-              aria-hidden="true"
-            />
-          </IconBadge>
-          <span class="min-w-0">
-            <h2 id="video-showcase-title" class="ui-section-title">
-              Moments from Ya Hala stories
-            </h2>
-          </span>
-        </div>
-        <MotionToggle controls="story-motion-rows" />
+      <div class="video-bento-header flex items-center justify-center gap-3 px-4 py-3 text-center sm:px-5 sm:py-4">
+        <IconBadge
+          tone="solid"
+          size="md"
+          style={{
+            '--ui-icon-badge-accent': 'var(--primary)',
+            '--ui-icon-badge-foreground': 'var(--primary-foreground)',
+          }}
+          className="shadow-sm"
+        >
+          <Icon
+            name="heroicons:play-20-solid"
+            class="size-4"
+            aria-hidden="true"
+          />
+        </IconBadge>
+        <h2 id="video-showcase-title" class="ui-section-title min-w-0">
+          Moments from Ya Hala stories
+        </h2>
       </div>
-      <div
-        id="story-motion-rows"
-        class="space-y-2 p-2.5 sm:space-y-3 sm:p-3"
-        data-portfolio-scroll="auto"
+      <ul
+        class="grid grid-cols-2 gap-2 p-2.5 sm:gap-3 lg:grid-cols-3 sm:p-3"
+        data-portfolio-grid
       >
-        {bentoRows.map((row, rowIndex) => (
-          <div class="bento-scroll-row pb-1">
-            <div
-              class:list={[
-                'bento-scroll-track',
-                { 'bento-scroll-track--reverse': rowIndex === 1 },
-              ]}
+        {gridImages.map((item, itemIndex) => (
+          <li>
+            <a
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Play story — ${item.alt} (opens on YouTube)`}
+              class="group bento-video-link bg-accent focus-visible:outline-ring dark:bg-accent border-border/60 hover:border-youtube/70 hover:ring-youtube/30 dark:border-border dark:hover:border-youtube/70 relative isolate block aspect-video w-full cursor-pointer overflow-hidden rounded-lg border text-left shadow-sm ring-1 ring-transparent transition duration-200 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-3 focus-visible:outline-offset-2"
             >
-              {[false, true].map((duplicate) => (
-                <div
-                  class="bento-scroll-group"
-                  aria-hidden={duplicate}
-                  inert={duplicate}
-                >
-                  {row.map((item) =>
-                    item.type === 'video' ? (
-                      <a
-                        href={item.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Play story — ${item.alt} (opens on YouTube)`}
-                        class="group bento-video-link bg-accent focus-visible:outline-ring dark:bg-accent border-border/60 hover:border-youtube/70 hover:ring-youtube/30 dark:border-border dark:hover:border-youtube/70 relative isolate block aspect-video w-[252px] shrink-0 cursor-pointer overflow-hidden rounded-lg border text-left shadow-sm ring-1 ring-transparent transition duration-200 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-3 focus-visible:outline-offset-2 sm:w-[274px]"
-                      >
-                        {isRemoteImage(item.src) ? (
-                          <img
-                            src={item.src}
-                            alt={item.alt}
-                            width="480"
-                            height="270"
-                            data-fallback-src={getThumbnailFallback(item.href)}
-                            class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                            loading="eager"
-                            decoding="async"
-                          />
-                        ) : (
-                          <Image
-                            src={item.src}
-                            alt={item.alt}
-                            width={480}
-                            height={270}
-                            class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                            loading="eager"
-                            decoding="async"
-                          />
-                        )}
-                        <span
-                          class="from-scrim/80 via-scrim/40 absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-3 bg-gradient-to-t to-transparent p-3 pt-10 text-white opacity-95 transition duration-200 group-hover:opacity-100"
-                          aria-hidden="true"
-                        >
-                          <span class="bg-background/95 text-foreground ring-border dark:bg-card/90 inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold shadow-sm ring-1 backdrop-blur-sm">
-                            Play story
-                          </span>
-                        </span>
-                      </a>
-                    ) : (
-                      <div
-                        style={`--platform-accent: ${item.accent}; --platform-accent-dark: ${item.darkAccent}; --platform-tint: ${item.tint}; --platform-tint-dark: ${item.darkTint};`}
-                        class="bg-card/90 border-border/60 dark:border-border/70 dark:bg-card/75 relative flex aspect-video w-[252px] shrink-0 cursor-default flex-col justify-between overflow-hidden rounded-lg border p-4 text-left shadow-sm transition duration-200 [--platform-active-accent:var(--platform-accent)] [--platform-active-tint:var(--platform-tint)] hover:shadow-md sm:w-[274px] dark:[--platform-active-accent:var(--platform-accent-dark)] dark:[--platform-active-tint:var(--platform-tint-dark)]"
-                      >
-                        <span
-                          class="absolute inset-x-0 top-0 h-1 bg-[var(--platform-active-accent)]"
-                          aria-hidden="true"
-                        />
-                        <span
-                          class="absolute inset-0 bg-[linear-gradient(135deg,color-mix(in_srgb,var(--platform-active-tint)_42%,transparent)_0%,transparent_58%)]"
-                          aria-hidden="true"
-                        />
-                        <div class="relative flex min-w-0 items-center gap-2">
-                          <span class="grid size-7 shrink-0 place-items-center rounded-full bg-[color-mix(in_srgb,var(--platform-active-accent)_12%,var(--card))] ring-1 ring-[color-mix(in_srgb,var(--platform-active-accent)_18%,transparent)]">
-                            <Icon
-                              name={item.icon}
-                              class="size-3.5 shrink-0 text-[var(--platform-active-accent)]"
-                              aria-hidden="true"
-                            />
-                          </span>
-                          <p class="ui-meta text-foreground truncate">
-                            {item.platform}
-                          </p>
-                        </div>
-                        <div class="relative">
-                          <p class="text-foreground text-3xl leading-none font-black tracking-normal tabular-nums sm:text-4xl">
-                            {item.value}
-                          </p>
-                          <p class="ui-meta mt-2 truncate uppercase">
-                            {item.metric}
-                          </p>
-                        </div>
-                      </div>
-                    ),
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
+              {isRemoteImage(item.src) ? (
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  width="480"
+                  height="270"
+                  data-fallback-src={getThumbnailFallback(item.href)}
+                  class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                  loading={itemIndex > 1 ? 'lazy' : 'eager'}
+                  decoding="async"
+                />
+              ) : (
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  width={480}
+                  height={270}
+                  class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                  loading={itemIndex > 1 ? 'lazy' : 'eager'}
+                  decoding="async"
+                />
+              )}
+              <span
+                class="from-scrim/80 via-scrim/40 absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-3 bg-gradient-to-t to-transparent p-3 pt-10 text-white opacity-95 transition duration-200 group-hover:opacity-100"
+                aria-hidden="true"
+              >
+                <span class="bg-background/95 text-foreground ring-border dark:bg-card/90 inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold shadow-sm ring-1 backdrop-blur-sm">
+                  <Icon
+                    name="heroicons:play-20-solid"
+                    class="size-3.5 sm:hidden"
+                    aria-hidden="true"
+                  />
+                  <span class="hidden sm:inline">Play story</span>
+                </span>
+              </span>
+            </a>
+          </li>
         ))}
-      </div>
+      </ul>
+      <p class="px-4 pb-4 text-center sm:px-5">
+        <a
+          href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}stories`}
+          class="hero-explore-link"
+        >
+          See all stories
+        </a>
+      </p>
     </div>
   </section>
 )}
 
 <style>
-  .bento-scroll-row {
-    overflow: hidden;
-    touch-action: pan-y;
-  }
-
-  .bento-scroll-track {
-    display: flex;
-    width: max-content;
-    animation: bento-scroll 50s linear infinite;
-  }
-
-  .bento-scroll-track--reverse {
-    animation-direction: reverse;
-    animation-duration: 55s;
-  }
-
-  .bento-scroll-row:hover .bento-scroll-track,
-  .bento-scroll-row:focus-within .bento-scroll-track,
-  [data-motion-paused] .bento-scroll-track {
-    animation-play-state: paused;
-  }
-
-  .bento-scroll-group {
-    display: flex;
-    flex-shrink: 0;
-    gap: 0.5rem;
-    padding-right: 0.5rem;
-  }
-
-  @media (min-width: 40rem) {
-    .bento-scroll-group {
-      gap: 0.75rem;
-      padding-right: 0.75rem;
-    }
-  }
-
-  @keyframes bento-scroll {
-    to {
-      transform: translateX(-50%);
-    }
-  }
-
-  [data-portfolio-scroll]:is([data-motion-paused], :focus-within)
-    .bento-scroll-track {
-    width: 100%;
-    animation: none;
-    transform: none;
-  }
-
-  [data-portfolio-scroll]:is([data-motion-paused], :focus-within)
-    .bento-scroll-group {
-    width: 100%;
-    flex-wrap: wrap;
-    padding-right: 0;
-  }
-
-  [data-portfolio-scroll]:is([data-motion-paused], :focus-within)
-    .bento-scroll-group
-    > * {
-    max-width: 100%;
-  }
-
-  [data-portfolio-scroll]:is([data-motion-paused], :focus-within)
-    .bento-scroll-group[aria-hidden='true'] {
-    display: none;
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .bento-scroll-track {
-      width: 100%;
-      animation: none;
+    .bento-video-link,
+    .bento-video-link img {
+      transition: none;
       transform: none;
-    }
-
-    .bento-scroll-group {
-      width: 100%;
-      flex-wrap: wrap;
-      padding-right: 0;
-    }
-
-    .bento-scroll-group > * {
-      max-width: 100%;
-    }
-
-    .bento-scroll-group[aria-hidden='true'] {
-      display: none;
     }
   }
 </style>

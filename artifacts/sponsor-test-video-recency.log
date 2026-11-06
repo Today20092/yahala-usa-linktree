@@ -1,0 +1,3 @@
+npm notice run yahala-usa-linktree@0.2.0 test:video-recency
+npm notice run node scripts/test-video-recency.mjs
+Video ordering and recency checks pass.

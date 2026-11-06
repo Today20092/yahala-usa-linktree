@@ -1,0 +1,79 @@
+npm notice run yahala-usa-linktree@0.2.0 test:a11y:full
+npm notice run playwright test --config playwright.a11y.config.ts
+
+Running 48 tests using 2 workers
+
+(node:28092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:440) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  2 [mobile-light] › tests\accessibility\site.spec.ts:104:3 › /about landmarks, names, contrast and reflow (1.5s)
+  ok  1 [mobile-light] › tests\accessibility\site.spec.ts:104:3 › / landmarks, names, contrast and reflow (2.3s)
+  ok  4 [mobile-light] › tests\accessibility\site.spec.ts:104:3 › /contact landmarks, names, contrast and reflow (1.1s)
+  ok  3 [mobile-light] › tests\accessibility\site.spec.ts:104:3 › /stories landmarks, names, contrast and reflow (2.2s)
+  ok  6 [mobile-light] › tests\accessibility\site.spec.ts:253:1 › contact preserves details through server and network failures (777ms)
+  ok  7 [mobile-light] › tests\accessibility\site.spec.ts:300:1 › contact retries a blocked security check without losing the inquiry (469ms)
+  ok  5 [mobile-light] › tests\accessibility\site.spec.ts:149:1 › contact validation, keyboard choices, failure recovery and sending (1.7s)
+(node:23032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  8 [mobile-light] › tests\accessibility\site.spec.ts:331:1 › portfolio uses curated titles, verified locations and consistent proof (1.7s)
+(node:18092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  9 [desktop-dark] › tests\accessibility\site.spec.ts:104:3 › / landmarks, names, contrast and reflow (2.3s)
+  ok 10 [desktop-dark] › tests\accessibility\site.spec.ts:104:3 › /about landmarks, names, contrast and reflow (1.3s)
+  ok 12 [desktop-dark] › tests\accessibility\site.spec.ts:104:3 › /contact landmarks, names, contrast and reflow (1.1s)
+  ok 11 [desktop-dark] › tests\accessibility\site.spec.ts:104:3 › /stories landmarks, names, contrast and reflow (2.1s)
+  ok 14 [desktop-dark] › tests\accessibility\site.spec.ts:253:1 › contact preserves details through server and network failures (831ms)
+  ok 15 [desktop-dark] › tests\accessibility\site.spec.ts:300:1 › contact retries a blocked security check without losing the inquiry (563ms)
+  ok 13 [desktop-dark] › tests\accessibility\site.spec.ts:149:1 › contact validation, keyboard choices, failure recovery and sending (1.9s)
+(node:29512) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 16 [desktop-dark] › tests\accessibility\site.spec.ts:331:1 › portfolio uses curated titles, verified locations and consistent proof (1.9s)
+(node:22320) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 17 [mobile-dark] › tests\accessibility\site.spec.ts:104:3 › / landmarks, names, contrast and reflow (2.3s)
+  ok 18 [mobile-dark] › tests\accessibility\site.spec.ts:104:3 › /about landmarks, names, contrast and reflow (1.3s)
+  ok 20 [mobile-dark] › tests\accessibility\site.spec.ts:104:3 › /contact landmarks, names, contrast and reflow (1.1s)
+  ok 19 [mobile-dark] › tests\accessibility\site.spec.ts:104:3 › /stories landmarks, names, contrast and reflow (1.9s)
+  ok 22 [mobile-dark] › tests\accessibility\site.spec.ts:253:1 › contact preserves details through server and network failures (825ms)
+  ok 23 [mobile-dark] › tests\accessibility\site.spec.ts:300:1 › contact retries a blocked security check without losing the inquiry (487ms)
+  ok 21 [mobile-dark] › tests\accessibility\site.spec.ts:149:1 › contact validation, keyboard choices, failure recovery and sending (1.9s)
+(node:21904) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 24 [mobile-dark] › tests\accessibility\site.spec.ts:331:1 › portfolio uses curated titles, verified locations and consistent proof (1.8s)
+(node:23644) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 25 [desktop-light] › tests\accessibility\site.spec.ts:104:3 › / landmarks, names, contrast and reflow (2.8s)
+  ok 26 [desktop-light] › tests\accessibility\site.spec.ts:104:3 › /about landmarks, names, contrast and reflow (1.6s)
+  ok 28 [desktop-light] › tests\accessibility\site.spec.ts:104:3 › /contact landmarks, names, contrast and reflow (1.2s)
+  ok 27 [desktop-light] › tests\accessibility\site.spec.ts:104:3 › /stories landmarks, names, contrast and reflow (2.9s)
+  ok 29 [desktop-light] › tests\accessibility\site.spec.ts:149:1 › contact validation, keyboard choices, failure recovery and sending (1.9s)
+  ok 30 [desktop-light] › tests\accessibility\site.spec.ts:253:1 › contact preserves details through server and network failures (883ms)
+  ok 31 [desktop-light] › tests\accessibility\site.spec.ts:300:1 › contact retries a blocked security check without losing the inquiry (610ms)
+(node:24404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 32 [desktop-light] › tests\accessibility\site.spec.ts:331:1 › portfolio uses curated titles, verified locations and consistent proof (1.9s)
+(node:30284) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 33 [phone-light] › tests\accessibility\site.spec.ts:104:3 › / landmarks, names, contrast and reflow (2.2s)
+  ok 34 [phone-light] › tests\accessibility\site.spec.ts:104:3 › /about landmarks, names, contrast and reflow (1.2s)
+  ok 36 [phone-light] › tests\accessibility\site.spec.ts:104:3 › /contact landmarks, names, contrast and reflow (988ms)
+  ok 35 [phone-light] › tests\accessibility\site.spec.ts:104:3 › /stories landmarks, names, contrast and reflow (1.9s)
+  ok 38 [phone-light] › tests\accessibility\site.spec.ts:253:1 › contact preserves details through server and network failures (792ms)
+  ok 39 [phone-light] › tests\accessibility\site.spec.ts:300:1 › contact retries a blocked security check without losing the inquiry (483ms)
+  ok 37 [phone-light] › tests\accessibility\site.spec.ts:149:1 › contact validation, keyboard choices, failure recovery and sending (1.8s)
+(node:10140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 40 [phone-light] › tests\accessibility\site.spec.ts:331:1 › portfolio uses curated titles, verified locations and consistent proof (1.8s)
+(node:18808) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 41 [tablet-dark] › tests\accessibility\site.spec.ts:104:3 › / landmarks, names, contrast and reflow (2.2s)
+  ok 42 [tablet-dark] › tests\accessibility\site.spec.ts:104:3 › /about landmarks, names, contrast and reflow (1.2s)
+  ok 44 [tablet-dark] › tests\accessibility\site.spec.ts:104:3 › /contact landmarks, names, contrast and reflow (982ms)
+  ok 43 [tablet-dark] › tests\accessibility\site.spec.ts:104:3 › /stories landmarks, names, contrast and reflow (1.9s)
+  ok 46 [tablet-dark] › tests\accessibility\site.spec.ts:253:1 › contact preserves details through server and network failures (784ms)
+  ok 47 [tablet-dark] › tests\accessibility\site.spec.ts:300:1 › contact retries a blocked security check without losing the inquiry (503ms)
+  ok 45 [tablet-dark] › tests\accessibility\site.spec.ts:149:1 › contact validation, keyboard choices, failure recovery and sending (1.8s)
+  ok 48 [tablet-dark] › tests\accessibility\site.spec.ts:331:1 › portfolio uses curated titles, verified locations and consistent proof (1.8s)
+
+  48 passed (41.8s)

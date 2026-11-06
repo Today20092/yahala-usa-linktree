@@ -7,9 +7,6 @@ import BrandedPageDocument from '../layouts/BrandedPageDocument.astro'
 import { getBaseUrl, siteConfig, socialSeo } from '../lib/site-config'
 
 const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
-const instagramUrl = siteConfig.socialLinks.find(
-  (link) => link.id === 'instagram',
-)?.url
 const canonicalUrl = new URL(`${baseUrl}contact`, Astro.site).toString()
 ---
 
@@ -47,12 +44,19 @@ const canonicalUrl = new URL(`${baseUrl}contact`, Astro.site).toString()
     <p class="ui-body mt-3 mb-6 max-w-prose">
       Sponsor a video, introduce your business, or share an Arab-American story.
     </p>
+    <p class="ui-body mb-6 max-w-prose">
+      Tell us about your business and what you have in mind. We’ll review your
+      inquiry and reply by email to discuss the next step.
+    </p>
     <PartnershipForm
-      email={siteConfig.partnership.email}
       turnstileSiteKey={siteConfig.partnership.turnstileSiteKey}
-      instagramUrl={instagramUrl}
       client:load
     />
+    <noscript>
+      <p class="ui-body mt-4">
+        Please enable JavaScript to send your inquiry using this form.
+      </p>
+    </noscript>
   </main>
   <SiteFooter />
 </BrandedPageDocument>

@@ -1,10 +1,37 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page, type Locator } from '@playwright/test'
+import storySnapshot from '../../src/data/story-view-snapshot.json' with { type: 'json' }
 
-async function scan(page: Page) {
-  const result = await new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
-    .analyze()
+// Keep verification and delivery deterministic; no real inquiry leaves the test.
+test.beforeEach(async ({ page }) => {
+  await page.route(
+    'https://challenges.cloudflare.com/turnstile/v0/api.js*',
+    (route) =>
+      route.fulfill({
+        contentType: 'application/javascript',
+        body: `let options;
+        window.turnstile = {
+          render(element, value) { options = value; queueMicrotask(() => options.callback('test-token')); return 'test-widget'; },
+          reset() { queueMicrotask(() => options.callback('test-token')); },
+          remove() {}
+        };`,
+      }),
+  )
+  await page.route('**/api/partnership', (route) =>
+    route.fulfill({ status: 503, json: { code: 'unavailable' } }),
+  )
+})
+
+async function scan(page: Page, selector?: string) {
+  const builder = new AxeBuilder({ page }).withTags([
+    'wcag2a',
+    'wcag2aa',
+    'wcag21a',
+    'wcag21aa',
+    'wcag22aa',
+  ])
+  if (selector) builder.include(selector)
+  const result = await builder.analyze()
   const reportPath = test.info().outputPath('axe-review.json')
   await import('node:fs/promises').then((fs) =>
     fs.writeFile(
@@ -90,18 +117,26 @@ for (const route of ['/', '/about', '/stories', '/contact']) {
     await expect(page.locator('h1')).toHaveCount(1)
     await scan(page)
     await reflow(page)
+    if (['mobile-light', 'desktop-light'].includes(test.info().project.name)) {
+      await page.screenshot({
+        path: test.info().outputPath('route.png'),
+        fullPage: true,
+      })
+    }
     if (route === '/') {
-      const action = page.getByRole('link', { name: 'Connect with Ya Hala' })
+      const action = page
+        .getByRole('link', { name: 'Partner with us', exact: true })
+        .first()
       await expect(action).toHaveAttribute('href', '/contact')
       expect(await contrast(action)).toBeGreaterThanOrEqual(4.5)
       await action.hover()
       await expect.poll(() => contrast(action)).toBeGreaterThanOrEqual(4.5)
       expect(
         await page
-          .locator('.bento-scroll-track')
+          .locator('.bento-video-link')
           .first()
-          .evaluate((e) => getComputedStyle(e).animationName),
-      ).toBe('none')
+          .evaluate((e) => getComputedStyle(e).transitionDuration),
+      ).toBe('0s')
       const qr = page.getByRole('button', { name: 'Share with a QR code' })
       await qr.focus()
       await page.keyboard.press('Enter')
@@ -117,7 +152,7 @@ for (const route of ['/', '/about', '/stories', '/contact']) {
   })
 }
 
-test('contact validation, keyboard choices, draft and failure recovery', async ({
+test('contact validation, keyboard choices, failure recovery and sending', async ({
   page,
 }) => {
   await page.goto('/contact')
@@ -142,7 +177,7 @@ test('contact validation, keyboard choices, draft and failure recovery', async (
   await expect(
     page.getByRole('radio', { name: 'Feature my business', exact: true }),
   ).toBeFocused()
-  const submit = page.getByRole('button', { name: 'Prepare my inquiry' })
+  const submit = page.getByRole('button', { name: 'Send my inquiry' })
   await submit.click()
   await expect(name).toBeFocused()
   await name.fill('Test Partner')
@@ -157,23 +192,14 @@ test('contact validation, keyboard choices, draft and failure recovery', async (
   await submit.hover()
   await expect.poll(() => contrast(submit)).toBeGreaterThanOrEqual(4.5)
   await submit.click()
-  await expect(page.getByRole('status')).toContainText('Nothing has been sent')
-  await expect(page.getByLabel('Your prepared inquiry')).toHaveValue(
-    /Feature my business/,
-  )
-  await page.evaluate(() =>
-    Object.defineProperty(navigator, 'clipboard', {
-      configurable: true,
-      value: {
-        writeText: async () => {
-          throw new Error('Test clipboard denied')
-        },
-      },
-    }),
-  )
-  await page.getByRole('button', { name: 'Copy inquiry' }).click()
-  await expect(page.getByRole('status')).toContainText('Copying is unavailable')
+  await expect(page.getByRole('alert')).toContainText('Nothing has been sent')
   await expect(name).toHaveValue('Test Partner')
+  await expect(
+    page.getByRole('radio', { name: 'Feature my business', exact: true }),
+  ).toBeChecked()
+  await expect(
+    page.locator('main a[href^="mailto:"], main a[href*="instagram.com"]'),
+  ).toHaveCount(0)
   await scan(page)
   await page.addStyleTag({
     content:
@@ -199,4 +225,286 @@ test('contact validation, keyboard choices, draft and failure recovery', async (
   await page.emulateMedia({ forcedColors: 'active' })
   await expect(submit).toBeVisible()
   await expect(submit).toBeEnabled()
+
+  let requests = 0
+  let finish!: () => void
+  const pending = new Promise<void>((resolve) => {
+    finish = resolve
+  })
+  await page.route('**/api/partnership', async (route) => {
+    requests++
+    expect(route.request().postDataJSON()).toMatchObject({
+      interest: 'Feature my business',
+      name: 'Test Partner',
+      turnstileToken: 'test-token',
+    })
+    await pending
+    await route.fulfill({ json: { ok: true } })
+  })
+  await submit.click()
+  await expect(page.getByRole('button', { name: 'Sending…' })).toHaveAttribute(
+    'aria-disabled',
+    'true',
+  )
+  await page.keyboard.press('Enter')
+  await expect.poll(() => requests).toBe(1)
+  finish()
+  await expect(page.getByRole('status')).toContainText('Your inquiry was sent')
+  await expect(name).toHaveValue('')
+  await expect(
+    page.getByRole('radio', { name: 'Sponsor a video', exact: true }),
+  ).toBeChecked()
+})
+
+test('contact preserves details through server and network failures', async ({
+  page,
+}) => {
+  await page.goto('/contact')
+  await page.getByLabel('Your name (required)').fill('Test Partner')
+  await page.getByLabel('Your email (required)').fill('partner@example.test')
+  await page
+    .getByLabel('What’s your idea? (required)')
+    .fill('A business story in Tampa.')
+  const cases = [
+    {
+      status: 400,
+      body: { errors: { message: 'Please describe your idea.' } },
+      text: 'Please check your details',
+    },
+    {
+      status: 403,
+      body: { code: 'verification' },
+      text: 'security check didn’t pass',
+    },
+    {
+      status: 502,
+      body: { code: 'delivery' },
+      text: 'couldn’t send your inquiry',
+    },
+    { status: 404, body: null, text: 'couldn’t confirm delivery' },
+    { status: 0, body: null, text: 'couldn’t confirm delivery' },
+  ]
+  for (const item of cases) {
+    await page.route('**/api/partnership', (route) =>
+      item.status === 0
+        ? route.abort()
+        : route.fulfill({ status: item.status, json: item.body }),
+    )
+    await page.getByRole('button', { name: 'Send my inquiry' }).click()
+    await expect(page.getByRole('alert')).toContainText(item.text)
+    await expect(page.getByLabel('Your name (required)')).toHaveValue(
+      'Test Partner',
+    )
+    await expect(page.getByLabel('What’s your idea? (required)')).toHaveValue(
+      'A business story in Tampa.',
+    )
+    await expect(page.getByRole('status')).not.toContainText('was sent')
+    await expect(page).toHaveURL(/\/contact$/)
+  }
+})
+
+test('contact retries a blocked security check without losing the inquiry', async ({
+  page,
+}) => {
+  await page.route(
+    'https://challenges.cloudflare.com/turnstile/v0/api.js*',
+    (route) => route.abort(),
+    { times: 1 },
+  )
+  await page.goto('/contact')
+  await expect(page.getByRole('alert')).toContainText(
+    'security check couldn’t load',
+  )
+  await page.getByLabel('Your name (required)').fill('Test Partner')
+  await page.getByLabel('Your email (required)').fill('partner@example.test')
+  await page
+    .getByLabel('What’s your idea? (required)')
+    .fill('A business story in Tampa.')
+  await page.getByRole('button', { name: 'Send my inquiry' }).click()
+  await expect(page.getByRole('status')).toContainText(
+    'Retrying the security check',
+  )
+  await expect(page.getByLabel('Your name (required)')).toHaveValue(
+    'Test Partner',
+  )
+  await page.route('**/api/partnership', (route) =>
+    route.fulfill({ json: { ok: true } }),
+  )
+  await page.getByRole('button', { name: 'Send my inquiry' }).click()
+  await expect(page.getByRole('status')).toContainText('Your inquiry was sent')
+})
+
+test('mapcn business pins, grouped locations and keyboard popups', async ({
+  page,
+}) => {
+  // Isolate marker behavior from external basemap availability.
+  await page.route('https://basemaps.cartocdn.com/gl/**/style.json', (route) =>
+    route.fulfill({
+      json: {
+        version: 8,
+        sources: {},
+        layers: [
+          {
+            id: 'background',
+            type: 'background',
+            paint: { 'background-color': '#eeeeee' },
+          },
+        ],
+      },
+    }),
+  )
+  await page.goto('/stories?state=Virginia&city=Alexandria&view=map')
+  const map = page.getByRole('region', { name: 'Map', exact: true })
+  const business = map.getByRole('button', { name: /Islamic Relief USA/ })
+  await expect(business).toBeVisible({ timeout: 20000 })
+  await expect(page.locator('[data-selected-map-label]')).toHaveCount(0)
+  const tooltip = page.getByRole('tooltip')
+  await business.hover()
+  await expect(tooltip).toHaveText('Islamic Relief USA')
+  expect(await contrast(tooltip)).toBeGreaterThanOrEqual(4.5)
+  await tooltip.hover()
+  await expect(tooltip).toBeVisible()
+  await page.keyboard.press('Escape')
+  await expect(tooltip).toHaveCount(0)
+  await page.mouse.move(0, 0)
+  await business.focus()
+  await expect(tooltip).toHaveText('Islamic Relief USA')
+  await expect(business).toHaveAccessibleDescription('Islamic Relief USA')
+  await page.keyboard.press('Tab')
+  await expect(tooltip).toHaveCount(0)
+  await business.focus()
+  await expect(tooltip).toBeVisible()
+  await page.keyboard.press('Escape')
+  await expect(tooltip).toHaveCount(0)
+  await expect(business).toBeFocused()
+  await page.keyboard.press('Enter')
+  await expect(tooltip).toHaveCount(0)
+  await expect(
+    map.getByText('3655 Wheeler Ave, Alexandria, VA 22304', { exact: true }),
+  ).toBeVisible()
+  await expect(
+    map.getByRole('link', { name: 'Open address in maps' }),
+  ).toHaveAttribute('href', /3655/)
+  await expect(
+    map
+      .getByRole('link', { name: /Open on YouTube|Islamic Relief|Gaza|غزة/i })
+      .first(),
+  ).toBeVisible()
+  await scan(page, '.story-map-shell')
+  await reflow(page)
+  const shellBounds = await page.locator('.story-map-shell').boundingBox()
+  const popupBounds = await page
+    .locator('.maplibregl-popup-content')
+    .boundingBox()
+  expect(popupBounds!.y).toBeGreaterThanOrEqual(shellBounds!.y)
+  expect(popupBounds!.y + popupBounds!.height).toBeLessThanOrEqual(
+    shellBounds!.y + shellBounds!.height,
+  )
+  await page.keyboard.press('Escape')
+  await expect(map.getByRole('button', { name: 'Close popup' })).toHaveCount(0)
+  await expect(business).toBeFocused()
+  await expect(page.locator('[data-selected-map-label]')).toHaveText(
+    'Islamic Relief USA',
+  )
+  expect(
+    await contrast(page.locator('[data-selected-map-label]')),
+  ).toBeGreaterThanOrEqual(4.5)
+  await expect(tooltip).toHaveCount(0)
+  await map.getByRole('button', { name: 'Expand map' }).click()
+  const dialog = page.getByRole('dialog', { name: 'Expanded story map' })
+  await expect(dialog).toBeVisible()
+  await dialog.getByRole('button', { name: /Islamic Relief USA/ }).focus()
+  await expect(tooltip).toBeVisible()
+  await page.keyboard.press('Escape')
+  await expect(tooltip).toHaveCount(0)
+  await expect(dialog).toBeVisible()
+  await page.keyboard.press('Escape')
+  await expect(dialog).toHaveCount(0)
+  await page.goto('/stories?view=map')
+  await expect(page.locator('[data-selected-map-label]')).toHaveCount(0)
+  const cluster = page
+    .getByRole('button', { name: /\d+ locations\. Zoom in/ })
+    .first()
+  await expect(cluster).toBeVisible({ timeout: 20000 })
+  expect(await contrast(cluster)).toBeGreaterThanOrEqual(4.5)
+  await cluster.hover()
+  expect(await contrast(cluster)).toBeGreaterThanOrEqual(4.5)
+  const clusterId = await cluster.getAttribute('data-map-pin')
+  await cluster.focus()
+  await page.keyboard.press('Enter')
+  await expect(page.locator(`[data-map-pin="${clusterId}"]`)).toHaveCount(0)
+  await expect(page.locator('[data-map-pin]:focus')).toHaveCount(1)
+  await expect(
+    page.getByText('All stories remain in the list.', { exact: false }),
+  ).toBeVisible()
+  await page.goto('/')
+  const homeMap = page.locator('.story-map-shell')
+  await homeMap.scrollIntoViewIfNeeded()
+  await expect(homeMap.locator('[data-map-pin]').first()).toBeVisible({
+    timeout: 20000,
+  })
+})
+
+test('mapcn failure keeps the story list available', async ({ page }) => {
+  await page.route('https://basemaps.cartocdn.com/gl/**/style.json', (route) =>
+    route.fulfill({ status: 503, body: 'Unavailable' }),
+  )
+  await page.goto('/stories?view=map')
+  await expect(page.getByRole('alert')).toContainText(
+    'The map is unavailable right now.',
+    { timeout: 20000 },
+  )
+  await expect(
+    page.getByRole('button', { name: 'Zoom in', exact: true }),
+  ).toHaveCount(0)
+  await expect(
+    page.getByRole('link', { name: /Inside Lipari Foods/ }),
+  ).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Reload map' })).toBeVisible()
+})
+
+test('portfolio uses curated titles, verified locations and consistent proof', async ({
+  page,
+}) => {
+  await page.goto('/stories')
+  await expect(
+    page.getByRole('heading', {
+      name: 'Inside Lipari Foods: bringing Arab products to American stores',
+      exact: true,
+    }),
+  ).toBeVisible()
+  await expect(
+    page.getByRole('heading', {
+      name: 'King Chicken: a family restaurant in Dearborn, Michigan',
+      exact: true,
+    }),
+  ).toBeVisible()
+  const orlandoStory = page
+    .locator('a[href="https://www.youtube.com/watch?v=kEWWAKPE22s"]')
+    .first()
+  await expect(orlandoStory).toContainText('Orlando, FL')
+  await page.goto('/stories?state=Ohio&city=Columbus')
+  await expect(
+    page
+      .locator('a[href="https://www.youtube.com/watch?v=c1JGUAQ-aoY"]')
+      .first(),
+  ).toContainText('Columbus, OH')
+  await page.goto('/')
+  const topStory = storySnapshot.entries[0]
+  const featured = page
+    .locator(
+      'a[href="https://www.youtube.com/watch?v=' + topStory.videoId + '"]',
+    )
+    .filter({ hasText: 'views' })
+    .first()
+  await expect(featured).toContainText(
+    new Intl.NumberFormat('en', {
+      notation: 'compact',
+      maximumFractionDigits: 1,
+    }).format(topStory.views) + ' views',
+  )
+  await page.goto('/about')
+  await expect(page.locator('[data-most-watched-stories]')).toContainText(
+    new Intl.NumberFormat('en-US').format(topStory.views) + ' views',
+  )
 })

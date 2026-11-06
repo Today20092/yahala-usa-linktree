@@ -1,4 +1,5 @@
 import youtubeVideos from '../data/youtube-videos.json'
+import storyTitles from '../data/story-titles.json'
 import {
   getYoutubeVideoId,
   youtubeThumbnailFallbackUrl,
@@ -38,7 +39,17 @@ export type YoutubeVideoRef = {
   published?: string
 }
 
-export const youtubeVideosById = youtubeVideos as Record<string, YoutubeVideo>
+// Keep curated display titles separate from the refreshed YouTube metadata.
+export const youtubeVideosById: Record<string, YoutubeVideo> =
+  Object.fromEntries(
+    Object.entries(youtubeVideos).map(([id, video]) => [
+      id,
+      {
+        ...video,
+        title: (storyTitles as Record<string, string>)[id] ?? video.title,
+      },
+    ]),
+  )
 
 export const resolveYoutubeThumbnailUrl = (
   videoId: string,
@@ -60,7 +71,11 @@ export const resolveYoutubeVideo = (
     ...cachedVideo,
     videoId,
     url: youtubeWatchUrl(videoId),
-    title: videoRef?.title ?? cachedVideo?.title ?? 'Open on YouTube',
+    title:
+      (storyTitles as Record<string, string>)[videoId] ??
+      videoRef?.title ??
+      cachedVideo?.title ??
+      'Open on YouTube',
     published: videoRef?.published ?? cachedVideo?.published,
     thumbnail: resolveYoutubeThumbnailUrl(
       videoId,

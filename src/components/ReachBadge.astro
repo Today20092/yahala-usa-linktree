@@ -13,9 +13,15 @@ type ReachBadgeProps = {
   total: number
   updatedAt: string
   items: ReachItem[]
+  highlights?: { label: string; value: number }[]
 }
 
-const { total, updatedAt, items } = Astro.props as ReachBadgeProps
+const {
+  total,
+  updatedAt,
+  items,
+  highlights = [],
+} = Astro.props as ReachBadgeProps
 
 const platformIcons: Record<string, string> = {
   YouTube: 'simple-icons:youtube',
@@ -112,6 +118,18 @@ const platformTotals = groupedPlatforms.map((item) => {
       <p class="ui-meta mt-2">
         Recorded views, not unique viewers. Snapshot as of {updatedDate}.
       </p>
+      {highlights.length > 0 && (
+        <dl class="reach-summary__highlights">
+          {highlights.map((item) => (
+            <div>
+              <dt class="ui-meta">{item.label}</dt>
+              <dd class="text-foreground text-2xl font-bold tabular-nums">
+                {item.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      )}
     </header>
 
     <div class="reach-summary__stats">
@@ -153,6 +171,22 @@ const platformTotals = groupedPlatforms.map((item) => {
 </aside>
 
 <style>
+  .reach-summary__highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    gap: var(--space-md);
+    margin-block-start: var(--space-md);
+  }
+
+  .reach-summary__highlights dd {
+    margin: 0;
+  }
+
+  .reach-summary__highlights > div {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
   [data-reach-chart] .reach-summary__stats {
     display: grid;
     gap: var(--space-md);

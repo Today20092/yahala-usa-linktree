@@ -1,0 +1,11 @@
+npm notice run yahala-usa-linktree@0.2.0 test:accessibility
+npm notice run node scripts/test-accessible-shell.mjs && node scripts/test-search-accessibility.mjs && node scripts/test-share-accessibility.mjs
+(node:20464) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+QR keyboard activation, modal focus return, skip targets and story fallback passed.
+Search duplicate activation, success, empty, error/retry and accessibility seams pass.
+(node:12512) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+Share accessibility behavior passed: success, cancellation, failure, duplicate activation.
+(node:21300) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

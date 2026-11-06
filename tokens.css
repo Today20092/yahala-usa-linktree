@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Newsreader:opsz,wght@6..72,400;6..72,700&family=Plus+Jakarta+Sans:wght@400;600;700&family=Tomorrow:wght@400;600&display=swap');
-
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.147 0.004 49.25);
@@ -78,7 +76,7 @@
   --color-scrim: oklch(0.147 0.004 49.25);
   --page-bg-texture: none;
   --radius-full: 9999px;
-  --font-display: Georgia, 'Times New Roman', serif;
+  --font-display: 'Manrope', ui-sans-serif, sans-serif;
 
   --space-3xs: 0.125rem;
   --space-2xs: 0.25rem;
@@ -157,9 +155,9 @@
 }
 
 html[data-design='field'] {
-  --font-display: 'Newsreader', ui-serif, serif;
-  --font-body: 'Geist Variable', ui-sans-serif, sans-serif;
-  --font-label: 'JetBrains Mono', ui-monospace, monospace;
+  --font-display: 'Manrope', ui-sans-serif, sans-serif;
+  --font-body: 'Manrope', ui-sans-serif, sans-serif;
+  --font-label: var(--font-body);
   --color-paper: oklch(96% 0.016 82);
   --color-paper-2: oklch(92% 0.019 82);
   --color-paper-3: oklch(88% 0.02 82);
@@ -179,9 +177,9 @@ html[data-design='field'] {
 }
 
 html[data-design='night'] {
-  --font-display: 'Tomorrow', 'Geist Variable', ui-sans-serif, sans-serif;
-  --font-body: 'Geist Variable', ui-sans-serif, sans-serif;
-  --font-label: 'JetBrains Mono', ui-monospace, monospace;
+  --font-display: 'Manrope', ui-sans-serif, sans-serif;
+  --font-body: 'Manrope', ui-sans-serif, sans-serif;
+  --font-label: var(--font-body);
   --color-paper: oklch(14% 0.018 258);
   --color-paper-2: oklch(19% 0.022 258);
   --color-paper-3: oklch(24% 0.026 258);
@@ -201,9 +199,9 @@ html[data-design='night'] {
 }
 
 :root {
-  --font-display: 'Newsreader', ui-serif, serif;
-  --font-body: 'Plus Jakarta Sans', 'Geist Variable', ui-sans-serif, sans-serif;
-  --font-label: 'JetBrains Mono', ui-monospace, monospace;
+  --font-display: 'Manrope', ui-sans-serif, sans-serif;
+  --font-body: 'Manrope', ui-sans-serif, sans-serif;
+  --font-label: var(--font-body);
   --color-paper: oklch(98% 0.006 283);
   --color-paper-2: oklch(96% 0.012 283);
   --color-paper-3: oklch(92% 0.018 283);
@@ -247,7 +245,7 @@ html .partnership-section {
 
 @theme inline {
   --font-heading: var(--font-display);
-  --font-sans: var(--font-body, 'Geist Variable', sans-serif);
+  --font-sans: var(--font-body, 'Manrope', sans-serif);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

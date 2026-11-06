@@ -41,16 +41,16 @@ export default function SocialLinkButton({
       variant="outline"
       size="lg"
       className={cn(
-        'brand-social-link elevation-2 hover:elevation-4 text-foreground focus-visible:ring-ring/30 focus-visible:ring-offset-background mx-auto h-14 w-full cursor-pointer rounded-full border border-solid px-5 text-base font-bold transition-[background-color,border-color,box-shadow,transform] duration-200 ease-out hover:-translate-y-0.5 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 active:translate-y-0',
+        'brand-social-link elevation-2 hover:elevation-4 text-foreground focus-visible:ring-ring/30 focus-visible:ring-offset-background group mx-auto h-auto min-h-16 w-full cursor-pointer rounded-2xl border border-solid px-5 text-base font-bold transition-[background-color,border-color,box-shadow,transform] duration-200 ease-out hover:-translate-y-0.5 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 active:translate-y-0',
         className,
       )}
     >
       <span className="flex w-full items-center">
-        <span className="grid size-9 shrink-0 place-items-center">
+        <span className="social-icon-tile grid size-10 shrink-0 place-items-center rounded-xl text-white [&_svg]:size-5">
           {children}
         </span>
         <span className="min-w-0 flex-1 pl-3 text-left leading-none font-medium whitespace-nowrap">
-          <span className="block">{label}{' '}</span>
+          <span className="block">{label} </span>
           {description && (
             <span className="text-muted-foreground mt-1 block text-xs leading-snug font-normal whitespace-normal">
               {description}
@@ -65,6 +65,7 @@ export default function SocialLinkButton({
           stroke="currentColor"
           strokeWidth="1.5"
           aria-hidden="true"
+          className="shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:group-hover:transform-none"
         >
           <path d="M7 17 17 7M7 7h10v10" />
         </svg>

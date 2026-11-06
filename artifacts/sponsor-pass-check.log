@@ -1,0 +1,19 @@
+npm notice run yahala-usa-linktree@0.2.0 check
+npm notice run astro check
+19:44:52 [types] Generated 104ms
+19:44:52 [check] Getting diagnostics for Astro files in C:\Users\User\Documents\yahala-usa-linktree...
+[96msrc/lib/youtube-videos.ts[0m:[93m5[0m:[93m3[0m - [93mwarning[0m[90m ts(6133): [0m'youtubeThumbnailFallbackUrl' is declared but its value is never read.
+
+[7m5[0m   youtubeThumbnailFallbackUrl,
+[7m [0m [93m  ~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/worker/video-search.js[0m:[93m113[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'listUploadIds' is declared but its value is never read.
+
+[7m113[0m const listUploadIds = async (token, maxVideos) => {
+[7m   [0m [93m      ~~~~~~~~~~~~~[0m
+
+Result (109 files): 
+- 0 errors
+- 0 warnings
+- 2 hints
+

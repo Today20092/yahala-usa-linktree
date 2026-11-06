@@ -1,0 +1,44 @@
+npm notice run yahala-usa-linktree@0.2.0 build
+npm notice run astro build
+19:44:18 [types] Generated 81ms
+19:44:18 [build] output: "static"
+19:44:18 [build] mode: "static"
+19:44:18 [build] directory: C:\Users\User\Documents\yahala-usa-linktree\dist\
+19:44:18 [build] Collecting build info...
+19:44:18 [build] ✓ Completed in 123ms.
+19:44:18 [build] Building static entrypoints...
+19:44:18 [WARN] [astro-icon] Failed to load icons from "src/icons": ENOENT: no such file or directory, scandir 'C:\Users\User\Documents\yahala-usa-linktree\src\icons\'
+19:44:18 [vite] ✓ built in 803ms
+19:44:19 [WARN] [vite] [plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+19:44:19 [vite] ✓ built in 825ms
+19:44:19 [build] Rearranging server assets...
+
+ generating static routes 
+19:44:20   ├─ /about/index.html (+366ms) 
+19:44:20   ├─ /contact/index.html (+145ms) 
+19:44:20   ├─ /stories/index.html (+82ms) 
+19:44:20   ├─ /index.html (+516ms) 
+19:44:21 ✓ Completed in 1.13s.
+
+ generating optimized images 
+19:44:21   ▶ /_astro/haithem-alqahaf-headshot.DAJ9tlin_Z1N3UGf.avif (reused cache entry) (+3ms) (1/12)
+19:44:21   ▶ /_astro/yahala-hero-cover.BgvYJzrx_Z1bzefO.avif (reused cache entry) (+3ms) (2/12)
+19:44:21   ▶ /_astro/haithem-alqahaf-headshot.DAJ9tlin_ZqA8Xu.avif (reused cache entry) (+1ms) (3/12)
+19:44:21   ▶ /_astro/yahala-hero-cover.BgvYJzrx_Z1889gb.avif (reused cache entry) (+1ms) (4/12)
+19:44:21   ▶ /_astro/haithem-alqahaf-headshot.DAJ9tlin_qTVY2.avif (reused cache entry) (+2ms) (5/12)
+19:44:21   ▶ /_astro/yahala-hero-cover.BgvYJzrx_nk59B.avif (reused cache entry) (+2ms) (6/12)
+19:44:21   ▶ /_astro/haithem-alqahaf-headshot.DAJ9tlin_1EcDea.webp (reused cache entry) (+1ms) (7/12)
+19:44:21   ▶ /_astro/yahala-hero-cover.BgvYJzrx_v6GdM.webp (reused cache entry) (+2ms) (8/12)
+19:44:21   ▶ /_astro/haithem-alqahaf-headshot.DAJ9tlin_8DyuA.webp (reused cache entry) (+2ms) (9/12)
+19:44:21   ▶ /_astro/yahala-hero-cover.BgvYJzrx_Hb6Ah.webp (reused cache entry) (+1ms) (10/12)
+19:44:21   ▶ /_astro/haithem-alqahaf-headshot.DAJ9tlin_119Es7.webp (reused cache entry) (+1ms) (11/12)
+19:44:21   ▶ /_astro/yahala-hero-cover.BgvYJzrx_2dDl14.webp (reused cache entry) (+1ms) (12/12)
+19:44:21 ✓ Completed in 12ms.
+
+19:44:21 [build] ✓ Completed in 3.06s.
+19:44:21 [build] 4 page(s) built in 3.20s
+19:44:21 [build] Complete!

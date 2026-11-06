@@ -1,0 +1,17 @@
+npm notice run yahala-usa-linktree@0.2.0 test:site-navigation
+npm notice run node scripts/test-site-navigation.mjs
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: about must use the shared ContactCta for its contact action
+    at file:///C:/Users/User/Documents/yahala-usa-linktree/scripts/test-site-navigation.mjs:24:12 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v26.3.0

@@ -76,7 +76,7 @@ const reset = () => {
   siteverify.result = { success: true, hostname: 'example.test' }
 }
 
-// Missing binding, secret or inbox: signal the client to fall back to mailto.
+// Missing binding, secret or inbox: report unavailable without claiming delivery.
 for (const [label, response] of [
   ['binding', await run(post({}), makeEnv({ EMAIL: undefined }))],
   ['secret', await run(post({}), makeEnv({ TURNSTILE_SECRET: undefined }))],
@@ -174,7 +174,7 @@ assert.ok(
 
 // Client markup and configuration
 const sendMode = renderToStaticMarkup(
-  <PartnershipForm email={to} turnstileSiteKey="site-key" />,
+  <PartnershipForm turnstileSiteKey="site-key" />,
 )
 assert.match(sendMode, /Send my inquiry/)
 assert.match(sendMode, /used only to reply to you/)
@@ -183,13 +183,13 @@ assert.match(sendMode, /role="status"/)
 assert.match(sendMode, /<div aria-hidden="true" class="partnership-hp">/)
 const trap = sendMode.match(/<input\b[^>]*name="hp_field"[^>]*>/)?.[0]
 assert.ok(trap?.includes('tabindex="-1"'), 'honeypot is skipped by keyboard')
-const draftMode = renderToStaticMarkup(<PartnershipForm email={to} />)
+const unavailableMode = renderToStaticMarkup(<PartnershipForm />)
 assert.match(
-  draftMode,
-  /Prepare my inquiry/,
-  'no site key keeps the mailto flow',
+  unavailableMode,
+  /Send my inquiry/,
+  'the form keeps the same action when configuration is unavailable',
 )
-assert.doesNotMatch(draftMode, /Send my inquiry/)
+assert.doesNotMatch(unavailableMode, /mailto:|Prepare my inquiry|Instagram/)
 const siteYaml = readFileSync('src/data/site.yaml', 'utf8')
 assert.match(siteYaml, /turnstileSiteKey:/)
 for (const file of ['wrangler.jsonc', 'wrangler.preview.jsonc'])
@@ -202,4 +202,6 @@ assert.match(
   readFileSync('src/worker.js', 'utf8'),
   /pathname === partnershipPath/,
 )
-console.log('Partnership delivery validation, honeypot, and fallback passed.')
+console.log(
+  'Partnership delivery validation, honeypot, and form-only markup passed.',
+)

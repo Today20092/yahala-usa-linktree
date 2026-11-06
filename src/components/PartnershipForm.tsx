@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowUpRight, Mail, Send } from 'lucide-react'
+import { Send } from 'lucide-react'
 
 import {
-  formatPartnershipBody,
   partnershipInterests,
   partnershipLimits,
   partnershipPath,
@@ -50,30 +49,33 @@ const loadTurnstile = () =>
   })
 
 export default function PartnershipForm({
-  email,
-  instagramUrl,
   turnstileSiteKey = '',
 }: {
-  email: string
-  instagramUrl?: string
   turnstileSiteKey?: string
 }) {
   const [interest, setInterest] = useState<string>(opportunities[0].value)
   const [status, setStatus] = useState('')
   const [error, setError] = useState('')
   const [sending, setSending] = useState(false)
-  const [draft, setDraft] = useState('')
   const [widgetFailed, setWidgetFailed] = useState(false)
+  const [verificationAttempt, setVerificationAttempt] = useState(0)
   const widgetRef = useRef<HTMLDivElement>(null)
   const widgetId = useRef<string | undefined>(undefined)
   const token = useRef('')
-  // Direct sending needs a receiving inbox and Turnstile; otherwise the form
-  // keeps the original email-draft behavior.
-  const canSend = Boolean(email && turnstileSiteKey) && !widgetFailed
 
   useEffect(() => {
-    if (!email || !turnstileSiteKey) return
+    if (!turnstileSiteKey) return
     let cancelled = false
+    token.current = ''
+    const verificationFailed = () => {
+      if (cancelled) return
+      token.current = ''
+      setWidgetFailed(true)
+      setStatus('')
+      setError(
+        'The security check couldn’t load. Your details are still here. Select Send my inquiry to retry.',
+      )
+    }
     loadTurnstile()
       .then((turnstile) => {
         if (cancelled || !widgetRef.current) return
@@ -82,52 +84,41 @@ export default function PartnershipForm({
           // Compact keeps the widget inside a 320px screen.
           size: 'compact',
           appearance: 'interaction-only',
-          callback: (value: string) => (token.current = value),
+          callback: (value: string) => {
+            token.current = value
+            setWidgetFailed(false)
+          },
           'expired-callback': () => (token.current = ''),
-          'error-callback': () => setWidgetFailed(true),
+          'error-callback': verificationFailed,
         })
       })
-      .catch(() => setWidgetFailed(true))
+      .catch(verificationFailed)
     return () => {
       cancelled = true
       if (widgetId.current) window.turnstile?.remove(widgetId.current)
       widgetId.current = undefined
       token.current = ''
     }
-  }, [email, turnstileSiteKey])
-
-  const prepareDraft = (data: FormData, notice = '') => {
-    const body = formatPartnershipBody({
-      interest: interest as (typeof partnershipInterests)[number],
-      name: String(data.get('name')),
-      email: String(data.get('email')),
-      business: String(data.get('business') ?? ''),
-      location: String(data.get('location') ?? ''),
-      message: String(data.get('message')),
-    })
-    setDraft(body)
-    if (!email) {
-      setStatus(
-        'Your inquiry is ready to copy below. Email delivery isn’t available yet. Nothing has been sent. You can send your inquiry to Ya Hala on Instagram.',
-      )
-      return
-    }
-    const mailto = `mailto:${email}?subject=${encodeURIComponent(`Ya Hala — ${interest}`)}&body=${encodeURIComponent(body)}`
-    // shortcut: mailto handler limits vary; keep long inquiries available to copy.
-    if (mailto.length > 1800) {
-      setStatus(
-        `${notice}Your inquiry is ready below. Copy it, then use the email link to send it. Nothing has been sent yet.`,
-      )
-      return
-    }
-    window.location.href = mailto
-    setStatus(
-      `${notice}Your email app should open with your inquiry. Nothing has been sent yet. Review the draft and send it there. If it doesn’t open, use the email address below; your details are still here.`,
-    )
-  }
+  }, [turnstileSiteKey, verificationAttempt])
 
   const sendInquiry = async (form: HTMLFormElement) => {
     const data = new FormData(form)
+    setError('')
+    setStatus('')
+    if (!turnstileSiteKey) {
+      setError(
+        'Sending is temporarily unavailable. Nothing has been sent. Keep this page open and try again later; your details are still here.',
+      )
+      return
+    }
+    if (widgetFailed) {
+      setWidgetFailed(false)
+      setVerificationAttempt((attempt) => attempt + 1)
+      setStatus(
+        'Retrying the security check. Once it completes, select Send my inquiry again.',
+      )
+      return
+    }
     if (!token.current) {
       setError(
         'We’re still checking that you’re human. Try sending again in a moment.',
@@ -154,10 +145,16 @@ export default function PartnershipForm({
         setStatus(
           'Thank you. Your inquiry was sent to Ya Hala. We’ll reply to the email address you gave us.',
         )
-      } else if (!result || response.status === 503) {
-        // No sending route here (local dev, or the Worker isn't configured yet).
+      } else if (!result) {
         setStatus('')
-        prepareDraft(data, 'Sending from this page isn’t available right now. ')
+        setError(
+          'We couldn’t confirm delivery. Your details are still here. Please try again. If it was already received, a retry may send it again.',
+        )
+      } else if (response.status === 503) {
+        setStatus('')
+        setError(
+          'Sending is temporarily unavailable. Nothing has been sent. Your details are still here. Please try again later.',
+        )
       } else if (result.errors) {
         setStatus('')
         setError(
@@ -169,12 +166,14 @@ export default function PartnershipForm({
       } else {
         setStatus('')
         setError(
-          'We couldn’t send your inquiry just now. Your details are still here. Try again, or email Ya Hala directly using the link below.',
+          'We couldn’t send your inquiry just now. Your details are still here. Please try again.',
         )
       }
     } catch {
       setStatus('')
-      prepareDraft(data, 'We couldn’t reach the server. ')
+      setError(
+        'We couldn’t confirm delivery. Your details are still here. Check your connection and try again. If it was already received, a retry may send it again.',
+      )
     } finally {
       setSending(false)
       // Tokens are single-use; request a fresh one for the next attempt.
@@ -192,23 +191,14 @@ export default function PartnershipForm({
           if (sending) return
           setStatus('')
           setError('')
-          setDraft('')
         }}
         onSubmit={(event) => {
           event.preventDefault()
           if (sending) return
-          if (canSend) void sendInquiry(event.currentTarget)
-          else prepareDraft(new FormData(event.currentTarget))
+          void sendInquiry(event.currentTarget)
         }}
       >
-        {!email && (
-          <p className="text-muted-foreground text-sm">
-            Prepare and copy your inquiry here. Email delivery isn’t available
-            yet; you can contact Ya Hala on Instagram. Your details aren’t saved
-            on this site.
-          </p>
-        )}
-        <fieldset className="min-w-0">
+        <fieldset className="min-w-0" disabled={sending}>
           <legend
             id="partner-interest-title"
             className="mb-3 text-base font-semibold"
@@ -221,7 +211,6 @@ export default function PartnershipForm({
             onValueChange={(value) => {
               setInterest(String(value))
               setStatus('')
-              setDraft('')
             }}
             aria-labelledby="partner-interest-title"
           >
@@ -257,6 +246,7 @@ export default function PartnershipForm({
               className="min-h-11"
               id="partner-name"
               name="name"
+              readOnly={sending}
               autoComplete="name"
               required
               maxLength={100}
@@ -270,6 +260,7 @@ export default function PartnershipForm({
               className="min-h-11"
               id="partner-email"
               name="email"
+              readOnly={sending}
               type="email"
               autoComplete="email"
               required
@@ -284,6 +275,7 @@ export default function PartnershipForm({
               className="min-h-11"
               id="partner-business"
               name="business"
+              readOnly={sending}
               autoComplete="organization"
               maxLength={150}
             />
@@ -296,6 +288,7 @@ export default function PartnershipForm({
               className="min-h-11"
               id="partner-location"
               name="location"
+              readOnly={sending}
               maxLength={100}
             />
           </Field>
@@ -308,13 +301,15 @@ export default function PartnershipForm({
             id="partner-message-description"
             className="text-sm"
           >
-            A few lines about your story, business, or campaign. Add a website
-            or social link if you have one.
+            Tell us about your business or story, what you hope to achieve, and
+            any timing you have in mind. Add a website or social link if you
+            have one.
           </FieldDescription>
           <Textarea
             id="partner-message"
             aria-describedby="partner-message-description"
             name="message"
+            readOnly={sending}
             required
             maxLength={partnershipLimits.message}
             rows={4}
@@ -338,29 +333,18 @@ export default function PartnershipForm({
             id="partner-delivery"
             className="text-muted-foreground mb-4 text-sm"
           >
-            {canSend
-              ? 'Your message is emailed to Ya Hala and used only to reply to you. This site doesn’t store it. Spam protection by Cloudflare Turnstile.'
-              : email
-                ? 'Opens a draft in your email app for you to review and send. Your details aren’t stored on this site.'
-                : 'Email inquiries are being set up. You can contact Ya Hala on Instagram in the meantime.'}
+            Your message is emailed to Ya Hala and used only to reply to you.
+            This site doesn’t store it. Spam protection by Cloudflare Turnstile.
           </p>
-          {canSend && <div ref={widgetRef} className="mb-4 max-w-full" />}
+          <div ref={widgetRef} className="mb-4 max-w-full" />
           <Button
             type="submit"
             aria-describedby="partner-delivery"
             aria-disabled={sending}
             className="min-h-12 w-full px-5 text-base whitespace-normal aria-disabled:pointer-events-none aria-disabled:opacity-70"
           >
-            {canSend ? (
-              <Send aria-hidden="true" />
-            ) : (
-              <Mail aria-hidden="true" />
-            )}
-            {sending
-              ? 'Sending…'
-              : canSend
-                ? 'Send my inquiry'
-                : 'Prepare my inquiry'}
+            <Send aria-hidden="true" />
+            {sending ? 'Sending…' : 'Send my inquiry'}
           </Button>
           <p role="status" aria-atomic="true" className="mt-3 text-sm">
             {status}
@@ -368,67 +352,10 @@ export default function PartnershipForm({
           <p
             role="alert"
             aria-atomic="true"
-            className="text-destructive mt-3 text-sm font-medium"
+            className="text-foreground mt-3 text-sm font-medium"
           >
             {error}
           </p>
-          {draft && (
-            <div className="mt-4">
-              <label
-                htmlFor="partner-draft"
-                className="mb-2 block text-sm font-medium"
-              >
-                Your prepared inquiry
-              </label>
-              <textarea
-                id="partner-draft"
-                readOnly
-                value={draft}
-                rows={7}
-                className="border-input bg-background w-full rounded-xl border p-3 text-base focus-visible:outline-2"
-                onFocus={(event) => event.currentTarget.select()}
-              />
-              <Button
-                type="button"
-                variant="outline"
-                className="mt-2 min-h-11"
-                onClick={async () => {
-                  setStatus('')
-                  try {
-                    await navigator.clipboard.writeText(draft)
-                    setStatus(
-                      'Inquiry copied. Paste it into an email and send it to Ya Hala.',
-                    )
-                  } catch {
-                    setStatus(
-                      'Copying is unavailable. Select and copy the prepared inquiry above, then paste it into your email.',
-                    )
-                  }
-                }}
-              >
-                Copy inquiry
-              </Button>
-            </div>
-          )}
-          {email && (
-            <a
-              href={`mailto:${email}`}
-              className="text-foreground mt-2 block text-sm break-all underline underline-offset-4"
-            >
-              Email directly: {email}
-            </a>
-          )}
-          {instagramUrl && (
-            <a
-              href={instagramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground mt-3 inline-flex min-h-11 items-center gap-1 text-sm underline underline-offset-4"
-            >
-              Prefer Instagram? Message Ya Hala
-              <ArrowUpRight className="size-4" aria-hidden="true" />
-            </a>
-          )}
         </div>
       </form>
     </div>

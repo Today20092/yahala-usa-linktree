@@ -22,7 +22,7 @@ const createContentSecurityPolicy = (nonce) =>
     'frame-src https://challenges.cloudflare.com',
     "style-src 'self' 'unsafe-inline'",
     "font-src 'self' data:",
-    "connect-src 'self' https://tiles.openfreemap.org https://tile.openstreetmap.org https://cloudflareinsights.com",
+    "connect-src 'self' https://tiles.openfreemap.org https://tile.openstreetmap.org https://basemaps.cartocdn.com https://tiles.basemaps.cartocdn.com https://cloudflareinsights.com",
     "worker-src 'self' blob:",
     'upgrade-insecure-requests',
   ].join('; ')

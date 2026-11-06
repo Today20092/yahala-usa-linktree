@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { createPortal } from 'react-dom'
 import type { StoryMapPlace } from '@/lib/story-map'
-import './VisitedPlacesLeafletMap.css'
+import './StoryMapShell.css'
 
 const StoryMap = React.lazy(() => import('./StoryMap'))
 type Props = {
@@ -11,10 +11,11 @@ type Props = {
   spacious?: boolean
 }
 
-export default function VisitedPlacesLeafletMap(props: Props) {
+export default function StoryMapShell(props: Props) {
   const [mounted, setMounted] = React.useState(false)
   const [expanded, setExpanded] = React.useState(false)
   const dialog = React.useRef<HTMLDialogElement>(null)
+  const shell = React.useRef<HTMLDivElement>(null)
   React.useEffect(() => setMounted(true), [])
   React.useEffect(() => {
     if (!expanded) return
@@ -23,10 +24,16 @@ export default function VisitedPlacesLeafletMap(props: Props) {
     dialog.current?.showModal()
     return () => {
       document.body.style.overflow = previousOverflow
+      queueMicrotask(() =>
+        shell.current
+          ?.querySelector<HTMLButtonElement>('[aria-label="Expand map"]')
+          ?.focus(),
+      )
     }
   }, [expanded])
   const content = (
     <div
+      ref={shell}
       className={`story-map-shell bg-muted border-border relative aspect-[2/1] min-h-72 overflow-hidden rounded-xl border ${expanded ? 'story-map-expanded' : ''} ${props.spacious ? 'sm:min-h-[28rem]' : ''}`}
       role="region"
       aria-label="Map"
@@ -46,19 +53,27 @@ export default function VisitedPlacesLeafletMap(props: Props) {
       </MapErrorBoundary>
     </div>
   )
-  return expanded
-    ? createPortal(
-        <dialog
-          ref={dialog}
-          className="story-map-dialog"
-          aria-label="Expanded story map"
-          onCancel={() => setExpanded(false)}
-        >
-          {content}
-        </dialog>,
-        document.body,
-      )
-    : content
+  return expanded ? (
+    createPortal(
+      <dialog
+        ref={dialog}
+        className="story-map-dialog"
+        aria-label="Expanded story map"
+        onCancel={() => setExpanded(false)}
+      >
+        {content}
+      </dialog>,
+      document.body,
+    )
+  ) : (
+    <>
+      {content}
+      <p className="text-muted-foreground mt-2 text-sm [@media(pointer:fine)]:hidden">
+        Use two fingers to move the map or pinch to zoom. Expand the map to move
+        it with one finger.
+      </p>
+    </>
+  )
 }
 
 class MapErrorBoundary extends React.Component<

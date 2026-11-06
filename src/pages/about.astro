@@ -7,7 +7,6 @@ import { SEO } from 'astro-seo'
 
 import haithemHeadshot from '../assets/haithem-alqahaf-headshot.jpg'
 import EditorialMotion from '../components/EditorialMotion.astro'
-import MotionToggle from '../components/MotionToggle.astro'
 import TextReveal from '../components/TextReveal.astro'
 import MostWatchedStories from '../components/MostWatchedStories.astro'
 import { buttonVariants } from '../components/ui/button'
@@ -107,10 +106,7 @@ const structuredData = {
             ياهلا مع هيثم
           </span>
         </p>
-        <h1
-          id="about-title"
-          class="ui-page-title mt-4"
-        >
+        <h1 id="about-title" class="ui-page-title mt-4">
           <TextReveal text={`I'm ${about.name}.`} />
         </h1>
         <p class="text-foreground mt-4 max-w-xl text-base leading-7 font-semibold sm:mt-5 sm:text-xl sm:leading-relaxed">
@@ -119,7 +115,21 @@ const structuredData = {
         <p class="text-muted-foreground mt-4 max-w-xl text-base leading-relaxed sm:text-lg">
           {about.heroStatement}
         </p>
+        <p class="text-muted-foreground mt-4 max-w-xl text-base leading-relaxed sm:text-lg">
+          My background is in accounting, business management, and consulting.
+          Today, Ya Hala is my full-time work: meeting the people behind local
+          businesses and sharing their stories with our community.
+        </p>
         <div class="mt-8 flex flex-wrap gap-3">
+          <a
+            href={`${baseUrl}contact`}
+            class={buttonVariants({
+              className:
+                'h-auto min-h-12 max-w-full px-6 py-3 text-base whitespace-normal',
+            })}
+          >
+            {about.partnerCtaLabel}
+          </a>
           <a
             href="#journey-title"
             class={buttonVariants({
@@ -146,15 +156,9 @@ const structuredData = {
             {about.viewerCtaLabel}
           </a>
         </div>
-        <div class="mt-5">
-          <MotionToggle controls="main-content" />
-        </div>
       </div>
 
-      <figure
-        data-image-reveal
-        class="bg-muted relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl"
-      >
+      <figure class="bg-muted relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl">
         <Picture
           src={haithemHeadshot}
           alt={`Portrait of ${about.name}`}
@@ -175,10 +179,7 @@ const structuredData = {
     >
       <div>
         <p class="ui-kicker-accent">My journey</p>
-        <h2
-          id="journey-title"
-          class="ui-section-title mt-3 scroll-mt-28"
-        >
+        <h2 id="journey-title" class="ui-section-title mt-3 scroll-mt-28">
           <TextReveal text="Why I started Ya Hala" preset="slide" />
         </h2>
       </div>
@@ -193,10 +194,7 @@ const structuredData = {
       class="ui-surface-card mx-auto w-[calc(100%-2rem)] max-w-7xl px-6 py-10 sm:w-[calc(100%-3rem)] sm:px-8 lg:px-12 lg:py-14"
       aria-labelledby="viewer-value-title"
     >
-      <h2
-        id="viewer-value-title"
-        class="ui-section-title max-w-xl"
-      >
+      <h2 id="viewer-value-title" class="ui-section-title max-w-xl">
         <TextReveal text="What you'll find on Ya Hala" preset="slide" />
       </h2>
       <div class="mt-10 grid gap-0 md:grid-cols-3">
@@ -223,10 +221,7 @@ const structuredData = {
     >
       <div>
         <p class="ui-kicker-accent">What Ya Hala means to me</p>
-        <h2
-          id="mission-title"
-          class="ui-section-title mt-3 max-w-xl"
-        >
+        <h2 id="mission-title" class="ui-section-title mt-3 max-w-xl">
           Everyone is <span data-text-highlight>welcome.</span>
         </h2>
       </div>
@@ -241,18 +236,13 @@ const structuredData = {
       class="border-border/70 mx-auto w-full max-w-7xl border-t px-4 py-12 sm:px-6 lg:px-8 lg:py-16"
       aria-labelledby="selection-title"
     >
-      <h2
-        id="selection-title"
-        class="ui-section-title max-w-xl"
-      >
+      <h2 id="selection-title" class="ui-section-title max-w-xl">
         What makes a story worth sharing?
       </h2>
       <div class="mt-8 grid gap-5 md:grid-cols-3">
         {about.selectionPrinciples.map((principle) => (
           <article data-scroll-section class="ui-surface-card p-6">
-            <h3 class="ui-card-title">
-              {principle.title}
-            </h3>
+            <h3 class="ui-card-title">{principle.title}</h3>
             <p class="text-muted-foreground mt-4 max-w-xl text-base leading-7">
               {principle.description}
             </p>
@@ -276,8 +266,8 @@ const structuredData = {
 
     <ContactCta
       eyebrow="Contact Ya Hala"
-      title="Suggest a story or work with Ya Hala."
-      body="Know someone we should meet? Have a business to introduce or a partnership in mind? Tell us a little about it."
+      title="Let’s tell the story behind your business."
+      body="Have a business to introduce, a sponsorship in mind, or a community story worth sharing? Tell us what you hope to achieve, and we’ll discuss whether it’s a fit for Ya Hala."
     />
   </main>
 

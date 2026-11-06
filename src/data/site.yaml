@@ -2,7 +2,7 @@ site:
   pageTitle: Ya Hala with Haithum ياهلا مع هيثم
   pageDescription: Ya Hala with Haithum shares Arab American field stories, community visits, and latest videos across the United States.
   siteName: Ya Hala with Haithum
-  profileName: Haithum
+  profileName: Haithem Alqahaf
   twitterHandle: '@yahala_usa'
   heroImageAlt: Ya Hala with Haithum ياهلا مع هيثم social cover
   profileImage: yahala-channel-logo.png
@@ -38,19 +38,21 @@ about:
     - title: Quality people can trust
       description: I choose businesses that offer quality products or services and are halal or otherwise consistent with Islamic principles.
   viewerCtaLabel: Explore the stories
-  partnerCtaLabel: Connect with Ya Hala
+  partnerCtaLabel: Partner with us
 
 partnership:
   # Set the inbox that should receive partnership inquiries.
   email: 'yahalaflorida@gmail.com'
-  # Public Cloudflare Turnstile site key (not the secret). Leave empty to turn
-  # off direct sending: the form then only prepares an email draft.
+  # Public Cloudflare Turnstile site key (not the secret). Required for the
+  # form to send; missing configuration shows an in-page unavailable message.
   turnstileSiteKey: '0x4AAAAAAF1b4faVt03avKGw'
 
 analytics:
-  # Cloudflare Web Analytics (cookieless) site token. Leave empty to load no
-  # analytics. Create the site in Cloudflare > Analytics & Logs > Web
-  # Analytics, then paste its token here. PUBLIC_CF_BEACON_TOKEN overrides it.
+  # Manual Cloudflare Web Analytics token; empty disables only our own snippet.
+  # yahalausa.net already uses automatic injection in Haithum's Cloudflare
+  # account (verified 2026-11-05), excluding EU visitors. Keep this empty while
+  # automatic injection is enabled. PUBLIC_CF_BEACON_TOKEN overrides per build;
+  # preview hosts need a separate analytics site/token to keep traffic separate.
   cloudflareBeaconToken: ''
 
 socialLinks:

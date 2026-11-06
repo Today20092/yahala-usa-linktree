@@ -1,4 +1,4 @@
-import { ExternalLink, List, Map } from 'lucide-react'
+import { ChevronDown, ExternalLink, List, Map } from 'lucide-react'
 import * as React from 'react'
 
 import { Badge } from '@/components/ui/badge'
@@ -10,7 +10,7 @@ import { ScrollReveal } from '@/components/animate-ui/ScrollReveal'
 import type { Story } from '@/lib/story-browser'
 import type { VisitedMapPlace } from '@/lib/site-config'
 import { buildStoryMapPlaces } from '@/lib/story-map'
-import VisitedPlacesLeafletMap from './VisitedPlacesLeafletMap'
+import StoryMapShell from './StoryMapShell'
 import {
   isRecentVideo,
   sortVideosByPublishedDate,
@@ -34,6 +34,17 @@ const readFilters = () => {
 export default function StoryBrowser({ stories, places }: Props) {
   const [filters, setFilters] = React.useState(readFilters)
   const [visibleCount, setVisibleCount] = React.useState(PAGE_SIZE)
+  const [filtersOpen, setFiltersOpen] = React.useState(() =>
+    Boolean(filters.state || filters.city),
+  )
+  // The summary is hidden from sm up, so keep the disclosure open there even in browsers without ::details-content.
+  React.useEffect(() => {
+    const wide = window.matchMedia('(min-width: 40rem)')
+    const sync = () => wide.matches && setFiltersOpen(true)
+    sync()
+    wide.addEventListener('change', sync)
+    return () => wide.removeEventListener('change', sync)
+  }, [])
   const firstAddedStory = React.useRef<HTMLAnchorElement | null>(null)
   const focusAddedStory = React.useRef(false)
 
@@ -113,46 +124,80 @@ export default function StoryBrowser({ stories, places }: Props) {
 
   return (
     <>
-      <div className="border-border bg-card grid gap-4 rounded-xl border p-4 sm:grid-cols-2 sm:p-5 lg:grid-cols-3">
-        <SearchableSelect
-          label="State"
-          value={filters.state}
-          onValueChange={(state) => updateFilters(state)}
-          options={[
-            { value: '', label: 'All states' },
-            { value: UNASSIGNED_FILTER, label: 'Location not yet assigned' },
-            ...states.map((state) => ({ value: state, label: state })),
-          ]}
-        />
-        <SearchableSelect
-          key={filters.state}
-          label="City"
-          value={filters.city}
-          disabled={!filters.state || filters.state === UNASSIGNED_FILTER}
-          onValueChange={(city) => updateFilters(filters.state, city)}
-          options={[
-            { value: '', label: 'All cities' },
-            ...cities.map((city) => ({ value: city, label: city })),
-          ]}
-        />
-        <label className="text-foreground text-sm font-semibold">
-          Sort by date
-          <select
-            value={filters.sort}
-            onChange={(event) =>
-              updateFilters(
-                filters.state,
-                filters.city,
-                event.currentTarget.value,
-              )
-            }
-            className="border-border bg-background focus-visible:ring-ring mt-2 min-h-11 w-full rounded-lg border px-3 text-base focus-visible:ring-2 focus-visible:outline-none"
-          >
-            <option value="newest">Newest first</option>
-            <option value="oldest">Oldest first</option>
-          </select>
-        </label>
-      </div>
+      {/* sm+: summary hidden and ::details-content forced visible, so controls are always shown. */}
+      <Card className="gap-0 overflow-visible py-0">
+        <details
+          open={filtersOpen}
+          onToggle={(event) => setFiltersOpen(event.currentTarget.open)}
+          className="group sm:[&::details-content]:[content-visibility:visible]"
+        >
+          <summary className="text-foreground focus-visible:ring-ring/30 flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 rounded-xl px-4 text-sm font-semibold focus-visible:ring-3 focus-visible:outline-none sm:hidden [&::-webkit-details-marker]:hidden">
+            {[
+              'Filters',
+              filters.state === UNASSIGNED_FILTER
+                ? 'Location not yet assigned'
+                : filters.state,
+              filters.city,
+              filters.sort === 'oldest' ? 'Oldest first' : 'Newest first',
+            ]
+              .filter(Boolean)
+              .join(' · ')}
+            <ChevronDown
+              aria-hidden="true"
+              className="size-4 shrink-0 transition-transform group-open:rotate-180 motion-reduce:transition-none"
+            />
+          </summary>
+          <div className="grid gap-4 p-4 sm:grid-cols-2 sm:p-5 lg:grid-cols-3">
+            <SearchableSelect
+              label="State"
+              value={filters.state}
+              onValueChange={(state) => updateFilters(state)}
+              options={[
+                { value: '', label: 'All states' },
+                {
+                  value: UNASSIGNED_FILTER,
+                  label: 'Location not yet assigned',
+                },
+                ...states.map((state) => ({ value: state, label: state })),
+              ]}
+            />
+            <SearchableSelect
+              key={filters.state}
+              label="City"
+              value={filters.city}
+              disabled={!filters.state || filters.state === UNASSIGNED_FILTER}
+              onValueChange={(city) => updateFilters(filters.state, city)}
+              options={[
+                { value: '', label: 'All cities' },
+                ...cities.map((city) => ({ value: city, label: city })),
+              ]}
+            />
+            <div className="min-w-0">
+              <label
+                htmlFor="story-sort"
+                className="text-foreground text-sm font-semibold"
+              >
+                Sort by date
+              </label>
+              <select
+                id="story-sort"
+                value={filters.sort}
+                onChange={(event) =>
+                  updateFilters(
+                    filters.state,
+                    filters.city,
+                    event.currentTarget.value,
+                  )
+                }
+                className="border-input bg-background focus-visible:border-ring focus-visible:ring-ring/30 mt-2 min-h-12 w-full rounded-lg border px-3 text-base focus-visible:ring-2 focus-visible:outline-none"
+              >
+                <option value="newest">Newest first</option>
+                <option value="oldest">Oldest first</option>
+              </select>
+            </div>
+          </div>
+        </details>
+      </Card>
 
       <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
         <p className="text-muted-foreground text-sm">
@@ -178,15 +223,16 @@ export default function StoryBrowser({ stories, places }: Props) {
       </div>
       {filters.view === 'map' && (
         <div className="mt-4">
-          <VisitedPlacesLeafletMap
+          <StoryMapShell
             places={mapPlaces}
             selectedCity={filters.city}
             spacious
             onSelectPlace={(state, city) => updateFilters(state, city)}
           />
           <p className="text-muted-foreground mt-2 text-sm">
-            Pins show cities, not filming addresses. Numbers on grouped pins
-            count cities. Stories without city coordinates remain in the list.
+            Business pins show published addresses where available. Other pins
+            show approximate city locations. Grouped pins count locations, not
+            stories. All stories remain in the list.
           </p>
         </div>
       )}
@@ -281,6 +327,7 @@ export default function StoryBrowser({ stories, places }: Props) {
               <Button
                 type="button"
                 size="lg"
+                className="min-h-11 px-5"
                 onClick={() => {
                   focusAddedStory.current = true
                   setVisibleCount((count) => count + PAGE_SIZE)
@@ -293,9 +340,7 @@ export default function StoryBrowser({ stories, places }: Props) {
         </>
       ) : (
         <div className="border-border bg-muted/40 mt-5 rounded-xl border border-dashed p-8 text-center">
-          <h2 className="ui-card-title">
-            No stories match these filters.
-          </h2>
+          <h2 className="ui-card-title">No stories match these filters.</h2>
           <p className="text-muted-foreground mt-2 text-sm">
             The shared link may be stale, or this city has no assigned stories.
           </p>

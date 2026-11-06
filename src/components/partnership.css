@@ -2,6 +2,10 @@ html .partnership-section {
   max-width: 72rem;
   scroll-margin-top: 6rem;
 }
+/* The contact page is one form column; center it instead of leaving the right half empty. */
+html main.partnership-section {
+  max-width: 48rem;
+}
 .partnership-layout {
   display: grid;
   min-width: 0;

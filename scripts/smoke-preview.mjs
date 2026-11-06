@@ -31,16 +31,16 @@ const journeyMarkers = [
   ['map', 'aria-label="Map"'],
   ['state selection', 'Choose a state'],
   ['latest-story action', 'Latest From Ya Hala'],
-  ['automatic portfolio browsing', 'data-portfolio-scroll="auto"'],
+  ['portfolio grid', 'data-portfolio-grid'],
 ]
 
 const pageFlow = [
-  ['identity and primary action', 'Watch latest'],
-  ['official links', 'aria-label="Official social links"'],
-  ['latest story', 'Latest From Ya Hala'],
+  ['identity and partnership action', 'Partner with us'],
   ['credibility', 'data-reach-card'],
   ['portfolio proof', 'Moments from Ya Hala stories'],
-  ['geographic discovery', 'aria-label="Map"'],
+  ['geographic proof', 'aria-label="Map"'],
+  ['latest story', 'Latest From Ya Hala'],
+  ['official links', 'aria-label="Official social links"'],
   ['minimal footer', '<footer'],
   ['QR access', 'data-qr-open'],
 ]

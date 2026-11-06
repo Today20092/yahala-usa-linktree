@@ -1,5 +1,5 @@
 ---
-import { getImage, Picture } from 'astro:assets'
+import { Picture } from 'astro:assets'
 import { Icon } from 'astro-icon/components'
 import { SEO } from 'astro-seo'
 import type { CSSProperties } from 'react'
@@ -8,14 +8,13 @@ import './index.css'
 
 import FeaturedEpisodes from '../components/FeaturedEpisodes.astro'
 import TextReveal from '../components/TextReveal.astro'
-import MotionToggle from '../components/MotionToggle.astro'
+import { buttonVariants } from '../components/ui/button'
 import BrandMarquee from '../components/BrandMarquee.astro'
 import LatestChannelVideo from '../components/LatestChannelVideo.astro'
 import QrCodeButton from '../components/QrCodeButton.astro'
 import SiteFooter from '../components/SiteFooter.astro'
 import ContactCta from '../components/ContactCta.astro'
 import ReachBadge from '../components/ReachBadge.astro'
-import TopicCards from '../components/TopicCards.astro'
 import VideoSearch from '../components/VideoSearch'
 import SocialLinkButton from '../components/SocialLinkButton'
 import VideoBentoGrid from '../components/VideoBentoGrid.astro'
@@ -58,12 +57,11 @@ const channelLogoImageUrl = resolveSiteAsset(
 const canonicalUrl = new URL(baseUrl, Astro.site).toString()
 const sitemapUrl = new URL(`${baseUrl}sitemap.xml`, Astro.site).toString()
 const heroImageUrl = getPageOgImage('index', baseUrl, Astro.site)
-const heroPreloadImage = await getImage({
-  src: heroCover,
-  format: 'webp',
-})
 
 const resolvedVisitedPlaces = resolveVisitedPlaces(visitedPlaces)
+const visitedStateCount = (resolvedVisitedPlaces.stateGroups ?? []).filter(
+  (group) => group.videoCount > 0,
+).length
 const latestVideoByChannel = Object.fromEntries(
   youtubeChannels.flatMap((channel) => {
     const latestVideoId = (
@@ -102,6 +100,25 @@ const socialDescriptions: Record<string, string> = {
   instagram: 'Reels & behind the scenes',
   tiktok: 'Quick stories & highlights',
   facebook: 'Videos & community updates',
+}
+const compactViews = new Intl.NumberFormat('en-US', {
+  notation: 'compact',
+  maximumFractionDigits: 1,
+})
+const platformViews = (id: string) =>
+  socialReach.items
+    .filter(
+      (item) => item.platform.toLowerCase() === id && item.metric === 'Views',
+    )
+    .reduce((sum, item) => sum + item.value, 0)
+const socialSummary = (id: string) => {
+  const views = platformViews(id)
+  return [
+    views ? `${compactViews.format(views)} views` : '',
+    socialDescriptions[id],
+  ]
+    .filter(Boolean)
+    .join(' · ')
 }
 const sameAsUrls = socialLinks.map((link) => link.url)
 const socialIconBodies: Record<string, string> = {
@@ -180,14 +197,6 @@ const structuredData = {
       }}
     />
 
-    <link
-      rel="preload"
-      as="image"
-      type="image/webp"
-      href={heroPreloadImage.src}
-      fetchpriority="high"
-    />
-
     <link rel="sitemap" type="application/xml" href={sitemapUrl} />
     <script
       type="application/ld+json"
@@ -201,10 +210,7 @@ const structuredData = {
   >
     <p data-share-status role="status" aria-atomic="true" class="ui-meta"></p>
     <div class="desktop-hero-layout">
-      <section
-        class="linktree-hero animate-fade-in-up"
-        aria-labelledby="profile-title"
-      >
+      <section class="linktree-hero" aria-labelledby="profile-title">
         <button
           type="button"
           class="linktree-hero__share"
@@ -225,6 +231,8 @@ const structuredData = {
           src={heroCover}
           formats={['avif', 'webp']}
           fallbackFormat="webp"
+          widths={[640, 1080, 1500]}
+          sizes="(min-width: 60rem) 59vw, 140vw"
           class="linktree-hero__image"
           decoding="async"
           fetchpriority="high"
@@ -245,18 +253,32 @@ const structuredData = {
             <TextReveal text="Arab-American stories, coast to coast." />
           </h2>
           <p class="ui-body mx-auto mt-4 max-w-prose sm:text-[1.05rem]">
-            Watch Arab American stories, community visits, and creator-led field
-            interviews from across the United States.
+            Meet the people behind Arab-American businesses and communities
+            across the United States. Introduce your business through a story
+            with Ya Hala.{' '}
+            <a
+              href={`${baseUrl}about`}
+              class="text-primary font-semibold underline underline-offset-4"
+            >
+              Our story
+            </a>
           </p>
-          <MotionToggle controls="main-content" />
           <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
+            <a
+              href={`${baseUrl}contact`}
+              class={buttonVariants({
+                className: 'h-auto min-h-12 px-6 py-3 text-base',
+              })}
+            >
+              {siteConfig.about.partnerCtaLabel}
+            </a>
             {latestEpisodeUrl && (
               <a
                 href={latestEpisodeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Watch latest episode"
-                class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring/30 focus-visible:ring-offset-background inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-base font-semibold whitespace-nowrap shadow-lg transition-[background-color,transform,box-shadow] hover:-translate-y-0.5 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0"
+                aria-label="Watch latest episode (opens on YouTube)"
+                class="hero-explore-link"
               >
                 <Icon
                   name="simple-icons:youtube"
@@ -266,49 +288,28 @@ const structuredData = {
                 Watch latest
               </a>
             )}
-            <a href="#explore" class="hero-explore-link">
-              Explore stories
-            </a>
           </div>
         </section>
-
-        <div id="follow" class="follow-intro">
-          <h2 class="ui-section-title">Follow Ya Hala</h2>
-          <p class="ui-body">Choose where to catch the next story.</p>
-        </div>
-        <nav
-          class="animate-fade-in-up mx-auto mt-6 flex w-full max-w-xl flex-col gap-3 px-4 delay-300 sm:px-6"
-          aria-label="Official social links"
-        >
-          {socialLinks.map((social) => (
-            <SocialLinkButton
-              label={social.label.replace(/^Ya Hala\s+/, '')}
-              description={socialDescriptions[social.id]}
-              ariaLabel={social.label}
-              href={social.url}
-              id={social.id}
-              style={
-                {
-                  '--brand-color': social.color,
-                  '--brand-color-2': social.color2,
-                  '--brand-color-3': social.color3,
-                  '--brand-color-dark': social.darkColor ?? social.color,
-                  '--brand-color-dark-2': social.darkColor2 ?? social.color2,
-                  '--brand-color-dark-3': social.darkColor3 ?? social.color3,
-                } as CSSProperties
-              }
-            >
-              <svg
-                class="size-8"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                set:html={socialIconBodies[social.id]}
-              />
-            </SocialLinkButton>
-          ))}
-        </nav>
       </div>
     </div>
+
+    <div class="desktop-primary-grid">
+      <ReachBadge
+        total={totalReach}
+        updatedAt={socialReach.updatedAt}
+        items={socialReach.items}
+        highlights={[
+          { label: 'states visited', value: visitedStateCount },
+          { label: 'brand partners', value: collaborationBrands.length },
+        ]}
+      />
+    </div>
+
+    <BrandMarquee brands={collaborationBrands} />
+
+    <VideoBentoGrid />
+
+    <VisitedPlacesMap visitedPlaces={resolvedVisitedPlaces} />
 
     <div class="desktop-latest-grid">
       <section
@@ -356,36 +357,46 @@ const structuredData = {
         </div>
       </section>
 
-      <TopicCards />
-    </div>
-
-    <div class="desktop-primary-grid">
-      <ReachBadge
-        total={totalReach}
-        updatedAt={socialReach.updatedAt}
-        items={socialReach.items}
-      />
-
-      <section
-        id="about"
-        class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-300 sm:px-6"
-        aria-labelledby="about-title"
-      >
-        <div class="about-copy py-8 sm:py-10">
-          <h2 id="about-title" class="ui-section-title">
-            <TextReveal text="Stories from Arab America." preset="slide" />
+      <section class="mt-8 flex flex-col" aria-labelledby="follow-title">
+        <div id="follow" class="follow-intro">
+          <h2 id="follow-title" class="ui-section-title">
+            Follow Ya Hala
           </h2>
-          <p class="ui-body mt-4">
-            Haithum covers people, businesses, neighborhoods, restaurants, and
-            community life across the United States.
-          </p>
+          <p class="ui-body">Choose where to catch the next story.</p>
         </div>
+        <nav
+          class="animate-fade-in-up mx-auto mt-6 flex w-full max-w-xl flex-col gap-3 px-4 delay-300 sm:px-6 lg:grid lg:grid-cols-2"
+          aria-label="Official social links"
+        >
+          {socialLinks.map((social) => (
+            <SocialLinkButton
+              label={social.label.replace(/^Ya Hala\s+/, '')}
+              description={socialSummary(social.id)}
+              ariaLabel={social.label}
+              href={social.url}
+              id={social.id}
+              style={
+                {
+                  '--brand-color': social.color,
+                  '--brand-color-2': social.color2,
+                  '--brand-color-3': social.color3,
+                  '--brand-color-dark': social.darkColor ?? social.color,
+                  '--brand-color-dark-2': social.darkColor2 ?? social.color2,
+                  '--brand-color-dark-3': social.darkColor3 ?? social.color3,
+                } as CSSProperties
+              }
+            >
+              <svg
+                class="size-8"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                set:html={socialIconBodies[social.id]}
+              />
+            </SocialLinkButton>
+          ))}
+        </nav>
       </section>
     </div>
-
-    <BrandMarquee brands={collaborationBrands} />
-
-    <VideoBentoGrid />
 
     <section
       id="explore"
@@ -398,8 +409,8 @@ const structuredData = {
         </h2>
         <p class="ui-body mx-auto mt-3 max-w-md text-sm">
           {videoSearch.enabled
-            ? 'Search video moments, browse popular episodes, and follow the places Ya Hala has visited.'
-            : 'Browse popular episodes and follow the places Ya Hala has visited.'}
+            ? 'Search for a person, business, or moment—or start with our most-viewed episodes.'
+            : 'Start with our most-viewed episodes.'}
         </p>
       </div>
     </section>
@@ -410,12 +421,10 @@ const structuredData = {
       <FeaturedEpisodes />
     </div>
 
-    <VisitedPlacesMap visitedPlaces={resolvedVisitedPlaces} />
-
     <ContactCta
       eyebrow="Be part of what’s next"
       title="Your story. Your brand. Our next stop."
-      body="Sponsor a video, introduce your local business, or share an Arab-American story our community should hear."
+      body="Introduce the people and work behind your business, or support a Ya Hala story through sponsorship. Tell us about your goals to start the conversation."
     />
   </main>
 

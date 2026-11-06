@@ -27,81 +27,58 @@
   border-radius: 0;
   z-index: 10000;
 }
-.story-map-zoom {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 800;
-  display: grid;
-  gap: 4px;
-}
 .story-map-fullscreen {
   position: absolute;
-  top: 112px;
-  right: 12px;
-  z-index: 800;
+  top: 88px;
+  right: 8px;
+  z-index: 10;
 }
-.story-map .story-map-marker {
+.story-map-marker {
   display: grid;
   place-items: center;
-  background: transparent;
-  border: 0;
+  width: 32px;
+  height: 32px;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border: 2px solid var(--background);
+  border-radius: 50%;
+  cursor: pointer;
 }
-.story-map-marker svg {
-  filter: drop-shadow(0 2px 2px rgb(0 0 0 / 0.2));
-}
-.story-map .story-map-cluster {
+.story-map-cluster {
   display: grid;
   place-items: center;
+  width: 40px;
+  height: 40px;
   border: 2px solid var(--background);
   border-radius: 50%;
   background: var(--primary);
   color: var(--primary-foreground);
-  font-family: inherit;
+  font: inherit;
   font-size: 14px;
   font-weight: 700;
-  line-height: 1;
+  cursor: pointer;
 }
-.story-map :is(.leaflet-marker-icon, button, a):focus-visible {
+.story-map :is(button, a):focus-visible {
   outline: 3px solid var(--ring);
   outline-offset: 3px;
 }
-.story-map .leaflet-popup-content-wrapper {
-  background: var(--card);
-  color: var(--card-foreground);
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgb(0 0 0 / 0.15);
-}
-.story-map .leaflet-popup-tip {
-  background: var(--card);
-}
-.story-map .leaflet-popup-content {
-  margin: 16px;
-  min-width: 160px;
-}
-.story-map .leaflet-popup-content p {
-  margin: 0 0 4px;
-}
-.story-map .leaflet-popup-close-button {
-  min-width: 32px;
-  min-height: 32px;
-  color: var(--foreground);
-}
-.story-map .leaflet-tooltip {
-  background: var(--foreground);
-  color: var(--background);
-  border: 0;
-  border-radius: 6px;
+.story-map .maplibregl-popup-content {
+  padding: 0;
+  background: transparent;
   box-shadow: none;
 }
-.story-map .leaflet-tooltip::before {
-  display: none;
+.story-map .maplibregl-popup-tip {
+  border-top-color: var(--popover);
+  border-bottom-color: var(--popover);
+}
+.story-map .maplibregl-canvas {
+  border-radius: inherit;
 }
 .story-map-attribution {
   position: absolute;
   bottom: 0;
   right: 0;
-  z-index: 800;
+  z-index: 10;
   max-width: 100%;
   padding: 3px 6px;
   background: var(--background);
@@ -112,7 +89,4 @@
 .story-map-attribution a {
   text-decoration: underline;
   text-underline-offset: 2px;
-}
-.story-map a {
-  color: inherit;
 }

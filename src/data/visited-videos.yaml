@@ -6,8 +6,8 @@ videos:
     state: "Michigan"
     city: "Dearborn"
   - videoId: kEWWAKPE22s
-    state: "New York"
-    city: "New York"
+    state: "Florida"
+    city: "Orlando"
   - videoId: hcMk8nH4K9g
     state: "Michigan"
     city: "Warren"
@@ -33,7 +33,7 @@ videos:
     state: "Michigan"
     city: "Southfield Township"
   - videoId: c1JGUAQ-aoY
-    state: "Indiana"
+    state: "Ohio"
     city: "Columbus"
   - videoId: ljWORq296hQ
     state: "Virginia"

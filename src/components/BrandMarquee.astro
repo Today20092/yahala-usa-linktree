@@ -15,51 +15,49 @@ const rows = [
 ]
 ---
 
-{
-  brands.length > 0 && (
-    <section
-      class="brand-marquee ui-section-block"
-      aria-labelledby="brand-marquee-title"
-    >
-      <div class="brand-marquee__header ui-section-header flex items-start justify-between gap-3">
-        <h2 id="brand-marquee-title" class="ui-section-title">
-          Brands we've collaborated with
-        </h2>
-        <MotionToggle controls="brand-marquee-rows" />
-      </div>
+{brands.length > 0 && (
+  <section
+    class="brand-marquee ui-section-block"
+    aria-labelledby="brand-marquee-title"
+  >
+    <div class="brand-marquee__header ui-section-header flex flex-col items-center gap-2">
+      <h2 id="brand-marquee-title" class="ui-section-title">
+        Brands we've collaborated with
+      </h2>
+      <MotionToggle controls="brand-marquee-rows" />
+    </div>
 
-      <div id="brand-marquee-rows" class="brand-marquee__viewport">
-        {rows.map((row, rowIndex) => (
-          <div
-            class:list={[
-              'brand-marquee__track',
-              { 'brand-marquee__track--reverse': rowIndex === 1 },
-            ]}
-          >
-            {[false, true].map((duplicate) => (
-              <ul class="brand-marquee__group" aria-hidden={duplicate}>
-                {row.map((brand) => (
-                  <li class="brand-marquee__brand">
-                    {brand.logo && (
-                      <img
-                        src={brand.logo}
-                        alt=""
-                        class="brand-marquee__logo"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    )}
-                    <span>{brand.name}</span>
-                  </li>
-                ))}
-              </ul>
-            ))}
-          </div>
-        ))}
-      </div>
-    </section>
-  )
-}
+    <div id="brand-marquee-rows" class="brand-marquee__viewport">
+      {rows.map((row, rowIndex) => (
+        <div
+          class:list={[
+            'brand-marquee__track',
+            { 'brand-marquee__track--reverse': rowIndex === 1 },
+          ]}
+        >
+          {[false, true].map((duplicate) => (
+            <ul class="brand-marquee__group" aria-hidden={duplicate}>
+              {row.map((brand) => (
+                <li class="brand-marquee__brand">
+                  {brand.logo && (
+                    <img
+                      src={brand.logo}
+                      alt=""
+                      class="brand-marquee__logo"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  )}
+                  <span>{brand.name}</span>
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
+      ))}
+    </div>
+  </section>
+)}
 
 <style>
   .brand-marquee {
@@ -145,33 +143,6 @@ const rows = [
     }
   }
 
-  .brand-marquee__viewport[data-motion-paused] {
-    overflow: visible;
-    mask-image: none;
-  }
-
-  [data-motion-paused] .brand-marquee__track {
-    width: 100%;
-    animation: none;
-    transform: none;
-  }
-
-  [data-motion-paused] .brand-marquee__group {
-    flex-wrap: wrap;
-    width: 100%;
-    padding: 0;
-  }
-
-  [data-motion-paused] .brand-marquee__brand {
-    min-width: 0;
-    max-width: 100%;
-    flex-wrap: wrap;
-  }
-
-  [data-motion-paused] .brand-marquee__group[aria-hidden='true'] {
-    display: none;
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .brand-marquee__viewport {
       overflow: visible;
@@ -200,5 +171,4 @@ const rows = [
       display: none;
     }
   }
-
 </style>
