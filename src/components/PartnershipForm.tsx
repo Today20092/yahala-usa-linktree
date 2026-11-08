@@ -267,6 +267,20 @@ export default function PartnershipForm({
               maxLength={254}
             />
           </Field>
+          <Field name="phone">
+            <FieldLabel htmlFor="partner-phone">
+              Phone number (optional)
+            </FieldLabel>
+            <Input
+              className="min-h-11"
+              id="partner-phone"
+              name="phone"
+              readOnly={sending}
+              type="tel"
+              autoComplete="tel"
+              maxLength={30}
+            />
+          </Field>
           <Field name="business">
             <FieldLabel htmlFor="partner-business">
               Business / organization (optional)
