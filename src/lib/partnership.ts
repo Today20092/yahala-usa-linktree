@@ -10,6 +10,7 @@ export const partnershipInterests = [
 export const partnershipLimits = {
   name: 100,
   email: 254,
+  phone: 30,
   business: 150,
   location: 100,
   message: 1200,
@@ -20,6 +21,7 @@ const required: Field[] = ['name', 'email', 'message']
 const labels: Record<Field, string> = {
   name: 'Your name',
   email: 'Your email',
+  phone: 'Phone number',
   business: 'Business / organization',
   location: 'City / state',
   message: 'Your idea',
@@ -28,10 +30,14 @@ const labels: Record<Field, string> = {
 const emailPattern =
   /^[^\s@<>()[\],;:"\\]+@[^\s@<>()[\],;:"\\]+\.[^\s@<>()[\],;:"\\]+$/
 
+// shortcut: accepts digits and common separators only, 7+ digits; no country-specific rules.
+const phonePattern = /^\+?[\d\s().-]+$/
+
 export type PartnershipInquiry = {
   interest: (typeof partnershipInterests)[number]
   name: string
   email: string
+  phone: string
   business: string
   location: string
   message: string
@@ -69,6 +75,7 @@ export function validatePartnership(input: unknown): PartnershipValidation {
     interest,
     name: text('name'),
     email: text('email'),
+    phone: text('phone'),
     business: text('business'),
     location: text('location'),
     message: text('message'),
@@ -82,6 +89,14 @@ export function validatePartnership(input: unknown): PartnershipValidation {
   }
   if (!errors.email && !emailPattern.test(value.email))
     errors.email = 'Enter an email address like name@example.com.'
+  if (
+    !errors.phone &&
+    value.phone &&
+    (!phonePattern.test(value.phone) ||
+      value.phone.replace(/\D/g, '').length < 7)
+  )
+    errors.phone =
+      'Enter a phone number like +1 555 123 4567, or leave it blank.'
 
   return Object.keys(errors).length
     ? { ok: false, errors }
@@ -93,6 +108,7 @@ export const formatPartnershipBody = (v: PartnershipInquiry) =>
     `I'm interested in: ${v.interest}`,
     `Name: ${v.name}`,
     `Reply email: ${v.email}`,
+    `Phone: ${v.phone || 'Not provided'}`,
     `Business / organization: ${v.business || 'Not provided'}`,
     `City / state: ${v.location || 'Not provided'}`,
     '',

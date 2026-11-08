@@ -149,6 +149,9 @@ assert.equal(sent[0].to, to)
 assert.equal(sent[0].replyTo, 'sam@example.test')
 assert.equal(sent[0].subject, 'Ya Hala — Sponsor a video')
 assert.match(String(sent[0].text), /Business \/ organization: Not provided/)
+assert.match(String(sent[0].text), /Phone: Not provided/)
+assert.ok(!validatePartnership({ ...valid, phone: 'abc' }).ok)
+assert.ok(validatePartnership({ ...valid, phone: '+1 (555) 123-4567' }).ok)
 
 // Delivery provider failure surfaces as an error, not as success.
 const failing = makeEnv({
