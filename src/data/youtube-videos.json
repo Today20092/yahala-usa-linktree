@@ -729,7 +729,7 @@
     "url": "https://www.youtube.com/watch?v=M6TQFZpcX64",
     "thumbnail": "https://i.ytimg.com/vi/M6TQFZpcX64/hqdefault.jpg",
     "published": "2026-05-22T09:54:21-07:00",
-    "updated": "2026-05-22",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "13:13",
@@ -849,7 +849,7 @@
     "url": "https://www.youtube.com/watch?v=8nf0_ZKJJj4",
     "thumbnail": "https://i.ytimg.com/vi/8nf0_ZKJJj4/hqdefault.jpg",
     "published": "2026-05-15T12:00:18-07:00",
-    "updated": "",
+    "updated": "2026-05-15",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "19:55",
@@ -900,7 +900,9 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:31:54.135Z",
-    "viewCount": 20579
+    "viewCount": 20769,
+    "width": 3840,
+    "height": 2160
   },
   "l3bRUbBIh8w": {
     "videoId": "l3bRUbBIh8w",
@@ -1021,7 +1023,7 @@
     "url": "https://www.youtube.com/watch?v=06LJ9AaClLs",
     "thumbnail": "https://i.ytimg.com/vi/06LJ9AaClLs/hqdefault.jpg",
     "published": "2026-04-25T09:00:00-07:00",
-    "updated": "2026-04-25",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "52:13",
@@ -1080,7 +1082,7 @@
     "url": "https://www.youtube.com/watch?v=uO35D6Gw6Xg",
     "thumbnail": "https://i.ytimg.com/vi/uO35D6Gw6Xg/hqdefault.jpg",
     "published": "2026-04-21T09:01:36-07:00",
-    "updated": "2026-04-21",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "17:37",
@@ -1197,7 +1199,7 @@
     "url": "https://www.youtube.com/watch?v=3sNCePfZJ0o",
     "thumbnail": "https://i.ytimg.com/vi/3sNCePfZJ0o/hqdefault.jpg",
     "published": "2026-04-08T09:00:07-07:00",
-    "updated": "2026-04-08",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "18:38",
@@ -1314,7 +1316,7 @@
   },
   "Aml_gBJ06ms": {
     "videoId": "Aml_gBJ06ms",
-    "title": "الحقيقة وراء أرخص منزل في أمريكا… جولة داخل سوق العقارات في هيوستن",
+    "title": "The Truth Behind the Cheapest House in America... A Tour Inside the Houston Real Estate Market",
     "url": "https://www.youtube.com/watch?v=Aml_gBJ06ms",
     "thumbnail": "https://i.ytimg.com/vi/Aml_gBJ06ms/hqdefault.jpg",
     "published": "2026-03-30T15:30:59-07:00",
@@ -1360,7 +1362,7 @@
       "People & Blogs"
     ],
     "locationHints": {
-      "matchedText": "هيوستن, TX",
+      "matchedText": "Houston, TX",
       "city": "Houston",
       "state": "Texas",
       "latitude": 29.7604,
@@ -1438,7 +1440,7 @@
     "url": "https://www.youtube.com/watch?v=-_Z11UKbp8g",
     "thumbnail": "https://i.ytimg.com/vi/-_Z11UKbp8g/hqdefault.jpg",
     "published": "2026-03-15T09:00:00-07:00",
-    "updated": "",
+    "updated": "2026-03-15",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "11:02",
@@ -1487,7 +1489,9 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:02.017Z",
-    "viewCount": 3473
+    "viewCount": 3687,
+    "width": 3840,
+    "height": 2160
   },
   "RMyWIYvGEB4": {
     "videoId": "RMyWIYvGEB4",
@@ -1591,7 +1595,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-11-10T19:57:58.677Z",
+    "fullMetadataFetchedAt": "2026-11-11T06:25:42.159Z",
     "viewCount": 7994
   },
   "smU2_DmMU6I": {
@@ -1657,7 +1661,7 @@
     "url": "https://www.youtube.com/watch?v=XVzFBTyl64c",
     "thumbnail": "https://i.ytimg.com/vi/XVzFBTyl64c/hqdefault.jpg",
     "published": "2026-03-02T09:00:48-08:00",
-    "updated": "",
+    "updated": "2026-03-02",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "16:47",
@@ -1711,7 +1715,9 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:07.280Z",
-    "viewCount": 10416
+    "viewCount": 10456,
+    "width": 3840,
+    "height": 2160
   },
   "_xG6zgOZSLU": {
     "videoId": "_xG6zgOZSLU",
@@ -1952,7 +1958,7 @@
     "url": "https://www.youtube.com/watch?v=jOczHqEoOec",
     "thumbnail": "https://i.ytimg.com/vi/jOczHqEoOec/hqdefault.jpg",
     "published": "2026-02-03T20:00:38.000Z",
-    "updated": "2026-02-03",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "28:07",
@@ -2768,7 +2774,7 @@
     "url": "https://www.youtube.com/watch?v=vcWGQcMlF1s",
     "thumbnail": "https://i.ytimg.com/vi/vcWGQcMlF1s/hqdefault.jpg",
     "published": "2025-11-21T17:01:42.000Z",
-    "updated": "2025-11-21",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "19:42",
@@ -2887,7 +2893,7 @@
     "url": "https://www.youtube.com/watch?v=39ZoH4dMfls",
     "thumbnail": "https://i.ytimg.com/vi/39ZoH4dMfls/hqdefault.jpg",
     "published": "2025-11-14T19:30:01.000Z",
-    "updated": "2025-11-14",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "21:19",
@@ -2947,7 +2953,7 @@
     "url": "https://www.youtube.com/watch?v=gY2IuAZ_gJg",
     "thumbnail": "https://i.ytimg.com/vi/gY2IuAZ_gJg/hqdefault.jpg",
     "published": "2025-11-10T17:01:22.000Z",
-    "updated": "2025-11-10",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "10:31",
@@ -3006,7 +3012,7 @@
     "url": "https://www.youtube.com/watch?v=UYw4AMNyTiE",
     "thumbnail": "https://i.ytimg.com/vi/UYw4AMNyTiE/hqdefault.jpg",
     "published": "2025-11-06T17:01:01.000Z",
-    "updated": "2025-11-06",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "22:10",
@@ -3100,7 +3106,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-11-10T19:57:58.660Z",
+    "fullMetadataFetchedAt": "2026-11-11T06:25:42.051Z",
     "viewCount": 1312
   },
   "udil1yyELEc": {
@@ -3288,7 +3294,7 @@
     "url": "https://www.youtube.com/watch?v=uiXWP_5iyFs",
     "thumbnail": "https://i.ytimg.com/vi/uiXWP_5iyFs/hqdefault.jpg",
     "published": "2025-10-23T16:01:38.000Z",
-    "updated": "2025-10-23",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "13:25",
@@ -3348,7 +3354,7 @@
     "url": "https://www.youtube.com/watch?v=YKIO-4IgCgk",
     "thumbnail": "https://i.ytimg.com/vi/YKIO-4IgCgk/hqdefault.jpg",
     "published": "2025-10-21T16:00:53.000Z",
-    "updated": "2025-10-21",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "16:43",
@@ -3526,7 +3532,7 @@
     "url": "https://www.youtube.com/watch?v=oQ43WhkZbII",
     "thumbnail": "https://i.ytimg.com/vi/oQ43WhkZbII/hqdefault.jpg",
     "published": "2025-10-13T16:01:31.000Z",
-    "updated": "",
+    "updated": "2025-10-13",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "19:10",
@@ -3577,7 +3583,9 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:33.916Z",
-    "viewCount": 22741
+    "viewCount": 25516,
+    "width": 3840,
+    "height": 2160
   },
   "zg8xW3fTMJw": {
     "videoId": "zg8xW3fTMJw",
@@ -3585,7 +3593,7 @@
     "url": "https://www.youtube.com/watch?v=zg8xW3fTMJw",
     "thumbnail": "https://i.ytimg.com/vi/zg8xW3fTMJw/hqdefault.jpg",
     "published": "2025-10-09T16:01:43.000Z",
-    "updated": "",
+    "updated": "2025-10-09",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "44:12",
@@ -3635,7 +3643,9 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:35.656Z",
-    "viewCount": 28219
+    "viewCount": 30122,
+    "width": 1920,
+    "height": 1080
   },
   "nRdhwaluBEQ": {
     "videoId": "nRdhwaluBEQ",
@@ -3756,7 +3766,7 @@
     "url": "https://www.youtube.com/watch?v=SLZS1jtuNeE",
     "thumbnail": "https://i.ytimg.com/vi/SLZS1jtuNeE/hqdefault.jpg",
     "published": "2025-09-16T16:00:58.000Z",
-    "updated": "2025-09-16",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "13:56",
@@ -3817,7 +3827,7 @@
     "url": "https://www.youtube.com/watch?v=Usk7dPheZs0",
     "thumbnail": "https://i.ytimg.com/vi/Usk7dPheZs0/hqdefault.jpg",
     "published": "2025-09-11T16:00:58.000Z",
-    "updated": "2025-09-11",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "22:20",
@@ -3934,7 +3944,7 @@
     "url": "https://www.youtube.com/watch?v=o-0Y6Wt39F4",
     "thumbnail": "https://i.ytimg.com/vi/o-0Y6Wt39F4/hqdefault.jpg",
     "published": "2025-09-05T16:01:33.000Z",
-    "updated": "",
+    "updated": "2025-09-05",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "40:21",
@@ -3982,7 +3992,9 @@
       "confidence": 0.8
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:40.682Z",
-    "viewCount": 17494
+    "viewCount": 22162,
+    "width": 1920,
+    "height": 1080
   },
   "7Wp58bcElf0": {
     "videoId": "7Wp58bcElf0",
@@ -3990,7 +4002,7 @@
     "url": "https://www.youtube.com/watch?v=7Wp58bcElf0",
     "thumbnail": "https://i.ytimg.com/vi/7Wp58bcElf0/hqdefault.jpg",
     "published": "2025-09-02T16:00:11.000Z",
-    "updated": "2025-09-02",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "30:39",
@@ -4046,7 +4058,7 @@
     "url": "https://www.youtube.com/watch?v=9pf1lVvyuDY",
     "thumbnail": "https://i.ytimg.com/vi/9pf1lVvyuDY/hqdefault.jpg",
     "published": "2025-08-31T16:00:13.000Z",
-    "updated": "2025-08-31",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "5:34",
@@ -4217,7 +4229,7 @@
     "url": "https://www.youtube.com/watch?v=tVZDgwHwY9Y",
     "thumbnail": "https://i.ytimg.com/vi/tVZDgwHwY9Y/hqdefault.jpg",
     "published": "2025-08-22T16:01:26.000Z",
-    "updated": "2025-08-22",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "25:57",
@@ -4379,7 +4391,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-11-10T19:58:01.568Z",
+    "fullMetadataFetchedAt": "2026-11-11T06:25:44.720Z",
     "viewCount": 11703
   },
   "t__Tt9LO1R0": {
@@ -4451,7 +4463,7 @@
     "url": "https://www.youtube.com/watch?v=C5Yst7w3RYs",
     "thumbnail": "https://i.ytimg.com/vi/C5Yst7w3RYs/hqdefault.jpg",
     "published": "2025-08-10T16:00:30.000Z",
-    "updated": "",
+    "updated": "2025-08-10",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "52:48",
@@ -4501,7 +4513,9 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:32:48.066Z",
-    "viewCount": 246167
+    "viewCount": 254611,
+    "width": 1920,
+    "height": 1080
   },
   "mvw_Dy3Vozk": {
     "videoId": "mvw_Dy3Vozk",
@@ -4509,7 +4523,7 @@
     "url": "https://www.youtube.com/watch?v=mvw_Dy3Vozk",
     "thumbnail": "https://i.ytimg.com/vi/mvw_Dy3Vozk/hqdefault.jpg",
     "published": "2025-08-08T19:00:51.000Z",
-    "updated": "2025-08-08",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "10:18",
@@ -4677,7 +4691,7 @@
     "url": "https://www.youtube.com/watch?v=ioznXPWxXVI",
     "thumbnail": "https://i.ytimg.com/vi/ioznXPWxXVI/hqdefault.jpg",
     "published": "2025-08-01T17:01:03.000Z",
-    "updated": "2025-08-01",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "32:38",
@@ -4792,7 +4806,7 @@
     "url": "https://www.youtube.com/watch?v=9rXXspVoAEU",
     "thumbnail": "https://i.ytimg.com/vi/9rXXspVoAEU/hqdefault.jpg",
     "published": "2025-07-24T20:16:13.000Z",
-    "updated": "2025-07-24",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "18:59",
@@ -4853,7 +4867,7 @@
     "url": "https://www.youtube.com/watch?v=77FTGA25LKk",
     "thumbnail": "https://i.ytimg.com/vi/77FTGA25LKk/hqdefault.jpg",
     "published": "2025-07-11T19:43:20.000Z",
-    "updated": "2025-07-11T19:43:20.000Z",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "41:52",
@@ -4893,7 +4907,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-11-10T19:58:01.995Z",
+    "fullMetadataFetchedAt": "2026-11-11T06:25:44.699Z",
     "viewCount": 22446,
     "width": 1920,
     "height": 1080
@@ -4962,7 +4976,7 @@
     "url": "https://www.youtube.com/watch?v=sUtgyXSoqzQ",
     "thumbnail": "https://i.ytimg.com/vi/sUtgyXSoqzQ/hqdefault.jpg",
     "published": "2025-06-24T14:01:30.000Z",
-    "updated": "2025-06-24",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "30:12",
@@ -5084,7 +5098,7 @@
     "url": "https://www.youtube.com/watch?v=_jbeoI4XD0M",
     "thumbnail": "https://i.ytimg.com/vi/_jbeoI4XD0M/hqdefault.jpg",
     "published": "2025-06-04T14:00:54.000Z",
-    "updated": "2025-06-04",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "21:24",
@@ -5145,7 +5159,7 @@
     "url": "https://www.youtube.com/watch?v=lLPTEyAHQro",
     "thumbnail": "https://i.ytimg.com/vi/lLPTEyAHQro/hqdefault.jpg",
     "published": "2025-06-03T08:48:08.000Z",
-    "updated": "2025-06-03",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "duration": "1:30",
@@ -5291,7 +5305,7 @@
     "title": "The Truth Behind Yemeni Honey… Is It Worth the Hype?",
     "thumbnail": "https://i.ytimg.com/vi/wVzeEOyjWEM/hqdefault.jpg",
     "published": "2026-06-08T17:00:38+00:00",
-    "updated": "",
+    "updated": "2026-06-08",
     "isShort": false,
     "url": "https://www.youtube.com/watch?v=wVzeEOyjWEM",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
@@ -5340,7 +5354,9 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-10T05:47:04.065Z",
-    "viewCount": 9313
+    "viewCount": 52361,
+    "width": 3840,
+    "height": 2160
   },
   "vDtTkpHzg18": {
     "videoId": "vDtTkpHzg18",
@@ -5544,7 +5560,7 @@
     "thumbnail": "https://i.ytimg.com/vi/Wl2Oi6MrXbU/hqdefault.jpg",
     "duration": "16:25",
     "published": "2025-05-19T14:00:48.000Z",
-    "updated": "",
+    "updated": "2025-05-19",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -5586,7 +5602,9 @@
       "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:00.803Z",
-    "viewCount": 54841
+    "viewCount": 62474,
+    "width": 1920,
+    "height": 1080
   },
   "PDDIrJeqX8s": {
     "videoId": "PDDIrJeqX8s",
@@ -5636,7 +5654,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-11-10T19:58:01.730Z",
+    "fullMetadataFetchedAt": "2026-11-11T06:25:44.887Z",
     "viewCount": 22568,
     "width": 1920,
     "height": 1080
@@ -5768,7 +5786,7 @@
     "thumbnail": "https://i.ytimg.com/vi/lautMBip1Mg/hqdefault.jpg",
     "duration": "14:31",
     "published": "2025-05-03T15:01:17.000Z",
-    "updated": "2025-05-03",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -5829,7 +5847,7 @@
     "thumbnail": "https://i.ytimg.com/vi/zA3C10YQ5BA/hqdefault.jpg",
     "duration": "23:40",
     "published": "2025-04-29T14:01:23.000Z",
-    "updated": "",
+    "updated": "2025-04-29",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -5879,7 +5897,9 @@
       "source": "description-place-match",
       "confidence": 0.95
     },
-    "viewCount": 62760
+    "viewCount": 65486,
+    "width": 1920,
+    "height": 1080
   },
   "MC5dRVNjZYg": {
     "videoId": "MC5dRVNjZYg",
@@ -6123,7 +6143,7 @@
     "thumbnail": "https://i.ytimg.com/vi/3EsfHZrseL8/hqdefault.jpg",
     "duration": "18:07",
     "published": "2025-04-09T14:00:06.000Z",
-    "updated": "2025-04-09",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -6357,7 +6377,7 @@
     "thumbnail": "https://i.ytimg.com/vi/9szs9yYYx4w/hqdefault.jpg",
     "duration": "11:58",
     "published": "2025-03-21T14:00:15.000Z",
-    "updated": "",
+    "updated": "2025-03-21",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -6406,7 +6426,9 @@
       "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:11.547Z",
-    "viewCount": 6036
+    "viewCount": 6360,
+    "width": 1920,
+    "height": 1080
   },
   "xUE7uFSocSk": {
     "videoId": "xUE7uFSocSk",
@@ -6415,7 +6437,7 @@
     "thumbnail": "https://i.ytimg.com/vi/xUE7uFSocSk/hqdefault.jpg",
     "duration": "21:53",
     "published": "2025-03-18T15:01:33.000Z",
-    "updated": "2025-03-18",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -6594,7 +6616,7 @@
     "thumbnail": "https://i.ytimg.com/vi/N5QQkk--GeI/hqdefault.jpg",
     "duration": "14:53",
     "published": "2025-03-09T14:00:32.000Z",
-    "updated": "2025-03-09",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -6808,7 +6830,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-11-10T19:58:01.531Z",
+    "fullMetadataFetchedAt": "2026-11-11T06:25:45.006Z",
     "viewCount": 18012
   },
   "cA25lO8mCVw": {
@@ -6818,7 +6840,7 @@
     "thumbnail": "https://i.ytimg.com/vi/cA25lO8mCVw/hqdefault.jpg",
     "duration": "16:06",
     "published": "2025-02-25T20:00:22.000Z",
-    "updated": "2025-02-25",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -7031,7 +7053,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-11-10T19:58:01.774Z",
+    "fullMetadataFetchedAt": "2026-11-11T06:25:45.064Z",
     "viewCount": 27379
   },
   "NXj6gpd4MI0": {
@@ -7082,7 +7104,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-11-10T19:58:02.357Z",
+    "fullMetadataFetchedAt": "2026-11-11T06:25:44.985Z",
     "viewCount": 61797
   },
   "XoJB2kuuK1o": {
@@ -7200,7 +7222,7 @@
     "thumbnail": "https://i.ytimg.com/vi/pM-Ev0bn-z8/hqdefault.jpg",
     "duration": "22:56",
     "published": "2025-02-07T20:00:34.000Z",
-    "updated": "2025-02-07",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -7434,7 +7456,7 @@
     "thumbnail": "https://i.ytimg.com/vi/E2H1HMGjfbk/hqdefault.jpg",
     "duration": "26:12",
     "published": "2025-01-22T20:00:09.000Z",
-    "updated": "2025-01-22",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -7666,7 +7688,7 @@
     "thumbnail": "https://i.ytimg.com/vi/f02rtsNqRJ4/hqdefault.jpg",
     "duration": "13:49",
     "published": "2025-01-11T21:13:47.000Z",
-    "updated": "2025-01-11",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -7781,7 +7803,7 @@
     "thumbnail": "https://i.ytimg.com/vi/voBySK59lyw/hqdefault.jpg",
     "duration": "18:51",
     "published": "2025-01-05T20:00:25.000Z",
-    "updated": "2025-01-05",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -8292,7 +8314,7 @@
     "thumbnail": "https://i.ytimg.com/vi/JCyJ5QIdlck/hqdefault.jpg",
     "duration": "16:29",
     "published": "2024-12-07T20:00:09.000Z",
-    "updated": "2024-12-07",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -8352,7 +8374,7 @@
     "thumbnail": "https://i.ytimg.com/vi/X2jND0SaISU/hqdefault.jpg",
     "duration": "14:41",
     "published": "2024-12-03T20:00:14.000Z",
-    "updated": "",
+    "updated": "2024-12-03",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -8400,7 +8422,9 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:40.688Z",
-    "viewCount": 18495
+    "viewCount": 19137,
+    "width": 1920,
+    "height": 1080
   },
   "cxst_VOviaA": {
     "videoId": "cxst_VOviaA",
@@ -8614,7 +8638,7 @@
     "thumbnail": "https://i.ytimg.com/vi/bepMZR_e7JU/hqdefault.jpg",
     "duration": "31:26",
     "published": "2024-11-26T20:45:20.000Z",
-    "updated": "",
+    "updated": "2024-11-26",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -8660,7 +8684,9 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:44.829Z",
-    "viewCount": 59701
+    "viewCount": 59944,
+    "width": 1920,
+    "height": 1080
   },
   "XjkeQvkHHDs": {
     "videoId": "XjkeQvkHHDs",
@@ -8669,7 +8695,7 @@
     "thumbnail": "https://i.ytimg.com/vi/XjkeQvkHHDs/hqdefault.jpg",
     "duration": "11:26",
     "published": "2024-11-22T22:33:51.000Z",
-    "updated": "",
+    "updated": "2024-11-22",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -8711,7 +8737,9 @@
       "source": "description-place-match",
       "confidence": 0.95
     },
-    "viewCount": 18688
+    "viewCount": 18971,
+    "width": 1920,
+    "height": 1080
   },
   "aaYMLasAa6s": {
     "videoId": "aaYMLasAa6s",
@@ -8974,7 +9002,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-11-10T19:58:04.806Z",
+    "fullMetadataFetchedAt": "2026-11-11T06:25:47.444Z",
     "viewCount": 18330
   },
   "m-Y6ekkbPsI": {
@@ -9152,7 +9180,7 @@
     "thumbnail": "https://i.ytimg.com/vi/fTK8Y7tYF2k/hqdefault.jpg",
     "duration": "18:28",
     "published": "2024-10-29T19:00:22.000Z",
-    "updated": "2024-10-29",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -9210,7 +9238,7 @@
     "thumbnail": "https://i.ytimg.com/vi/rWlKenIlpcA/hqdefault.jpg",
     "duration": "43:00",
     "published": "2024-10-26T19:00:32.000Z",
-    "updated": "2024-10-26",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -9437,7 +9465,7 @@
     "thumbnail": "https://i.ytimg.com/vi/0RJ9g0tT4WQ/hqdefault.jpg",
     "duration": "13:28",
     "published": "2024-10-07T19:00:00.000Z",
-    "updated": "2024-10-07",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -9490,7 +9518,7 @@
     "thumbnail": "https://i.ytimg.com/vi/fwfQjakTf2s/hqdefault.jpg",
     "duration": "6:48",
     "published": "2024-10-04T16:09:20.000Z",
-    "updated": "",
+    "updated": "2024-10-04",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -9540,7 +9568,9 @@
       "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:33:57.957Z",
-    "viewCount": 3226
+    "viewCount": 3288,
+    "width": 1920,
+    "height": 1080
   },
   "4B0Oioh7i7k": {
     "videoId": "4B0Oioh7i7k",
@@ -9549,7 +9579,7 @@
     "thumbnail": "https://i.ytimg.com/vi/4B0Oioh7i7k/hqdefault.jpg",
     "duration": "5:39",
     "published": "2024-10-01T19:00:02.000Z",
-    "updated": "2024-10-01",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -9829,11 +9859,11 @@
     "thumbnail": "https://i.ytimg.com/vi/fbMo-hfa_q0/hqdefault.jpg",
     "duration": "10:03",
     "published": "2024-09-17T19:00:32.000Z",
-    "updated": "2024-09-17T19:00:32.000Z",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
-    "description": "هذا الفيديو يتناول قصة نجاح أندريه الصايغ، أول عمدة عربي في مدينة باترسون بولاية نيوجيرسي الأمريكية. وُلد الصايغ في عام 1974 لأب لبناني وأم سورية من حلب. حصل على درجة الماجستير في السياسة العامة والإدارة من جامعة كولومبيا، وبدأ حياته المهنية كمدرس قبل أن يترشح لمجلس التعليم في مدينة باترسون.\n\nرغم ترشحه لمنصب العمدة في عامي 2010 و2014 دون نجاح، إلا أنه تمكن من الفوز بهذا المنصب في عام 2018، وأعيد انتخابه مرة أخرى في عام 2022.\n\nفي هذا الفيديو، تحدثنا عن مدينة باترسون التي أصبحت تعرف بأنها مدينة عربية بفضل التواجد الكبير للجالية العربية فيها، واستعرضنا الفرص الاستثمارية المتاحة فيها.\n\nمن أبرز إنجازات الصايغ:\n- تسمية شارع في المدينة باسم \"شارع فلسطين\".\n- إطلاق اسم \"فلسطين الصغرى\" على أحد الأحياء.\n- اعتماد الأكل الحلال في المدارس العامة، وإقرار عيدي الفطر والأضحى كعطلتين رسميتين لكافة الطلاب.\n- تقليص عدد العقارات المهجورة من 1000 إلى 200 فقط، واستقطاب العلامات التجارية العالمية لافتتاح فروع لها في المدينة.\n\nكما تطرقنا إلى أهمية انخراط الجالية العربية، خاصة الشباب، في العمل الحكومي والتطوعي بالمدن الأمريكية ليصبحوا قادة مؤثرين في مجتمعاتهم.\n\nنتمنى أن تستمتعوا بالمشاهدة وتستفيدوا من هذا اللقاء.",
+    "description": "هذا الفيديو يتناول قصة نجاح أندريه الصايغ، أول عمدة عربي في مدينة باترسون بولاية نيوجيرسي الأمريكية. وُلد الصايغ في عام 1974 لأب لبناني وأم سورية من حلب. حصل على درجة الماجستير في السياسة العامة والإدارة من جامعة كولومبيا، وبدأ حياته المهنية كمدرس قبل أن يترشح لمجلس التعليم في مدينة باترسون.\n\nرغم ترشحه لمنصب العمدة في عامي 2010 و2014 دون نجاح، إلا أنه تمكن من الفوز بهذا المنصب في عام 2018، وأعيد انتخابه مرة أخرى في عام 2022.\n\nفي هذا الفيديو، تحدثنا عن مدينة باترسون التي أصبحت تعرف بأنها مدينة عربية بفضل التواجد الكبير للجالية العربية فيها، واستعرضنا الفرص الاستثمارية المتاحة فيها.\n\nمن أبرز إنجازات الصايغ:\nتسمية شارع في المدينة باسم \"شارع فلسطين\".\nإطلاق اسم \"فلسطين الصغرى\" على أحد الأحياء.\nاعتماد الأكل الحلال في المدارس العامة، وإقرار عيدي الفطر والأضحى كعطلتين رسميتين لكافة الطلاب.\nتقليص عدد العقارات المهجورة من 1000 إلى 200 فقط، واستقطاب العلامات التجارية العالمية لافتتاح فروع لها في المدينة.\n\nكما تطرقنا إلى أهمية انخراط الجالية العربية، خاصة الشباب، في العمل الحكومي والتطوعي بالمدن الأمريكية ليصبحوا قادة مؤثرين في مجتمعاتهم.\n\nنتمنى أن تستمتعوا بالمشاهدة وتستفيدوا من هذا اللقاء.",
     "tags": [
       "yahala",
       "ya hala",
@@ -9867,7 +9897,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-11-10T19:58:04.760Z",
+    "fullMetadataFetchedAt": "2026-11-11T06:25:47.768Z",
     "viewCount": 6044,
     "width": 1920,
     "height": 1080
@@ -9986,7 +10016,7 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:04.256Z",
-    "viewCount": 16314,
+    "viewCount": 16320,
     "width": 1920,
     "height": 1080
   },
@@ -10443,7 +10473,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-11-10T19:58:04.810Z",
+    "fullMetadataFetchedAt": "2026-11-11T06:25:47.842Z",
     "viewCount": 9340,
     "width": 1920,
     "height": 1080
@@ -10455,7 +10485,7 @@
     "thumbnail": "https://i.ytimg.com/vi/NA9O_Um60cY/hqdefault.jpg",
     "duration": "20:50",
     "published": "2024-08-12T19:00:10.000Z",
-    "updated": "2024-08-12",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -10547,7 +10577,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-11-10T19:58:04.838Z",
+    "fullMetadataFetchedAt": "2026-11-11T06:25:48.011Z",
     "viewCount": 7008
   },
   "w55mjLcSzWg": {
@@ -10842,7 +10872,7 @@
     "thumbnail": "https://i.ytimg.com/vi/fXo2zvvZoBg/hqdefault.jpg",
     "duration": "8:10",
     "published": "2024-07-18T21:00:24.000Z",
-    "updated": "2024-07-18",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -10902,7 +10932,7 @@
     "thumbnail": "https://i.ytimg.com/vi/ouZ6HvJwhic/hqdefault.jpg",
     "duration": "10:48",
     "published": "2024-07-15T16:00:48.000Z",
-    "updated": "2024-07-15",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -11300,7 +11330,7 @@
     "thumbnail": "https://i.ytimg.com/vi/75j1XJmH6-k/hqdefault.jpg",
     "duration": "12:36",
     "published": "2024-06-12T16:00:06.000Z",
-    "updated": "2024-06-12",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -11359,7 +11389,7 @@
     "thumbnail": "https://i.ytimg.com/vi/wjNJy9KY020/hqdefault.jpg",
     "duration": "6:21",
     "published": "2024-06-10T19:50:03.000Z",
-    "updated": "2024-06-10",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -11418,7 +11448,7 @@
     "thumbnail": "https://i.ytimg.com/vi/0L-9R66QalE/hqdefault.jpg",
     "duration": "12:36",
     "published": "2024-06-04T16:00:00.000Z",
-    "updated": "2024-06-04",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -11466,7 +11496,7 @@
     "thumbnail": "https://i.ytimg.com/vi/lFxJzTPaVFE/hqdefault.jpg",
     "duration": "16:38",
     "published": "2024-05-30T21:30:03.000Z",
-    "updated": "2024-05-30",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -11523,7 +11553,7 @@
     "thumbnail": "https://i.ytimg.com/vi/rrSdEibrzX0/hqdefault.jpg",
     "duration": "3:27",
     "published": "2024-05-25T22:15:48.000Z",
-    "updated": "2024-05-25",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -12010,7 +12040,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-11-10T19:58:04.752Z",
+    "fullMetadataFetchedAt": "2026-11-11T06:25:47.697Z",
     "viewCount": 4142
   },
   "hmmBS40CEAU": {
@@ -12020,7 +12050,7 @@
     "thumbnail": "https://i.ytimg.com/vi/hmmBS40CEAU/hqdefault.jpg",
     "duration": "11:07",
     "published": "2024-04-25T18:08:22.000Z",
-    "updated": "",
+    "updated": "2024-04-25",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -12066,7 +12096,9 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:34.413Z",
-    "viewCount": 26722
+    "viewCount": 27645,
+    "width": 1920,
+    "height": 1080
   },
   "2z7GEH4FUwQ": {
     "videoId": "2z7GEH4FUwQ",
@@ -12075,7 +12107,7 @@
     "thumbnail": "https://i.ytimg.com/vi/2z7GEH4FUwQ/hqdefault.jpg",
     "duration": "13:45",
     "published": "2024-04-22T16:00:02.000Z",
-    "updated": "2024-04-22",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -12955,7 +12987,7 @@
     "thumbnail": "https://i.ytimg.com/vi/IzJ8IYAkSuA/hqdefault.jpg",
     "duration": "12:11",
     "published": "2024-03-10T19:08:01.000Z",
-    "updated": "2024-03-10",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -13011,7 +13043,7 @@
     "thumbnail": "https://i.ytimg.com/vi/MhntIoH-nt8/hqdefault.jpg",
     "duration": "9:20",
     "published": "2024-03-07T22:59:28.000Z",
-    "updated": "2024-03-07",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -13180,7 +13212,7 @@
     "thumbnail": "https://i.ytimg.com/vi/yDsuaA5SOcA/hqdefault.jpg",
     "duration": "11:02",
     "published": "2024-02-27T18:30:48.000Z",
-    "updated": "2024-02-27",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -13235,7 +13267,7 @@
     "thumbnail": "https://i.ytimg.com/vi/dcJtK8p9mjc/hqdefault.jpg",
     "duration": "12:55",
     "published": "2024-02-24T17:00:32.000Z",
-    "updated": "",
+    "updated": "2024-02-24",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -13284,7 +13316,9 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:51.395Z",
-    "viewCount": 51464
+    "viewCount": 52392,
+    "width": 1920,
+    "height": 1080
   },
   "Y1maCW9dssg": {
     "videoId": "Y1maCW9dssg",
@@ -13293,7 +13327,7 @@
     "thumbnail": "https://i.ytimg.com/vi/Y1maCW9dssg/hqdefault.jpg",
     "duration": "13:53",
     "published": "2024-02-21T17:00:32.000Z",
-    "updated": "2024-02-21",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -13467,7 +13501,7 @@
     "thumbnail": "https://i.ytimg.com/vi/ZDjm6DNSc5Q/hqdefault.jpg",
     "duration": "15:57",
     "published": "2024-02-12T17:00:24.000Z",
-    "updated": "",
+    "updated": "2024-02-12",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -13525,7 +13559,9 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:55.026Z",
-    "viewCount": 40557
+    "viewCount": 43228,
+    "width": 1920,
+    "height": 1080
   },
   "qANSj6xz5fg": {
     "videoId": "qANSj6xz5fg",
@@ -13534,7 +13570,7 @@
     "thumbnail": "https://i.ytimg.com/vi/qANSj6xz5fg/hqdefault.jpg",
     "duration": "14:35",
     "published": "2024-02-11T16:00:29.000Z",
-    "updated": "",
+    "updated": "2024-02-11",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -13567,7 +13603,9 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:55.462Z",
-    "viewCount": 3489
+    "viewCount": 3602,
+    "width": 3840,
+    "height": 2160
   },
   "PDNTtJ1HBHQ": {
     "videoId": "PDNTtJ1HBHQ",
@@ -13704,7 +13742,7 @@
     "thumbnail": "https://i.ytimg.com/vi/Vph741V_PBI/hqdefault.jpg",
     "duration": "13:25",
     "published": "2024-02-07T18:00:16.000Z",
-    "updated": "",
+    "updated": "2024-02-07",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -13753,7 +13791,9 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:58.794Z",
-    "viewCount": 37710
+    "viewCount": 38412,
+    "width": 1920,
+    "height": 1080
   },
   "VHLXS5DNpg8": {
     "videoId": "VHLXS5DNpg8",
@@ -13762,7 +13802,7 @@
     "thumbnail": "https://i.ytimg.com/vi/VHLXS5DNpg8/hqdefault.jpg",
     "duration": "17:06",
     "published": "2024-02-06T16:20:42.000Z",
-    "updated": "",
+    "updated": "2024-02-06",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -13795,7 +13835,9 @@
       "confidence": 0.9
     },
     "fullMetadataFetchedAt": "2026-06-09T22:34:59.831Z",
-    "viewCount": 10107
+    "viewCount": 10238,
+    "width": 3840,
+    "height": 2160
   },
   "t67__kAwjto": {
     "videoId": "t67__kAwjto",
@@ -14028,7 +14070,7 @@
     "thumbnail": "https://i.ytimg.com/vi/_4vW-u1e8NE/hqdefault.jpg",
     "duration": "13:12",
     "published": "2024-02-01T16:00:23.000Z",
-    "updated": "2024-02-01",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -14250,7 +14292,7 @@
     "thumbnail": "https://i.ytimg.com/vi/Ik_sbvUYdRU/hqdefault.jpg",
     "duration": "11:09",
     "published": "2024-01-28T15:30:09.000Z",
-    "updated": "",
+    "updated": "2024-01-28",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -14283,7 +14325,9 @@
       "source": "description-place-match",
       "confidence": 0.95
     },
-    "viewCount": 3848
+    "viewCount": 4027,
+    "width": 3840,
+    "height": 2160
   },
   "Q8oTcl7WnqU": {
     "videoId": "Q8oTcl7WnqU",
@@ -14617,7 +14661,7 @@
     "thumbnail": "https://i.ytimg.com/vi/-Mo6WVOH_Hc/hqdefault.jpg",
     "duration": "14:22",
     "published": "2024-01-21T15:30:00.000Z",
-    "updated": "",
+    "updated": "2024-01-21",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -14650,7 +14694,9 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:14.851Z",
-    "viewCount": 1544
+    "viewCount": 1564,
+    "width": 1920,
+    "height": 1080
   },
   "WmVC1ZUw1J0": {
     "videoId": "WmVC1ZUw1J0",
@@ -14659,7 +14705,7 @@
     "thumbnail": "https://i.ytimg.com/vi/WmVC1ZUw1J0/hqdefault.jpg",
     "duration": "11:40",
     "published": "2024-01-20T15:00:33.000Z",
-    "updated": "2024-01-20",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -14758,7 +14804,7 @@
     "thumbnail": "https://i.ytimg.com/vi/hRWTj2HdNjQ/hqdefault.jpg",
     "duration": "14:26",
     "published": "2024-01-18T15:30:20.000Z",
-    "updated": "2024-01-18",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -14802,7 +14848,7 @@
     "thumbnail": "https://i.ytimg.com/vi/yQ1BbxpyGoI/hqdefault.jpg",
     "duration": "5:16",
     "published": "2024-01-17T17:00:49.000Z",
-    "updated": "2024-01-17",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -15051,7 +15097,7 @@
     "thumbnail": "https://i.ytimg.com/vi/caDdVPhh020/hqdefault.jpg",
     "duration": "18:26",
     "published": "2024-01-12T15:00:25.000Z",
-    "updated": "2024-01-12",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -15157,7 +15203,7 @@
     "thumbnail": "https://i.ytimg.com/vi/R9KQ4_EDnB4/hqdefault.jpg",
     "duration": "18:28",
     "published": "2024-01-10T15:00:20.000Z",
-    "updated": "2024-01-10",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -15482,7 +15528,7 @@
     "thumbnail": "https://i.ytimg.com/vi/g0RK5nznWxs/hqdefault.jpg",
     "duration": "14:42",
     "published": "2024-01-05T15:00:36.000Z",
-    "updated": "",
+    "updated": "2024-01-05",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -15515,7 +15561,9 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:29.456Z",
-    "viewCount": 3443
+    "viewCount": 3500,
+    "width": 1920,
+    "height": 1080
   },
   "d03WW8xe8vA": {
     "videoId": "d03WW8xe8vA",
@@ -15524,7 +15572,7 @@
     "thumbnail": "https://i.ytimg.com/vi/d03WW8xe8vA/hqdefault.jpg",
     "duration": "13:30",
     "published": "2024-01-04T16:00:18.000Z",
-    "updated": "2024-01-04",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -15568,7 +15616,7 @@
     "thumbnail": "https://i.ytimg.com/vi/wIUyrrMpB5I/hqdefault.jpg",
     "duration": "8:00",
     "published": "2024-01-03T16:00:37.000Z",
-    "updated": "2024-01-03",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -15738,7 +15786,7 @@
     "thumbnail": "https://i.ytimg.com/vi/g60RL7bnPoE/hqdefault.jpg",
     "duration": "18:07",
     "published": "2023-12-30T16:00:26.000Z",
-    "updated": "2023-12-30",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -15778,7 +15826,7 @@
   "u2K-Xo15eWU": {
     "videoId": "u2K-Xo15eWU",
     "url": "https://www.youtube.com/watch?v=u2K-Xo15eWU",
-    "title": "Seven US states in one place - The beauty of nature and the greatness of the Creator",
+    "title": "سبع ولايات امريكية في نفس المكان - جمال الطبيعة وعظمة الخالق",
     "thumbnail": "https://i.ytimg.com/vi/u2K-Xo15eWU/hqdefault.jpg",
     "duration": "10:36",
     "published": "2023-12-29T16:00:37.000Z",
@@ -15866,7 +15914,7 @@
     "thumbnail": "https://i.ytimg.com/vi/owo3i4tc6gs/hqdefault.jpg",
     "duration": "7:14",
     "published": "2023-12-27T16:00:33.000Z",
-    "updated": "2023-12-27",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -15910,7 +15958,7 @@
     "thumbnail": "https://i.ytimg.com/vi/oqyz_vTcTIY/hqdefault.jpg",
     "duration": "13:18",
     "published": "2023-12-26T17:00:36.000Z",
-    "updated": "2023-12-26",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -15997,11 +16045,11 @@
   "fmoXDJrd1NY": {
     "videoId": "fmoXDJrd1NY",
     "url": "https://www.youtube.com/watch?v=fmoXDJrd1NY",
-    "title": "The Toughest Project in America",
+    "title": "أصعب مشروع في أمريكا",
     "thumbnail": "https://i.ytimg.com/vi/fmoXDJrd1NY/hqdefault.jpg",
     "duration": "5:24",
     "published": "2023-12-24T17:00:27.000Z",
-    "updated": "2023-12-24",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -16113,7 +16161,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-11-10T19:58:05.372Z",
+    "fullMetadataFetchedAt": "2026-11-11T06:25:47.745Z",
     "viewCount": 1690,
     "width": 3840,
     "height": 2026
@@ -16354,18 +16402,18 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:46.583Z",
-    "viewCount": 5630,
+    "viewCount": 5634,
     "width": 1920,
     "height": 1080
   },
   "EeCa_1aolfg": {
     "videoId": "EeCa_1aolfg",
     "url": "https://www.youtube.com/watch?v=EeCa_1aolfg",
-    "title": "US Council of Muslim Organizations",
+    "title": "اتحاد الجمعيات الاسلامية في امريكا",
     "thumbnail": "https://i.ytimg.com/vi/EeCa_1aolfg/hqdefault.jpg",
     "duration": "9:12",
     "published": "2023-11-29T17:00:12.000Z",
-    "updated": "2023-11-29",
+    "updated": "",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -16441,8 +16489,8 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-11-10T19:58:08.424Z",
-    "viewCount": 36545,
+    "fullMetadataFetchedAt": "2026-11-11T06:25:50.502Z",
+    "viewCount": 36551,
     "width": 1920,
     "height": 1080
   },
@@ -16547,7 +16595,7 @@
   "G6RkhnjpBcw": {
     "videoId": "G6RkhnjpBcw",
     "url": "https://www.youtube.com/watch?v=G6RkhnjpBcw",
-    "title": "An Organization Offering Free University Scholarships to Students",
+    "title": "جمعية تعطي منح جامعية مجانية للطلاب",
     "thumbnail": "https://i.ytimg.com/vi/G6RkhnjpBcw/hqdefault.jpg",
     "duration": "9:09",
     "published": "2023-11-19T17:00:13.000Z",
@@ -16597,7 +16645,7 @@
     "thumbnail": "https://i.ytimg.com/vi/PiUMx7rg9To/hqdefault.jpg",
     "duration": "5:32",
     "published": "2023-11-13T17:00:18.000Z",
-    "updated": "",
+    "updated": "2023-11-13",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "isShort": false,
@@ -16643,7 +16691,9 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-06-09T22:35:51.212Z",
-    "viewCount": 836
+    "viewCount": 895,
+    "width": 3840,
+    "height": 2160
   },
   "u6ODZxlT-m0": {
     "videoId": "u6ODZxlT-m0",
@@ -16784,7 +16834,7 @@
     "title": "How Did Arabian Perfumes Reach the 2026 World Cup in America?",
     "thumbnail": "https://i.ytimg.com/vi/SuKUMhsnLIY/hqdefault.jpg",
     "published": "2026-06-25T17:00:35+00:00",
-    "updated": "2026-06-25",
+    "updated": "",
     "isShort": false,
     "url": "https://www.youtube.com/watch?v=SuKUMhsnLIY",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
@@ -16942,7 +16992,7 @@
     "title": "How Arabs Built One of the Largest Gold Showrooms in America | The Story of Al-Quds Jewelry",
     "thumbnail": "https://i.ytimg.com/vi/9tbGsk7PB_I/hqdefault.jpg",
     "published": "2026-07-03T16:00:19+00:00",
-    "updated": "",
+    "updated": "2026-07-03",
     "isShort": false,
     "url": "https://www.youtube.com/watch?v=9tbGsk7PB_I",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
@@ -16961,7 +17011,7 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-07-30T00:14:47.059Z",
-    "viewCount": 65543,
+    "viewCount": 67368,
     "width": 3840,
     "height": 2160
   },
@@ -17004,7 +17054,7 @@
     "description": "هل أصبحت البيانات أقوى من النفط؟ وهل يمكن لدولة أن تسيطر على العالم دون أن تطلق رصاصة واحدة؟\n\nفي هذه الحلقة الخاصة من \"ياهلا\"، نناقش واحدة من أخطر القضايا التي ستغيّر مستقبل البشرية: البيانات، الذكاء الاصطناعي، والعملات الرقمية.\n\nهل تستطيع الحكومات والشركات التنبؤ بقراراتنا قبل أن نتخذها؟\nولماذا تتنافس أمريكا والصين بكل هذه القوة على الذكاء الاصطناعي؟\nوهل سيأخذ الذكاء الاصطناعي وظائفنا فعلًا، أم أنه سيخلق فرصًا جديدة؟\nوهل أصبحت العملات الرقمية مجرد استثمار... أم أنها جزء من النظام المالي القادم؟\n\nوللإجابة عن هذه الأسئلة، نستضيف المهندس العراقي محمد كفاح، الخبير في الأمن السيبراني وإدارة البيانات، والحاصل مع فريقه على ثلاث براءات اختراع أمريكية، ليفسّر لنا بلغة بسيطة ما الذي يحدث اليوم خلف الكواليس، ولماذا أصبح امتلاك البيانات أحد أهم مصادر القوة في العالم.\n\nهذه ليست حلقة تقنية للمختصين فقط، بل حوار لكل شخص يريد أن يفهم إلى أين يتجه العالم، وكيف يمكن أن يستعد لما هو قادم.\n\nإذا أعجبتك الحلقة، لا تنسَ الاشتراك في القناة، وتفعيل زر الجرس، ومشاركتها مع كل شخص مهتم بالتقنية، والاستثمار، ومستقبل الذكاء الاصطناعي \nموقع قناة ياهلا لمتابعة كل جديد واخر الفيديوهات \nhttps://yahalausa.net/\n═══════════════\nعناوين شركة المهندس محمد كفاح \nALSCO Office\n🌐 Website: https://alscotoday.com/go\n📧 E-Mail: info@alscotoday.com\n📞 Phone: +1 (917) 284-8942",
     "tags": [],
     "categories": [],
-    "fullMetadataFetchedAt": "2026-11-10T19:57:58.708Z",
+    "fullMetadataFetchedAt": "2026-11-11T06:25:42.024Z",
     "viewCount": 2947
   },
   "T0wrG8HRXMk": {
@@ -17221,14 +17271,14 @@
     "description": "من هو يوسف حسين بعيدًا عن الشاشة؟ ومن هو الشخص الذي يقف خلف واحد من أشهر البرامج الساخرة في العالم العربي؟\n\nفي هذه الحلقة من ياهلا مع هيثم، نلتقي بالإعلامي ومقدم برنامج جو شو – Joe Show يوسف حسين، في حوار مختلف نحاول فيه الاقتراب من الجانب الذي لا يراه الجمهور عادةً.\nنتحدث عن بداياته في صناعة المحتوى، وانتقاله من يوتيوب إلى شاشة التلفزيون العربي، وعن التجربة الأولى أمام الكاميرا وكيف تعلّم التقديم وصنع أسلوبه الخاص، وصولًا إلى كواليس العمل خلف برنامج أسبوعي يتابعه الملايين.\n\nكما نتحدث عن صناعة المحتوى اليوم، وتأثير TikTok والمنصات القصيرة على الإعلام والجمهور، وعن الشهرة والنجاح والسعادة والمال والعائلة والصداقة والسفر، ونقترب أكثر من يوسف حسين الإنسان بعيدًا عن شخصية الإعلامي الساخر التي اعتاد الجمهور رؤيتها.\nوبالطبع… لا يمكن أن تجلس مع جو شو من دون أن تمر على السياسة والإعلام وما يحدث في عالمنا العربي. 😄\n\nحلقة فيها الكثير من الحديث الصريح، والضحك، والكواليس، وجانب مختلف ربما لم تشاهدوه كثيرًا من يوسف حسين.\n\nما لا تعرفه عن يوسف حسين… في هذه الحلقة من ياهلا مع هيثم.\n\nشاهدوا الحلقة للنهاية، واكتبوا لنا في التعليقات:\nما أكثر إجابة فاجأتكم في اللقاء؟\n=====\nحساب يوسف حسين على اليوتيوب \n   / @joeshowalaraby  ",
     "tags": [],
     "categories": [],
-    "fullMetadataFetchedAt": "2026-11-10T19:57:58.455Z"
+    "fullMetadataFetchedAt": "2026-11-11T06:25:41.748Z"
   },
   "TO2C3BXAfgI": {
     "videoId": "TO2C3BXAfgI",
     "title": "لماذا توقف الناس عن قراءة الكتب؟ وما الحل؟",
     "thumbnail": "https://i.ytimg.com/vi/TO2C3BXAfgI/hqdefault.jpg",
     "published": "2026-08-14T16:00:20.000Z",
-    "updated": "2026-08-14T16:00:20.000Z",
+    "updated": "",
     "isShort": false,
     "url": "https://www.youtube.com/watch?v=TO2C3BXAfgI",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
@@ -17268,7 +17318,7 @@
     "categories": [
       "People & Blogs"
     ],
-    "fullMetadataFetchedAt": "2026-11-10T19:57:59.491Z",
+    "fullMetadataFetchedAt": "2026-11-11T06:25:42.153Z",
     "viewCount": 3989,
     "width": 3840,
     "height": 2160
@@ -17278,7 +17328,7 @@
     "title": "How One Government Contract Changed This Man's Life | Secrets to Winning U.S. Government Contracts",
     "thumbnail": "https://i.ytimg.com/vi/mYXOWsasJOg/hqdefault.jpg",
     "published": "2026-08-17T16:00:15+00:00",
-    "updated": "2026-08-17",
+    "updated": "",
     "isShort": false,
     "url": "https://www.youtube.com/watch?v=mYXOWsasJOg",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
@@ -17558,7 +17608,7 @@
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "published": "2026-08-26T17:00:19+00:00",
-    "updated": "2026-08-26",
+    "updated": "",
     "description": "في ضواحي مدينة شيكاغو يقف واحد من أجمل المساجد في أمريكا، بتصميم مستوحى من قبة الصخرة في القدس…\n لكن قصة Prayer Center of Orland Park أكبر بكثير من مجرد مبنى جميل.\n\nبدأت الحكاية من قطعة أرض كان صاحبها يريد أن يبني عليها بيتًا لعائلته، قبل أن تتغير الفكرة ويُبنى عليها مسجد أصبح اليوم مركزًا لمجتمع إسلامي متكامل، يستقبل آلاف المصلين ويعمل فيه أكثر من 130 موظفًا، إلى جانب مئات المتطوعين.\n\nفي هذه الحلقة من ياهلا نأخذكم في جولة داخل المسجد، ونتعرف على أكاديمية القرآن، وبرامج الأطفال والشباب، ومركز الصحة النفسية، والمقبرة الإسلامية، والمخيم الذي يمتد على أكثر من 120 أيكر، وغيرها من المشاريع التي تحاول بناء بيئة متكاملة للمسلمين في أمريكا.\n\nلكن السؤال الأهم ليس: كيف نبني مسجدًا؟\n\nبل كيف نبني الإنسان والمجتمع ونحافظ على هوية الأجيال القادمة في أمريكا؟\n\nنتحدث أيضًا عن أبرز التحديات التي تواجه المسلمين والعرب في الولايات المتحدة، ودور المساجد في صناعة القيادات، والوجود الإسلامي داخل المدارس الأمريكية، وضغوط العمل التي يواجهها الأئمة، وكيف يمكن للمسلم أن يحافظ على دينه وهويته وفي الوقت نفسه يكون جزءًا فاعلًا من المجتمع الأمريكي.\n\nوفي النهاية نطرح السؤال:\nهل يمكن أن يأتي يوم تصبح فيه أمريكا دولة مسلمة؟\n\nشاهدوا الحلقة كاملة من داخل\nPrayer Center of Orland Park – Chicago\nAddress: 16530 104th Ave, Orland Park, IL 60467\nPhone: (708) 428-1400\nWebsite: https://orlandparkprayercenter.org\n\nمسجد قبة الصخرة في أمريكا… ليس مجرد مسجد",
     "tags": [],
     "categories": [],
@@ -17637,7 +17687,7 @@
     "title": "A Russian in New York founded a company called Mecca… The story of Adam in America",
     "thumbnail": "https://i.ytimg.com/vi/m8asnsEgkMs/hqdefault.jpg",
     "published": "2026-09-04T20:30:22+00:00",
-    "updated": "",
+    "updated": "2026-09-04",
     "isShort": false,
     "url": "https://www.youtube.com/watch?v=m8asnsEgkMs",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
@@ -17655,7 +17705,10 @@
       "source": "description-place-match",
       "confidence": 0.95
     },
-    "fullMetadataFetchedAt": "2026-09-08T01:12:35.706Z"
+    "fullMetadataFetchedAt": "2026-09-08T01:12:35.706Z",
+    "viewCount": 51562,
+    "width": 3840,
+    "height": 2160
   },
   "BpOcUAxW7lM": {
     "videoId": "BpOcUAxW7lM",
@@ -17702,7 +17755,7 @@
     "title": "هل أصبحت الهجرة إلى أمريكا أصعب؟ محامي هجرة يكشف التفاصيل",
     "thumbnail": "https://i.ytimg.com/vi/ljWORq296hQ/hqdefault.jpg",
     "published": "2026-09-14T16:00:15+00:00",
-    "updated": "2026-09-14",
+    "updated": "",
     "isShort": false,
     "url": "https://www.youtube.com/watch?v=ljWORq296hQ",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
@@ -17759,7 +17812,7 @@
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "published": "2026-09-21T18:00:31+00:00",
-    "updated": "2026-09-21",
+    "updated": "",
     "description": "أين تذهب تبرعاتنا؟ وكيف ينتقل الدولار من المتبرع في أمريكا إلى المحتاجين؟\n\nفي هذه الحلقة من ياهلا، دخلنا إلى المقر الرئيسي لمؤسسة رحمة حول العالم في ولاية ميشيغان، والتقينا بالدكتور الشيخ شادي ظاظا، أحد مؤسسي المؤسسة، الذي اصطحبنا في جولة داخل أقسامها وعرّفنا على طريقة عملها من الداخل.\nبدأت رحمة استجابةً لمعاناة الشعب السوري في عام ٢٠١٤، ثم توسعت أعمالها تدريجيًا لتصل اليوم إلى نحو 20 دولة حول العالم، من خلال مشاريع الإغاثة العاجلة، وكفالة الأيتام، والبعثات الطبية، وإعادة تأهيل المدارس والمستشفيات، إلى جانب التدريب المهني ومشاريع التنمية المستدامة.\n\nوخلال اللقاء، ناقشنا مجموعة من الأسئلة المهمة والحساسة:\nكيف تصل التبرعات إلى المستفيدين؟\nكيف تُدار المؤسسة وتخضع للرقابة والتدقيق؟\nكم تبلغ المصاريف الإدارية؟ ولماذا تختلف من دولة إلى أخرى؟\nكيف استطاعت رحمة الاستمرار في العمل داخل غـ.ـزة؟\nوكيف يستطيع المتبرع التأكد من أثر المؤسسة على أرض الواقع؟\n\nحلقة تحاول الاقتراب من حقيقة العمل الإغاثي، والتحديات القانونية والمالية والإنسانية التي تواجه المؤسسات الخيرية، وتجيب عن السؤال الذي يفكر فيه كل متبرع:\nكيف أعرف أن تبرعي وصل فعلًا إلى المكان الصحيح؟\n\n==================\nRahma Worldwide مؤسسة رحمة حول العالم\nAddress: 31333 Southfield Rd, Beverly Hills, MI 48025\nWebsite: http://www.rahmaww.org/\nPhone: +1 (248) 566-3111",
     "tags": [],
     "categories": [],
@@ -18228,7 +18281,7 @@
     "title": "King Chicken v2",
     "thumbnail": "https://i.ytimg.com/vi/74B8H8eiP3M/hqdefault.jpg",
     "published": "2026-10-08T18:00:34+00:00",
-    "updated": "",
+    "updated": "2026-10-08",
     "isShort": false,
     "url": "https://www.youtube.com/watch?v=74B8H8eiP3M",
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
@@ -18247,7 +18300,7 @@
       "confidence": 0.95
     },
     "fullMetadataFetchedAt": "2026-10-18T00:55:54.065Z",
-    "viewCount": 24751,
+    "viewCount": 25695,
     "width": 3840,
     "height": 2160
   },
@@ -18300,7 +18353,7 @@
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "published": "2026-10-15T19:00:07.000Z",
-    "updated": "2026-10-15",
+    "updated": "",
     "description": "From Nablus to America… 80 Years of Story, and a Taste That Unites Generations! 🇵🇸🇺🇸\n\nIn this episode of \"Ya Hala,\" we visit Al-Aker Sweets in Tampa, Florida, to learn the story of a name that began its journey in 1946 in the Old City of Nablus and has now reached its first branch in America.\n\nWe meet Ammar Al-Aker and his partners, and go behind the scenes of making Nablus knafeh, baklava, and ma'amoul. We see how the dough is prepared from scratch, how the baklava layers are laid out by hand, and how the knafeh is freshly prepared in front of the customers.\n\nBut how do you preserve the taste of your homeland when you are thousands of miles away? We discuss the challenges of different ingredients in the American market, the experiences that preceded the opening, and the importance of quality and attention to the smallest details to preserve a heritage passed down through generations.\n\nFrom smooth and textured knafeh to baklava, halawet el-jibn, and Layali Lubnan… a wide selection of sweets, with ordering and shipping options, and wholesale supply for restaurants, cafes, and pastry shops.\n\nAmidst the olive tree and artwork inspired by Palestinian heritage, we discover a place that carries the taste and memories of home, and the ambition to bring this story to every home in America.\n\nWatch the tour to the end, and tell us: Which sweet reminds you of home? 😍\n\nAddress: 8633 N 56th St, Unit 15, Temple Terrace, FL 33617\nPhone: (813) 603-0300\nWebsite: https://akersweetsusa.com/\n\nFollow Ya Hala and subscribe to the channel for more stories and experiences of Arabs in America.",
     "tags": [
       "yahala",
@@ -18547,7 +18600,7 @@
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "published": "2026-10-20T19:00:07+00:00",
-    "updated": "",
+    "updated": "2026-10-20",
     "description": "هل تعلم أن اختيار خطة Medicare غير مناسبة قد يكلّفك آلاف الدولارات؟ وهل صحيح أن كل شخص يصل إلى عمر 65 سنة في أمريكا يحصل على تأمين صحي مجاني؟ 🇺🇸\nوما الفرق بين Medicare وMedicaid؟ وهل الجنسية الأمريكية أو الجرين كارد ضرورية للحصول على التأمين؟ وماذا يحدث إذا تأخرت عن موعد التسجيل؟\n\nفي حلقة اليوم من ياهلا، زرنا شركة Senior Insurance Team والتقينا بمؤسسها صبري عمارة (Sabri Amara)، الفلسطيني الأصل من مدينة الرملة، والمولود في شيكاغو.\n\nتعرفنا على قصة صبري ورحلته في عالم الأعمال، وكيف انتقل من عدة مشاريع وتجارب مختلفة إلى تأسيس شركة متخصصة في التأمين الصحي، ليصبح لديه اليوم ثلاثة مكاتب في إلينوي وإنديانا، وفريق يقدم خدماته في أكثر من 30 ولاية أمريكية.\n\nوخلال جولتنا، تحدثنا عن أهم ما يحتاج العرب معرفته عن Medicare:\n✅ الفرق بين Medicare وMedicaid ومن يحق له الحصول عليهما.\n✅ أنواع خطط Medicare والتكاليف والتغطيات المختلفة.\n✅ أهمية اختيار التأمين المناسب للأطباء والأدوية والحالة الصحية.\n✅ شروط الجنسية والإقامة وخطوات التسجيل عند بلوغ 65 عامًا.\n✅ لماذا تتغير خطط التأمين سنويًا؟ وكيف يمكن تجنب الأخطاء المكلفة؟\n\n🎥 حلقة مهمة لكل عربي يعيش في أمريكا، خصوصًا كبار السن وأبنائهم الذين يبحثون عن التأمين الصحي المناسب لآبائهم وأمهاتهم.\n\n📍 Senior Insurance Team\nAddress: 7030 Centennial Drive, Tinley Park, IL 60477\nPhone: (708) 840-8401\nWebsite: https://www.seniorinsuranceteam.com/\n\nالخدمات متوفرة بالعربية والإنجليزية.",
     "tags": [],
     "categories": [],
@@ -18561,7 +18614,10 @@
       "source": "description-place-match",
       "confidence": 0.95
     },
-    "fullMetadataFetchedAt": "2026-10-26T01:24:09.080Z"
+    "fullMetadataFetchedAt": "2026-10-26T01:24:09.080Z",
+    "viewCount": 42395,
+    "width": 3840,
+    "height": 2160
   },
   "Q8jy35CL-Yk": {
     "videoId": "Q8jy35CL-Yk",
@@ -18959,7 +19015,7 @@
     "channelId": "UC26OIuJ19EH6HF6uRJ-N_2A",
     "channelTitle": "Ya Hala with Haithum",
     "published": "2026-10-31T19:00:26+00:00",
-    "updated": "",
+    "updated": "2026-10-31",
     "description": "What's life like in Orlando? And what should you know before moving there?\n\nIn this episode of \"Yahla,\" we take you on a tour with Rawya Al-Rayes, the first Iraqi woman working in real estate in Orlando, to learn her story and explore a range of homes and neighborhoods in Orlando and the surrounding areas of Florida.\n\nRawya arrived in the United States in 2012 and lived in Buffalo, New York, before moving to Orlando in 2013. Through her experience in sales, her connections with the Arab community, and her assistance to families in getting acquainted with the city, she discovered her passion for real estate. This led her to enter the field and later expand into real estate development and overseeing the details of construction.\n\nDuring our tour, we visited family homes and luxury properties with distinctive designs and lake views, exploring the Windermere and Winter Garden neighborhoods, and finally, the Aylworth residential community. We spoke with Rawya about:\n\n✅ How to choose the right area for your family's needs before selecting a home?\n\n✅ The importance of location and proximity to schools, universities, and services. ✅ Helping families moving from other states settle in.\n\n✅ The difference between buying a ready-made home and building one with your own custom details.\n\n✅ Her experience as an Iraqi woman in the field, and her ambition to leave a mark that her family and country can be proud of.\n\nAn episode that combines the story of an ambitious Arab woman with a tour of the real estate world, for anyone considering living or investing in Orlando, or who loves exploring homes and their designs.\n\nWhich home did you like best? Are you thinking of living in Florida? Share your thoughts in the comments below 👇\n\nTo contact real estate agent Rawya Alrayyis:\n\nPhone: (716) 544-9722\nWebsite: https://rawyaalrayyis.my.canva.site/\n\nPrices mentioned are as shown in the episode at the time of filming and may change.",
     "tags": [],
     "categories": [],
@@ -18972,7 +19028,10 @@
       "source": "description-place-match",
       "confidence": 0.95
     },
-    "fullMetadataFetchedAt": "2026-11-05T06:56:49.353Z"
+    "fullMetadataFetchedAt": "2026-11-05T06:56:49.353Z",
+    "viewCount": 12895,
+    "width": 3840,
+    "height": 2160
   },
   "Aj0BHOsiWXk": {
     "videoId": "Aj0BHOsiWXk",
@@ -19109,7 +19168,10 @@
       "source": "description-place-match",
       "confidence": 0.95
     },
-    "fullMetadataFetchedAt": "2026-11-10T19:57:58.409Z"
+    "fullMetadataFetchedAt": "2026-11-11T06:25:41.906Z",
+    "viewCount": 19474,
+    "width": 3840,
+    "height": 2160
   },
   "alGaGQ0SX8Q": {
     "videoId": "alGaGQ0SX8Q",
