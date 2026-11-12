@@ -16,6 +16,8 @@ This site uses a single visual system for repeated UI.
 
 - `BrandedPageDocument` renders `EditorialHeader` once on every public route. Keep primary navigation labels and order in `LandingNavigation`; section links return to Home from other routes. The mobile header hides on deliberate downward scrolling and returns on upward scrolling or keyboard focus. Desktop and reduced-motion navigation stay visible.
 
+- The homepage and shared header use a 76rem outer shell with 20–32px responsive gutters, yielding a 72rem desktop content grid. Keep homepage sections aligned to that grid; constrain prose inside sections. Latest and most-viewed stories share two desktop columns, followed by a separate social-link row. Stack these groups in DOM order on phones. Map controls and catalog coverage share a supporting desktop row beneath the map.
+
 - `Button` for action buttons.
 - `Badge` for small status labels.
 - `IconBadge` for repeated icon bubbles, play markers, and icon chips.
