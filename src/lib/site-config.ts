@@ -63,6 +63,7 @@ export type SocialReachItem = {
   platform: string
   metric: string
   value: number
+  updatedAt?: string
 }
 
 export type SocialReach = {

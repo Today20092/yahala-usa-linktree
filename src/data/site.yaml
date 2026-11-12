@@ -679,7 +679,8 @@ socialReach:
   items:
     - platform: YouTube
       metric: Views
-      value: 22201272
+      value: 35120264
+      updatedAt: '2026-11-11'
     - platform: TikTok
       metric: Views
       value: 28166560
