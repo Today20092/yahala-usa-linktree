@@ -1,4 +1,9 @@
-type BarListItem = { name: string; value: number; href: string }
+type BarListItem = {
+  name: string
+  value: number
+  href: string
+  imageSrc?: string
+}
 
 // Adapted from Cnippet Bar List (MIT); keep exact counts and touch-sized links.
 export function BarList({
@@ -26,9 +31,19 @@ export function BarList({
             />
             <span
               dir="auto"
-              className="relative min-w-0 flex-1 font-semibold [overflow-wrap:anywhere]"
+              className="relative flex min-w-0 flex-1 items-center gap-3 font-semibold [overflow-wrap:anywhere]"
             >
-              {row.name}{' '}
+              {row.imageSrc && (
+                <img
+                  src={row.imageSrc}
+                  alt=""
+                  width={32}
+                  height={24}
+                  loading="lazy"
+                  className="h-6 w-8 shrink-0 object-contain"
+                />
+              )}
+              <span className="min-w-0">{row.name}</span>{' '}
             </span>
             <span className="relative max-w-full min-w-0 [overflow-wrap:anywhere] tabular-nums">
               {row.value.toLocaleString('en-US')}{' '}
