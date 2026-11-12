@@ -29,7 +29,7 @@ const journeyMarkers = [
   ['QR dialog', '<dialog id="qr-dialog"'],
   ['QR destination', 'data-qr-destination'],
   ['map', 'aria-label="Map"'],
-  ['state selection', 'Choose a state'],
+  ['state browsing', 'aria-label="States in alphabetical order"'],
   ['latest-story action', 'Latest From Ya Hala'],
   ['portfolio grid', 'data-portfolio-grid'],
 ]
@@ -143,7 +143,7 @@ try {
     ? await checkUrl(target)
     : await checkDirectory(target)
   console.log(
-    `Preview smoke passed: ${result.assets.length} assets; reach, QR, map, state selection, and latest story present; CSP ${result.csp}.`,
+    `Preview smoke passed: ${result.assets.length} assets; reach, QR, map, state browsing, and latest story present; CSP ${result.csp}.`,
   )
 } catch (error) {
   console.error(`Preview smoke failed: ${error.message}`)

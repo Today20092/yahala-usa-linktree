@@ -5,7 +5,7 @@ import path from 'node:path'
 import { spawn } from 'node:child_process'
 
 const script = path.resolve('scripts/smoke-preview.mjs')
-const html = `<!doctype html><link rel="stylesheet" href="./_astro/site.css"><script type="module" src="/_astro/site.js"></script><a>Partner with us</a><a>Watch latest</a><aside data-reach-card></aside><section data-portfolio-grid>Moments from Ya Hala stories</section><div aria-label="Map"></div><p>Choose a state to watch stories</p><a>Latest From Ya Hala</a><nav aria-label="Official social links"></nav><footer><a href="#qr-dialog" data-qr-open>QR</a><dialog id="qr-dialog"><a href="/" data-qr-destination>Destination</a></dialog></footer>`
+const html = `<!doctype html><link rel="stylesheet" href="./_astro/site.css"><script type="module" src="/_astro/site.js"></script><a>Partner with us</a><a>Watch latest</a><aside data-reach-card></aside><section data-portfolio-grid>Moments from Ya Hala stories</section><div aria-label="Map"></div><ul aria-label="States in alphabetical order"><li><a href="/stories?state=Texas">Texas</a></li></ul><a>Latest From Ya Hala</a><nav aria-label="Official social links"></nav><footer><a href="#qr-dialog" data-qr-open>QR</a><dialog id="qr-dialog"><a href="/" data-qr-destination>Destination</a></dialog></footer>`
 
 const run = (target) =>
   new Promise((resolve) => {
@@ -25,6 +25,18 @@ await writeFile(path.join(directory, '_astro/site.js'), '')
 try {
   const localPass = await run(directory)
   if (localPass.status !== 0) throw new Error(localPass.output)
+
+  await writeFile(
+    path.join(directory, 'index.html'),
+    html.replace('aria-label="States in alphabetical order"', ''),
+  )
+  const stateFailure = await run(directory)
+  if (
+    stateFailure.status === 0 ||
+    !stateFailure.output.includes('Missing smoke journey: state browsing')
+  ) {
+    throw new Error('Missing state directory must fail the smoke check')
+  }
 
   await writeFile(
     path.join(directory, 'index.html'),

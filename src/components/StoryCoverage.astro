@@ -1,5 +1,4 @@
 ---
-import { BarList } from './ui/bar-list'
 import { buildStoryCoverage } from '../lib/story-coverage'
 import type { Story } from '../lib/story-browser'
 
@@ -10,7 +9,7 @@ const flags = import.meta.glob<string>('../assets/state-flags/*.webp', {
   import: 'default',
 })
 const data = buildStoryCoverage(stories)
-  .slice(0, 5)
+  .sort((a, b) => a.name.localeCompare(b.name))
   .map((row) => ({
     ...row,
     imageSrc:
@@ -18,25 +17,56 @@ const data = buildStoryCoverage(stories)
         `../assets/state-flags/${row.name.toLowerCase().replaceAll(' ', '-')}.webp`
       ],
   }))
+const storyCount = data.reduce((total, row) => total + row.value, 0)
 ---
 
 {data.length > 0 && (
-  <section
-    class="story-coverage border-border mt-6 border-t px-1 pt-5"
-    aria-labelledby="story-coverage-title"
-  >
-    <div class="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+  <section class="story-coverage" aria-labelledby="story-coverage-title">
+    <div class="mb-4">
       <h3 id="story-coverage-title" class="ui-card-title">
-        Where the stories take us
+        Explore stories by state
       </h3>
-      <span class="text-muted-foreground text-xs">
-        Top states in our catalog
-      </span>
+      <p class="text-muted-foreground mt-2 text-sm">
+        {data.length} states · {storyCount} stories
+      </p>
     </div>
-    <BarList data={data} label="Stories by state" />
-    <p class="text-muted-foreground mt-3 text-xs leading-relaxed">
-      Explore a state to meet the people behind the numbers. Counts reflect
-      catalog stories with an assigned state.
-    </p>
+    <ul
+      class="grid grid-cols-2 gap-2 md:grid-cols-4"
+      aria-label="States in alphabetical order"
+    >
+      {data.map((row) => (
+        <li class="min-w-0">
+          <a
+            href={row.href}
+            class="ui-surface-card hover:border-primary hover:bg-muted focus-visible:ring-ring group flex min-h-22 flex-col justify-center gap-2 p-3 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+          >
+            <span class="flex items-center justify-between gap-2">
+              {row.imageSrc && (
+                <img
+                  src={row.imageSrc}
+                  alt=""
+                  width="40"
+                  height="28"
+                  loading="lazy"
+                  class="h-7 w-10 shrink-0 object-contain object-left"
+                />
+              )}
+              <span class="text-muted-foreground text-xs tabular-nums">
+                {row.value} {row.value === 1 ? 'story' : 'stories'}
+              </span>
+            </span>
+            <span class="text-sm font-semibold group-hover:underline group-hover:underline-offset-4">
+              {row.name}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <a
+      href="/stories"
+      class="text-primary focus-visible:ring-ring mt-3 inline-flex min-h-11 items-center rounded-sm text-sm font-semibold underline underline-offset-4 focus-visible:ring-2 focus-visible:outline-none"
+    >
+      Browse all stories
+    </a>
   </section>
 )}

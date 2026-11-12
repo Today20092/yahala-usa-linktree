@@ -126,10 +126,24 @@ for (const route of ['/', '/about', '/stories', '/contact']) {
       })
     }
     if (route === '/') {
-      const stateFlags = page
-        .getByRole('list', { name: 'Stories by state', exact: true })
-        .locator('img')
-      await expect(stateFlags).toHaveCount(5)
+      const stateDirectory = page.getByRole('list', {
+        name: 'States in alphabetical order',
+        exact: true,
+      })
+      const stateFlags = stateDirectory.locator('img')
+      expect(await stateFlags.count()).toBeGreaterThanOrEqual(16)
+      const stateNames = await stateDirectory
+        .getByRole('link')
+        .evaluateAll((links) =>
+          links.map((link) =>
+            new URL((link as HTMLAnchorElement).href).searchParams.get(
+              'state',
+            )!,
+          ),
+        )
+      expect(stateNames).toEqual(
+        [...stateNames].sort((a, b) => a.localeCompare(b)),
+      )
       for (const flag of await stateFlags.all()) {
         await flag.scrollIntoViewIfNeeded()
         await expect(flag).toHaveAttribute('alt', '')
@@ -147,9 +161,9 @@ for (const route of ['/', '/about', '/stories', '/contact']) {
           })
           .locator('img'),
       ).toHaveCount(0)
-      await page
-        .getByRole('list', { name: 'Stories by state', exact: true })
-        .screenshot({ path: test.info().outputPath('state-flags.png') })
+      await stateDirectory.screenshot({
+        path: test.info().outputPath('state-flags.png'),
+      })
       const action = page
         .getByRole('link', { name: 'Partner with us', exact: true })
         .first()
