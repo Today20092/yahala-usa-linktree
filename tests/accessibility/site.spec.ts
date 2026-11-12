@@ -126,6 +126,30 @@ for (const route of ['/', '/about', '/stories', '/contact']) {
       })
     }
     if (route === '/') {
+      const stateFlags = page
+        .getByRole('list', { name: 'Stories by state', exact: true })
+        .locator('img')
+      await expect(stateFlags).toHaveCount(5)
+      for (const flag of await stateFlags.all()) {
+        await flag.scrollIntoViewIfNeeded()
+        await expect(flag).toHaveAttribute('alt', '')
+        await expect
+          .poll(() =>
+            flag.evaluate((image: HTMLImageElement) => image.naturalWidth),
+          )
+          .toBeGreaterThan(0)
+      }
+      await expect(
+        page
+          .getByRole('list', {
+            name: 'Most-watched catalog stories by recorded YouTube views',
+            exact: true,
+          })
+          .locator('img'),
+      ).toHaveCount(0)
+      await page
+        .getByRole('list', { name: 'Stories by state', exact: true })
+        .screenshot({ path: test.info().outputPath('state-flags.png') })
       const action = page
         .getByRole('link', { name: 'Partner with us', exact: true })
         .first()
