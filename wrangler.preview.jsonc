@@ -10,6 +10,14 @@
   // Partnership form delivery. Needs a verified sending domain and the
   // TURNSTILE_SECRET secret; without them the form falls back to mailto.
   "send_email": [{ "name": "EMAIL" }],
+  "d1_databases": [
+    {
+      "binding": "TESTIMONIALS_DB",
+      "database_name": "yahala-testimonials-preview",
+      "database_id": "c4021030-5072-4c05-891e-a018d9b24188",
+      "migrations_dir": "migrations",
+    },
+  ],
   // The Worker reads the receiving inbox from src/data/site.yaml.
   "rules": [{ "type": "Text", "globs": ["**/*.yaml"] }],
   "assets": {

@@ -1,0 +1,29 @@
+---
+import { SEO } from 'astro-seo'
+import TestimonialReview from '../../components/TestimonialReview'
+import '../../components/partnership.css'
+import BrandedPageDocument from '../../layouts/BrandedPageDocument.astro'
+---
+
+<BrandedPageDocument bodyClass="min-h-screen text-lg text-foreground">
+  <Fragment slot="head">
+    <SEO
+      title="Review testimonial | Ya Hala"
+      description="Privately review a client testimonial."
+      noindex
+      nofollow
+    />
+    <meta name="referrer" content="no-referrer" />
+  </Fragment>
+  <main
+    id="main-content"
+    tabindex="-1"
+    class="partnership-section mx-auto w-full px-4 py-12 sm:px-6"
+  >
+    <h1 class="ui-page-title mb-8">Review testimonial</h1>
+    <TestimonialReview client:load />
+    <noscript>
+      <p>Enable JavaScript to review this testimonial.</p>
+    </noscript>
+  </main>
+</BrandedPageDocument>
