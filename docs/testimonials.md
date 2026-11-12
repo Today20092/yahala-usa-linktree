@@ -149,3 +149,24 @@ They send no real emails and do not publish client quotes.
 - Live browser check confirmed Cnippet form, five rating controls and checkbox,
   no horizontal overflow, preserved noindex, and a completed real Turnstile check
   enabling submission. No testimonial or email was sent during this check.
+
+### Production rollout on November 12, 2026
+
+- [PR 82](https://github.com/Today20092/yahala-usa-linktree/pull/82) merged and
+  [production deployment](https://github.com/Today20092/yahala-usa-linktree/actions/runs/43307075878)
+  succeeded. The live approved API returns HTTP 200 with the dedicated D1 binding.
+- A real bilingual technical submission at <https://yahalausa.net/testimonial/>
+  completed Turnstile and was stored pending; the email binding accepted its
+  approval notification. Inbox delivery is deferred at the owner's request.
+- Controlled database fixtures verified live confirmation-only approval,
+  rejection, private pending/rejected records, expiry, altered credentials and
+  replay protection. Approval appeared in the homepage carousel with all fields
+  and survived refresh. Form/review/carousel checks at 320px and 1280px had no
+  horizontal overflow. The form retains noindex; review also has nofollow,
+  no-referrer, and removes the credential fragment.
+- All four test records were deleted by exact ID. The live API is empty and the
+  refreshed homepage hides the carousel. Old test email links are invalid;
+  use a fresh submission for the deferred inbox and email-link verification.
+- Passed locally: testimonial backend regression, branch workflow, Astro type
+  check, build, built-asset smoke, UI consistency, deployment dry run and diff
+  whitespace checks. No application code or email/security settings changed.
