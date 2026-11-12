@@ -12,6 +12,11 @@ const fixture = {
 }
 
 async function scan(page: Page) {
+  // Scan a stable viewport, not a control clipped by the sticky header after focus scrolling.
+  await page.evaluate(async () => {
+    await document.fonts.ready
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  })
   const result = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
     .analyze()
@@ -206,10 +211,17 @@ test('approved testimonial carousel precedes partnership CTA and supports keyboa
     fullPage: true,
   })
   const next = page.getByRole('button', { name: 'Next slide' })
+  await expect(next).toBeEnabled()
   await next.focus()
   await page.keyboard.press('Enter')
+  await expect(
+    page.getByText('Testimonial 2 of 4', { exact: true }),
+  ).toHaveCount(1)
   await expect(next).toBeFocused()
   await page.keyboard.press('ArrowLeft')
+  await expect(
+    page.getByText('Testimonial 1 of 4', { exact: true }),
+  ).toHaveCount(1)
 })
 
 test('long client names and businesses wrap in carousel and review', async ({
