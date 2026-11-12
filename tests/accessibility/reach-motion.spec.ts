@@ -54,10 +54,7 @@ test('view counters count up and headings reveal once on entrance', async ({
   await expect(section.locator('[data-text-reveal="slide"]')).toHaveClass(
     /text-reveal-visible/,
   )
-  await expect(page.locator('#intro-title [data-text-reveal]')).toHaveAttribute(
-    'data-text-reveal',
-    'generate',
-  )
+  await expect(page.locator('#intro-title [data-font-proximity]')).toBeVisible()
   await expect(
     page.locator('#latest-video-title [data-text-reveal]'),
   ).toHaveAttribute('data-text-reveal', 'generate')
