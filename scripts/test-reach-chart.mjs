@@ -50,6 +50,27 @@ assert.deepEqual(
   [...totals].sort((a, b) => b[1] - a[1]).map(([name]) => name),
 )
 assert.ok(html.includes('Recorded views, not unique viewers.'))
+const reach = html.match(/<aside\b[^>]*data-reach-card[\s\S]*?<\/aside>/)?.[0]
+assert.ok(reach, 'Home must render the view summary')
+const visibleReach = reach.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ')
+const total = socialReach.items.reduce((sum, item) => sum + item.value, 0)
+assert.ok(
+  visibleReach.includes(formatNumber(Math.floor(total / 1_000_000)) + 'M+'),
+)
+for (const item of socialReach.items) {
+  assert.ok(
+    visibleReach.includes(
+      formatNumber(Math.floor(item.value / 1_000_000)) + 'M+',
+    ),
+  )
+  const date = new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(new Date(item.updatedAt ?? socialReach.updatedAt))
+  assert.ok(reach.includes('Updated ' + date))
+}
 
 const snapshot = JSON.parse(
   await readFile('src/data/story-view-snapshot.json', 'utf8'),
