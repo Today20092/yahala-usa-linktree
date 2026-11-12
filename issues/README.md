@@ -9,6 +9,8 @@ Tickets 0001–0005 are sequential CSS and styling architecture work on
 
 ## Open
 
+- [0015 — Complete the live testimonial approval flow](0015-complete-production-testimonials.md)
+
 - [0014 — Evaluate useful channel growth and collaboration history](0014-evaluate-channel-growth-history.md)
 
 - [0013 — Web UI accessibility review and implementation specification](0013-web-ui-accessibility.md)
