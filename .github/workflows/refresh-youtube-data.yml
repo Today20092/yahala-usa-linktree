@@ -9,6 +9,8 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
+  actions: write
 
 concurrency:
   group: youtube-data-refresh
@@ -22,7 +24,7 @@ jobs:
       - name: Checkout your repository using git
         uses: actions/checkout@v7
         with:
-          ref: development
+          ref: main
           fetch-depth: 0
       - name: Set up Node
         uses: actions/setup-node@v7
@@ -45,9 +47,7 @@ jobs:
           npm run update:youtube -- --refresh-top-videos
           npm run update:visited-videos
           npm run validate:data
-      - name: Rebase before committing
-        run: git pull --rebase --autostash origin development
-      - name: Verify refreshed development source
+      - name: Verify refreshed catalog
         run: |
           npm run test:branch-workflow
           npm run validate:data
@@ -57,10 +57,43 @@ jobs:
           npm run test:visited-map
           npm run build
           npm run smoke:preview -- dist
-      - name: Commit updated YouTube catalog
-        id: commit
-        uses: stefanzweifel/git-auto-commit-action@v7
+      - name: Open catalog update pull request
+        id: catalog-pr
+        uses: peter-evans/create-pull-request@v8
         with:
-          branch: development
-          commit_message: Update YouTube catalog
-          file_pattern: src/data/site.yaml src/data/latest-youtube-videos.json src/data/visited-videos.yaml src/data/youtube-videos.json src/data/geocoded-locations.json src/data/business-locations.json src/data/business-geocodes.json
+          base: main
+          branch: automation/youtube-catalog
+          commit-message: 'chore: refresh YouTube catalog'
+          title: Refresh YouTube catalog
+          body: |
+            ## Summary
+
+            YouTube refresh → catalog PR → merge to main → production deployment.
+
+            ## Evidence
+
+            Catalog validation, regression checks, build, and asset smoke checks passed before opening this PR. Review the catalog diff and CI before merging.
+
+            ## Merge Danger
+
+            **Door:** two-way
+
+            **Blast Radius:** content
+
+            Merging updates the public story catalog and deploys production.
+          add-paths: |
+            src/data/site.yaml
+            src/data/latest-youtube-videos.json
+            src/data/visited-videos.yaml
+            src/data/youtube-videos.json
+            src/data/geocoded-locations.json
+            src/data/business-locations.json
+            src/data/business-geocodes.json
+      # Explicit dispatches run both PR checks on the catalog head without approval.
+      - name: Run checks on the catalog pull request
+        if: steps.catalog-pr.outputs.pull-request-number
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow run ci.yml --ref automation/youtube-catalog
+          gh workflow run preview-smoke.yml --ref automation/youtube-catalog

@@ -6,8 +6,8 @@ const readYaml = (path) =>
   parse(readFileSync(new URL(path, import.meta.url), 'utf8'))
 const workflow = (name) => readYaml(`../.github/workflows/${name}.yml`)
 const ci = workflow('ci')
-assert.deepEqual(ci.on.push.branches, ['development', 'main'])
-assert.deepEqual(ci.on.pull_request.branches, ['development', 'main'])
+assert.deepEqual(ci.on.push.branches, ['main'])
+assert.deepEqual(ci.on.pull_request.branches, ['main'])
 
 const deploy = workflow('deploy')
 assert.deepEqual(deploy.on.push.branches, ['main'])
@@ -20,23 +20,43 @@ assert.equal(refresh.permissions.deployments, undefined)
 const checkout = refreshJob.steps.find((step) =>
   step.uses?.startsWith('actions/checkout@'),
 )
-assert.equal(checkout.with.ref, 'development')
+assert.equal(checkout.with.ref, 'main')
 assert.equal(checkout.with['fetch-depth'], 0)
-const commitIndex = refreshJob.steps.findIndex((step) =>
-  step.uses?.startsWith('stefanzweifel/git-auto-commit-action@'),
+const prIndex = refreshJob.steps.findIndex((step) =>
+  step.uses?.startsWith('peter-evans/create-pull-request@'),
 )
-assert.ok(
-  commitIndex >= 0,
-  'Catalog refresh must have an explicit commit destination',
-)
-assert.equal(refreshJob.steps[commitIndex].with.branch, 'development')
+assert.ok(prIndex >= 0, 'Catalog updates must go through a pull request')
+const catalogPr = refreshJob.steps[prIndex]
+assert.equal(catalogPr.with.base, 'main')
+assert.equal(catalogPr.with.branch, 'automation/youtube-catalog')
+assert.equal(refresh.permissions['pull-requests'], 'write')
+assert.equal(refresh.permissions.actions, 'write')
 const precedingCommands = refreshJob.steps
-  .slice(0, commitIndex)
+  .slice(0, prIndex)
   .map((step) => step.run ?? '')
   .join('\n')
-assert.match(
-  precedingCommands,
-  /git pull --rebase --autostash origin development/,
+const dispatch = refreshJob.steps.find((step) =>
+  step.run?.includes('gh workflow run ci.yml'),
+)
+assert.ok(refreshJob.steps.indexOf(dispatch) > prIndex)
+for (const name of ['ci', 'preview-smoke']) {
+  assert.ok(
+    dispatch.run.includes(
+      `gh workflow run ${name}.yml --ref automation/youtube-catalog`,
+    ),
+    `${name} must run on the catalog PR head for required status checks`,
+  )
+  assert.ok('workflow_dispatch' in workflow(name).on)
+}
+assert.equal(ci.jobs.validate.name, 'Validate and build')
+assert.ok(workflow('preview-smoke').jobs.smoke)
+assert.equal(dispatch.env.GH_TOKEN, '${{ secrets.GITHUB_TOKEN }}')
+assert.equal(dispatch.if, 'steps.catalog-pr.outputs.pull-request-number')
+assert.ok(
+  catalogPr.with['add-paths']
+    .split('\n')
+    .filter(Boolean)
+    .every((path) => path.startsWith('src/data/')),
 )
 for (const check of [
   'validate:data',
@@ -47,31 +67,21 @@ for (const check of [
 ]) {
   assert.ok(
     precedingCommands.includes(`npm run ${check}`),
-    `${check} must pass before catalog changes are committed`,
+    `${check} must pass before a catalog pull request is opened`,
   )
 }
-
-const dependabot = readYaml('../.github/dependabot.yml')
-for (const update of dependabot.updates) {
-  assert.equal(update['target-branch'], 'development')
-}
-assert.ok(
-  workflow('dependabot-auto-merge').jobs.merge.steps.some((step) =>
-    step.with?.script?.includes("pr.base.ref !== 'development'"),
-  ),
-  'Dependency auto-merge must be restricted to integration PRs',
-)
 
 for (const name of readdirSync(
   new URL('../.github/workflows/', import.meta.url),
 )) {
   if (!/\.ya?ml$/.test(name)) continue
   const config = readYaml(`../.github/workflows/${name}`)
+  assert.doesNotMatch(JSON.stringify(config), /\bdevelopment\b/)
   for (const job of Object.values(config.jobs)) {
     for (const step of job.steps ?? []) {
       assert.ok(
         !step.with?.script?.includes("workflow_id: 'deploy.yml'"),
-        'Integration automation must not dispatch production deployment',
+        'PR automation must not dispatch production deployment',
       )
       const isDeployment =
         step.uses?.startsWith('cloudflare/wrangler-action@') ||
