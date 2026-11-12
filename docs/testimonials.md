@@ -77,10 +77,35 @@ are retained until manually deleted; delete rejected/expired records when they
 are no longer needed. If requesting the approval email fails, the pending row
 is removed and the client sees a retry message with their text preserved.
 
-Production is not provisioned by the preview setup. Before a separately
-authorized production release, add a dedicated production `TESTIMONIALS_DB`
-binding, apply the same migration there, and verify real email delivery and
-approval. Never share the preview database with production.
+## Production setup
+
+Production uses `yahala-testimonials-production`
+(`eaf71968-c29c-4594-9fd2-1b46e60135b9`) in the pinned Haithum account,
+bound as `TESTIMONIALS_DB` in `wrangler.jsonc`. It is separate from preview.
+Migration `0001_testimonials.sql` was applied remotely on November 12, 2026,
+before the binding was deployed. No existing production database was changed.
+
+For future schema changes, apply reviewed migrations to the production database
+before merging code that requires them:
+
+```sh
+npx wrangler d1 migrations apply yahala-testimonials-production --remote --config wrangler.jsonc
+```
+
+Merge the verified configuration PR into `main`; the existing Deploy workflow
+builds and deploys the live Worker. Preserve the existing email binding,
+Turnstile secret and search resources. The client-facing form is
+<https://yahalausa.net/testimonial/>. A successful submission confirms D1 storage
+and acceptance by the email sending binding, not actual inbox delivery.
+
+If deployment fails, fix and rerun the Deploy workflow from `main`. To disable
+the feature, revert the binding change through a PR; retain the database for
+recovery. A Worker rollback does not roll back D1. Do not delete the database or
+replace it with preview. Remove verification records by their exact test IDs;
+never clear the testimonials table.
+
+Configuration and migration reference:
+[Cloudflare D1 migrations](https://developers.cloudflare.com/d1/reference/migrations/).
 
 ## Verification
 

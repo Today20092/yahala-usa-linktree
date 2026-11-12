@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "yahala-usa-linktree",
+  "account_id": "fb14df399f96dc019b8a82cb48788654",
   "main": "./src/worker.js",
   "compatibility_date": "2026-06-09",
   "observability": {
@@ -61,6 +62,14 @@
   // Partnership form delivery. Needs a verified sending domain and the
   // TURNSTILE_SECRET secret; without them the form falls back to mailto.
   "send_email": [{ "name": "EMAIL" }],
+  "d1_databases": [
+    {
+      "binding": "TESTIMONIALS_DB",
+      "database_name": "yahala-testimonials-production",
+      "database_id": "eaf71968-c29c-4594-9fd2-1b46e60135b9",
+      "migrations_dir": "migrations",
+    },
+  ],
   // The Worker reads the receiving inbox from src/data/site.yaml.
   "rules": [{ "type": "Text", "globs": ["**/*.yaml"] }],
   "assets": {

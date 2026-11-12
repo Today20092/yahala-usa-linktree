@@ -32,3 +32,18 @@ Implement this single end-to-end ticket on `codex/production-testimonials`, base
 ## Dependencies
 
 None (can start immediately).
+
+## Implementation progress — November 12, 2026
+
+- Production deployment and merging the configuration PR were explicitly
+  authorized for this ticket.
+- Created `yahala-testimonials-production` in the pinned Haithum account:
+  `eaf71968-c29c-4594-9fd2-1b46e60135b9`. Applied `0001_testimonials.sql` remotely.
+  Preview remains on its separate database; existing production data is untouched.
+- Added the production binding and pinned account in `wrangler.jsonc`.
+  Existing email, Turnstile secret, search bindings and routes are preserved.
+- Backend testimonial regression checks, branch workflow checks, Astro type
+  checking and production build passed locally.
+- Inbox confirmation is pending: the owner cannot check the approval inbox
+  during this session. Keep the ticket open until actual delivery and the
+  email-link approval/rejection results are confirmed.
