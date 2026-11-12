@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components'
+import TextReveal from './TextReveal.astro'
 
 import { CountingNumber } from './animate-ui/primitives/texts/counting-number'
 
@@ -100,7 +101,9 @@ const platformTotals = groupedPlatforms.map((item) => {
   <div class="reach-summary">
     <header class="reach-summary__headline">
       <div class="reach-summary__heading-row">
-        <h2 class="ui-section-title">Total views</h2>
+        <h2 class="ui-section-title">
+          <TextReveal text="Total views" preset="slide" />
+        </h2>
       </div>
 
       <p
@@ -110,7 +113,6 @@ const platformTotals = groupedPlatforms.map((item) => {
         <CountingNumber
           client:visible
           number={Math.floor(total / 1_000_000)}
-          initiallyStable
           locale="en-US"
           inView
           inViewOnce
@@ -160,7 +162,6 @@ const platformTotals = groupedPlatforms.map((item) => {
               <CountingNumber
                 client:visible
                 number={Math.floor(item.total / 1_000_000)}
-                initiallyStable
                 locale="en-US"
                 inView
                 inViewOnce

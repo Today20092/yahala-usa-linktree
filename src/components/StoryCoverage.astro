@@ -4,7 +4,20 @@ import { buildStoryCoverage } from '../lib/story-coverage'
 import type { Story } from '../lib/story-browser'
 
 const { stories } = Astro.props as { stories: Story[] }
-const data = buildStoryCoverage(stories).slice(0, 5)
+const flags = import.meta.glob<string>('../assets/state-flags/*.webp', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+})
+const data = buildStoryCoverage(stories)
+  .slice(0, 5)
+  .map((row) => ({
+    ...row,
+    imageSrc:
+      flags[
+        `../assets/state-flags/${row.name.toLowerCase().replaceAll(' ', '-')}.webp`
+      ],
+  }))
 ---
 
 {data.length > 0 && (
