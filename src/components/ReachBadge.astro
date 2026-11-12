@@ -7,6 +7,7 @@ type ReachItem = {
   platform: string
   metric: string
   value: number
+  updatedAt?: string
 }
 
 type ReachBadgeProps = {
@@ -49,13 +50,6 @@ const platformColors: Record<
   },
 }
 
-const updatedDate = new Intl.DateTimeFormat('en-US', {
-  month: 'short',
-  day: 'numeric',
-  year: 'numeric',
-  timeZone: 'UTC',
-}).format(new Date(updatedAt))
-
 const largestPlatformTotal = Math.max(...items.map((item) => item.value), 0)
 
 const platformTotals = Object.values(
@@ -87,26 +81,27 @@ const platformTotals = Object.values(
   data-reach-card
   data-reach-chart
   class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 delay-300 sm:px-6"
-  aria-label="Total people reached"
+  aria-label="Views across our platforms"
 >
   <div class="reach-summary">
     <header class="reach-summary__headline">
       <div class="reach-summary__heading-row">
-        <h2 class="ui-section-title">People reached</h2>
-        <p class="ui-meta">Updated {updatedDate}</p>
+        <h2 class="ui-section-title" lang="ar" dir="rtl">مشاهدات عبر منصاتنا</h2>
+        <p class="ui-body">Views across our platforms</p>
       </div>
 
-      <p class="reach-summary__total">
+      <p class="reach-summary__total" aria-label={`${total.toLocaleString('en-US')} video views`}>
         <CountingNumber
           client:visible
-          number={total}
+          number={Math.floor(total / 1_000_000)}
+          initiallyStable
           locale="en-US"
           inView
           inViewOnce
-        /><span class="text-primary">+</span>
+        /><span>M</span><span class="text-primary">+</span>
       </p>
       <p class="ui-body reach-summary__description">
-        Total audience across YouTube, TikTok, Instagram, and Facebook.
+        Recorded video views across YouTube, Instagram, TikTok, and Facebook.
       </p>
     </header>
 
@@ -126,17 +121,23 @@ const platformTotals = Object.values(
                 />
                 <span class="truncate">{item.platform}</span>
               </dt>
-              <dd class="text-foreground text-sm font-semibold tabular-nums sm:text-base">
+              <dd class="text-foreground text-sm font-semibold tabular-nums sm:text-base" aria-label={`${item.total.toLocaleString('en-US')} recorded views`}>
                 <CountingNumber
                   client:visible
-                  number={item.total}
+                  number={Math.floor(item.total / 1_000_000)}
+                  initiallyStable
                   locale="en-US"
                   inView
                   inViewOnce
                   delay={100}
-                />
+                /><span>M+</span>
               </dd>
             </div>
+            <p class="ui-meta text-left">
+              Updated {new Intl.DateTimeFormat('en-US', {
+                month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',
+              }).format(new Date(items.find((entry) => entry.platform === item.platform)?.updatedAt ?? updatedAt))}
+            </p>
             <div class="reach-summary__bar" aria-hidden="true">
               <span />
             </div>
