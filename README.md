@@ -63,7 +63,7 @@ The site content is configured in `src/data/site.yaml`, so updates to links, lab
 
 ## Deployment
 
-The [Git workflow](docs/branch-workflow.md) uses `development` for integration and `main` for reviewed releases. GitHub's default branch is `main`. The [Deploy workflow](.github/workflows/deploy.yml) deploys pushes to `main` and manual runs on `main`. Catalog refreshes update `development` and reach production through promotion. Follow [AGENTS.md](AGENTS.md) for the pinned development target and production authorization boundary, and [the release policy](docs/releasing.md) for release preparation.
+The [Git workflow](docs/branch-workflow.md) is feature branch → pull request to `main` → review and merge → automatic Cloudflare production deployment. Catalog refreshes and Dependabot updates also arrive as PRs to `main`. An optional Cloudflare preview can be deployed directly from a feature branch; see [AGENTS.md](AGENTS.md). Follow [the release policy](docs/releasing.md) for versioned releases.
 
 Before deploying, it is a good idea to:
 

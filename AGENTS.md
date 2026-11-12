@@ -40,7 +40,7 @@ For version selection, release-status wording or release preparation, read [the 
 
 ### Git workflow
 
-For branch setup, integration, promotion or cleanup, read [the Git workflow](docs/branch-workflow.md).
+For branch setup, pull requests, merging or cleanup, read [the Git workflow](docs/branch-workflow.md). Start feature branches from `main` and target PRs at `main`; merging triggers automatic production deployment.
 
 ## Verification
 

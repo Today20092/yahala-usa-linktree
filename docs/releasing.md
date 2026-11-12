@@ -31,15 +31,13 @@ Readiness suffixes are optional:
 
 These stages need not occur in sequence. Stable does not mean finished or fully tested on every environment. Record a proposed target separately from the current package and published versions.
 
-## Actual automation
+## Automation and deployment
 
-[CI](../.github/workflows/ci.yml) validates pushes and pull requests to `development` and `main`, and supports manual dispatch. [Deploy](../.github/workflows/deploy.yml) builds and deploys pushes to `main` and manual runs on `main` only. [YouTube refresh](../.github/workflows/refresh-youtube-data.yml) validates and commits refreshed content to `development` without deployment. [Preview smoke](../.github/workflows/preview-smoke.yml) runs on pull requests and manual dispatch.
+Use a feature branch and a reviewed PR to `main` for every change. Merging into `main` automatically rebuilds and deploys production to Cloudflare. See [the Git workflow](branch-workflow.md) for checks and authorization.
 
-These configurations are published. GitHub's default branch is `main`; retained `master` also contains the migrated branch guards. Follow [the Git workflow and migration record](branch-workflow.md) for integration, promotion, and cutover verification.
+Scheduled catalog refreshes and Dependabot updates open PRs to `main` and require a merge before deployment. Optional Cloudflare previews can run from a feature branch.
 
-Release source may arrive through a tested `development` to `main` batch PR or a completed scoped-feature to `main` PR. Development integration is optional for an independent feature release; it is the place to combine selected concurrent work for a shared preview. Both routes require the intended release diff, passing checks, and authorization to merge/deploy production. Synchronize independently shipped changes back into `development` before the next batch.
-
-These workflows do not establish a version-tag publication pipeline. A production deployment and a versioned release are distinct records. The default branch, merge-commit availability, and production Actions deployment were verified. External Cloudflare Builds configuration remains unverified because the available OAuth credential lacks access and the dashboard requires sign-in.
+Deployment does not publish a version tag or GitHub release. Record the source revision and deployment result separately from versioned release metadata.
 
 ## Preparing a release
 
@@ -50,4 +48,4 @@ These workflows do not establish a version-tag publication pipeline. A productio
 5. Follow the preview/production authorization boundaries in [AGENTS.md](../AGENTS.md). Use its pinned preview configuration for authorized development deployments. Tags, production deployment, and publication require scope covering those actions.
 6. After an authorized publication, verify the public version or deployed revision and actual viewer workflows. Record publication separately from preparation and authorization, including any checks omitted or failed.
 
-AGENTS.md links to this guide. The later authorized branch migration and production deployment are recorded in [the Git workflow](branch-workflow.md); they did not bump the package version or publish a version tag.
+AGENTS.md links to this guide. Use [the Git workflow](branch-workflow.md) for the feature-branch and PR process.
