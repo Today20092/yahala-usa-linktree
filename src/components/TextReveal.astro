@@ -2,7 +2,7 @@
 // Inspired by Cnippet Text Reveal, adapted to server-rendered Astro headings.
 type Props = {
   text: string
-  preset?: 'blur' | 'slide'
+  preset?: 'blur' | 'slide' | 'generate'
 }
 const { text, preset = 'blur' } = Astro.props
 const segments = text.split(/(\s+)/u)
@@ -15,7 +15,7 @@ const segments = text.split(/(\s+)/u)
       segment.trim() ? (
         <span
           class="text-reveal-word"
-          style={`--word-delay: ${Math.min(index / 2, 10) * 45}ms`}
+          style={`--word-delay: ${Math.min(index / 2, 10) * (preset === 'generate' ? 80 : 45)}ms`}
         >
           {segment}
         </span>
@@ -61,6 +61,19 @@ const segments = text.split(/(\s+)/u)
     }
     [data-text-reveal='slide'].text-reveal-visible .text-reveal-word {
       animation-name: text-reveal-slide;
+    }
+    [data-text-reveal='generate'].text-reveal-visible .text-reveal-word {
+      animation-name: text-reveal-generate;
+    }
+  }
+  @keyframes text-reveal-generate {
+    from {
+      opacity: 0;
+      filter: blur(4px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
     }
   }
   @keyframes text-reveal-blur {
