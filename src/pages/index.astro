@@ -232,7 +232,7 @@ const structuredData = {
           formats={['avif', 'webp']}
           fallbackFormat="webp"
           widths={[640, 1080, 1500]}
-          sizes="(min-width: 60rem) 59vw, 140vw"
+          sizes="(min-width: 76rem) 1152px, calc(100vw - clamp(40px, 6vw, 64px))"
           class="linktree-hero__image"
           decoding="async"
           fetchpriority="high"
@@ -245,11 +245,8 @@ const structuredData = {
         <h1 id="profile-title" class="sr-only">
           Ya Hala with Haithum ياهلا مع هيثم
         </h1>
-        <section
-          class="mx-auto w-full max-w-xl px-4 pt-6 text-center sm:px-6 sm:pt-7"
-          aria-labelledby="intro-title"
-        >
-          <h2 id="intro-title" class="ui-page-title mx-auto max-w-lg">
+        <section class="hero-intro" aria-labelledby="intro-title">
+          <h2 id="intro-title" class="ui-page-title mx-auto">
             <TextReveal text="Arab-American stories, coast to coast." />
           </h2>
           <p class="ui-body mx-auto mt-4 max-w-prose sm:text-[1.05rem]">
@@ -263,22 +260,16 @@ const structuredData = {
               Our story
             </a>
           </p>
-          <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
-            <a
-              href={`${baseUrl}contact`}
-              class={buttonVariants({
-                className: 'h-auto min-h-12 px-6 py-3 text-base',
-              })}
-            >
-              {siteConfig.about.partnerCtaLabel}
-            </a>
+          <div class="hero-actions mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
             {latestEpisodeUrl && (
               <a
                 href={latestEpisodeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Watch latest episode (opens on YouTube)"
-                class="hero-explore-link"
+                class={buttonVariants({
+                  className: 'h-auto min-h-12 px-6 py-3 text-base',
+                })}
               >
                 <Icon
                   name="simple-icons:youtube"
@@ -288,6 +279,15 @@ const structuredData = {
                 Watch latest
               </a>
             )}
+            <a
+              href={`${baseUrl}contact`}
+              class={buttonVariants({
+                variant: 'outline',
+                className: 'h-auto min-h-12 px-6 py-3 text-base',
+              })}
+            >
+              {siteConfig.about.partnerCtaLabel}
+            </a>
           </div>
         </section>
       </div>
@@ -314,7 +314,7 @@ const structuredData = {
     <div class="desktop-latest-grid">
       <section
         id="watch"
-        class="animate-fade-in-up mt-8 mb-5 flex flex-col delay-400"
+        class="animate-fade-in-up flex flex-col delay-400"
         aria-labelledby="latest-video-title"
       >
         <div class="ui-section-header">
@@ -357,50 +357,51 @@ const structuredData = {
         </div>
       </section>
 
-      <section class="mt-8 flex flex-col" aria-labelledby="follow-title">
-        <div id="follow" class="follow-intro">
-          <h2 id="follow-title" class="ui-section-title">
-            Follow Ya Hala
-          </h2>
-          <p class="ui-body">Choose where to catch the next story.</p>
-        </div>
-        <nav
-          class="animate-fade-in-up mx-auto mt-6 flex w-full max-w-xl flex-col gap-3 px-4 delay-300 sm:px-6 lg:grid lg:grid-cols-2"
-          aria-label="Official social links"
-        >
-          {socialLinks.map((social) => (
-            <SocialLinkButton
-              label={social.label.replace(/^Ya Hala\s+/, '')}
-              description={socialSummary(social.id)}
-              ariaLabel={social.label}
-              href={social.url}
-              id={social.id}
-              style={
-                {
-                  '--brand-color': social.color,
-                  '--brand-color-2': social.color2,
-                  '--brand-color-3': social.color3,
-                  '--brand-color-dark': social.darkColor ?? social.color,
-                  '--brand-color-dark-2': social.darkColor2 ?? social.color2,
-                  '--brand-color-dark-3': social.darkColor3 ?? social.color3,
-                } as CSSProperties
-              }
-            >
-              <svg
-                class="size-8"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                set:html={socialIconBodies[social.id]}
-              />
-            </SocialLinkButton>
-          ))}
-        </nav>
-      </section>
+      <FeaturedEpisodes />
     </div>
 
+    <section id="follow" class="follow-section" aria-labelledby="follow-title">
+      <div class="follow-intro ui-section-header">
+        <h2 id="follow-title" class="ui-section-title">
+          Follow Ya Hala
+        </h2>
+        <p class="ui-body">Choose where to catch the next story.</p>
+      </div>
+      <nav
+        class="follow-links animate-fade-in-up grid gap-3 delay-300"
+        aria-label="Official social links"
+      >
+        {socialLinks.map((social) => (
+          <SocialLinkButton
+            label={social.label.replace(/^Ya Hala\s+/, '')}
+            description={socialSummary(social.id)}
+            ariaLabel={social.label}
+            href={social.url}
+            id={social.id}
+            style={
+              {
+                '--brand-color': social.color,
+                '--brand-color-2': social.color2,
+                '--brand-color-3': social.color3,
+                '--brand-color-dark': social.darkColor ?? social.color,
+                '--brand-color-dark-2': social.darkColor2 ?? social.color2,
+                '--brand-color-dark-3': social.darkColor3 ?? social.color3,
+              } as CSSProperties
+            }
+          >
+            <svg
+              class="size-8"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              set:html={socialIconBodies[social.id]}
+            />
+          </SocialLinkButton>
+        ))}
+      </nav>
+    </section>
     <section
       id="explore"
-      class="ui-section-block animate-fade-in-up mx-auto w-full max-w-xl px-4 text-left delay-500 sm:px-6"
+      class="ui-section-block explore-section animate-fade-in-up text-left delay-500"
       aria-labelledby="explore-title"
     >
       <div class="ui-section-header">
@@ -409,20 +410,29 @@ const structuredData = {
         </h2>
         <p class="ui-body mx-auto mt-3 max-w-md text-sm">
           {videoSearch.enabled
-            ? 'Search for a person, business, or moment—or start with our most-viewed episodes.'
-            : 'Start with our most-viewed episodes.'}
+            ? 'Search for a person, business, or moment—or browse stories from across the United States.'
+            : 'Meet the people behind Arab-American businesses and communities across the United States.'}
         </p>
       </div>
+      <a
+        href={`${baseUrl}stories`}
+        class={buttonVariants({
+          variant: 'outline',
+          className: 'h-auto min-h-12 px-6 py-3 text-base',
+        })}
+      >
+        Browse stories
+        <Icon name="heroicons:arrow-right" class="size-5" aria-hidden="true" />
+      </a>
     </section>
 
-    <div class="desktop-explore-grid">
-      {videoSearch.enabled && <VideoSearch copy={videoSearch} client:idle />}
-
-      <FeaturedEpisodes />
-    </div>
+    {videoSearch.enabled && (
+      <div class="story-search-region">
+        <VideoSearch copy={videoSearch} client:idle />
+      </div>
+    )}
 
     <ContactCta
-      eyebrow="Be part of what’s next"
       title="Your story. Your brand. Our next stop."
       body="Introduce the people and work behind your business, or support a Ya Hala story through sponsorship. Tell us about your goals to start the conversation."
     />

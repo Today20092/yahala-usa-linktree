@@ -35,7 +35,7 @@ const mapPlaces = buildStoryMapPlaces(visitedPlaces.mapPlaces ?? [], stories)
       )}
     </div>
 
-    <div class="visited-places-frame overflow-hidden p-2.5 sm:p-3">
+    <div class="visited-places-frame p-2.5 sm:p-3">
       <StoryMapShell
         client:visible={{ rootMargin: '200px' }}
         places={mapPlaces}
@@ -46,11 +46,47 @@ const mapPlaces = buildStoryMapPlaces(visitedPlaces.mapPlaces ?? [], stories)
         pins count locations, not stories.
       </p>
 
-      <VisitedPlacesExplorer
-        client:visible={{ rootMargin: '200px' }}
-        stateGroups={stateGroups}
-      />
-      <StoryCoverage stories={stories} />
+      <div class="visited-places-support">
+        <VisitedPlacesExplorer
+          client:visible={{ rootMargin: '200px' }}
+          stateGroups={stateGroups}
+        />
+        <StoryCoverage stories={stories} />
+      </div>
     </div>
   </section>
 )}
+
+<style>
+  .visited-places-support {
+    display: grid;
+    gap: calc(var(--space-md) * 2);
+    margin-block-start: var(--space-lg);
+    padding-block-start: var(--space-lg);
+    border-block-start: var(--rule-hair) solid var(--color-rule);
+  }
+
+  .visited-places-support :global(.visited-state-picker),
+  .visited-places-support :global(.story-coverage) {
+    min-width: 0;
+    margin-block-start: 0;
+    padding-block-start: 0;
+    border-block-start: 0;
+  }
+
+  .visited-places-support :global(.visited-state-picker) {
+    display: block;
+  }
+
+  .visited-places-support :global(.visited-state-picker__control) {
+    margin-block-start: var(--space-md);
+  }
+
+  @media (min-width: 1024px) {
+    .visited-places-support {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: calc(var(--space-lg) * 2);
+      align-items: start;
+    }
+  }
+</style>
