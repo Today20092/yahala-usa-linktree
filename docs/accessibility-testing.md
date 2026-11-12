@@ -1,5 +1,29 @@
 # Accessibility checks for agents
 
+## State picker fallback — November 12, 2026
+
+The homepage state picker now serves a native GET form before hydration or when
+JavaScript is unavailable. It enhances to the existing searchable picker only
+if the visitor has not started using the form, preserving selection and focus.
+The view-statistics description-list correction is already present on `main`.
+
+The new no-JavaScript keyboard test failed on unchanged `main` because no native
+state select existed. After the fix, all six focused cases and the complete
+46-test mobile-light/desktop-dark browser gate passed. Delayed-script tests
+confirm that hydration keeps an active form's state and focus; normal loading
+retains searchable selection and explicit navigation. Lockfile installation,
+Astro check, accessibility lint, data/UI validation, branch-workflow checks,
+all CI regression scripts and production build/asset smoke checks also passed.
+Two existing unused-code hints and existing icon-directory/chunk-size build
+notices remain.
+
+Port 4337 belongs to another local app. An ignored `.cache` configuration copy
+ran the unchanged browser projects against an isolated Vite preview on 4345;
+the runner closed it after each run. Evidence is in `.cache/pr-rendered.log`,
+`.cache/pr-checks.log` and `.cache/artifacts/a11y-report/`.
+The extended six-project matrix, Lighthouse, real screen readers and physical
+devices were not run locally. No conformance or deployment claim is made.
+
 Target WCAG 2.2 AA and the usability/consistency checks in the shared `web-ui-accessibility` skill. This project uses complementary source checks, rendered browser checks, Astro Audit, and guided manual review. The skill's automation reference is maintained through Rulesync; project commands and evidence stay here.
 
 ## First setup
