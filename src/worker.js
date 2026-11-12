@@ -75,6 +75,14 @@ export default {
       return Response.redirect(url.toString(), 301)
     }
 
+    if (
+      ['/api/testimonials', '/api/testimonials/review'].includes(url.pathname)
+    ) {
+      return createTestimonials(env, {
+        to: String(parse(siteYaml)?.partnership?.email ?? '').trim(),
+      })(request)
+    }
+
     if (url.pathname === partnershipPath) {
       return createPartnership(env, {
         to: String(parse(siteYaml)?.partnership?.email ?? '').trim(),
@@ -124,4 +132,5 @@ import { parse } from 'yaml'
 import siteYaml from './data/site.yaml'
 import { partnershipPath } from './lib/partnership.ts'
 import { createPartnership } from './worker/partnership.js'
+import { createTestimonials } from './worker/testimonials.js'
 import { createVideoSearch } from './worker/video-search.js'

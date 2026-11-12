@@ -13,6 +13,7 @@ import BrandMarquee from '../components/BrandMarquee.astro'
 import LatestChannelVideo from '../components/LatestChannelVideo.astro'
 import QrCodeButton from '../components/QrCodeButton.astro'
 import SiteFooter from '../components/SiteFooter.astro'
+import Testimonials from '../components/Testimonials'
 import ContactCta from '../components/ContactCta.astro'
 import ReachBadge from '../components/ReachBadge.astro'
 import VideoSearch from '../components/VideoSearch'
@@ -432,6 +433,7 @@ const structuredData = {
       </div>
     )}
 
+    <Testimonials client:load />
     <ContactCta
       title="Your story. Your brand. Our next stop."
       body="Introduce the people and work behind your business, or support a Ya Hala story through sponsorship. Tell us about your goals to start the conversation."

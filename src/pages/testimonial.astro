@@ -1,0 +1,57 @@
+---
+import { SEO } from 'astro-seo'
+import TestimonialForm from '../components/TestimonialForm'
+import '../components/partnership.css'
+import SiteFooter from '../components/SiteFooter.astro'
+import BrandedPageDocument from '../layouts/BrandedPageDocument.astro'
+import { getBaseUrl, siteConfig } from '../lib/site-config'
+const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
+---
+
+<BrandedPageDocument bodyClass="min-h-screen text-lg text-foreground">
+  <Fragment slot="head">
+    <SEO
+      title="Share your experience | Ya Hala"
+      description="Tell us about your experience working with Ya Hala. شاركنا تجربتك مع ياهلا."
+      canonical={new URL(`${baseUrl}testimonial`, Astro.site).toString()}
+      noindex
+    />
+  </Fragment>
+  <main
+    id="main-content"
+    tabindex="-1"
+    class="partnership-section mx-auto w-full px-4 py-10 sm:px-6 sm:py-14"
+  >
+    <a
+      href={baseUrl}
+      class="ui-body inline-flex min-h-11 items-center underline underline-offset-4"
+    >
+      Back to Ya Hala /{' '}
+      <span lang="ar" dir="rtl">
+        العودة إلى ياهلا
+      </span>
+    </a>
+    <h1 class="ui-page-title mt-5">Your experience, in your words.</h1>
+    <p class="ui-section-title mt-3" lang="ar" dir="rtl">
+      تجربتك، بكلماتك.
+    </p>
+    <p class="ui-body mt-5">
+      Thank you for working with Ya Hala. Tell us what the experience meant for
+      you or your business.
+    </p>
+    <p class="ui-body mt-3 mb-8" lang="ar" dir="rtl">
+      شكرًا لتعاونك مع ياهلا. شاركنا أثر هذه التجربة عليك أو على عملك.
+    </p>
+    <TestimonialForm
+      turnstileSiteKey={siteConfig.partnership.turnstileSiteKey ?? ''}
+      client:load
+    />
+    <noscript>
+      <p class="ui-body">
+        Please enable JavaScript to send your testimonial. / يرجى تفعيل
+        JavaScript لإرسال شهادتك.
+      </p>
+    </noscript>
+  </main>
+  <SiteFooter />
+</BrandedPageDocument>
