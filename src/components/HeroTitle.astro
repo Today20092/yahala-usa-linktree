@@ -1,0 +1,28 @@
+---
+import TextReveal from './TextReveal.astro'
+import VariableFontCursorProximity from './VariableFontCursorProximity.astro'
+
+type Props = { text: string }
+const { text } = Astro.props
+---
+
+<span class="hero-title-touch">
+  <TextReveal text={text} preset="generate" />
+</span>
+<span class="hero-title-cursor">
+  <VariableFontCursorProximity text={text} />
+</span>
+
+<style>
+  .hero-title-cursor {
+    display: none;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .hero-title-touch {
+      display: none;
+    }
+    .hero-title-cursor {
+      display: inline;
+    }
+  }
+</style>

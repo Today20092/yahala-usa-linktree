@@ -1,0 +1,101 @@
+---
+// Adapted from https://ui.cnippet.dev/r/variable-font-cursor-proximity.json.
+type Props = { text: string }
+const { text } = Astro.props
+---
+
+<span data-font-proximity>
+  <span class="sr-only">{text}</span>
+  <span aria-hidden="true">
+    {text.split(/(\s+)/u).map((word) =>
+      word.trim() ? (
+        <span class="proximity-word">
+          {Array.from(word).map((letter) => (
+            <span class="proximity-letter" data-letter={letter}>
+              <span>{letter}</span>
+            </span>
+          ))}
+        </span>
+      ) : (
+        word
+      ),
+    )}
+  </span>
+</span>
+
+<script>
+  const enabled = matchMedia(
+    '(prefers-reduced-motion: no-preference) and (any-hover: hover) and (any-pointer: fine)',
+  )
+  document
+    .querySelectorAll<HTMLElement>('[data-font-proximity]')
+    .forEach((text) => {
+      const container = text.closest<HTMLElement>('.hero-intro') ?? text
+      const letters = Array.from(
+        text.querySelectorAll<HTMLElement>('[data-letter]'),
+      )
+      let frame = 0
+      const reset = () => {
+        cancelAnimationFrame(frame)
+        letters.forEach((letter) =>
+          letter.style.removeProperty('--proximity-weight'),
+        )
+      }
+      container.addEventListener('pointermove', (event) => {
+        if (
+          !enabled.matches ||
+          event.pointerType !== 'mouse' ||
+          text.closest('[data-motion-paused]')
+        )
+          return
+        cancelAnimationFrame(frame)
+        frame = requestAnimationFrame(() => {
+          // Read all positions before changing weights to avoid repeated layout work.
+          const weights = letters.map((letter) => {
+            const rect = letter.getBoundingClientRect()
+            const distance = Math.hypot(
+              event.clientX - rect.left - rect.width / 2,
+              event.clientY - rect.top - rect.height / 2,
+            )
+            return 200 + 600 * Math.max(0, 1 - distance / 80)
+          })
+          letters.forEach((letter, index) =>
+            letter.style.setProperty(
+              '--proximity-weight',
+              String(weights[index]),
+            ),
+          )
+        })
+      })
+      container.addEventListener('pointerleave', reset)
+      container.addEventListener('pointercancel', reset)
+      enabled.addEventListener('change', reset)
+    })
+</script>
+
+<style>
+  .proximity-word {
+    display: inline-block;
+  }
+  .proximity-letter {
+    display: inline-grid;
+  }
+  .proximity-letter > span,
+  .proximity-letter::after {
+    grid-area: 1 / 1;
+  }
+  /* Reserve the widest weight so cursor movement never reflows the heading. */
+  .proximity-letter::after {
+    content: attr(data-letter);
+    font-variation-settings: 'wght' 800;
+    visibility: hidden;
+  }
+  @media (prefers-reduced-motion: no-preference) and (any-hover: hover) and (any-pointer: fine) {
+    .proximity-letter > span {
+      font-variation-settings: 'wght' var(--proximity-weight, 200);
+    }
+    :global([data-motion-paused]) .proximity-letter > span {
+      font-variation-settings: normal;
+    }
+  }
+</style>

@@ -8,6 +8,7 @@ import './index.css'
 
 import FeaturedEpisodes from '../components/FeaturedEpisodes.astro'
 import TextReveal from '../components/TextReveal.astro'
+import HeroTitle from '../components/HeroTitle.astro'
 import { buttonVariants } from '../components/ui/button'
 import BrandMarquee from '../components/BrandMarquee.astro'
 import LatestChannelVideo from '../components/LatestChannelVideo.astro'
@@ -248,7 +249,7 @@ const structuredData = {
         </h1>
         <section class="hero-intro" aria-labelledby="intro-title">
           <h2 id="intro-title" class="ui-page-title mx-auto">
-            <TextReveal text="Arab-American stories, coast to coast." preset="generate" />
+            <HeroTitle text="Arab-American stories, coast to coast." />
           </h2>
           <p class="ui-body mx-auto mt-4 max-w-prose sm:text-[1.05rem]">
             Meet the people behind Arab-American businesses and communities
