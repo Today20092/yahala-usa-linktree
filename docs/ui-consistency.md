@@ -6,7 +6,8 @@ This site uses a single visual system for repeated UI.
 
 - Repeated UI must use shared primitives, shared tokens, or shared utilities.
 - Do not invent new button, badge, chip, card, or media-overlay treatments in page components.
-- Do not use one-off hex colors, ad hoc shadow stacks, or custom radii when a token or shared class exists.
+- Colors come from semantic tokens; [the design system](design-system.md) maps each use to its token, lists the forbidden raw colors and the `ui-color-allow` exception marker.
+- Do not use ad hoc shadow stacks or custom radii when a token or shared class exists.
 - If a pattern needs a special brand treatment, isolate it in a shared component first, then reuse that component everywhere.
 - Light and dark mode should be visually equivalent, not two unrelated implementations.
 
@@ -40,4 +41,4 @@ After UI changes, apply the `web-ui-accessibility` skill to the changed routes, 
 
 Use automated browser accessibility scans and focused regression assertions when available. Treat scanner passes as bounded evidence, and review incomplete results. Automated checks do not replace the skill’s manual usability and accessibility checks.
 
-Run `npm run validate:ui` before merge. It catches the highest-risk drift patterns, especially raw play/media icons and accidental one-off surface styling in page components.
+Run `npm run validate:ui` before merge. It catches the highest-risk drift patterns, especially raw colors anywhere in `src/`, raw play/media icons and one-off surface styling.
