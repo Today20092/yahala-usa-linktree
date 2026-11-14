@@ -3,6 +3,8 @@ import { SEO } from 'astro-seo'
 import TestimonialReview from '../../components/TestimonialReview'
 import '../../components/partnership.css'
 import BrandedPageDocument from '../../layouts/BrandedPageDocument.astro'
+import Container from '../../components/layout/Container.astro'
+import SiteFooter from '../../components/SiteFooter.astro'
 ---
 
 <BrandedPageDocument bodyClass="min-h-screen text-lg text-foreground">
@@ -15,15 +17,18 @@ import BrandedPageDocument from '../../layouts/BrandedPageDocument.astro'
     />
     <meta name="referrer" content="no-referrer" />
   </Fragment>
-  <main
+  <Container
+    as="main"
+    size="narrow"
     id="main-content"
     tabindex="-1"
-    class="partnership-section mx-auto w-full px-4 py-12 sm:px-6"
+    class="partnership-section py-12"
   >
     <h1 class="ui-page-title mb-8">Review testimonial</h1>
     <TestimonialReview client:load />
     <noscript>
       <p>Enable JavaScript to review this testimonial.</p>
     </noscript>
-  </main>
+  </Container>
+  <SiteFooter />
 </BrandedPageDocument>

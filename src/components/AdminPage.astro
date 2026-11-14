@@ -1,6 +1,10 @@
 ---
 import { SEO } from 'astro-seo'
 import BrandedPageDocument from '../layouts/BrandedPageDocument.astro'
+import Cluster from './layout/Cluster.astro'
+import Container from './layout/Container.astro'
+import PageHeader from './layout/PageHeader.astro'
+import SiteFooter from './SiteFooter.astro'
 import { buttonVariants } from './ui/button'
 import './partnership.css'
 
@@ -27,13 +31,15 @@ const sections = [
     />
     <meta name="referrer" content="no-referrer" />
   </Fragment>
-  <main
+  <Container
+    as="main"
     id="main-content"
     tabindex="-1"
-    class="partnership-section mx-auto flex w-full flex-col gap-8 px-4 py-10 sm:px-6 sm:py-14"
+    size="wide"
+    class="partnership-section flex flex-col gap-8 py-10 sm:py-14"
   >
-    <header class="flex flex-col gap-3">
-      <nav aria-label="Admin sections" class="flex flex-wrap gap-2">
+    <div class="flex flex-col gap-3">
+      <Cluster as="nav" aria-label="Admin sections" gap={2}>
         {sections.map(({ href, label }) => (
           <a
             href={href}
@@ -46,14 +52,18 @@ const sections = [
             {label}
           </a>
         ))}
-      </nav>
-      <p class="ui-kicker-accent">Admin</p>
-      <h1 class="ui-page-title">{title}</h1>
-      <p class="ui-body text-muted-foreground max-w-prose">{description}</p>
-    </header>
+      </Cluster>
+      <PageHeader eyebrow="Admin">
+        <Fragment slot="title">{title}</Fragment>
+        <p slot="description" class="max-w-prose">
+          {description}
+        </p>
+      </PageHeader>
+    </div>
     <slot />
     <noscript>
       <p>Enable JavaScript to use this page.</p>
     </noscript>
-  </main>
+  </Container>
+  <SiteFooter />
 </BrandedPageDocument>

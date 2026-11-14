@@ -1,6 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components'
 import { buttonVariants } from './ui/button'
+import Container from './layout/Container.astro'
 import { getBaseUrl, siteConfig } from '../lib/site-config'
 import './partnership.css'
 
@@ -16,13 +17,17 @@ const titleId = `${id}-title`
 const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
 ---
 
-<section
+<Container
+  as="section"
+  size="content"
   id={id}
-  class="ui-section-block partnership-section mx-auto mt-12 w-full px-4 text-left sm:px-6"
+  class="ui-section-block partnership-section mt-12 text-left"
   aria-labelledby={titleId}
 >
   {eyebrow && <p class="ui-kicker-accent">{eyebrow}</p>}
-  <h2 id={titleId} class="ui-section-title mt-3">{title}</h2>
+  <h2 id={titleId} class="ui-section-title mt-3">
+    {title}
+  </h2>
   <p class="ui-body mt-4 max-w-prose">{body}</p>
   <a
     href={`${baseUrl}contact`}
@@ -34,4 +39,4 @@ const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
     {siteConfig.about.partnerCtaLabel}
     <Icon name="heroicons:arrow-right" class="size-5" aria-hidden="true" />
   </a>
-</section>
+</Container>

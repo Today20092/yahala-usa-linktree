@@ -24,6 +24,8 @@ import VisitedPlacesMap from '../components/VisitedPlacesMap.astro'
 import heroCover from '../assets/yahala-hero-cover.png'
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
 import BrandedPageDocument from '../layouts/BrandedPageDocument.astro'
+import Container from '../components/layout/Container.astro'
+import Stack from '../components/layout/Stack.astro'
 import { resolveVisitedPlaces } from '../lib/visited-places'
 import {
   getBaseUrl,
@@ -205,10 +207,11 @@ const structuredData = {
       set:html={JSON.stringify(structuredData)}
     />
   </Fragment>
-  <main
+  <Container
+    as="main"
     id="main-content"
     tabindex="-1"
-    class="linktree-shell mx-auto flex w-full flex-col pb-6"
+    class="linktree-shell flex flex-col pb-6"
   >
     <p data-share-status role="status" aria-atomic="true" class="ui-meta"></p>
     <div class="desktop-hero-layout">
@@ -327,7 +330,7 @@ const structuredData = {
             Start with the latest episode, then explore more from the community.
           </p>
         </div>
-        <div class="flex flex-col gap-4">
+        <Stack gap={4}>
           {latestVideoChannels.map((channel) => (
             <LatestChannelVideo
               channelName={channel.name}
@@ -356,7 +359,7 @@ const structuredData = {
               video={latestVideoByChannel[channel.id]}
             />
           ))}
-        </div>
+        </Stack>
       </section>
 
       <FeaturedEpisodes />
@@ -439,99 +442,11 @@ const structuredData = {
       title="Your story. Your brand. Our next stop."
       body="Introduce the people and work behind your business, or support a Ya Hala story through sponsorship. Tell us about your goals to start the conversation."
     />
-  </main>
+  </Container>
 
   <SiteFooter>
     <QrCodeButton />
   </SiteFooter>
-
-  <script>
-    ;(() => {
-      if (document.documentElement.hasAttribute('data-design-preview')) return
-
-      const preferences = ['system', 'light', 'dark'] as const
-      type ThemePreference = (typeof preferences)[number]
-      const isThemePreference = (
-        value: string | null | undefined,
-      ): value is ThemePreference =>
-        preferences.includes(value as ThemePreference)
-      const lightThemeColor = '#ffffff'
-      const darkThemeColor = '#1c1917'
-      const systemQuery = window.matchMedia('(prefers-color-scheme: dark)')
-      const buttons = [
-        ...document.querySelectorAll<HTMLElement>('[data-theme-option]'),
-      ]
-      const hasThemeControls = buttons.length > 0
-
-      const getStoredTheme = () => {
-        if (!hasThemeControls) return null
-
-        try {
-          return localStorage.getItem('theme')
-        } catch {
-          return null
-        }
-      }
-
-      const setStoredTheme = (theme: ThemePreference) => {
-        try {
-          if (theme === 'system') localStorage.removeItem('theme')
-          else localStorage.setItem('theme', theme)
-        } catch {}
-      }
-
-      const getPreference = (): ThemePreference => {
-        const storedTheme = getStoredTheme()
-        return isThemePreference(storedTheme) ? storedTheme : 'system'
-      }
-
-      const resolveTheme = (preference: ThemePreference) =>
-        preference === 'system'
-          ? systemQuery.matches
-            ? 'dark'
-            : 'light'
-          : preference
-
-      const applyTheme = (preference: ThemePreference = 'system') => {
-        const theme = resolveTheme(preference)
-
-        document.documentElement.classList.toggle('dark', theme === 'dark')
-        document.documentElement.style.colorScheme = theme
-
-        document
-          .querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')
-          .forEach((meta) => {
-            meta.content = theme === 'dark' ? darkThemeColor : lightThemeColor
-            meta.media = ''
-          })
-
-        buttons.forEach((button) => {
-          button.setAttribute(
-            'aria-pressed',
-            String(button.dataset.themeOption === preference),
-          )
-        })
-      }
-
-      buttons.forEach((button) => {
-        button.addEventListener('click', () => {
-          const preference = button.dataset.themeOption
-          if (!isThemePreference(preference)) return
-
-          setStoredTheme(preference)
-          applyTheme(preference)
-        })
-      })
-
-      const handleSystemChange = () => {
-        if (getPreference() === 'system') applyTheme('system')
-      }
-
-      if (hasThemeControls)
-        systemQuery.addEventListener('change', handleSystemChange)
-      applyTheme(hasThemeControls ? getPreference() : 'light')
-    })()
-  </script>
 
   <script>
     ;(() => {

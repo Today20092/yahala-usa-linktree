@@ -1,0 +1,14 @@
+---
+import type { HTMLAttributes, HTMLTag } from 'astro/types'
+import { cn } from '../../lib/utils'
+import { gaps, type Gap } from './gap'
+
+// Wrapping inline group. Alignment stays opt-in (items-center, justify-between) via class.
+type Props = HTMLAttributes<'div'> & { as?: HTMLTag; gap?: Gap }
+
+const { as: Tag = 'div', gap = 3, class: className, ...rest } = Astro.props
+---
+
+<Tag class={cn('flex flex-wrap', gaps[gap], className)} {...rest}>
+  <slot />
+</Tag>

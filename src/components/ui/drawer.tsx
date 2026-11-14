@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { Drawer as DrawerPrimitive } from "vaul"
+import * as React from 'react'
+import { Drawer as DrawerPrimitive } from 'vaul'
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils'
 
 function Drawer({
   shouldScaleBackground = true,
@@ -44,8 +44,8 @@ function DrawerOverlay({
     <DrawerPrimitive.Overlay
       data-slot="drawer-overlay"
       className={cn(
-        "fixed inset-0 z-50 bg-black/40 backdrop-blur-[1px]",
-        className
+        'bg-scrim/40 fixed inset-0 z-50 backdrop-blur-[1px]',
+        className,
       )}
       {...props}
     />
@@ -63,33 +63,33 @@ function DrawerContent({
       <DrawerPrimitive.Content
         data-slot="drawer-content"
         className={cn(
-          "fixed inset-x-0 bottom-0 z-50 mx-auto flex max-h-[86dvh] max-w-xl flex-col rounded-t-2xl border border-border bg-background text-foreground shadow-[0_-18px_48px_rgb(15_23_42_/_0.18)] outline-none dark:bg-card dark:shadow-[0_-22px_54px_oklch(0_0_0_/_0.45)]",
-          className
+          'border-border bg-popover text-popover-foreground fixed inset-x-0 bottom-0 z-50 mx-auto flex max-h-[86dvh] max-w-xl flex-col rounded-t-2xl border shadow-(--shadow-overlay) outline-none',
+          className,
         )}
         {...props}
       >
-        <div className="mx-auto mt-3 h-1.5 w-10 rounded-full bg-muted-foreground/30" />
+        <div className="bg-muted-foreground/30 mx-auto mt-3 h-1.5 w-10 rounded-full" />
         {children}
       </DrawerPrimitive.Content>
     </DrawerPortal>
   )
 }
 
-function DrawerHeader({ className, ...props }: React.ComponentProps<"div">) {
+function DrawerHeader({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="drawer-header"
-      className={cn("grid gap-1.5 px-5 pt-5 pb-3 text-left", className)}
+      className={cn('grid gap-1.5 px-5 pt-5 pb-3 text-left', className)}
       {...props}
     />
   )
 }
 
-function DrawerFooter({ className, ...props }: React.ComponentProps<"div">) {
+function DrawerFooter({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="drawer-footer"
-      className={cn("mt-auto flex flex-col gap-2 px-5 pt-3 pb-5", className)}
+      className={cn('mt-auto flex flex-col gap-2 px-5 pt-3 pb-5', className)}
       {...props}
     />
   )
@@ -102,7 +102,7 @@ function DrawerTitle({
   return (
     <DrawerPrimitive.Title
       data-slot="drawer-title"
-      className={cn("text-lg leading-tight font-bold", className)}
+      className={cn('text-lg leading-tight font-bold', className)}
       {...props}
     />
   )
@@ -115,7 +115,7 @@ function DrawerDescription({
   return (
     <DrawerPrimitive.Description
       data-slot="drawer-description"
-      className={cn("text-sm text-muted-foreground", className)}
+      className={cn('text-muted-foreground text-sm', className)}
       {...props}
     />
   )

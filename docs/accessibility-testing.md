@@ -1,5 +1,19 @@
 # Accessibility checks for agents
 
+## Real dark theme — November 14, 2026
+
+Earlier `*-dark` runs emulated `prefers-color-scheme` while the layout forced
+light, so they tested the light theme. Every axe scan now first asserts that
+`<html>` carries the project's theme class and that the body background is dark
+or light accordingly (`tests/accessibility/theme.ts`). Removing the boot
+script's `dark` toggle from built `/about` makes `desktop-dark` fail. A new test
+covers the stored preference before first paint, the footer System/Light/Dark
+control by keyboard, persistence across routes, `color-scheme`, `theme-color`
+and live system changes. `npm run test:atlas-polish` checks every primitive
+token pair in both themes. The full six-project matrix (150 tests), lint,
+Astro check, UI validation, build and preview smoke passed. The CSP nonce on
+the inline boot script was not verified on the preview Worker.
+
 ## State picker fallback — November 12, 2026
 
 The homepage state picker now serves a native GET form before hydration or when

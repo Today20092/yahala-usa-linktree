@@ -6,7 +6,8 @@ This site uses a single visual system for repeated UI.
 
 - Repeated UI must use shared primitives, shared tokens, or shared utilities.
 - Do not invent new button, badge, chip, card, or media-overlay treatments in page components.
-- Do not use one-off hex colors, ad hoc shadow stacks, or custom radii when a token or shared class exists.
+- Colors come from semantic tokens; [the design system](design-system.md) maps each use to its token, lists the forbidden raw colors and the `ui-color-allow` exception marker.
+- Do not use ad hoc shadow stacks or custom radii when a token or shared class exists.
 - If a pattern needs a special brand treatment, isolate it in a shared component first, then reuse that component everywhere.
 - Light and dark mode should be visually equivalent, not two unrelated implementations.
 
@@ -16,7 +17,21 @@ This site uses a single visual system for repeated UI.
 
 - `BrandedPageDocument` renders `EditorialHeader` once on every public route. Keep primary navigation labels and order in `LandingNavigation`; section links return to Home from other routes. The mobile header hides on deliberate downward scrolling and returns on upward scrolling or keyboard focus. Desktop and reduced-motion navigation stay visible.
 
-- The homepage and shared header use a 76rem outer shell with 20–32px responsive gutters, yielding a 72rem desktop content grid. Keep homepage sections aligned to that grid; constrain prose inside sections. Latest and most-viewed stories share two desktop columns, followed by a separate social-link row. Stack these groups in DOM order on phones. Map controls and catalog coverage share a supporting desktop row beneath the map.
+- The homepage and shared header use a 76rem outer shell with 20–32px responsive gutters, yielding a 72rem desktop content grid (`Container size="page"`). Keep homepage sections aligned to that grid; constrain prose inside sections. Latest and most-viewed stories share two desktop columns, followed by a separate social-link row. Stack these groups in DOM order on phones. Map controls and catalog coverage share a supporting desktop row beneath the map.
+
+## Layout primitives
+
+Pages compose `src/components/layout/` instead of hand-rolling width, gutter or gap wrappers. Do not write `mx-auto max-w-* px-*` page wrappers, `max-w-7xl` or `max-w-[76rem]` outside these components; `npm run validate:ui` flags the last two.
+
+- `Container` — centered width plus side gutters. `size`: `page` (default, 76rem shell, homepage), `wide` (80rem, About and Story Browser), `content` (72rem standalone block, contact CTA), `narrow` (48rem form column: contact, testimonial). `as` sets the element, e.g. `as="main"`.
+- `Section` — a `Container` rendered as `<section>` with the default vertical rhythm (`py-12 lg:py-16`). Pass `headingId` to set `aria-labelledby`; put the heading in the `heading` slot or the body.
+- `PageHeader` — the page's single `h1` (`title` slot) with optional `eyebrow` (prop or slot), `description` and `actions` slots.
+- `Stack` — vertical flow; `gap` takes a Tailwind spacing step (0, 1, 2, 3, 4, 6, 8, 12).
+- `Cluster` — wrapping horizontal group (buttons, tags) with the same `gap` scale; alignment stays opt-in through `class`.
+
+Extra classes passed through `class` merge with `cn()`, so a page overrides one value (e.g. `py-10`) without restating the wrapper. Add a size or variant only when a real page needs it. Keep `partnership-section` on contact/testimonial roots: `tokens.css` scopes the Atlas token values to it.
+
+## Components
 
 - `Button` for action buttons.
 - `Badge` for small status labels.
@@ -40,4 +55,4 @@ After UI changes, apply the `web-ui-accessibility` skill to the changed routes, 
 
 Use automated browser accessibility scans and focused regression assertions when available. Treat scanner passes as bounded evidence, and review incomplete results. Automated checks do not replace the skill’s manual usability and accessibility checks.
 
-Run `npm run validate:ui` before merge. It catches the highest-risk drift patterns, especially raw play/media icons and accidental one-off surface styling in page components.
+Run `npm run validate:ui` before merge. It catches the highest-risk drift patterns, especially raw colors anywhere in `src/`, raw play/media icons and one-off surface styling.

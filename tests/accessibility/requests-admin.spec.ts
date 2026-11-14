@@ -96,7 +96,7 @@ test('admin works through saved contact requests', async ({ page }) => {
   })
 
   await page.getByRole('tab', { name: /Replied/ }).click()
-  const panel = page.getByRole('tabpanel')
+  const panel = page.getByRole('tabpanel', { name: /Replied/ })
   await panel.getByRole('button', { name: 'Read full message' }).click()
   await panel.getByRole('button', { name: 'Archive' }).click()
   await expect(
@@ -109,7 +109,9 @@ test('admin works through saved contact requests', async ({ page }) => {
   })
 
   await page.getByRole('tab', { name: /Archived/ }).click()
-  await expect(page.getByRole('tabpanel')).toContainText('Deletes')
+  await expect(page.getByRole('tabpanel', { name: /Archived/ })).toContainText(
+    'Deletes',
+  )
   await page
     .getByRole('button', { name: 'More actions for يوسف تجريبي' })
     .click()

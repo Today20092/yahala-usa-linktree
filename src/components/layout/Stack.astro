@@ -1,0 +1,13 @@
+---
+import type { HTMLAttributes, HTMLTag } from 'astro/types'
+import { cn } from '../../lib/utils'
+import { gaps, type Gap } from './gap'
+
+type Props = HTMLAttributes<'div'> & { as?: HTMLTag; gap?: Gap }
+
+const { as: Tag = 'div', gap = 4, class: className, ...rest } = Astro.props
+---
+
+<Tag class={cn('flex flex-col', gaps[gap], className)} {...rest}>
+  <slot />
+</Tag>

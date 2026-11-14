@@ -46,7 +46,7 @@ export default function SocialLinkButton({
       )}
     >
       <span className="flex w-full items-center">
-        <span className="social-icon-tile grid size-10 shrink-0 place-items-center rounded-xl text-white [&_svg]:size-5">
+        <span className="social-icon-tile text-scrim-foreground grid size-10 shrink-0 place-items-center rounded-xl [&_svg]:size-5">
           {children}
         </span>
         <span className="min-w-0 flex-1 pl-3 text-left leading-none font-medium whitespace-nowrap">
