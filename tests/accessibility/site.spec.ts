@@ -3,6 +3,7 @@ import { expect, test, type Page, type Locator } from '@playwright/test'
 import storySnapshot from '../../src/data/story-view-snapshot.json' with { type: 'json' }
 import { readFileSync } from 'node:fs'
 import { parse } from 'yaml'
+import { expectProjectTheme } from './theme'
 
 // Keep verification and delivery deterministic; no real inquiry leaves the test.
 test.beforeEach(async ({ page }) => {
@@ -25,6 +26,7 @@ test.beforeEach(async ({ page }) => {
 })
 
 async function scan(page: Page, selector?: string) {
+  await expectProjectTheme(page)
   const builder = new AxeBuilder({ page }).withTags([
     'wcag2a',
     'wcag2aa',
@@ -191,6 +193,53 @@ for (const route of ['/', '/about', '/stories', '/contact']) {
     }
   })
 }
+
+test('stored theme applies before first paint and the footer control switches it', async ({
+  page,
+}) => {
+  await page.emulateMedia({ colorScheme: 'light' })
+  await page.addInitScript(() => {
+    if (!sessionStorage.getItem('seeded')) {
+      sessionStorage.setItem('seeded', '1')
+      localStorage.setItem('theme', 'dark')
+    }
+    new MutationObserver((_, observer) => {
+      if (!document.body) return
+      ;(window as Window & { darkAtBody?: boolean }).darkAtBody =
+        document.documentElement.classList.contains('dark')
+      observer.disconnect()
+    }).observe(document, { childList: true, subtree: true })
+  })
+  await page.goto('/about')
+  expect(
+    await page.evaluate(
+      () => (window as Window & { darkAtBody?: boolean }).darkAtBody,
+    ),
+  ).toBe(true)
+  await expect(page.locator('html')).toHaveCSS('color-scheme', 'dark')
+
+  const group = page.getByRole('group', { name: 'Theme' })
+  const option = (name: string) => group.getByRole('button', { name })
+  await expect(option('Dark')).toHaveAttribute('aria-pressed', 'true')
+  await option('Light').focus()
+  await page.keyboard.press('Enter')
+  await expect(page.locator('html')).not.toHaveClass(/(^|\s)dark(\s|$)/)
+  await expect(page.locator('html')).toHaveCSS('color-scheme', 'light')
+  await expect(option('Light')).toHaveAttribute('aria-pressed', 'true')
+  expect(await page.evaluate(() => localStorage.getItem('theme'))).toBe('light')
+  await expect(
+    page.locator('meta[name="theme-color"]').first(),
+  ).toHaveAttribute('content', '#f8f8fc')
+
+  await page.goto('/stories')
+  await expect(page.locator('html')).toHaveClass(/(^|\s)light(\s|$)/)
+  await page.emulateMedia({ colorScheme: 'dark' })
+  await option('System').click()
+  await expect(page.locator('html')).toHaveClass(/(^|\s)dark(\s|$)/)
+  expect(await page.evaluate(() => localStorage.getItem('theme'))).toBeNull()
+  await page.emulateMedia({ colorScheme: 'light' })
+  await expect(page.locator('html')).toHaveClass(/(^|\s)light(\s|$)/)
+})
 
 test('contact validation, keyboard choices, failure recovery and sending', async ({
   page,
