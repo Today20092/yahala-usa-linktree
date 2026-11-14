@@ -1,0 +1,12 @@
+---
+import AdminPage from '../components/AdminPage.astro'
+import TestimonialAdmin from '../components/TestimonialAdmin'
+---
+
+<AdminPage
+  title="Testimonials"
+  description="Publish, hide or delete client testimonials. Published quotes appear in the homepage carousel right away."
+  current="/admin"
+>
+  <TestimonialAdmin client:load />
+</AdminPage>

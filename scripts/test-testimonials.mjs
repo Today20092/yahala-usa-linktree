@@ -226,6 +226,132 @@ try {
     hostname: 'test.example',
     action: 'testimonial',
   }
+
+  // Admin moderation requires a signed Cloudflare Access assertion.
+  const issuer = 'https://team.example.cloudflareaccess.com'
+  Object.assign(env, { ACCESS_TEAM_DOMAIN: `${issuer}/`, ACCESS_AUD: 'aud' })
+  const rsa = {
+    name: 'RSASSA-PKCS1-v1_5',
+    modulusLength: 2048,
+    publicExponent: new Uint8Array([1, 0, 1]),
+    hash: 'SHA-256',
+  }
+  const keys = await crypto.subtle.generateKey(rsa, true, ['sign', 'verify'])
+  const stranger = await crypto.subtle.generateKey(rsa, true, ['sign'])
+  const jwk = {
+    ...(await crypto.subtle.exportKey('jwk', keys.publicKey)),
+    kid: 'k1',
+  }
+  const b64 = (value) =>
+    Buffer.from(JSON.stringify(value)).toString('base64url')
+  const sign = async (claims = {}, key = keys.privateKey) => {
+    const body = `${b64({ alg: 'RS256', kid: 'k1' })}.${b64({
+      iss: issuer,
+      aud: ['aud'],
+      email: 'admin@example.com',
+      exp: Date.now() / 1000 + 60,
+      ...claims,
+    })}`
+    const signature = await crypto.subtle.sign(
+      rsa,
+      key,
+      new TextEncoder().encode(body),
+    )
+    return `${body}.${Buffer.from(signature).toString('base64url')}`
+  }
+  globalThis.fetch = async (url) =>
+    Response.json(
+      String(url) === `${issuer}/cdn-cgi/access/certs`
+        ? { keys: [jwk] }
+        : verification,
+    )
+  const admin = (token, body, headers = {}) =>
+    handler(
+      new Request(origin + '/api/admin/testimonials', {
+        method: body ? 'POST' : 'GET',
+        headers: {
+          Origin: origin,
+          'Content-Type': 'application/json',
+          ...(token && { 'Cf-Access-Jwt-Assertion': token }),
+          ...headers,
+        },
+        body: body && JSON.stringify(body),
+      }),
+    )
+  const valid = await sign()
+  const [head, claims, sig] = valid.split('.')
+  for (const token of [
+    '',
+    await sign({ aud: ['other'] }),
+    await sign({ iss: 'https://evil.example' }),
+    await sign({ exp: Date.now() / 1000 - 1 }),
+    await sign({}, stranger.privateKey),
+    `${head}.${b64({ ...JSON.parse(Buffer.from(claims, 'base64url')), email: 'x' })}.${sig}`,
+  ])
+    assert.equal((await admin(token)).status, 401)
+  const listed = await (await admin(valid)).json()
+  assert.equal(listed.reviewer, 'admin@example.com')
+  assert.equal(listed.testimonials.length, 3)
+  assert.deepEqual(listed.testimonials.map((t) => t.status).sort(), [
+    'approved',
+    'pending',
+    'rejected',
+  ])
+  assert.equal(
+    (await admin(valid, { id: expired.id, action: 'approved' })).status,
+    200,
+    'admins can publish a pending quote after its email link expires',
+  )
+  assert.equal((await list()).length, 2)
+  assert.equal(
+    db
+      .prepare('SELECT review_hash FROM testimonials WHERE id = ?')
+      .get(expired.id).review_hash,
+    null,
+  )
+  assert.equal(
+    (await admin(valid, { id: first.id, action: 'rejected' })).status,
+    200,
+  )
+  assert.deepEqual(
+    (await list()).map((t) => t.id),
+    [expired.id],
+    'hidden quotes leave the site',
+  )
+  assert.equal(
+    (await admin(valid, { id: first.id, action: 'approved' })).status,
+    200,
+  )
+  assert.equal((await list()).length, 2, 'hidden quotes can be republished')
+  assert.equal(
+    (
+      await admin(
+        valid,
+        { id: first.id, action: 'rejected' },
+        { Origin: 'https://other.example' },
+      )
+    ).status,
+    403,
+  )
+  assert.equal(
+    (await admin(valid, { id: first.id, action: 'pending' })).status,
+    400,
+  )
+  assert.equal(
+    (await admin(valid, { id: crypto.randomUUID(), action: 'delete' })).status,
+    404,
+  )
+  assert.equal(
+    (await admin(valid, { id: second.id, action: 'delete' })).status,
+    200,
+  )
+  assert.equal(
+    db.prepare('SELECT id FROM testimonials WHERE id = ?').get(second.id),
+    undefined,
+  )
+  delete env.ACCESS_AUD
+  assert.equal((await admin(valid)).status, 401, 'missing config fails closed')
+
   const count = db
     .prepare('SELECT count(*) AS count FROM testimonials')
     .get().count
@@ -250,7 +376,7 @@ try {
     503,
   )
   console.log(
-    'Testimonial submission, privacy, email approval, rejection, expiry, replay, validation and failure checks passed.',
+    'Testimonial submission, privacy, email approval, rejection, expiry, replay, Access-gated admin moderation, validation and failure checks passed.',
   )
 } finally {
   globalThis.fetch = realFetch

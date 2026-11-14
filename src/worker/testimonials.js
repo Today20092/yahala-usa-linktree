@@ -1,5 +1,7 @@
+import { verifyAccess } from './access.js'
+
 const MAX_BYTES = 12 * 1024
-const json = (body, status = 200) =>
+export const json = (body, status = 200) =>
   Response.json(body, {
     status,
     headers: {
@@ -15,7 +17,7 @@ const digest = async (token) =>
     (byte) => byte.toString(16).padStart(2, '0'),
   ).join('')
 
-async function readPayload(request) {
+export async function readPayload(request) {
   if (!request.headers.get('Content-Type')?.startsWith('application/json'))
     return null
   const reader = request.body?.getReader()
@@ -44,6 +46,39 @@ export function createTestimonials(env, { to }) {
     const url = new URL(request.url)
     if (!env.TESTIMONIALS_DB) return json({ error: 'unavailable' }, 503)
     try {
+      if (url.pathname === '/api/admin/testimonials') {
+        const reviewer = await verifyAccess(request, env)
+        if (!reviewer) return json({ error: 'unauthorized' }, 401)
+        if (request.method === 'GET') {
+          const { results } = await env.TESTIMONIALS_DB.prepare(
+            'SELECT id, name, role, quote, rating, status, consent_at, reviewed_at, review_expires FROM testimonials ORDER BY consent_at DESC LIMIT 500',
+          ).all()
+          return json({ testimonials: results, reviewer })
+        }
+        if (request.method !== 'POST') return json({ error: 'method' }, 405)
+        if (request.headers.get('Origin') !== url.origin)
+          return json({ error: 'forbidden' }, 403)
+        const { id, action } = (await readPayload(request)) ?? {}
+        if (
+          typeof id !== 'string' ||
+          !/^[a-f0-9-]{36}$/.test(id) ||
+          !['approved', 'rejected', 'delete'].includes(action)
+        )
+          return json({ error: 'invalid' }, 400)
+        // Clearing review_hash retires the emailed link once an admin decides.
+        const result = await (
+          action === 'delete'
+            ? env.TESTIMONIALS_DB.prepare(
+                'DELETE FROM testimonials WHERE id = ?',
+              ).bind(id)
+            : env.TESTIMONIALS_DB.prepare(
+                'UPDATE testimonials SET status = ?, review_hash = NULL, reviewed_at = CURRENT_TIMESTAMP WHERE id = ?',
+              ).bind(action, id)
+        ).run()
+        if (result.meta.changes !== 1) return json({ error: 'missing' }, 404)
+        console.log('testimonial admin', action, id, reviewer)
+        return json({ ok: true })
+      }
       if (url.pathname === '/api/testimonials' && request.method === 'GET') {
         const { results } = await env.TESTIMONIALS_DB.prepare(
           "SELECT id, name, role, quote, rating FROM testimonials WHERE status = 'approved' ORDER BY reviewed_at DESC LIMIT 60",

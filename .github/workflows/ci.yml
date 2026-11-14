@@ -83,6 +83,7 @@ jobs:
           npm run test:ui-validation
           npm run test:base-ui
           npm run test:testimonials
+          npm run test:requests
           npm run test:site-navigation
           npm run test:accessibility
           npm run test:locations

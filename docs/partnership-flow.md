@@ -12,7 +12,17 @@ The owner selected form-only contact. There are no direct email, Instagram-messa
 
 The form posts to `/api/partnership` after verification. It confirms a successful response, then clears the submitted fields. During sending it prevents duplicate activation. Validation, unavailable-service, verification, and network errors preserve the inquiry on the current page for retry. A blocked security check can be retried without discarding the fields. A network interruption can leave delivery uncertain; the UI explains that retrying may send it again.
 
-The next step is review of the inquiry and an email reply to discuss fit. No response-time commitment is published. Details are not persisted by the site; keep the page open during recovery. Native dialog-method submission prevents unhydrated personal data from appearing in a GET URL.
+The next step is review of the inquiry and an email reply to discuss fit. No response-time commitment is published. Unsent details are not persisted in the browser; keep the page open during recovery. Native dialog-method submission prevents unhydrated personal data from appearing in a GET URL.
+
+## Saved requests
+
+Each verified inquiry is also saved in D1 (`partnership_requests`, migration `0002`), in the same database as testimonials. The email remains the notification. A failed save never blocks the email. If the email fails after a successful save, the visitor still sees success, because the request is on the admin page. If both fail, the visitor is asked to retry.
+
+Admins review requests at `/admin/requests`, behind the same Cloudflare Access application and policy as `/admin`, which covers `api/admin/requests` on both hostnames. Tabs list New, Replied and Archived. Admins can reply by email (a `mailto:` link with the subject filled in), mark replied, archive, restore and delete. Every status change can be undone from the toast. Delete asks for confirmation.
+
+Retention: the daily scheduled job deletes archived requests 12 months after `archived_at`. Restoring a request clears `archived_at`. Requests that are never archived are kept. The contact form tells visitors their message is kept for up to 12 months after Ya Hala finishes with it. The preview Worker has no cron, so its cleanup does not run.
+
+Migration `0002` was applied to the preview and production databases on November 14, 2026, before the code was merged. `npm run test:requests` covers the admin API, the Access gate and retention. `scripts/test-partnership-delivery.tsx` (run with `npx tsx`) covers save-and-email outcomes. `tests/accessibility/requests-admin.spec.ts` covers the page.
 
 ## Historical verification — earlier draft flow, November 5, 2026
 

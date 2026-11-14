@@ -322,8 +322,9 @@ export default function PartnershipForm({
             id="partner-delivery"
             className="text-muted-foreground mb-4 text-sm"
           >
-            Your message is emailed to Ya Hala and used only to reply to you.
-            This site doesn’t store it. Spam protection by Cloudflare Turnstile.
+            Your message is sent to Ya Hala and used only to reply to you. We
+            keep it for up to 12 months after we finish with it. Spam protection
+            by Cloudflare Turnstile.
           </p>
           <div ref={widgetRef} className="mb-4 max-w-full" />
           <Button
