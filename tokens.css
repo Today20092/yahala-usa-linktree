@@ -26,7 +26,9 @@
   --accent: var(--color-paper-3);
   --accent-foreground: var(--color-ink);
   --destructive: oklch(0.55 0.23 27.325);
-  --destructive-foreground: oklch(50.5% 0.213 27.518); /* red-700 */
+  --destructive-foreground: oklch(
+    44.4% 0.177 26.899
+  ); /* red-800: AA on tinted destructive buttons */
   --success: oklch(95% 0.05 163);
   --success-foreground: oklch(40% 0.09 163);
   --warning: oklch(96% 0.06 85);
@@ -155,7 +157,9 @@
   --color-focus: oklch(76% 0.15 19);
 
   --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(70.4% 0.191 22.216); /* red-400 */
+  --destructive-foreground: oklch(
+    80.8% 0.114 19.571
+  ); /* red-300: AA on tinted destructive buttons */
   --success: oklch(28% 0.05 163);
   --success-foreground: oklch(86% 0.1 163);
   --warning: oklch(30% 0.06 60);
