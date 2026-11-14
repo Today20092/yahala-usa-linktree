@@ -1,11 +1,11 @@
 import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
+import { findRawColors } from './ui-color-rules.mjs'
 
 const rootDir = path.resolve(process.env.UI_VALIDATE_ROOT ?? process.cwd())
 const srcDir = path.join(rootDir, 'src')
 const uiDir = path.join(srcDir, 'components', 'ui')
 const layoutDir = path.join(srcDir, 'components', 'layout')
-const pageDir = path.join(srcDir, 'pages')
 const brandedPages = ['index', 'about', 'stories']
 const sourceExtensions = new Set([
   '.astro',
@@ -16,6 +16,7 @@ const sourceExtensions = new Set([
   '.jsx',
 ])
 const violations = []
+const rawColorViolations = []
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true })
@@ -48,7 +49,6 @@ for (const file of files) {
   const text = await readFile(file, 'utf8')
   const relative = path.relative(rootDir, file)
   const isUiFile = file.startsWith(uiDir)
-  const isPageFile = file.startsWith(pageDir)
 
   if (
     !isUiFile &&
@@ -78,14 +78,11 @@ for (const file of files) {
     )
   }
 
-  if (
-    isPageFile &&
-    /(bg|text|border)-\[#|bg-white\/95|bg-black\/10|shadow-\[/.test(text)
-  ) {
-    report(
-      relative,
-      'hardcoded color or shadow in page file. Use tokens/shared primitives instead.',
-    )
+  for (const { line, message } of findRawColors(
+    text,
+    relative.split(path.sep).join('/'),
+  )) {
+    rawColorViolations.push(`${relative}:${line}: ${message}`)
   }
 
   if (
@@ -187,9 +184,16 @@ for (const featureSelector of ['.reach-summary', '.visited-state-picker']) {
   }
 }
 
-if (violations.length > 0) {
+if (violations.length > 0 || rawColorViolations.length > 0) {
   console.error('UI consistency check failed:')
   for (const violation of violations) console.error(`- ${violation}`)
+  if (rawColorViolations.length > 0) {
+    const files = new Set(rawColorViolations.map((v) => v.split(':')[0]))
+    console.error(
+      `Raw colors (${rawColorViolations.length} in ${files.size} files; see docs/design-system.md, or add "ui-color-allow: <reason>" for a documented exception):`,
+    )
+    for (const violation of rawColorViolations) console.error(`- ${violation}`)
+  }
   process.exit(1)
 }
 

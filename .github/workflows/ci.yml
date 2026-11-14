@@ -44,6 +44,9 @@ jobs:
       - name: Validate UI consistency
         run: npm run validate:ui
 
+      - name: Check token contrast in light and dark
+        run: npm run test:contrast
+
       - name: Lint accessibility
         run: npm run lint:a11y
 
