@@ -4,6 +4,7 @@ import path from 'node:path'
 const rootDir = path.resolve(process.env.UI_VALIDATE_ROOT ?? process.cwd())
 const srcDir = path.join(rootDir, 'src')
 const uiDir = path.join(srcDir, 'components', 'ui')
+const layoutDir = path.join(srcDir, 'components', 'layout')
 const pageDir = path.join(srcDir, 'pages')
 const brandedPages = ['index', 'about', 'stories']
 const sourceExtensions = new Set([
@@ -89,11 +90,23 @@ for (const file of files) {
 
   if (
     !isUiFile &&
-    /<h[1-3]\b(?![^>]*\b(?:ui-(?:page|section|card)-title|sr-only)\b)[^>]*>/.test(text)
+    /<h[1-3]\b(?![^>]*\b(?:ui-(?:page|section|card)-title|sr-only)\b)[^>]*>/.test(
+      text,
+    )
   ) {
     report(
       relative,
       'h1-h3 without a shared heading class. Use ui-page-title, ui-section-title or ui-card-title.',
+    )
+  }
+
+  if (
+    !file.startsWith(layoutDir) &&
+    /\bmax-w-(?:\[76rem\]|7xl)(?![\w-])/.test(text)
+  ) {
+    report(
+      relative,
+      'hand-rolled page width. Use Container or Section from src/components/layout/.',
     )
   }
 
@@ -118,7 +131,12 @@ for (const required of ["import '../styles.css'", "import '../atlas.css'"]) {
   }
 }
 
-for (const previewArtifact of ['design-preview', 'data-design', 'field', 'night']) {
+for (const previewArtifact of [
+  'design-preview',
+  'data-design',
+  'field',
+  'night',
+]) {
   if (layout.includes(previewArtifact)) {
     report(layoutRelative, `production document references ${previewArtifact}.`)
   }
@@ -162,7 +180,10 @@ const indexCssRelative = path.join('src', 'pages', 'index.css')
 const indexCss = await readFile(path.join(rootDir, indexCssRelative), 'utf8')
 for (const featureSelector of ['.reach-summary', '.visited-state-picker']) {
   if (!indexCss.includes(featureSelector)) {
-    report(indexCssRelative, `missing owned feature selector ${featureSelector}.`)
+    report(
+      indexCssRelative,
+      `missing owned feature selector ${featureSelector}.`,
+    )
   }
 }
 
@@ -172,4 +193,6 @@ if (violations.length > 0) {
   process.exit(1)
 }
 
-console.log(`UI consistency check passed: ${files.length} source files scanned.`)
+console.log(
+  `UI consistency check passed: ${files.length} source files scanned.`,
+)

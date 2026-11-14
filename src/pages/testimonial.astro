@@ -4,6 +4,7 @@ import TestimonialForm from '../components/TestimonialForm'
 import '../components/partnership.css'
 import SiteFooter from '../components/SiteFooter.astro'
 import BrandedPageDocument from '../layouts/BrandedPageDocument.astro'
+import Container from '../components/layout/Container.astro'
 import { getBaseUrl, siteConfig } from '../lib/site-config'
 const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
 ---
@@ -17,10 +18,12 @@ const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
       noindex
     />
   </Fragment>
-  <main
+  <Container
+    as="main"
+    size="narrow"
     id="main-content"
     tabindex="-1"
-    class="partnership-section mx-auto w-full px-4 py-10 sm:px-6 sm:py-14"
+    class="partnership-section py-10 sm:py-14"
   >
     <a
       href={baseUrl}
@@ -52,6 +55,6 @@ const baseUrl = getBaseUrl(import.meta.env.BASE_URL)
         JavaScript لإرسال شهادتك.
       </p>
     </noscript>
-  </main>
+  </Container>
   <SiteFooter />
 </BrandedPageDocument>

@@ -24,6 +24,8 @@ import VisitedPlacesMap from '../components/VisitedPlacesMap.astro'
 import heroCover from '../assets/yahala-hero-cover.png'
 import latestYoutubeVideos from '../data/latest-youtube-videos.json'
 import BrandedPageDocument from '../layouts/BrandedPageDocument.astro'
+import Container from '../components/layout/Container.astro'
+import Stack from '../components/layout/Stack.astro'
 import { resolveVisitedPlaces } from '../lib/visited-places'
 import {
   getBaseUrl,
@@ -205,10 +207,11 @@ const structuredData = {
       set:html={JSON.stringify(structuredData)}
     />
   </Fragment>
-  <main
+  <Container
+    as="main"
     id="main-content"
     tabindex="-1"
-    class="linktree-shell mx-auto flex w-full flex-col pb-6"
+    class="linktree-shell flex flex-col pb-6"
   >
     <p data-share-status role="status" aria-atomic="true" class="ui-meta"></p>
     <div class="desktop-hero-layout">
@@ -327,7 +330,7 @@ const structuredData = {
             Start with the latest episode, then explore more from the community.
           </p>
         </div>
-        <div class="flex flex-col gap-4">
+        <Stack gap={4}>
           {latestVideoChannels.map((channel) => (
             <LatestChannelVideo
               channelName={channel.name}
@@ -356,7 +359,7 @@ const structuredData = {
               video={latestVideoByChannel[channel.id]}
             />
           ))}
-        </div>
+        </Stack>
       </section>
 
       <FeaturedEpisodes />
@@ -439,7 +442,7 @@ const structuredData = {
       title="Your story. Your brand. Our next stop."
       body="Introduce the people and work behind your business, or support a Ya Hala story through sponsorship. Tell us about your goals to start the conversation."
     />
-  </main>
+  </Container>
 
   <SiteFooter>
     <QrCodeButton />

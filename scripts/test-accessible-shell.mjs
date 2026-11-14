@@ -52,7 +52,7 @@ assert.equal(dialog.open, true)
 const layout = await readFile('src/layouts/BrandedPageDocument.astro', 'utf8')
 assert.ok(layout.includes('href="#main-content"'))
 for (const page of ['about', 'stories']) {
-  assert.match(await readFile(`src/pages/${page}.astro`, 'utf8'), /<main\s+id="main-content"\s+tabindex="-1"/)
+  assert.match(await readFile(`src/pages/${page}.astro`, 'utf8'), /<(?:main|Container\s+as="main"\s+(?:size="\w+"\s+)?)\s*id="main-content"\s+tabindex="-1"/)
 }
 const stories = await readFile('src/pages/stories.astro', 'utf8')
 assert.ok(stories.includes('slot="fallback"') && stories.includes('siteConfig.youtubeChannels[0].videosUrl'))

@@ -1,0 +1,22 @@
+---
+import type { ComponentProps } from 'astro/types'
+import { cn } from '../../lib/utils'
+import Container from './Container.astro'
+
+type Props = Omit<ComponentProps<typeof Container>, 'as'> & {
+  /** id of the heading inside the section; sets aria-labelledby. */
+  headingId?: string
+}
+
+const { headingId, class: className, ...rest } = Astro.props
+---
+
+<Container
+  as="section"
+  aria-labelledby={headingId}
+  class={cn('py-12 lg:py-16', className)}
+  {...rest}
+>
+  <slot name="heading" />
+  <slot />
+</Container>

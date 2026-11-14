@@ -16,7 +16,21 @@ This site uses a single visual system for repeated UI.
 
 - `BrandedPageDocument` renders `EditorialHeader` once on every public route. Keep primary navigation labels and order in `LandingNavigation`; section links return to Home from other routes. The mobile header hides on deliberate downward scrolling and returns on upward scrolling or keyboard focus. Desktop and reduced-motion navigation stay visible.
 
-- The homepage and shared header use a 76rem outer shell with 20–32px responsive gutters, yielding a 72rem desktop content grid. Keep homepage sections aligned to that grid; constrain prose inside sections. Latest and most-viewed stories share two desktop columns, followed by a separate social-link row. Stack these groups in DOM order on phones. Map controls and catalog coverage share a supporting desktop row beneath the map.
+- The homepage and shared header use a 76rem outer shell with 20–32px responsive gutters, yielding a 72rem desktop content grid (`Container size="page"`). Keep homepage sections aligned to that grid; constrain prose inside sections. Latest and most-viewed stories share two desktop columns, followed by a separate social-link row. Stack these groups in DOM order on phones. Map controls and catalog coverage share a supporting desktop row beneath the map.
+
+## Layout primitives
+
+Pages compose `src/components/layout/` instead of hand-rolling width, gutter or gap wrappers. Do not write `mx-auto max-w-* px-*` page wrappers, `max-w-7xl` or `max-w-[76rem]` outside these components; `npm run validate:ui` flags the last two.
+
+- `Container` — centered width plus side gutters. `size`: `page` (default, 76rem shell, homepage), `wide` (80rem, About and Story Browser), `content` (72rem standalone block, contact CTA), `narrow` (48rem form column: contact, testimonial). `as` sets the element, e.g. `as="main"`.
+- `Section` — a `Container` rendered as `<section>` with the default vertical rhythm (`py-12 lg:py-16`). Pass `headingId` to set `aria-labelledby`; put the heading in the `heading` slot or the body.
+- `PageHeader` — the page's single `h1` (`title` slot) with optional `eyebrow` (prop or slot), `description` and `actions` slots.
+- `Stack` — vertical flow; `gap` takes a Tailwind spacing step (0, 1, 2, 3, 4, 6, 8, 12).
+- `Cluster` — wrapping horizontal group (buttons, tags) with the same `gap` scale; alignment stays opt-in through `class`.
+
+Extra classes passed through `class` merge with `cn()`, so a page overrides one value (e.g. `py-10`) without restating the wrapper. Add a size or variant only when a real page needs it. Keep `partnership-section` on contact/testimonial roots: `tokens.css` scopes the Atlas token values to it.
+
+## Components
 
 - `Button` for action buttons.
 - `Badge` for small status labels.
