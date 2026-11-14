@@ -1,5 +1,42 @@
 # Accessibility checks for agents
 
+## Desktop logo wall and icon theme selector — November 14, 2026
+
+At 1024px and wider the collaboration section is a static six-column logo wall,
+with all 18 brands visible, equal cells, quieter labels and no outer card borders.
+The mobile/tablet marquee and its motion controls retain their existing behavior.
+The footer uses Cnippet's three-icon theme-selector pattern with accessible names,
+44px targets and the existing theme persistence controller.
+
+The final build and all 180 rendered tests passed across six size/theme projects.
+This includes all public routes, theme persistence and keyboard switching, logo
+loading, desktop grid geometry and mobile marquee pause behavior. An earlier
+default run had two contact-test timing failures; both passed in the final matrix.
+Astro check (zero errors, two existing hints), accessibility lint, UI validation,
+token contrast, motion regressions, Atlas checks and the Impeccable detector passed.
+The preview browser was inspected in both themes; browse MCP also inspected the
+desktop wall and exercised the icon selector after its paired browser reconnected.
+Physical devices, real screen readers and actual browser zoom remain unchecked.
+
+## Mobile state-grid expander — November 14, 2026
+
+The homepage state grid shows four complete rows and a faded, subtly blurred
+preview on mobile. The shared button treatment expands all states or collapses
+them again. Collapsed links are inert and hidden from assistive technology;
+desktop and no-JavaScript visitors retain the complete grid.
+
+Validation: build, Astro check (zero errors, two existing hints), accessibility
+lint, UI validation, token contrast and story-coverage regressions passed.
+The default rendered gate passed all 60 tests; 12 additional state-picker tests
+passed in mobile-dark, phone-light, tablet-dark and desktop-light. These cover
+keyboard expansion/collapse, focus retention, hidden-link exclusion, row clipping,
+desktop resizing, no-JavaScript navigation and an expanded-region axe scan.
+Browser MCP inspection confirmed the fade/blur in light and dark and the button
+labels and expand/collapse behavior. The preview MCP disconnected during checking;
+the browse MCP completed the interaction check. Physical Android/Brave, real
+screen readers and actual browser zoom were not tested. This is bounded evidence,
+not a WCAG conformance claim.
+
 ## Real dark theme — November 14, 2026
 
 Earlier `*-dark` runs emulated `prefers-color-scheme` while the layout forced

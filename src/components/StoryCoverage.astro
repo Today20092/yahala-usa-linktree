@@ -1,6 +1,7 @@
 ---
 import { buildStoryCoverage } from '../lib/story-coverage'
 import type { Story } from '../lib/story-browser'
+import { buttonVariants } from './ui/button'
 
 const { stories } = Astro.props as { stories: Story[] }
 const flags = import.meta.glob<string>('../assets/state-flags/*.webp', {
@@ -30,38 +31,60 @@ const storyCount = data.reduce((total, row) => total + row.value, 0)
         {data.length} states · {storyCount} stories
       </p>
     </div>
-    <ul
-      class="grid grid-cols-2 gap-2 md:grid-cols-4"
-      aria-label="States in alphabetical order"
-    >
-      {data.map((row) => (
-        <li class="min-w-0">
-          <a
-            href={row.href}
-            class="ui-surface-card hover:border-primary hover:bg-muted focus-visible:ring-ring group flex min-h-22 flex-col justify-center gap-2 p-3 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-          >
-            <span class="flex items-center justify-between gap-2">
-              {row.imageSrc && (
-                <img
-                  src={row.imageSrc}
-                  alt=""
-                  width="40"
-                  height="28"
-                  loading="lazy"
-                  class="h-7 w-10 shrink-0 object-contain object-left"
-                />
-              )}
-              <span class="text-muted-foreground text-xs tabular-nums">
-                {row.value} {row.value === 1 ? 'story' : 'stories'}
+    <div class="story-coverage__viewport relative">
+      <ul
+        id="story-coverage-states"
+        class="grid grid-cols-2 gap-2 md:grid-cols-4"
+        aria-label="States in alphabetical order"
+      >
+        {data.map((row) => (
+          <li class="min-w-0">
+            <a
+              href={row.href}
+              class="ui-surface-card hover:border-primary hover:bg-muted focus-visible:ring-ring group flex min-h-22 flex-col justify-center gap-2 p-3 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+            >
+              <span class="flex items-center justify-between gap-2">
+                {row.imageSrc && (
+                  <img
+                    src={row.imageSrc}
+                    alt=""
+                    width="40"
+                    height="28"
+                    loading="lazy"
+                    class="h-7 w-10 shrink-0 object-contain object-left"
+                  />
+                )}
+                <span class="text-muted-foreground text-xs tabular-nums">
+                  {row.value} {row.value === 1 ? 'story' : 'stories'}
+                </span>
               </span>
-            </span>
-            <span class="text-sm font-semibold group-hover:underline group-hover:underline-offset-4">
-              {row.name}
-            </span>
-          </a>
-        </li>
-      ))}
-    </ul>
+              <span class="text-sm font-semibold group-hover:underline group-hover:underline-offset-4">
+                {row.name}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div
+        class="story-coverage__fade pointer-events-none absolute inset-x-0 bottom-0 hidden h-8 bg-linear-to-t from-background to-transparent"
+        aria-hidden="true"
+      ></div>
+    </div>
+    {data.length > 8 && (
+      <button
+        type="button"
+        hidden
+        aria-expanded="false"
+        aria-controls="story-coverage-states"
+        data-state-count={data.length}
+        class={buttonVariants({
+          variant: 'secondary',
+          className: 'story-coverage__toggle mt-3 min-h-11 w-full md:hidden',
+        })}
+      >
+        Show all {data.length} states
+      </button>
+    )}
     <a
       href="/stories"
       class="text-primary focus-visible:ring-ring mt-3 inline-flex min-h-11 items-center rounded-sm text-sm font-semibold underline underline-offset-4 focus-visible:ring-2 focus-visible:outline-none"
@@ -70,3 +93,56 @@ const storyCount = data.reduce((total, row) => total + row.value, 0)
     </a>
   </section>
 )}
+
+<style>
+  @media (width < 48rem) {
+    .story-coverage[data-collapsed] .story-coverage__viewport {
+      max-height: var(--state-preview-height);
+      overflow: hidden;
+    }
+    .story-coverage[data-collapsed] .story-coverage__fade {
+      display: block;
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      mask-image: linear-gradient(to bottom, transparent, var(--foreground));
+    }
+  }
+</style>
+
+<script>
+  const section = document.querySelector<HTMLElement>('.story-coverage')
+  const toggle = section?.querySelector<HTMLButtonElement>(
+    '.story-coverage__toggle',
+  )
+  const list = section?.querySelector<HTMLUListElement>('ul')
+  if (section && toggle && list) {
+    const items = Array.from(list.children) as HTMLElement[]
+    const mobile = window.matchMedia('(width < 48rem)')
+    let expanded = false
+    const update = () => {
+      const collapsed = mobile.matches && !expanded
+      section.toggleAttribute('data-collapsed', collapsed)
+      section.style.setProperty(
+        '--state-preview-height',
+        `${items[8].getBoundingClientRect().top - list.getBoundingClientRect().top + 32}px`,
+      )
+      items.slice(8).forEach((item) => {
+        item.inert = collapsed
+        if (collapsed) item.setAttribute('aria-hidden', 'true')
+        else item.removeAttribute('aria-hidden')
+      })
+      toggle.setAttribute('aria-expanded', String(!collapsed))
+      toggle.textContent = expanded
+        ? 'Show fewer states'
+        : `Show all ${toggle.dataset.stateCount} states`
+    }
+    toggle.hidden = false
+    toggle.addEventListener('click', () => {
+      expanded = !expanded
+      update()
+    })
+    mobile.addEventListener('change', update)
+    new ResizeObserver(update).observe(list)
+    update()
+  }
+</script>
