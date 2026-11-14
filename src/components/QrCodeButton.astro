@@ -13,8 +13,8 @@ const displayUrl = (() => {
 })()
 const qrDataUrl = await QRCode.toDataURL(pageUrl, {
   color: {
-    dark: '#020617',
-    light: '#ffffff',
+    dark: '#020617', // ui-color-allow: QR raster needs fixed max-contrast pixels, not theme tokens
+    light: '#ffffff', // ui-color-allow: QR raster needs fixed max-contrast pixels, not theme tokens
   },
   errorCorrectionLevel: 'M',
   margin: 2,

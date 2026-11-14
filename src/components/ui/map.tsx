@@ -64,7 +64,7 @@ const blankMapStyle: MapLibreGL.StyleSpecification = {
     {
       id: 'background',
       type: 'background',
-      paint: { 'background-color': 'rgba(0, 0, 0, 0)' },
+      paint: { 'background-color': 'rgba(0, 0, 0, 0)' }, // ui-color-allow: MapLibre paint cannot read CSS variables
     },
   ],
 }
@@ -78,7 +78,7 @@ const blankGlobeStyle: MapLibreGL.StyleSpecification = {
     {
       id: 'background',
       type: 'background',
-      paint: { 'background-color': 'rgba(128, 128, 128, 0.12)' },
+      paint: { 'background-color': 'rgba(128, 128, 128, 0.12)' }, // ui-color-allow: MapLibre paint cannot read CSS variables
     },
   ],
 }
@@ -666,7 +666,7 @@ function MarkerContent({ children, className }: MarkerContentProps) {
 
 function DefaultMarkerIcon() {
   return (
-    <div className="relative h-4 w-4 rounded-full border-2 border-white bg-blue-500 shadow-lg" />
+    <div className="border-background bg-primary relative h-4 w-4 rounded-full border-2 shadow-lg" />
   )
 }
 
@@ -1134,8 +1134,8 @@ function CompassButton({ onClick }: { onClick: () => void }) {
         className="size-5"
         style={{ transformStyle: 'preserve-3d' }}
       >
-        <path d="M12 2L16 12H12V2Z" className="fill-red-500" />
-        <path d="M12 2L8 12H12V2Z" className="fill-red-300" />
+        <path d="M12 2L16 12H12V2Z" className="fill-primary" />
+        <path d="M12 2L8 12H12V2Z" className="fill-primary/60" />
         <path d="M12 22L16 12H12V22Z" className="fill-muted-foreground/60" />
         <path d="M12 22L8 12H12V22Z" className="fill-muted-foreground/30" />
       </svg>
@@ -1430,7 +1430,7 @@ type MapRouteProps = {
 function MapRoute({
   id: propId,
   coordinates: coordinatesProp,
-  color = '#4285F4',
+  color = '#4285F4', // ui-color-allow: MapLibre paint cannot read CSS variables
   width = 3,
   opacity = 0.8,
   dashArray,
@@ -1898,8 +1898,8 @@ type MapGeoJSONProps<
 // theme tokens), tuned for a typical light/dark surface. Override via
 // `fillPaint` / `linePaint`.
 const GEOJSON_DEFAULT_COLORS = {
-  light: { fill: '#d4d4d4', line: '#ffffff' },
-  dark: { fill: '#404040', line: '#171717' },
+  light: { fill: '#d4d4d4', line: '#ffffff' }, // ui-color-allow: MapLibre paint cannot read CSS variables
+  dark: { fill: '#404040', line: '#171717' }, // ui-color-allow: MapLibre paint cannot read CSS variables
 } satisfies Record<Theme, { fill: string; line: string }>
 
 /**
@@ -2193,7 +2193,7 @@ const ARC_HIT_MIN_WIDTH = 12
 const ARC_HIT_PADDING = 6
 
 const DEFAULT_ARC_PAINT: MapArcLinePaint = {
-  'line-color': '#4285F4',
+  'line-color': '#4285F4', // ui-color-allow: MapLibre paint cannot read CSS variables
   'line-width': 2,
   'line-opacity': 0.85,
 }
@@ -2317,7 +2317,7 @@ function MapArc<T extends MapArcDatum = MapArcDatum>({
         source: sourceId,
         layout: DEFAULT_ARC_LAYOUT,
         paint: {
-          'line-color': 'rgba(0, 0, 0, 0)',
+          'line-color': 'rgba(0, 0, 0, 0)', // ui-color-allow: MapLibre paint cannot read CSS variables
           'line-width': hitWidth,
           'line-opacity': 1,
         },
@@ -2485,9 +2485,9 @@ type MapClusterLayerProps<
 }
 
 const DEFAULT_CLUSTER_COLORS: [string, string, string] = [
-  '#3b82f6',
-  '#1d4ed8',
-  '#1e3a8a',
+  '#3b82f6', // ui-color-allow: MapLibre paint cannot read CSS variables
+  '#1d4ed8', // ui-color-allow: MapLibre paint cannot read CSS variables
+  '#1e3a8a', // ui-color-allow: MapLibre paint cannot read CSS variables
 ]
 const DEFAULT_CLUSTER_THRESHOLDS: [number, number] = [100, 750]
 
@@ -2499,7 +2499,7 @@ function MapClusterLayer<
   clusterRadius = 50,
   clusterColors = DEFAULT_CLUSTER_COLORS,
   clusterThresholds = DEFAULT_CLUSTER_THRESHOLDS,
-  pointColor = '#3b82f6',
+  pointColor = '#3b82f6', // ui-color-allow: MapLibre paint cannot read CSS variables
   onPointClick,
   onClusterClick,
 }: MapClusterLayerProps<P>) {
@@ -2555,7 +2555,7 @@ function MapClusterLayer<
           40,
         ],
         'circle-stroke-width': 0.75,
-        'circle-stroke-color': '#fff',
+        'circle-stroke-color': '#fff', // ui-color-allow: MapLibre paint cannot read CSS variables
         'circle-opacity': 0.85,
       },
     })
@@ -2572,7 +2572,7 @@ function MapClusterLayer<
         'text-size': 12,
       },
       paint: {
-        'text-color': '#fff',
+        'text-color': '#fff', // ui-color-allow: MapLibre paint cannot read CSS variables
       },
     })
 
@@ -2586,7 +2586,7 @@ function MapClusterLayer<
         'circle-color': pointColor,
         'circle-radius': 5,
         'circle-stroke-width': 2,
-        'circle-stroke-color': '#fff',
+        'circle-stroke-color': '#fff', // ui-color-allow: MapLibre paint cannot read CSS variables
       },
     })
 
