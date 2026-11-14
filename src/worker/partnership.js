@@ -83,6 +83,29 @@ export function createPartnership(env, { to }) {
       }
 
       const inquiry = result.value
+      // Saved copy for /admin/requests. TESTIMONIALS_DB is the site's one D1 database.
+      let saved = false
+      if (env.TESTIMONIALS_DB) {
+        try {
+          await env.TESTIMONIALS_DB.prepare(
+            'INSERT INTO partnership_requests (id, interest, name, email, phone, business, location, message) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+          )
+            .bind(
+              crypto.randomUUID(),
+              inquiry.interest,
+              inquiry.name,
+              inquiry.email,
+              inquiry.phone,
+              inquiry.business,
+              inquiry.location,
+              inquiry.message,
+            )
+            .run()
+          saved = true
+        } catch (error) {
+          console.error('partnership save failed', error?.code ?? 'unknown')
+        }
+      }
       try {
         await env.EMAIL.send({
           to,
@@ -94,7 +117,8 @@ export function createPartnership(env, { to }) {
       } catch (error) {
         // Log the error code only: the message may contain the visitor's details.
         console.error('partnership send failed', error?.code ?? 'unknown')
-        return json({ ok: false, code: 'failed' }, 502)
+        // A saved request still reaches the admin page, so the visitor need not resend.
+        if (!saved) return json({ ok: false, code: 'failed' }, 502)
       }
       return json({ ok: true })
     },

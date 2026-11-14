@@ -114,3 +114,14 @@ export const formatPartnershipBody = (v: PartnershipInquiry) =>
     '',
     v.message,
   ].join('\n')
+
+export type RequestStatus = 'new' | 'replied' | 'archived'
+
+/** A saved contact request from the Access-protected admin API. D1 timestamps are UTC `YYYY-MM-DD HH:MM:SS`. */
+export type AdminRequest = PartnershipInquiry & {
+  id: string
+  status: RequestStatus
+  created_at: string
+  updated_at: string | null
+  archived_at: string | null
+}

@@ -1,0 +1,59 @@
+---
+import { SEO } from 'astro-seo'
+import BrandedPageDocument from '../layouts/BrandedPageDocument.astro'
+import { buttonVariants } from './ui/button'
+import './partnership.css'
+
+// Frame for the Cloudflare Access-protected admin pages; see docs/testimonials.md.
+interface Props {
+  title: string
+  description: string
+  current: '/admin' | '/admin/requests'
+}
+const { title, description, current } = Astro.props
+const sections = [
+  { href: '/admin', label: 'Testimonials' },
+  { href: '/admin/requests', label: 'Requests' },
+] as const
+---
+
+<BrandedPageDocument bodyClass="min-h-screen text-lg text-foreground">
+  <Fragment slot="head">
+    <SEO
+      title={`${title} admin | Ya Hala`}
+      description={description}
+      noindex
+      nofollow
+    />
+    <meta name="referrer" content="no-referrer" />
+  </Fragment>
+  <main
+    id="main-content"
+    tabindex="-1"
+    class="partnership-section mx-auto flex w-full flex-col gap-8 px-4 py-10 sm:px-6 sm:py-14"
+  >
+    <header class="flex flex-col gap-3">
+      <nav aria-label="Admin sections" class="flex flex-wrap gap-2">
+        {sections.map(({ href, label }) => (
+          <a
+            href={href}
+            aria-current={href === current ? 'page' : undefined}
+            class={buttonVariants({
+              variant: href === current ? 'secondary' : 'ghost',
+              className: 'min-h-11 px-3',
+            })}
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
+      <p class="ui-kicker-accent">Admin</p>
+      <h1 class="ui-page-title">{title}</h1>
+      <p class="ui-body text-muted-foreground max-w-prose">{description}</p>
+    </header>
+    <slot />
+    <noscript>
+      <p>Enable JavaScript to use this page.</p>
+    </noscript>
+  </main>
+</BrandedPageDocument>

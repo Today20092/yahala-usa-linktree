@@ -69,8 +69,10 @@ for (const name of ['name', 'email', 'message']) {
 }
 assert.match(
   configured,
-  /Your message is emailed to Ya Hala/,
+  /Your message is sent to Ya Hala and used only to reply to you\. We\s+keep it for up to 12 months/,
   'Delivery must be described honestly',
 )
 assert.doesNotMatch(configured, /mailto:/)
-console.log('Partnership form-only markup, labels and submission safety passed.')
+console.log(
+  'Partnership form-only markup, labels and submission safety passed.',
+)

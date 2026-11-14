@@ -1,0 +1,12 @@
+---
+import AdminPage from '../../components/AdminPage.astro'
+import RequestsAdmin from '../../components/RequestsAdmin'
+---
+
+<AdminPage
+  title="Requests"
+  description="Messages from the contact form, saved here as well as emailed to you. Mark them replied once you answer, then archive them."
+  current="/admin/requests"
+>
+  <RequestsAdmin client:load />
+</AdminPage>
