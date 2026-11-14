@@ -87,7 +87,7 @@ Access. There is no site password. Set this up once per Worker hostname in
 Cloudflare Zero Trust:
 
 1. Under Access → Applications, add a **self-hosted** application for
-   `yahalausa.net` with two paths: `admin` and `api/admin/testimonials`. Do not
+   `yahalausa.net` with the paths `admin`, `api/admin/testimonials` and `api/admin/requests`. Do not
    protect all of `api/admin`. The video-search admin endpoints use their own
    bearer token and must stay reachable by scripts. Add the preview Worker
    hostname as a separate application or destination when testing there.
@@ -102,7 +102,7 @@ Cloudflare Zero Trust:
 `yahalausa.cloudflareaccess.com`, One-time PIN login, reusable policy
 `YaHala admins` (allows `yahalaflorida@gmail.com` and
 `ayoub.abedrabbo@gmail.com`), and the self-hosted
-application `YaHala admin` covering both paths on `yahalausa.net` and on the
+application `YaHala admin` covering those paths on `yahalausa.net` and on the
 preview Worker hostname. Add admins by editing that policy. Both Wrangler
 configs carry the application's values, so preview and production deploys need
 no extra step.

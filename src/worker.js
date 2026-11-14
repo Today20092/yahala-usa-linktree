@@ -87,6 +87,10 @@ export default {
       })(request)
     }
 
+    if (url.pathname === '/api/admin/requests') {
+      return handleAdminRequests(request, env)
+    }
+
     if (url.pathname === partnershipPath) {
       return createPartnership(env, {
         to: String(parse(siteYaml)?.partnership?.email ?? '').trim(),
@@ -123,6 +127,7 @@ export default {
 
   async scheduled(_event, env, ctx) {
     ctx.waitUntil(createVideoSearch(env).sync())
+    ctx.waitUntil(cleanupRequests(env))
   },
 
   async queue(batch, env) {
@@ -136,5 +141,6 @@ import { parse } from 'yaml'
 import siteYaml from './data/site.yaml'
 import { partnershipPath } from './lib/partnership.ts'
 import { createPartnership } from './worker/partnership.js'
+import { cleanupRequests, handleAdminRequests } from './worker/requests.js'
 import { createTestimonials } from './worker/testimonials.js'
 import { createVideoSearch } from './worker/video-search.js'

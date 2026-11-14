@@ -18,6 +18,7 @@
     "test:ui-validation": "node scripts/test-ui-consistency-validator.mjs",
     "test:base-ui": "node scripts/test-base-ui-migration.mjs",
     "test:testimonials": "node scripts/test-testimonials.mjs",
+    "test:requests": "node scripts/test-requests.mjs",
     "test:site-navigation": "node scripts/test-site-navigation.mjs",
     "test:accessibility": "node scripts/test-accessible-shell.mjs && node scripts/test-search-accessibility.mjs && node scripts/test-share-accessibility.mjs",
     "test:locations": "node scripts/test-location-utils.mjs",

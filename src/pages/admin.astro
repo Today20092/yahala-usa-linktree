@@ -1,37 +1,12 @@
 ---
-import { SEO } from 'astro-seo'
+import AdminPage from '../components/AdminPage.astro'
 import TestimonialAdmin from '../components/TestimonialAdmin'
-import '../components/partnership.css'
-import BrandedPageDocument from '../layouts/BrandedPageDocument.astro'
 ---
 
-<!-- Cloudflare Access protects this page and /api/admin/testimonials; see docs/testimonials.md. -->
-<BrandedPageDocument bodyClass="min-h-screen text-lg text-foreground">
-  <Fragment slot="head">
-    <SEO
-      title="Testimonials admin | Ya Hala"
-      description="Manage client testimonials."
-      noindex
-      nofollow
-    />
-    <meta name="referrer" content="no-referrer" />
-  </Fragment>
-  <main
-    id="main-content"
-    tabindex="-1"
-    class="partnership-section mx-auto flex w-full flex-col gap-8 px-4 py-10 sm:px-6 sm:py-14"
-  >
-    <header class="flex flex-col gap-3">
-      <p class="ui-kicker-accent">Admin</p>
-      <h1 class="ui-page-title">Testimonials</h1>
-      <p class="ui-body text-muted-foreground max-w-prose">
-        Publish, hide or delete client testimonials. Published quotes appear in
-        the homepage carousel right away.
-      </p>
-    </header>
-    <TestimonialAdmin client:load />
-    <noscript>
-      <p>Enable JavaScript to manage testimonials.</p>
-    </noscript>
-  </main>
-</BrandedPageDocument>
+<AdminPage
+  title="Testimonials"
+  description="Publish, hide or delete client testimonials. Published quotes appear in the homepage carousel right away."
+  current="/admin"
+>
+  <TestimonialAdmin client:load />
+</AdminPage>

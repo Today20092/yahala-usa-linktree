@@ -1,7 +1,7 @@
 import { verifyAccess } from './access.js'
 
 const MAX_BYTES = 12 * 1024
-const json = (body, status = 200) =>
+export const json = (body, status = 200) =>
   Response.json(body, {
     status,
     headers: {
@@ -17,7 +17,7 @@ const digest = async (token) =>
     (byte) => byte.toString(16).padStart(2, '0'),
   ).join('')
 
-async function readPayload(request) {
+export async function readPayload(request) {
   if (!request.headers.get('Content-Type')?.startsWith('application/json'))
     return null
   const reader = request.body?.getReader()

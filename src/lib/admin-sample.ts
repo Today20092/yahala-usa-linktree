@@ -1,3 +1,4 @@
+import type { AdminRequest } from './partnership'
 import type { AdminTestimonial } from './testimonials'
 
 // Loaded only by `astro dev`, which does not run the Worker or D1. Production builds drop this module.
@@ -66,5 +67,66 @@ export const sampleTestimonials: AdminTestimonial[] = [
     consent_at: stamp(60),
     reviewed_at: stamp(60),
     review_expires: Date.now() - 46 * day,
+  },
+]
+
+export const sampleRequests: AdminRequest[] = [
+  {
+    id: '00000000-0000-4000-8000-000000000101',
+    interest: 'Sponsor a video',
+    name: 'Nadia Farouk',
+    email: 'nadia@example.com',
+    phone: '+1 (813) 555-0142',
+    business: 'Farouk Family Market',
+    location: 'Tampa, FL',
+    message:
+      'We would love to sponsor an episode about Arab-owned groceries in Tampa. Could you share your rates and the next available dates?',
+    status: 'new',
+    created_at: stamp(0.2),
+    updated_at: null,
+    archived_at: null,
+  },
+  {
+    id: '00000000-0000-4000-8000-000000000102',
+    interest: 'Share a story',
+    name: 'يوسف الحسن',
+    email: 'yousef@example.com',
+    phone: '',
+    business: '',
+    location: 'Dearborn, MI',
+    message:
+      'جدي افتتح أول مخبز عربي في حيّنا قبل أربعين عاماً، وما زال المخبز يعمل حتى اليوم. أعتقد أن قصته تستحق أن تُروى، ويسعدنا استقبال فريقكم في أي وقت يناسبكم. لدينا صور قديمة من الافتتاح ورسائل من الزبائن الأوائل يمكننا مشاركتها معكم.',
+    status: 'new',
+    created_at: stamp(2),
+    updated_at: null,
+    archived_at: null,
+  },
+  {
+    id: '00000000-0000-4000-8000-000000000103',
+    interest: 'Feature my business',
+    name: 'Karim Mansour',
+    email: 'karim@example.com',
+    phone: '+1 555 010 2233',
+    business: 'Mansour Auto Care',
+    location: 'Orlando, FL',
+    message: 'Thanks for the quick reply! Next Tuesday works for the call.',
+    status: 'replied',
+    created_at: stamp(9),
+    updated_at: stamp(7),
+    archived_at: null,
+  },
+  {
+    id: '00000000-0000-4000-8000-000000000104',
+    interest: 'Sponsor a video',
+    name: 'Test Inquiry',
+    email: 'test@example.com',
+    phone: '',
+    business: '',
+    location: '',
+    message: 'Checking that the contact form saves requests.',
+    status: 'archived',
+    created_at: stamp(40),
+    updated_at: stamp(39),
+    archived_at: stamp(39),
   },
 ]

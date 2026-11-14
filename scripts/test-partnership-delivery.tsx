@@ -175,6 +175,86 @@ assert.ok(
   'Submitted details and error messages are not logged',
 )
 
+// Saved copy for the admin page: a lost email no longer loses the request.
+const { DatabaseSync } = await import('node:sqlite')
+const sqlite = new DatabaseSync(':memory:')
+sqlite.exec(readFileSync('migrations/0002_partnership_requests.sql', 'utf8'))
+const database = {
+  prepare: (sql: string) => {
+    let params: unknown[] = []
+    return {
+      bind(...values: unknown[]) {
+        params = values
+        return this
+      },
+      async run() {
+        return sqlite.prepare(sql).run(...(params as never[]))
+      },
+    }
+  },
+}
+reset()
+assert.equal(
+  (
+    await run(
+      post({ ...valid, phone: '+1 555 123 4567', turnstileToken: 't' }),
+      makeEnv({ TESTIMONIALS_DB: database }),
+    )
+  ).status,
+  200,
+)
+const row = sqlite
+  .prepare('SELECT * FROM partnership_requests')
+  .get() as Record<string, unknown>
+assert.equal(row.email, 'sam@example.test')
+assert.equal(row.phone, '+1 555 123 4567')
+assert.equal(row.status, 'new')
+assert.equal(sent.length, 1, 'the email is still sent')
+console.error = () => {}
+assert.equal(
+  (
+    await run(
+      post({ ...valid, turnstileToken: 't' }),
+      makeEnv({ ...failing, TESTIMONIALS_DB: database }),
+    )
+  ).status,
+  200,
+  'a saved request succeeds even when the email fails',
+)
+const broken = {
+  prepare: () => ({
+    bind() {
+      return this
+    },
+    run: async () => {
+      throw { code: 'no such table' }
+    },
+  }),
+}
+assert.equal(
+  (
+    await run(
+      post({ ...valid, turnstileToken: 't' }),
+      makeEnv({ ...failing, TESTIMONIALS_DB: broken }),
+    )
+  ).status,
+  502,
+  'with neither a saved copy nor an email, the visitor is told to retry',
+)
+reset()
+assert.equal(
+  (
+    await run(
+      post({ ...valid, turnstileToken: 't' }),
+      makeEnv({ TESTIMONIALS_DB: broken }),
+    )
+  ).status,
+  200,
+  'a save failure never blocks the email',
+)
+console.error = originalError
+sqlite.close()
+
 // Client markup and configuration
 const sendMode = renderToStaticMarkup(
   <PartnershipForm turnstileSiteKey="site-key" />,
