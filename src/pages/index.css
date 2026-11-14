@@ -243,7 +243,7 @@ html .latest-channel-video__link {
   background: transparent;
   box-shadow: none;
   transform: none;
-  --tw-ring-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 transparent;
 }
 
 html .latest-channel-video__link:hover {

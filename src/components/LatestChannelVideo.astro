@@ -61,13 +61,7 @@ const videoId = getYoutubeVideoId(video.url)
 const thumbnailFallback = videoId ? youtubeThumbnailFallbackUrl(videoId) : ''
 ---
 
-<<<<<<< HEAD
-<div class="latest-channel-video mx-auto w-full max-w-xl px-4 sm:px-6 lg:max-w-none lg:px-0">
-=======
-<div
-  class="latest-channel-video"
->
->>>>>>> refactor/reusable-layout-primitives
+<div class="latest-channel-video">
   <a
     href={video.url}
     target="_blank"

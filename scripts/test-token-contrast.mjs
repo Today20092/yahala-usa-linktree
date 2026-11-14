@@ -13,6 +13,8 @@ const PAIRS = [
   ['foreground', 'background', TEXT, 'body text on page'],
   ['muted-foreground', 'background', TEXT, 'secondary text on page'],
   ['muted-foreground', 'card', TEXT, 'secondary text on card'],
+  ['destructive-foreground', 'background', TEXT, 'error message on page'],
+  ['destructive-foreground', 'card', TEXT, 'error message on card'],
   ['primary', 'background', TEXT, 'brand links and text-primary'],
   ['destructive', 'background', TEXT, 'error text on page'],
   ['destructive', 'card', TEXT, 'error text on card'],
@@ -169,7 +171,11 @@ let checked = 0
 for (const [theme, tokens] of Object.entries(themes)) {
   const auto = Object.keys(tokens)
     .filter(
-      (name) => name.endsWith('-foreground') && tokens[name.slice(0, -11)],
+      (name) =>
+        name.endsWith('-foreground') &&
+        tokens[name.slice(0, -11)] &&
+        // Error text on page/card here, not text on a destructive fill; checked in PAIRS.
+        name !== '--destructive-foreground',
     )
     .map((name) => [
       name.slice(2),
