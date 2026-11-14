@@ -1,5 +1,6 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
+import { expectProjectTheme } from './theme'
 
 const quote =
   'تجربة رائعة مع فريق ياهلا، ساعدونا في مشاركة قصة عملنا مع المجتمع.'
@@ -12,6 +13,7 @@ const fixture = {
 }
 
 async function scan(page: Page) {
+  await expectProjectTheme(page)
   // Scan a stable viewport, not a control clipped by the sticky header after focus scrolling.
   await page.evaluate(async () => {
     await document.fonts.ready

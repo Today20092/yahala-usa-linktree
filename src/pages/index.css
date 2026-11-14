@@ -123,7 +123,7 @@ html .reach-summary__heading-row {
 
 html .reach-summary__total {
   margin-block-start: var(--space-md);
-  color: var(--color-ink);
+  color: var(--foreground);
   font-family: var(--font-display);
   font-size: clamp(2.25rem, 7vw, 4.25rem);
   font-weight: 800;
@@ -162,7 +162,7 @@ html .reach-summary__bar {
   margin-block-start: var(--space-2xs);
   overflow: hidden;
   border-radius: var(--radius-pill);
-  background: var(--color-rule);
+  background: var(--border);
 }
 
 html .reach-summary__bar > span {
@@ -217,7 +217,7 @@ html .hero-explore-link {
   justify-content: center;
   gap: var(--space-xs);
   padding-inline: var(--space-md);
-  color: var(--color-ink);
+  color: var(--foreground);
   font-size: 1rem;
   font-weight: 600;
   text-decoration: underline;
@@ -225,11 +225,11 @@ html .hero-explore-link {
 }
 
 html .hero-explore-link:hover {
-  color: var(--color-accent);
+  color: var(--primary);
 }
 
 html .hero-explore-link:focus-visible {
-  outline: 2px solid var(--color-focus);
+  outline: 2px solid var(--ring);
   outline-offset: 3px;
 }
 
@@ -278,10 +278,10 @@ html .brand-social-link {
   min-height: 5.5rem;
   height: auto;
   padding: var(--space-md);
-  border: var(--rule-hair) solid var(--color-rule);
+  border: var(--rule-hair) solid var(--border);
   border-radius: var(--radius-card);
-  background: var(--color-paper);
-  color: var(--color-ink);
+  background: var(--background);
+  color: var(--foreground);
   box-shadow: none;
   transition:
     transform var(--dur-short) var(--ease-out),
@@ -305,7 +305,7 @@ html .linktree-shell > #contact {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   justify-items: start;
-  border-block-start: var(--rule-hair) solid var(--color-rule);
+  border-block-start: var(--rule-hair) solid var(--border);
   padding-block-start: var(--space-xl);
   text-align: left;
 }
@@ -326,8 +326,8 @@ html footer::before {
 
 @media (hover: hover) and (pointer: fine) {
   html .brand-social-link:hover {
-    border-color: color-mix(in srgb, var(--brand-color) 45%, var(--color-rule));
-    background: color-mix(in srgb, var(--brand-color) 6%, var(--color-paper));
+    border-color: color-mix(in srgb, var(--brand-color) 45%, var(--border));
+    background: color-mix(in srgb, var(--brand-color) 6%, var(--background));
     transform: translateY(calc(var(--rule-hair) * -1));
   }
 }
@@ -370,7 +370,7 @@ html footer::before {
 
 html .visited-state-picker {
   padding-block-start: var(--space-md);
-  border-block-start: var(--rule-hair) solid var(--color-rule);
+  border-block-start: var(--rule-hair) solid var(--border);
 }
 
 html .visited-state-picker__intro {
@@ -392,31 +392,31 @@ html .visited-state-picker__icon {
   flex: 0 0 auto;
   place-items: center;
   border-radius: var(--radius-pill);
-  background: var(--color-paper-2);
-  color: var(--color-accent-2);
+  background: var(--muted);
+  color: var(--foreground);
 }
 
 html .visited-state-picker select {
-  border-color: var(--color-rule);
-  background-color: var(--color-paper);
-  color: var(--color-ink);
+  border-color: var(--border);
+  background-color: var(--background);
+  color: var(--foreground);
   font-family: var(--font-body);
   outline: var(--rule-heavy) solid transparent;
   outline-offset: var(--rule-hair);
 }
 
 html .visited-state-picker select:hover {
-  border-color: var(--color-accent);
+  border-color: var(--primary);
 }
 
 html .visited-state-picker select:focus-visible {
-  border-color: var(--color-accent);
-  outline: var(--rule-heavy) solid var(--color-focus);
+  border-color: var(--primary);
+  outline: var(--rule-heavy) solid var(--ring);
   outline-offset: var(--rule-hair);
 }
 
 html .visited-state-picker select:active {
-  background-color: var(--color-paper-2);
+  background-color: var(--muted);
 }
 
 @media (min-width: 768px) {
@@ -434,11 +434,7 @@ html .visited-state-picker select:active {
 
 /* Platform color lives on the icon tile only; the row stays neutral. The solid main color keeps the white logo readable. */
 html .social-icon-tile {
-  background: var(--brand-color);
-}
-
-html.dark .social-icon-tile {
-  background: var(--brand-color-dark);
+  background: light-dark(var(--brand-color), var(--brand-color-dark));
 }
 
 /* Instagram's mark is a gradient; all three stops are dark enough for a white logo. */

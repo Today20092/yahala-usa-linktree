@@ -77,7 +77,7 @@ export default function TestimonialForm({
 
   if (sent)
     return (
-      <Alert role="status" className="gap-y-4">
+      <Alert role="status" variant="success" className="gap-y-4">
         <CheckCircle2Icon aria-hidden="true" />
         <AlertDescription>
           <h2 ref={confirmation} tabIndex={-1} className="ui-section-title">

@@ -32,7 +32,7 @@ export function NavigationMenu({
           sideOffset={sideOffset}
         >
           <NavigationMenuPrimitive.Popup
-            className="bg-popover text-popover-foreground relative h-(--popup-height) w-(--popup-width) origin-(--transform-origin) rounded-xl border shadow-lg/5 transition-[opacity,scale,width,height] duration-(--duration) ease-(--easing) outline-none not-dark:bg-clip-padding before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-xl)-1px)] before:shadow-[0_1px_--theme(--color-black/4%)] data-ending-style:scale-96 data-ending-style:opacity-0 data-ending-style:duration-150 data-starting-style:scale-96 data-starting-style:opacity-0 dark:before:shadow-[0_-1px_--theme(--color-white/6%)]"
+            className="bg-popover text-popover-foreground relative h-(--popup-height) w-(--popup-width) origin-(--transform-origin) rounded-xl border bg-clip-padding shadow-lg/5 transition-[opacity,scale,width,height] duration-(--duration) ease-(--easing) outline-none before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-xl)-1px)] before:shadow-[0_1px_var(--control-edge)] data-ending-style:scale-96 data-ending-style:opacity-0 data-ending-style:duration-150 data-starting-style:scale-96 data-starting-style:opacity-0"
             data-slot="navigation-menu-popup"
           >
             <NavigationMenuPrimitive.Viewport

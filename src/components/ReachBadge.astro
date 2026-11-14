@@ -143,8 +143,8 @@ const platformTotals = groupedPlatforms.map((item) => {
     <div class="reach-summary__stats">
       {platformTotals.map((item) => (
         <div
-          style={`--platform-accent: ${item.accent}; --platform-accent-dark: ${item.darkAccent}; --platform-share: ${item.share}%;`}
-          class="reach-summary__stat [--platform-active-accent:var(--platform-accent)] dark:[--platform-active-accent:var(--platform-accent-dark)]"
+          style={`--platform-active-accent: light-dark(${item.accent}, ${item.darkAccent}); --platform-share: ${item.share}%;`}
+          class="reach-summary__stat"
         >
           <dl class="reach-summary__stat-row m-0">
             <dt class="ui-meta flex min-w-0 items-center gap-2 truncate">
@@ -223,7 +223,7 @@ const platformTotals = groupedPlatforms.map((item) => {
     margin-block-start: var(--space-2xs);
     overflow: hidden;
     border-radius: var(--radius-pill);
-    background: var(--color-rule);
+    background: var(--border);
   }
 
   [data-reach-chart] .reach-summary__bar > span {

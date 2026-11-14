@@ -1,10 +1,11 @@
 import { readFile } from 'node:fs/promises'
 
-const [tokens, site, home, reach, latest, map, indexCss, worker] =
+const [tokens, site, home, layout, reach, latest, map, indexCss, worker] =
   await Promise.all([
     readFile('tokens.css', 'utf8'),
     readFile('src/data/site.yaml', 'utf8'),
     readFile('src/pages/index.astro', 'utf8'),
+    readFile('src/layouts/BrandedPageDocument.astro', 'utf8'),
     readFile('src/components/ReachBadge.astro', 'utf8'),
     readFile('src/components/LatestChannelVideo.astro', 'utf8'),
     readFile('src/components/StoryMapShell.tsx', 'utf8'),
@@ -63,10 +64,13 @@ requireText(
   'Production body typography must use Manrope.',
 )
 requireText(
-  home,
-  "applyTheme(hasThemeControls ? getPreference() : 'light')",
-  'The control-free production document must remain in the light theme.',
+  layout,
+  '<script is:inline>',
+  'The theme must resolve in a blocking inline head script before first paint.',
 )
+if (home.includes('data-theme-option') || home.includes('applyTheme')) {
+  throw new Error('Theme switching must live only in the shared layout.')
+}
 requireText(
   indexCss,
   'html body.linktree-page {',
@@ -77,15 +81,6 @@ requireText(
   "headers.set('Cache-Control', 'no-store')",
   'Nonce-bearing HTML must not be reused with a different CSP nonce.',
 )
-if (
-  !/if \(hasThemeControls\)\s+systemQuery\.addEventListener\('change', handleSystemChange\)/.test(
-    home,
-  )
-) {
-  throw new Error(
-    'System theme changes must not alter the control-free production document.',
-  )
-}
 requireText(
   reach,
   'client:visible',
@@ -96,8 +91,8 @@ if (reach.includes('startEvent=') || reach.includes('reach-chart:enhance')) {
 }
 requireText(
   latest,
-  'text-[var(--color-accent-ink)]',
-  'Latest episode must use the light Atlas accent foreground token.',
+  'text-primary-foreground',
+  'Latest episode must pair its primary background with the primary foreground token.',
 )
 requireText(
   latest,
@@ -119,40 +114,36 @@ requireText(
   'bg-muted text-foreground',
   'Map error state must use the muted/foreground token pair.',
 )
-requireText(
-  indexCss,
-  'color: var(--color-accent-2);',
-  'The nearby-stories icon must use the high-contrast accent token.',
-)
+const themes = {
+  light: tokens.slice(tokens.indexOf(':root {'), tokens.indexOf('.dark {')),
+  dark: tokens.slice(tokens.indexOf('.dark {'), tokens.indexOf('@theme')),
+}
+// Primitive pairs behind the semantic tokens; every pair must pass in both themes.
+const pairs = [
+  ['--color-ink', '--color-paper', 4.5, 'Foreground on background'],
+  ['--color-ink', '--color-paper-2', 4.5, 'Foreground on card/muted'],
+  ['--color-ink', '--color-paper-3', 4.5, 'Foreground on secondary/accent'],
+  ['--color-ink-2', '--color-paper', 4.5, 'Muted text on background'],
+  ['--color-ink-2', '--color-paper-2', 4.5, 'Muted text on card/muted'],
+  ['--color-ink-2', '--color-paper-3', 4.5, 'Muted text on accent'],
+  ['--brand-action', '--color-paper', 4.5, 'Primary text on background'],
+  ['--brand-action', '--color-paper-2', 4.5, 'Primary text on card'],
+  ['--color-accent-ink', '--brand-action', 4.5, 'Primary foreground'],
+  ['--color-focus', '--color-paper', 3, 'Focus ring'],
+  ['--color-ink-2', '--color-paper', 3, 'Input boundary'],
+  ['--success-foreground', '--success', 4.5, 'Success'],
+  ['--warning-foreground', '--warning', 4.5, 'Warning'],
+  ['--info-foreground', '--info', 4.5, 'Info'],
+]
+for (const [theme, block] of Object.entries(themes))
+  for (const [foreground, background, minimum, name] of pairs)
+    requireContrast(
+      tokenValue(block, foreground),
+      tokenValue(block, background),
+      minimum,
+      `${name} (${theme})`,
+    )
 
-const semanticRoot = tokens.slice(
-  tokens.indexOf(':root {'),
-  tokens.indexOf('.dark {'),
+console.log(
+  'Atlas motion, light/dark token contrast, and typography seams pass.',
 )
-const atlasRoot = tokens.slice(tokens.lastIndexOf(':root {'))
-requireContrast(
-  tokenValue(atlasRoot, '--color-accent-ink'),
-  tokenValue(semanticRoot, '--primary'),
-  4.5,
-  'Latest episode',
-)
-requireContrast(
-  tokenValue(atlasRoot, '--color-accent-2'),
-  tokenValue(atlasRoot, '--color-paper-2'),
-  3,
-  'Nearby-stories icon',
-)
-requireContrast(
-  tokenValue(semanticRoot, '--foreground'),
-  tokenValue(semanticRoot, '--background'),
-  4.5,
-  'Map loading state',
-)
-requireContrast(
-  tokenValue(semanticRoot, '--foreground'),
-  tokenValue(semanticRoot, '--muted'),
-  4.5,
-  'Map error state',
-)
-
-console.log('Atlas motion, light-theme contrast, and typography seams pass.')

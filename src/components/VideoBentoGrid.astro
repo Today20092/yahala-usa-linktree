@@ -183,7 +183,7 @@ const gridImages = carouselImages.slice(0, 6)
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Play story — ${item.alt} (opens on YouTube)`}
-              class="group bento-video-link bg-accent focus-visible:outline-ring dark:bg-accent border-border/60 hover:border-youtube/70 hover:ring-youtube/30 dark:border-border dark:hover:border-youtube/70 relative isolate block aspect-video w-full cursor-pointer overflow-hidden rounded-lg border text-left shadow-sm ring-1 ring-transparent transition duration-200 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-3 focus-visible:outline-offset-2"
+              class="group bento-video-link bg-accent focus-visible:outline-ring border-border/60 hover:border-youtube/70 hover:ring-youtube/30 relative isolate block aspect-video w-full cursor-pointer overflow-hidden rounded-lg border text-left shadow-sm ring-1 ring-transparent transition duration-200 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-3 focus-visible:outline-offset-2"
             >
               {isRemoteImage(item.src) ? (
                 <img
@@ -211,7 +211,7 @@ const gridImages = carouselImages.slice(0, 6)
                 class="from-scrim/80 via-scrim/40 absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-3 bg-gradient-to-t to-transparent p-3 pt-10 text-white opacity-95 transition duration-200 group-hover:opacity-100"
                 aria-hidden="true"
               >
-                <span class="bg-background/95 text-foreground ring-border dark:bg-card/90 inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold shadow-sm ring-1 backdrop-blur-sm">
+                <span class="bg-card/95 text-card-foreground ring-border inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold shadow-sm ring-1 backdrop-blur-sm">
                   <Icon
                     name="heroicons:play-20-solid"
                     class="size-3.5 sm:hidden"
