@@ -1,15 +1,12 @@
-/* The shell owns the shared content grid and gutters. */
+/* Container (size="page") owns the shell width and gutters; this adds the shell rhythm. */
 html body.linktree-page {
   padding-block-start: 0;
   padding-inline: 0;
 }
 
 html .linktree-shell {
-  box-sizing: border-box;
-  max-width: 76rem;
   gap: var(--space-2xl);
   padding-block-start: var(--space-lg);
-  padding-inline: clamp(1.25rem, 3vw, 2rem);
 }
 
 html [data-share-status]:empty {

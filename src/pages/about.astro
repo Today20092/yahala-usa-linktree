@@ -13,6 +13,9 @@ import { buttonVariants } from '../components/ui/button'
 import SiteFooter from '../components/SiteFooter.astro'
 import ContactCta from '../components/ContactCta.astro'
 import BrandedPageDocument from '../layouts/BrandedPageDocument.astro'
+import Cluster from '../components/layout/Cluster.astro'
+import Container from '../components/layout/Container.astro'
+import Section from '../components/layout/Section.astro'
 import { getBaseUrl, getPageOgImage, siteConfig } from '../lib/site-config'
 
 const { about, site, socialLinks, socialReach } = siteConfig
@@ -95,9 +98,10 @@ const structuredData = {
 
   <main id="main-content" tabindex="-1" class="[overflow-wrap:anywhere]">
     <EditorialMotion />
-    <section
-      class="mx-auto grid w-full max-w-7xl items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16 lg:px-8 lg:py-16"
-      aria-labelledby="about-title"
+    <Section
+      size="wide"
+      headingId="about-title"
+      class="grid items-center gap-10 py-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16"
     >
       <div class="max-w-2xl">
         <p class="ui-kicker-accent">
@@ -120,7 +124,7 @@ const structuredData = {
           Today, Ya Hala is my full-time work: meeting the people behind local
           businesses and sharing their stories with our community.
         </p>
-        <div class="mt-8 flex flex-wrap gap-3">
+        <Cluster class="mt-8">
           <a
             href={`${baseUrl}contact`}
             class={buttonVariants({
@@ -155,7 +159,7 @@ const structuredData = {
           >
             {about.viewerCtaLabel}
           </a>
-        </div>
+        </Cluster>
       </div>
 
       <figure class="bg-muted relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl">
@@ -171,11 +175,12 @@ const structuredData = {
           fetchpriority="high"
         />
       </figure>
-    </section>
+    </Section>
 
-    <section
-      class="border-border/70 mx-auto grid w-full max-w-7xl gap-8 border-t px-4 py-12 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:px-8 lg:py-16"
-      aria-labelledby="journey-title"
+    <Section
+      size="wide"
+      headingId="journey-title"
+      class="border-border/70 grid gap-8 border-t lg:grid-cols-[0.72fr_1.28fr]"
     >
       <div>
         <p class="ui-kicker-accent">My journey</p>
@@ -188,11 +193,12 @@ const structuredData = {
           <p>{paragraph}</p>
         ))}
       </div>
-    </section>
+    </Section>
 
-    <section
-      class="ui-surface-card mx-auto w-[calc(100%-2rem)] max-w-7xl px-6 py-10 sm:w-[calc(100%-3rem)] sm:px-8 lg:px-12 lg:py-14"
-      aria-labelledby="viewer-value-title"
+    <Section
+      size="wide"
+      headingId="viewer-value-title"
+      class="ui-surface-card w-[calc(100%-2rem)] px-6 py-10 sm:w-[calc(100%-3rem)] sm:px-8 lg:px-12 lg:py-14"
     >
       <h2 id="viewer-value-title" class="ui-section-title max-w-xl">
         <TextReveal text="What you'll find on Ya Hala" preset="slide" />
@@ -213,11 +219,12 @@ const structuredData = {
           </div>
         ))}
       </div>
-    </section>
+    </Section>
 
-    <section
-      class="mx-auto grid w-full max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:px-8 lg:py-16"
-      aria-labelledby="mission-title"
+    <Section
+      size="wide"
+      headingId="mission-title"
+      class="grid gap-8 lg:grid-cols-[0.72fr_1.28fr]"
     >
       <div>
         <p class="ui-kicker-accent">What Ya Hala means to me</p>
@@ -230,11 +237,12 @@ const structuredData = {
           <p>{paragraph}</p>
         ))}
       </div>
-    </section>
+    </Section>
 
-    <section
-      class="border-border/70 mx-auto w-full max-w-7xl border-t px-4 py-12 sm:px-6 lg:px-8 lg:py-16"
-      aria-labelledby="selection-title"
+    <Section
+      size="wide"
+      headingId="selection-title"
+      class="border-border/70 border-t"
     >
       <h2 id="selection-title" class="ui-section-title max-w-xl">
         What makes a story worth sharing?
@@ -249,20 +257,22 @@ const structuredData = {
           </article>
         ))}
       </div>
-    </section>
+    </Section>
 
     <MostWatchedStories />
 
-    <aside
-      class="text-muted-foreground mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-6 text-sm sm:px-6 lg:px-8"
+    <Container
+      as="aside"
+      size="wide"
       aria-label="Ya Hala reach"
+      class="text-muted-foreground flex flex-wrap items-center justify-between gap-3 py-6 text-sm"
     >
       <p>
         <strong class="text-foreground">{compactReach}+ views</strong> across
         official Ya Hala channels
       </p>
       <p>Updated {socialReach.updatedAt}</p>
-    </aside>
+    </Container>
 
     <ContactCta
       eyebrow="Contact Ya Hala"

@@ -63,6 +63,16 @@ try {
     '--color-paper duplicates the shared declaration in tokens.css',
   )
 
+  await expectFailure(
+    'src/pages/stories.astro',
+    (source) =>
+      source.replace(
+        '<PageHeader',
+        '<div class="mx-auto max-w-7xl"></div><PageHeader',
+      ),
+    'hand-rolled page width',
+  )
+
   console.log('UI consistency validator rejects architecture regressions.')
 } finally {
   await rm(fixtureDir, { recursive: true, force: true })

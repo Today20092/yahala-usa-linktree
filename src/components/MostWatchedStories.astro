@@ -1,5 +1,6 @@
 ---
 import { BarList } from './ui/bar-list'
+import Section from './layout/Section.astro'
 import snapshot from '../data/story-view-snapshot.json'
 import { youtubeVideosById, youtubeWatchUrl } from '../lib/youtube-videos'
 
@@ -16,18 +17,16 @@ const capturedDate = new Intl.DateTimeFormat('en-US', {
 }).format(new Date(snapshot.capturedAt))
 ---
 
-<section
-  class="border-border/70 mx-auto w-full max-w-7xl border-t px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
-  aria-labelledby="most-watched-title"
+<Section
+  size="wide"
+  headingId="most-watched-title"
+  class="border-border/70 border-t py-16 lg:py-24"
   data-most-watched-stories
 >
   <div class="grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
     <div>
       <p class="ui-kicker-accent">Stories reaching further</p>
-      <h2
-        id="most-watched-title"
-        class="ui-section-title mt-3"
-      >
+      <h2 id="most-watched-title" class="ui-section-title mt-3">
         Most-watched catalog stories
       </h2>
       <p class="text-muted-foreground mt-4 max-w-md text-base leading-7">
@@ -55,4 +54,4 @@ const capturedDate = new Intl.DateTimeFormat('en-US', {
       </p>
     </div>
   </div>
-</section>
+</Section>
