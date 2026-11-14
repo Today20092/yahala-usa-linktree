@@ -70,12 +70,52 @@ test fixtures or logs.
 
 ## Operations
 
-There is no admin password, dashboard or public moderation API. To remove a
-published quote, change its D1 row to `rejected` in Cloudflare's authenticated
-database console. Expired pending links require a fresh submission. D1 records
-are retained until manually deleted; delete rejected/expired records when they
-are no longer needed. If requesting the approval email fails, the pending row
-is removed and the client sees a retry message with their text preserved.
+Manage testimonials at `/admin`. Tabs list Pending, Published and Hidden
+(`rejected` in D1) quotes. Admins can publish, hide, republish or permanently
+delete a quote, including pending quotes whose email link has expired. An admin
+decision clears the emailed review credential. Hide and republish can be undone
+from the confirmation toast; delete asks for confirmation and cannot be undone.
+Admins cannot edit a client's words. Each change is logged with the admin's
+Access identity in Worker logs. If requesting the approval email fails, the
+pending row is removed and the client sees a retry message with their text
+preserved.
+
+### Cloudflare Access for the admin page
+
+The page and `GET`/`POST /api/admin/testimonials` are protected by Cloudflare
+Access. There is no site password. Set this up once per Worker hostname in
+Cloudflare Zero Trust:
+
+1. Under Access → Applications, add a **self-hosted** application for
+   `yahalausa.net` with two paths: `admin` and `api/admin/testimonials`. Do not
+   protect all of `api/admin`. The video-search admin endpoints use their own
+   bearer token and must stay reachable by scripts. Add the preview Worker
+   hostname as a separate application or destination when testing there.
+2. Add an Allow policy that lists the admins' email addresses, using One-time
+   PIN or Google sign-in.
+3. Copy the application's **Audience (AUD) tag**, then set the Worker values:
+
+   ```sh
+   npx wrangler secret put ACCESS_AUD --config wrangler.jsonc
+   npx wrangler secret put ACCESS_TEAM_DOMAIN --config wrangler.jsonc   # https://<team>.cloudflareaccess.com
+   ```
+
+**Configured November 14, 2026** in the pinned Haithum account: Zero Trust team
+`yahalausa.cloudflareaccess.com`, One-time PIN login, reusable policy
+`YaHala admins` (allows `yahalaflorida@gmail.com` and
+`ayoub.abedrabbo@gmail.com`), and the self-hosted
+application `YaHala admin` covering both paths on `yahalausa.net` and on the
+preview Worker hostname. Add admins by editing that policy. Both
+`ACCESS_TEAM_DOMAIN` and `ACCESS_AUD` (the application's AUD tag) are set on the
+preview Worker. Set the same two values on the production Worker when this
+feature is released to production.
+
+The Worker verifies the signed `Cf-Access-Jwt-Assertion` against the team's
+public keys, issuer, audience and expiry before reading or changing any rows.
+Until both values are set, the admin API returns 401. A missing or
+misconfigured Access application therefore fails closed. The page itself holds
+no data. `astro dev` shows labelled sample data because it does not run the
+Worker; production builds exclude that sample module.
 
 ## Production setup
 
@@ -112,7 +152,9 @@ Configuration and migration reference:
 `npm run test:testimonials` uses in-memory SQLite and a mocked email/Turnstile
 boundary. Rendered tests in `tests/accessibility/testimonials.spec.ts` cover the
 bilingual form, recovery, review confirmation, and the approved carousel.
-They send no real emails and do not publish client quotes.
+`tests/accessibility/testimonial-admin.spec.ts` covers admin moderation, undo,
+delete confirmation, keyboard tabs and the signed-out state against a mocked
+admin API. They send no real emails and do not publish client quotes.
 
 ### Verification on November 12, 2026
 

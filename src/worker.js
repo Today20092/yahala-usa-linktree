@@ -76,7 +76,11 @@ export default {
     }
 
     if (
-      ['/api/testimonials', '/api/testimonials/review'].includes(url.pathname)
+      [
+        '/api/testimonials',
+        '/api/testimonials/review',
+        '/api/admin/testimonials',
+      ].includes(url.pathname)
     ) {
       return createTestimonials(env, {
         to: String(parse(siteYaml)?.partnership?.email ?? '').trim(),
