@@ -40,15 +40,23 @@ const rows = [
               {row.map((brand) => (
                 <li class="brand-marquee__brand">
                   {brand.logo && (
-                    <img
-                      src={brand.logo}
-                      alt=""
-                      class="brand-marquee__logo"
-                      width="104"
-                      height="44"
-                      loading="eager"
-                      decoding="async"
-                    />
+                    <span
+                      class="brand-marquee__mark"
+                      data-ink-plate={
+                        brand.logo.includes('lipari-foods') ||
+                        brand.logo.includes('excite-medical')
+                      }
+                    >
+                      <img
+                        src={brand.logo}
+                        alt=""
+                        class="brand-marquee__logo"
+                        width="104"
+                        height="44"
+                        loading="eager"
+                        decoding="async"
+                      />
+                    </span>
                   )}
                   <span>{brand.name}</span>
                 </li>
@@ -141,6 +149,10 @@ const rows = [
     object-fit: contain;
   }
 
+  .brand-marquee__mark {
+    display: contents;
+  }
+
   @keyframes brand-marquee-scroll {
     to {
       transform: translateX(-50%);
@@ -173,6 +185,85 @@ const rows = [
 
     .brand-marquee__group[aria-hidden='true'] {
       display: none;
+    }
+  }
+
+  @media (width >= 64rem) {
+    .brand-marquee__header {
+      align-items: flex-start;
+    }
+
+    .brand-marquee__header :global(.motion-toggle) {
+      display: none;
+    }
+
+    .brand-marquee__viewport {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 2rem 1.5rem;
+      overflow: visible;
+      mask-image: none;
+    }
+
+    .brand-marquee__track,
+    .brand-marquee__group {
+      display: contents;
+      animation: none;
+    }
+
+    .brand-marquee__group[aria-hidden='true'] {
+      display: none;
+    }
+
+    .brand-marquee__brand {
+      min-width: 0;
+      min-height: 0;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      gap: 0.75rem;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      padding: 0;
+      color: var(--muted-foreground);
+      font-size: 0.8rem;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .brand-marquee__mark {
+      display: flex;
+      width: 100%;
+      height: 5rem;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      background: var(--logo-plate);
+    }
+
+    .brand-marquee__mark[data-ink-plate='true'] {
+      background: var(--color-scrim);
+    }
+
+    .brand-marquee__logo {
+      width: 8rem;
+      max-width: 85%;
+      height: 4rem;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+    }
+
+    /* These source images contain extra whitespace around the actual mark. */
+    .brand-marquee__logo[src$='/farooj.png'] {
+      height: 8rem;
+    }
+
+    .brand-marquee__logo[src$='/moka-and-co.png'] {
+      width: 9rem;
+      max-width: 95%;
     }
   }
 </style>

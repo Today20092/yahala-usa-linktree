@@ -220,6 +220,12 @@ test('stored theme applies before first paint and the footer control switches it
 
   const group = page.getByRole('group', { name: 'Theme' })
   const option = (name: string) => group.getByRole('button', { name })
+  await expect(group.locator('svg')).toHaveCount(3)
+  for (const name of ['System', 'Light', 'Dark']) {
+    await expect(option(name)).toHaveCSS('width', '44px')
+    await expect(option(name)).toHaveCSS('height', '44px')
+    await expect(option(name)).toHaveAttribute('title', `${name} theme`)
+  }
   await expect(option('Dark')).toHaveAttribute('aria-pressed', 'true')
   await option('Light').focus()
   await page.keyboard.press('Enter')
@@ -642,11 +648,39 @@ test('collaboration logos preload without changing the scrolling row widths', as
     expect(before[0]).toBe(before[1])
     expect(before[2]).toBe(before[3])
     await reflow(page)
-    await section.getByRole('button', { name: 'Pause motion' }).click()
-    await expect(section.locator('.brand-marquee__track').first()).toHaveCSS(
-      'animation-play-state',
-      'paused',
-    )
+    const pause = section.getByRole('button', { name: 'Pause motion' })
+    if (page.viewportSize()!.width >= 1024) {
+      await expect(pause).toBeHidden()
+      await expect(section.locator('.brand-marquee__track').first()).toHaveCSS(
+        'animation-name',
+        'none',
+      )
+      const cells = await section
+        .locator('ul:not([aria-hidden="true"]) > li')
+        .evaluateAll((items) =>
+          items.map((item) => {
+            const rect = item.getBoundingClientRect()
+            return { top: Math.round(rect.top), width: Math.round(rect.width) }
+          }),
+        )
+      expect(cells).toHaveLength(18)
+      expect(new Set(cells.map((cell) => cell.top)).size).toBe(3)
+      expect(new Set(cells.map((cell) => cell.width)).size).toBe(1)
+      for (const plate of await section
+        .locator('[data-ink-plate="true"]')
+        .all()) {
+        await expect(plate).not.toHaveCSS(
+          'background-color',
+          'rgba(0, 0, 0, 0)',
+        )
+      }
+    } else {
+      await pause.click()
+      await expect(section.locator('.brand-marquee__track').first()).toHaveCSS(
+        'animation-play-state',
+        'paused',
+      )
+    }
   } finally {
     releaseLogos()
   }
