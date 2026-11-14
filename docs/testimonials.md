@@ -93,22 +93,19 @@ Cloudflare Zero Trust:
    hostname as a separate application or destination when testing there.
 2. Add an Allow policy that lists the admins' email addresses, using One-time
    PIN or Google sign-in.
-3. Copy the application's **Audience (AUD) tag**, then set the Worker values:
-
-   ```sh
-   npx wrangler secret put ACCESS_AUD --config wrangler.jsonc
-   npx wrangler secret put ACCESS_TEAM_DOMAIN --config wrangler.jsonc   # https://<team>.cloudflareaccess.com
-   ```
+3. Put the team URL and the application's **Audience (AUD) tag** in the `vars`
+   of `wrangler.jsonc` and `wrangler.preview.jsonc` as `ACCESS_TEAM_DOMAIN` and
+   `ACCESS_AUD`. Both are public identifiers, not secrets, so they deploy with
+   the code. Do not also store them as Worker secrets with the same names.
 
 **Configured November 14, 2026** in the pinned Haithum account: Zero Trust team
 `yahalausa.cloudflareaccess.com`, One-time PIN login, reusable policy
 `YaHala admins` (allows `yahalaflorida@gmail.com` and
 `ayoub.abedrabbo@gmail.com`), and the self-hosted
 application `YaHala admin` covering both paths on `yahalausa.net` and on the
-preview Worker hostname. Add admins by editing that policy. Both
-`ACCESS_TEAM_DOMAIN` and `ACCESS_AUD` (the application's AUD tag) are set on the
-preview Worker. Set the same two values on the production Worker when this
-feature is released to production.
+preview Worker hostname. Add admins by editing that policy. Both Wrangler
+configs carry the application's values, so preview and production deploys need
+no extra step.
 
 The Worker verifies the signed `Cf-Access-Jwt-Assertion` against the team's
 public keys, issuer, audience and expiry before reading or changing any rows.

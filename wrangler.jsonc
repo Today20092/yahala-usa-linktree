@@ -61,6 +61,11 @@
   ],
   // Partnership form delivery. Needs a verified sending domain and the
   // TURNSTILE_SECRET secret; without them the form falls back to mailto.
+  // Cloudflare Access app "YaHala admin" guarding /admin. Public identifiers, not secrets.
+  "vars": {
+    "ACCESS_TEAM_DOMAIN": "https://yahalausa.cloudflareaccess.com",
+    "ACCESS_AUD": "caca6204ca2ff34c5483b80ffb0105e18401953ac0747be9aeb19053769f3364",
+  },
   "send_email": [{ "name": "EMAIL" }],
   "d1_databases": [
     {
