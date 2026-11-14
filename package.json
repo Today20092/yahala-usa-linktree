@@ -50,7 +50,7 @@
     "@iconify-json/heroicons": "^1.2.3",
     "@iconify-json/simple-icons": "^1.2.101",
     "@tailwindcss/vite": "^4.3.3",
-    "astro": "^7.4.4",
+    "astro": "^7.4.7",
     "astro-icon": "^1.2.0",
     "astro-seo": "^1.2.0",
     "class-variance-authority": "^0.7.1",
