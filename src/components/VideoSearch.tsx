@@ -65,10 +65,7 @@ function ResultCard({
             data-fallback-src={thumbnailFallback}
           />
           <div className="min-w-0 flex-1">
-            <h3
-              dir="auto"
-              className="ui-card-title break-words"
-            >
+            <h3 dir="auto" className="ui-card-title break-words">
               {result.title}
             </h3>
             <CardDescription className="ui-meta mt-2 flex flex-wrap items-center gap-2">
@@ -195,43 +192,42 @@ export default function VideoSearch({ copy }: Props) {
           <p id="video-search-help" className="ui-meta mb-2">
             Enter at least 2 characters.
           </p>
-          <form
-            onSubmit={submit}
-            className="flex flex-col gap-2 sm:flex-row"
-            role="search"
-          >
-            <Input
-              id="video-search-query"
-              aria-describedby="video-search-help"
-              required
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder={copy.placeholder}
-              minLength={2}
-              maxLength={200}
-              dir="auto"
-              autoComplete="off"
-              className="h-11 rounded-2xl px-4 text-[0.95rem] shadow-sm sm:h-10"
-            />
-            <Button
-              type="submit"
-              size="lg"
-              disabled={status === 'loading'}
-              className="h-11 gap-2 rounded-2xl px-4 sm:h-10"
-            >
-              {status === 'loading' ? (
-                <LoaderCircleIcon
-                  data-icon="inline-start"
-                  className="animate-spin"
-                />
-              ) : (
-                <SearchIcon data-icon="inline-start" />
-              )}
-              <span>
-                {status === 'loading' ? 'Searching' : copy.buttonLabel}
-              </span>
-            </Button>
-          </form>
+          <search>
+            <form onSubmit={submit} className="flex flex-col gap-2 sm:flex-row">
+              <Input
+                id="video-search-query"
+                type="search"
+                aria-describedby="video-search-help"
+                required
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder={copy.placeholder}
+                minLength={2}
+                maxLength={200}
+                dir="auto"
+                autoComplete="off"
+                className="h-11 rounded-2xl px-4 text-[0.95rem] shadow-sm sm:h-10"
+              />
+              <Button
+                type="submit"
+                size="lg"
+                disabled={status === 'loading'}
+                className="h-11 gap-2 rounded-2xl px-4 sm:h-10"
+              >
+                {status === 'loading' ? (
+                  <LoaderCircleIcon
+                    data-icon="inline-start"
+                    className="animate-spin"
+                  />
+                ) : (
+                  <SearchIcon data-icon="inline-start" />
+                )}
+                <span>
+                  {status === 'loading' ? 'Searching' : copy.buttonLabel}
+                </span>
+              </Button>
+            </form>
+          </search>
 
           {copy.exampleQueries.length > 0 && status === 'idle' && (
             <div className="mt-3 flex flex-wrap items-center gap-2">

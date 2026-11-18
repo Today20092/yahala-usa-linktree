@@ -126,77 +126,79 @@ export default function StoryBrowser({ stories, places }: Props) {
     <>
       {/* sm+: summary hidden and ::details-content forced visible, so controls are always shown. */}
       <Card className="gap-0 overflow-visible py-0">
-        <details
-          open={filtersOpen}
-          onToggle={(event) => setFiltersOpen(event.currentTarget.open)}
-          className="group sm:[&::details-content]:[content-visibility:visible]"
-        >
-          <summary className="text-foreground focus-visible:ring-ring/30 flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 rounded-xl px-4 text-sm font-semibold focus-visible:ring-3 focus-visible:outline-none sm:hidden [&::-webkit-details-marker]:hidden">
-            {[
-              'Filters',
-              filters.state === UNASSIGNED_FILTER
-                ? 'Location not yet assigned'
-                : filters.state,
-              filters.city,
-              filters.sort === 'oldest' ? 'Oldest first' : 'Newest first',
-            ]
-              .filter(Boolean)
-              .join(' · ')}
-            <ChevronDown
-              aria-hidden="true"
-              className="size-4 shrink-0 transition-transform group-open:rotate-180 motion-reduce:transition-none"
-            />
-          </summary>
-          <div className="grid gap-4 p-4 sm:grid-cols-2 sm:p-5 lg:grid-cols-3">
-            <SearchableSelect
-              label="State"
-              value={filters.state}
-              onValueChange={(state) => updateFilters(state)}
-              options={[
-                { value: '', label: 'All states' },
-                {
-                  value: UNASSIGNED_FILTER,
-                  label: 'Location not yet assigned',
-                },
-                ...states.map((state) => ({ value: state, label: state })),
-              ]}
-            />
-            <SearchableSelect
-              key={filters.state}
-              label="City"
-              value={filters.city}
-              disabled={!filters.state || filters.state === UNASSIGNED_FILTER}
-              onValueChange={(city) => updateFilters(filters.state, city)}
-              options={[
-                { value: '', label: 'All cities' },
-                ...cities.map((city) => ({ value: city, label: city })),
-              ]}
-            />
-            <div className="min-w-0">
-              <label
-                htmlFor="story-sort"
-                className="text-foreground text-sm font-semibold"
-              >
-                Sort by date
-              </label>
-              <select
-                id="story-sort"
-                value={filters.sort}
-                onChange={(event) =>
-                  updateFilters(
-                    filters.state,
-                    filters.city,
-                    event.currentTarget.value,
-                  )
-                }
-                className="border-input bg-background focus-visible:border-ring focus-visible:ring-ring/30 mt-2 min-h-12 w-full rounded-lg border px-3 text-base focus-visible:ring-2 focus-visible:outline-none"
-              >
-                <option value="newest">Newest first</option>
-                <option value="oldest">Oldest first</option>
-              </select>
+        <search>
+          <details
+            open={filtersOpen}
+            onToggle={(event) => setFiltersOpen(event.currentTarget.open)}
+            className="group sm:[&::details-content]:[content-visibility:visible]"
+          >
+            <summary className="text-foreground focus-visible:ring-ring/30 flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 rounded-xl px-4 text-sm font-semibold focus-visible:ring-3 focus-visible:outline-none sm:hidden [&::-webkit-details-marker]:hidden">
+              {[
+                'Filters',
+                filters.state === UNASSIGNED_FILTER
+                  ? 'Location not yet assigned'
+                  : filters.state,
+                filters.city,
+                filters.sort === 'oldest' ? 'Oldest first' : 'Newest first',
+              ]
+                .filter(Boolean)
+                .join(' · ')}
+              <ChevronDown
+                aria-hidden="true"
+                className="size-4 shrink-0 transition-transform group-open:rotate-180 motion-reduce:transition-none"
+              />
+            </summary>
+            <div className="grid gap-4 p-4 sm:grid-cols-2 sm:p-5 lg:grid-cols-3">
+              <SearchableSelect
+                label="State"
+                value={filters.state}
+                onValueChange={(state) => updateFilters(state)}
+                options={[
+                  { value: '', label: 'All states' },
+                  {
+                    value: UNASSIGNED_FILTER,
+                    label: 'Location not yet assigned',
+                  },
+                  ...states.map((state) => ({ value: state, label: state })),
+                ]}
+              />
+              <SearchableSelect
+                key={filters.state}
+                label="City"
+                value={filters.city}
+                disabled={!filters.state || filters.state === UNASSIGNED_FILTER}
+                onValueChange={(city) => updateFilters(filters.state, city)}
+                options={[
+                  { value: '', label: 'All cities' },
+                  ...cities.map((city) => ({ value: city, label: city })),
+                ]}
+              />
+              <div className="min-w-0">
+                <label
+                  htmlFor="story-sort"
+                  className="text-foreground text-sm font-semibold"
+                >
+                  Sort by date
+                </label>
+                <select
+                  id="story-sort"
+                  value={filters.sort}
+                  onChange={(event) =>
+                    updateFilters(
+                      filters.state,
+                      filters.city,
+                      event.currentTarget.value,
+                    )
+                  }
+                  className="border-input bg-background focus-visible:border-ring focus-visible:ring-ring/30 mt-2 min-h-12 w-full rounded-lg border px-3 text-base focus-visible:ring-2 focus-visible:outline-none"
+                >
+                  <option value="newest">Newest first</option>
+                  <option value="oldest">Oldest first</option>
+                </select>
+              </div>
             </div>
-          </div>
-        </details>
+          </details>
+        </search>
       </Card>
 
       <div className="mt-5 flex flex-wrap items-center justify-between gap-3">

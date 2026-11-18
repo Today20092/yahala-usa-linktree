@@ -38,7 +38,7 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
 <dialog
   id="qr-dialog"
   class="bg-foreground/70 fixed inset-0 z-50 m-0 hidden h-dvh max-h-none w-dvw max-w-none items-center justify-center overflow-y-auto border-0 px-4 py-6 backdrop-blur-sm target:flex sm:py-8"
-  aria-modal="true"
+
   aria-labelledby="qr-title"
 >
   <div class="bg-background text-foreground elevation-4 max-h-[calc(100dvh-3rem)] w-full max-w-[22rem] overflow-y-auto rounded-xl p-4 text-center sm:p-5">
@@ -69,7 +69,6 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
       href={pageUrl}
       data-qr-destination
       class="text-muted-foreground hover:text-foreground focus-visible:ring-ring/30 mx-auto mt-4 block max-w-full text-[clamp(0.75rem,3.6vw,0.875rem)] font-medium break-all underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:outline-none"
-      title={pageUrl}
     >
       {displayUrl}
     </a>
@@ -93,7 +92,7 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
     dialog.classList.remove('hidden')
     dialog.classList.add('flex')
     dialog.showModal()
-    document.documentElement.classList.add('overflow-hidden')
+
     closeButton?.focus()
   }
 
@@ -107,7 +106,6 @@ const qrDataUrl = await QRCode.toDataURL(pageUrl, {
     }
     dialog.classList.add('hidden')
     dialog.classList.remove('flex')
-    document.documentElement.classList.remove('overflow-hidden')
 
     if (previousFocus instanceof HTMLElement) {
       previousFocus.focus()

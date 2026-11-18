@@ -29,6 +29,8 @@
       auto,
       6px 6px;
     font-family: var(--font-sans);
+    /* Manrope's x-height ratio, so fallback text renders at the same visual size. */
+    font-size-adjust: 0.54;
     font-feature-settings:
       'liga' 1,
       'calt' 1;
@@ -567,10 +569,6 @@
   }
 }
 
-.bento-scroll-row {
-  scrollbar-width: thin;
-}
-
 /* Respect user's motion preferences */
 [data-motion-paused] [data-scroll-reveal],
 [data-scroll-reveal]:focus-within {
@@ -601,4 +599,21 @@
 .no-transitions,
 .no-transitions * {
   transition: none !important;
+}
+
+/* Native modal dialogs: keep scroll gestures from chaining to the page underneath. */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+/* Forced colors drops the box-shadow focus rings; restore a real outline. */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
 }
