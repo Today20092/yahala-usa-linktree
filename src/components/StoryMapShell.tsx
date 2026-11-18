@@ -19,11 +19,8 @@ export default function StoryMapShell(props: Props) {
   React.useEffect(() => setMounted(true), [])
   React.useEffect(() => {
     if (!expanded) return
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
     dialog.current?.showModal()
     return () => {
-      document.body.style.overflow = previousOverflow
       queueMicrotask(() =>
         shell.current
           ?.querySelector<HTMLButtonElement>('[aria-label="Expand map"]')
