@@ -12,7 +12,7 @@ let status
 let results
 let lastQuery
 const pending = { current: false }
-const run = compile(() => { requests++; return new Promise((resolve) => { complete = resolve }) }, pending,
+const run = compile(() => { requests++; const { promise, resolve } = Promise.withResolvers(); complete = resolve; return promise }, pending,
   { resultLimit: 3 }, (value) => { lastQuery = value }, (value) => { status = value }, (value) => { results = value })
 await run(' ')
 assert.equal(requests, 0)
