@@ -42,9 +42,9 @@ const pending = setup({
   clipboard: {
     writeText: () => {
       copies++
-      return new Promise((resolve) => {
-        release = resolve
-      })
+      const { promise, resolve } = Promise.withResolvers()
+      release = resolve
+      return promise
     },
   },
 })

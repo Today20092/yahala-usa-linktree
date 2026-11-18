@@ -8,7 +8,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const median = (xs) => {
-  const s = [...xs].sort((a, b) => a - b)
+  const s = xs.toSorted((a, b) => a - b)
   const m = s.length >> 1
   return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2
 }
