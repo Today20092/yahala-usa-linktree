@@ -10,8 +10,12 @@ assert.deepEqual(ci.on.push.branches, ['main'])
 assert.deepEqual(ci.on.pull_request.branches, ['main'])
 
 const deploy = workflow('deploy')
-assert.deepEqual(deploy.on.push.branches, ['main'])
-assert.equal(deploy.jobs.deploy.if, "github.ref == 'refs/heads/main'")
+const deployIf =
+  "github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'))"
+assert.equal(deploy.on.push, undefined, 'Deploy must wait for CI on main')
+assert.deepEqual(deploy.on.workflow_run.workflows, ['CI'])
+assert.deepEqual(deploy.on.workflow_run.branches, ['main'])
+assert.equal(deploy.jobs.deploy.if, deployIf)
 
 const refresh = workflow('refresh-youtube-data')
 const refreshJob = refresh.jobs['refresh-youtube-data']
@@ -92,7 +96,7 @@ for (const name of readdirSync(
           'deploy.yml',
           'Only the production workflow may deploy automatically',
         )
-        assert.equal(job.if, "github.ref == 'refs/heads/main'")
+        assert.equal(job.if, deployIf)
       }
     }
   }
