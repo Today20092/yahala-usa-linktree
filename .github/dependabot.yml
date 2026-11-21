@@ -1,20 +1,21 @@
+# One monthly PR per ecosystem for all minor and patch updates (one CI run, no
+# lockfile conflicts between PRs); majors come one PR each. The 7-day cooldown
+# skips fresh releases; security updates are not delayed. Merging is manual:
+# a merge to main deploys production.
 version: 2
 updates:
   - package-ecosystem: npm
     target-branch: main
     directory: /
     schedule:
-      interval: weekly
-      day: monday
-      time: '09:00'
-      timezone: America/New_York
+      interval: monthly
     cooldown:
-      default-days: 3
-    open-pull-requests-limit: 5
+      default-days: 7
     labels:
       - dependencies
     groups:
-      routine-npm-updates:
+      minor-and-patch:
+        patterns: ['*']
         update-types:
           - minor
           - patch
@@ -27,17 +28,14 @@ updates:
     target-branch: main
     directory: /
     schedule:
-      interval: weekly
-      day: monday
-      time: '09:00'
-      timezone: America/New_York
+      interval: monthly
     cooldown:
-      default-days: 3
-    open-pull-requests-limit: 5
+      default-days: 7
     labels:
       - dependencies
     groups:
-      routine-github-actions-updates:
+      minor-and-patch:
+        patterns: ['*']
         update-types:
           - minor
           - patch
