@@ -51,10 +51,10 @@ Use the pinned Haithum account and `wrangler.preview.jsonc`. Never provision
 these resources in the Ayoub account. With a valid Cloudflare login:
 
 ```sh
-npx wrangler d1 create yahala-testimonials-preview --binding TESTIMONIALS_DB --update-config --config wrangler.preview.jsonc
-npx wrangler d1 migrations apply TESTIMONIALS_DB --remote --config wrangler.preview.jsonc
-npm run build
-npx wrangler deploy --config wrangler.preview.jsonc
+pnpm exec wrangler d1 create yahala-testimonials-preview --binding TESTIMONIALS_DB --update-config --config wrangler.preview.jsonc
+pnpm exec wrangler d1 migrations apply TESTIMONIALS_DB --remote --config wrangler.preview.jsonc
+pnpm run build
+pnpm exec wrangler deploy --config wrangler.preview.jsonc
 ```
 
 If the database already exists, bind its ID instead of creating another one.
@@ -126,7 +126,7 @@ For future schema changes, apply reviewed migrations to the production database
 before merging code that requires them:
 
 ```sh
-npx wrangler d1 migrations apply yahala-testimonials-production --remote --config wrangler.jsonc
+pnpm exec wrangler d1 migrations apply yahala-testimonials-production --remote --config wrangler.jsonc
 ```
 
 Merge the verified configuration PR into `main`; the existing Deploy workflow
@@ -146,7 +146,7 @@ Configuration and migration reference:
 
 ## Verification
 
-`npm run test:testimonials` uses in-memory SQLite and a mocked email/Turnstile
+`pnpm run test:testimonials` uses in-memory SQLite and a mocked email/Turnstile
 boundary. Rendered tests in `tests/accessibility/testimonials.spec.ts` cover the
 bilingual form, recovery, review confirmation, and the approved carousel.
 `tests/accessibility/testimonial-admin.spec.ts` covers admin moderation, undo,

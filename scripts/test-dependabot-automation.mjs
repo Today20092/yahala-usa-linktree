@@ -24,8 +24,8 @@ for (const name of [
   'validate:ui',
   ...Object.keys(pkg.scripts).filter((name) => name.startsWith('test:')),
 ]) {
-  assert.ok(commands.includes(`npm run ${name}`), `${name} must run in CI`)
+  assert.ok(commands.includes(`pnpm run ${name}`), `${name} must run in CI`)
 }
-assert.ok(commands.includes('npm run smoke:preview -- dist'))
+assert.ok(commands.includes('pnpm run smoke:preview dist'))
 assert.ok(!ci.jobs.validate.steps.some((step) => step.id === 'metadata'))
 console.log('Dependency PR targets, manual merge policy, and CI coverage pass.')

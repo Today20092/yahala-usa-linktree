@@ -7,7 +7,7 @@ site:
   heroImageAlt: Ya Hala with Haithum ياهلا مع هيثم social cover
   profileImage: yahala-channel-logo.png
   ogImage: og-image.png
-  # Per-page share images from `npm run generate:og`; pages fall back to ogImage.
+  # Per-page share images from `pnpm run generate:og`; pages fall back to ogImage.
   ogImages:
     index: og/index.png
     about: og/about.png

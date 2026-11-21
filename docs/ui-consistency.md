@@ -21,7 +21,7 @@ This site uses a single visual system for repeated UI.
 
 ## Layout primitives
 
-Pages compose `src/components/layout/` instead of hand-rolling width, gutter or gap wrappers. Do not write `mx-auto max-w-* px-*` page wrappers, `max-w-7xl` or `max-w-[76rem]` outside these components; `npm run validate:ui` flags the last two.
+Pages compose `src/components/layout/` instead of hand-rolling width, gutter or gap wrappers. Do not write `mx-auto max-w-* px-*` page wrappers, `max-w-7xl` or `max-w-[76rem]` outside these components; `pnpm run validate:ui` flags the last two.
 
 - `Container` — centered width plus side gutters. `size`: `page` (default, 76rem shell, homepage), `wide` (80rem, About and Story Browser), `content` (72rem standalone block, contact CTA), `narrow` (48rem form column: contact, testimonial). `as` sets the element, e.g. `as="main"`.
 - `Section` — a `Container` rendered as `<section>` with the default vertical rhythm (`py-12 lg:py-16`). Pass `headingId` to set `aria-labelledby`; put the heading in the `heading` slot or the body.
@@ -37,7 +37,7 @@ Extra classes passed through `class` merge with `cn()`, so a page overrides one 
 - `Badge` for small status labels.
 - `IconBadge` for repeated icon bubbles, play markers, and icon chips.
 - `ui-surface-card` for recurring card shells and content panels.
-- Headings use `ui-page-title` (page h1), `ui-section-title` (section h2), `ui-card-title` (card or panel heading) and `ui-kicker-accent` (eyebrow), without size, weight or tracking overrides. `npm run validate:ui` flags h1-h3 without one of the title classes.
+- Headings use `ui-page-title` (page h1), `ui-section-title` (section h2), `ui-card-title` (card or panel heading) and `ui-kicker-accent` (eyebrow), without size, weight or tracking overrides. `pnpm run validate:ui` flags h1-h3 without one of the title classes.
 
 ## Review Checklist
 
@@ -55,4 +55,4 @@ After UI changes, apply the `web-ui-accessibility` skill to the changed routes, 
 
 Use automated browser accessibility scans and focused regression assertions when available. Treat scanner passes as bounded evidence, and review incomplete results. Automated checks do not replace the skill’s manual usability and accessibility checks.
 
-Run `npm run validate:ui` before merge. It catches the highest-risk drift patterns, especially raw colors anywhere in `src/`, raw play/media icons and one-off surface styling.
+Run `pnpm run validate:ui` before merge. It catches the highest-risk drift patterns, especially raw colors anywhere in `src/`, raw play/media icons and one-off surface styling.

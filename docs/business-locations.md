@@ -43,8 +43,8 @@ performed.
 
 ## Refresh
 
-`npm run update:visited-videos` refreshes the video catalog and then the business
-locations. To regenerate just the latter, run `npm run update:business-locations`.
+`pnpm run update:visited-videos` refreshes the video catalog and then the business
+locations. To regenerate just the latter, run `pnpm run update:business-locations`.
 The scheduled refresh stages both generated files:
 
 - `src/data/business-geocodes.json`: cached successful and unsuccessful lookups.
@@ -60,7 +60,7 @@ preserved and the previous complete location catalog remains intact.
 
 ## Validation
 
-`npm run test:visited-map` tests address extraction, precision rejection, grouping,
+`pnpm run test:visited-map` tests address extraction, precision rejection, grouping,
 city fallbacks, unassigned stories and the saved catalog's source addresses.
 The Playwright mapcn test checks real marker activation, address/story links,
 Escape dismissal and focus return, expanded view, grouped counts and keyboard
@@ -82,7 +82,7 @@ two-finger panning, pinch scaling, page scrolling with one finger, one-finger
 panning while expanded, and restored touch behavior after collapse. This is
 browser emulation; physical Android/iOS verification remains manual.
 
-After the touch-control change, `npm run test:a11y:full` passed all 66 tests in
+After the touch-control change, `pnpm run test:a11y:full` passed all 66 tests in
 1.5 minutes across the six viewport/theme projects. Build, type checking,
 accessibility lint, UI validation and map regressions also passed. No deployment
 was performed.
@@ -92,11 +92,11 @@ was performed.
 - Backfill: 84 stories at 76 distinct published addresses. 53 descriptions with
   multiple addresses and 74 without a sufficiently precise geocode keep their
   existing city fallback; descriptions with no complete address do likewise.
-- Passed: `npm run check` (zero errors; two existing unused-symbol hints),
-  `npm run build`, `npm run lint:a11y`, `npm run validate:ui`,
-  `npm run validate:data`, `npm run test:locations`,
-  `npm run test:visited-map`, and `npm run test:atlas-polish`.
-- `npm run test:a11y:full`: all 60 Chromium tests passed across six viewport/theme
+- Passed: `pnpm run check` (zero errors; two existing unused-symbol hints),
+  `pnpm run build`, `pnpm run lint:a11y`, `pnpm run validate:ui`,
+  `pnpm run validate:data`, `pnpm run test:locations`,
+  `pnpm run test:visited-map`, and `pnpm run test:atlas-polish`.
+- `pnpm run test:a11y:full`: all 60 Chromium tests passed across six viewport/theme
   projects in 1.2 minutes. Map checks cover both consumers, popup containment,
   keyboard cluster expansion, focus return, grouped-number contrast at rest and
   hover, and the failed-basemap state. Whole-page route scans remain unchanged;

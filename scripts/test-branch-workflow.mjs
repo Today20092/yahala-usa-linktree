@@ -66,7 +66,7 @@ for (const check of [
   'smoke:preview',
 ]) {
   assert.ok(
-    precedingCommands.includes(`npm run ${check}`),
+    precedingCommands.includes(`pnpm run ${check}`),
     `${check} must pass before a catalog pull request is opened`,
   )
 }
