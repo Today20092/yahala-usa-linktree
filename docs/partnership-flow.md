@@ -22,15 +22,15 @@ Admins review requests at `/admin/requests`, behind the same Cloudflare Access a
 
 Retention: the daily scheduled job deletes archived requests 12 months after `archived_at`. Restoring a request clears `archived_at`. Requests that are never archived are kept. The contact form tells visitors their message is kept for up to 12 months after Ya Hala finishes with it. The preview Worker has no cron, so its cleanup does not run.
 
-Migration `0002` was applied to the preview and production databases on November 14, 2026, before the code was merged. `npm run test:requests` covers the admin API, the Access gate and retention. `scripts/test-partnership-delivery.tsx` (run with `npx tsx`) covers save-and-email outcomes. `tests/accessibility/requests-admin.spec.ts` covers the page.
+Migration `0002` was applied to the preview and production databases on November 14, 2026, before the code was merged. `pnpm run test:requests` covers the admin API, the Access gate and retention. `scripts/test-partnership-delivery.tsx` (run with `npx tsx`) covers save-and-email outcomes. `tests/accessibility/requests-admin.spec.ts` covers the page.
 
 ## Historical verification — earlier draft flow, November 5, 2026
 
 The notes below describe the superseded email-draft implementation, not the current form-only behavior.
 
-- Passed `npx --yes tsx scripts/test-partnership.tsx`: configured/blank-inbox server-rendered states, visible form with enabled preparation, required controls, explicit label associations, safe unhydrated submission method, delivery explanation, and direct email fallback.
-- Passed `npm run check`: zero errors or warnings; two existing unused-code hints.
-- Passed `npm run build` and `npm run validate:ui` after changes. Build reports missing optional local icon directory and large chunks.
+- Passed `pnpm dlx tsx scripts/test-partnership.tsx`: configured/blank-inbox server-rendered states, visible form with enabled preparation, required controls, explicit label associations, safe unhydrated submission method, delivery explanation, and direct email fallback.
+- Passed `pnpm run check`: zero errors or warnings; two existing unused-code hints.
+- Passed `pnpm run build` and `pnpm run validate:ui` after changes. Build reports missing optional local icon directory and large chunks.
 - Passed `node scripts/test-share-accessibility.mjs` and `node scripts/test-accessible-shell.mjs`, including QR keyboard activation and modal focus return.
 - Inspected built preview DOM at 1280px and 320px. Current unavailable-email state has no horizontal document overflow, a working Instagram destination, no data-entry controls, and a 40px layout gap. QR destination is `https://yahalausa.net/`.
 - Tested text-spacing overrides at 320px without document overflow. This is not actual 400% browser zoom or complete 200% text-resize verification.

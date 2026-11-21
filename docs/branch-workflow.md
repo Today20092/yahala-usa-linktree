@@ -4,7 +4,7 @@
 
 `main` is the only long-lived branch. Each task gets its own branch and pull request into `main`; there is no integration branch and no stacked PRs.
 
-1. Work in a worktree the host manages, based on current `origin/main`. A T3 Code thread on the main checkout moves itself with `t3_worktree_handoff` before editing; the project's worktree script runs `npm ci`. Without host worktree tools, use `git worktree add` and run `npm ci`.
+1. Work in a worktree the host manages, based on current `origin/main`. A T3 Code thread on the main checkout moves itself with `t3_worktree_handoff` before editing; the project's worktree script runs `pnpm install --frozen-lockfile`. Without host worktree tools, use `git worktree add` and run `pnpm install --frozen-lockfile`.
 2. Commit work in progress instead of using `git stash`: stashes are shared by every worktree.
 3. Make and verify the change using the checks in [CI](../.github/workflows/ci.yml): type checking, data/UI validation, workflow checks, the `test:*` scripts, build and built-asset smoke verification. See [the accessibility workflow](accessibility-testing.md) for UI changes.
 4. End every code task with a commit and a pull request to `main`, without being asked. Opening a PR is safe; only a merge deploys.

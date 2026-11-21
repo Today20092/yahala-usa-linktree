@@ -52,12 +52,12 @@ All commands run from the project root.
 
 | Command | Action |
 | --- | --- |
-| `npm install` | Install dependencies |
-| `npm run dev` | Start the Astro dev server |
-| `npm run check` | Check Astro templates and types |
-| `npm run build` | Build the production site |
-| `npm run preview` | Preview the production build locally |
-| `npm run astro ...` | Run Astro CLI commands |
+| `pnpm install` | Install dependencies |
+| `pnpm run dev` | Start the Astro dev server |
+| `pnpm run check` | Check Astro templates and types |
+| `pnpm run build` | Build the production site |
+| `pnpm run preview` | Preview the production build locally |
+| `pnpm run astro ...` | Run Astro CLI commands |
 
 The site content is configured in `src/data/site.yaml`, so updates to links, labels, featured videos, and visited places should usually start there.
 
@@ -67,7 +67,7 @@ The [Git workflow](docs/branch-workflow.md) is feature branch → pull request t
 
 Before deploying, it is a good idea to:
 
-1. Run `npm run build`
+1. Run `pnpm run build`
 2. Check the generated output for any warnings
 3. Confirm the README or site copy still matches the current data in `src/data/site.yaml`
 

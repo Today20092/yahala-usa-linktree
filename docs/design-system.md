@@ -6,7 +6,7 @@ Reference for colors, layout primitives and themes. Read it before adding color,
 
 The token file is the source of truth: root `tokens.css` today, or `src/styles/tokens*.css` / `src/styles/theme*.css` once tokens move there. Both checkers below read whichever exist. Light values live on `:root`; dark values override them under `.dark`. `@theme inline` exposes each `--x` to Tailwind as `bg-x`, `text-x`, `border-x`, `ring-x`, `fill-x`.
 
-The table is a snapshot from November 2026. When a token changes or is added (for example `--success`, `--warning`, `--info`), update its row; `npm run test:contrast` prints the resolved pairs.
+The table is a snapshot from November 2026. When a token changes or is added (for example `--success`, `--warning`, `--info`), update its row; `pnpm run test:contrast` prints the resolved pairs.
 
 | Token                                           | Light                                                      | Dark                                                       | Use                                                                  |
 | ----------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------- |
@@ -38,14 +38,14 @@ The table is a snapshot from November 2026. When a token changes or is added (fo
 ## Do and don't
 
 - Do reference a semantic token for every color, in classes, CSS and inline styles.
-- Do add a new token to the token file with a light and a dark value, then run `npm run test:contrast`. A `--x` with `--x-foreground` is checked automatically; add other pairs to `PAIRS` in `scripts/test-token-contrast.mjs`.
+- Do add a new token to the token file with a light and a dark value, then run `pnpm run test:contrast`. A `--x` with `--x-foreground` is checked automatically; add other pairs to `PAIRS` in `scripts/test-token-contrast.mjs`.
 - Do use one class that works in both themes. A `dark:` color variant means a token is missing.
 - Don't use hex, `rgb()`, `hsl()` or `oklch()` literals, Tailwind palette classes (`bg-white`, `text-black`, `*-gray-500`, `*-red-*`), or arbitrary values (`bg-[#…]`, `text-[rgb(…)]`) outside the token file.
 - Don't use `--border` as the only boundary of a control; it is below 3:1 by design.
 
 ## Forbidden colors and lint messages
 
-`npm run validate:ui` (rules in `scripts/ui-color-rules.mjs`) scans every `.astro`, `.ts`, `.tsx`, `.js`, `.jsx` and `.css` file under `src/`. Comment lines and token files are skipped. Each finding prints `file:line:` and one of these messages:
+`pnpm run validate:ui` (rules in `scripts/ui-color-rules.mjs`) scans every `.astro`, `.ts`, `.tsx`, `.js`, `.jsx` and `.css` file under `src/`. Comment lines and token files are skipped. Each finding prints `file:line:` and one of these messages:
 
 | Finding         | Message                                                                                                       |
 | --------------- | ------------------------------------------------------------------------------------------------------------- |
@@ -72,13 +72,13 @@ A literal that cannot be a token (a canvas or raster API that cannot read CSS va
 
 ## Contrast gate
 
-`npm run test:contrast` (`scripts/test-token-contrast.mjs`, run in CI) resolves tokens for light and dark and asserts WCAG 2.2 AA:
+`pnpm run test:contrast` (`scripts/test-token-contrast.mjs`, run in CI) resolves tokens for light and dark and asserts WCAG 2.2 AA:
 
 - 4.5:1 for every `--x-foreground` on `--x`, `--foreground`, `--muted-foreground`, `--primary` and `--destructive` on page and card.
 - 3:1 (1.4.11) for `--ring` and `--input` on page and card.
 - `--border` on page prints a `note` without failing: decorative edges are exempt.
 
-It assumes flat backgrounds and composites alpha tokens over the background. Rendered states (hover, gradients, images) stay with the Playwright axe gate. Forced-colors checks remain in `npm run test:a11y`.
+It assumes flat backgrounds and composites alpha tokens over the background. Rendered states (hover, gradients, images) stay with the Playwright axe gate. Forced-colors checks remain in `pnpm run test:a11y`.
 
 ## Layout primitives
 
@@ -97,4 +97,4 @@ Pages compose these instead of hand-rolled wrappers and gutters. They are being 
 - Dark mode is class-based: `.dark` on `<html>` activates the dark token set, and `@custom-variant dark (&:is(.dark *))` drives any `dark:` variant.
 - Apply the stored or system preference with an inline script in `<head>` before first paint, so no route flashes the wrong theme. The theme switcher owns that state; components never hard-code `light` or `dark`.
 - `color-scheme` and `<meta name="theme-color">` follow the active theme.
-- Every route must look equivalent in both themes. After token or theme changes, run `npm run test:contrast`, `npm run validate:ui`, and the extended accessibility matrix (`npm run test:a11y:full`).
+- Every route must look equivalent in both themes. After token or theme changes, run `pnpm run test:contrast`, `pnpm run validate:ui`, and the extended accessibility matrix (`pnpm run test:a11y:full`).

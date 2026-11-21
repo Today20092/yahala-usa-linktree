@@ -6,7 +6,7 @@
     "lint:a11y": "eslint src --cache --cache-location .cache/eslint-a11y --max-warnings 0",
     "test:a11y": "playwright test --config playwright.a11y.config.ts --project=mobile-light --project=desktop-dark",
     "test:a11y:full": "playwright test --config playwright.a11y.config.ts",
-    "a11y": "npm run lint:a11y && npm run build && npm run test:a11y",
+    "a11y": "pnpm run lint:a11y && pnpm run build && pnpm run test:a11y",
     "dev": "astro dev",
     "start": "astro dev",
     "update:youtube": "node scripts/update-latest-youtube-video.mjs",
@@ -78,6 +78,7 @@
     "@types/qrcode": "^1.5.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "esbuild": "0.28.2",
     "eslint": "^10.14.0",
     "eslint-plugin-astro": "^3.2.1",
     "eslint-plugin-jsx-a11y-x": "^0.2.0",
@@ -87,6 +88,8 @@
     "shadcn": "^4.23.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.2",
+    "vite": "8.3.8",
     "wrangler": "^4.161.0"
-  }
+  },
+  "packageManager": "pnpm@11.21.0"
 }

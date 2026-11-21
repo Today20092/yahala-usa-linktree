@@ -4,10 +4,10 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-npm run test:video-search
-npm run validate:data
-npm run build
-npx wrangler deploy
+pnpm run test:video-search
+pnpm run validate:data
+pnpm run build
+pnpm exec wrangler deploy
 
 ADMIN_TOKEN="$(
   security find-generic-password \

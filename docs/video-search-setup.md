@@ -14,10 +14,10 @@ credentials must be created in the account that deploys `yahalausa.net`.
 5. Store the values as Worker secrets:
 
 ```sh
-npx wrangler secret put GOOGLE_CLIENT_ID
-npx wrangler secret put GOOGLE_CLIENT_SECRET
-npx wrangler secret put GOOGLE_REFRESH_TOKEN
-npx wrangler secret put ADMIN_API_TOKEN
+pnpm exec wrangler secret put GOOGLE_CLIENT_ID
+pnpm exec wrangler secret put GOOGLE_CLIENT_SECRET
+pnpm exec wrangler secret put GOOGLE_REFRESH_TOKEN
+pnpm exec wrangler secret put ADMIN_API_TOKEN
 ```
 
 The refresh token is server-only. Never add it to `.dev.vars`, GitHub logs, or
@@ -28,12 +28,12 @@ the repository.
 Create the resources named in `wrangler.jsonc`:
 
 ```sh
-npx wrangler r2 bucket create yahala-video-transcripts
-npx wrangler vectorize create yahala-video-search --dimensions=1024 --metric=cosine
-npx wrangler vectorize create-metadata-index yahala-video-search --property-name=channelId --type=string
-npx wrangler vectorize create-metadata-index yahala-video-search --property-name=landscape --type=boolean
-npx wrangler queues create yahala-video-index
-npx wrangler queues create yahala-video-index-dlq
+pnpm exec wrangler r2 bucket create yahala-video-transcripts
+pnpm exec wrangler vectorize create yahala-video-search --dimensions=1024 --metric=cosine
+pnpm exec wrangler vectorize create-metadata-index yahala-video-search --property-name=channelId --type=string
+pnpm exec wrangler vectorize create-metadata-index yahala-video-search --property-name=landscape --type=boolean
+pnpm exec wrangler queues create yahala-video-index
+pnpm exec wrangler queues create yahala-video-index-dlq
 ```
 
 The Vectorize dimension must match the configured Workers AI model
@@ -89,8 +89,8 @@ curl \
 Create a local `.dev.vars` file containing the four secrets above and run:
 
 ```sh
-npx wrangler dev
+pnpm exec wrangler dev
 ```
 
-Astro's normal `npm run dev` serves the static UI but does not emulate the
+Astro's normal `pnpm run dev` serves the static UI but does not emulate the
 Cloudflare bindings used by `/api/video-search`.
