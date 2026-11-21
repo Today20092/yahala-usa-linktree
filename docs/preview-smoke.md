@@ -5,9 +5,9 @@ Use a Cloudflare version preview, never a production deployment, while diagnosin
 ## Automated asset boundary
 
 ```sh
-npm run build
-npm run smoke:preview -- dist
-npm run smoke:preview -- https://<preview-url>
+pnpm run build
+pnpm run smoke:preview dist
+pnpm run smoke:preview https://<preview-url>
 ```
 
 The local check fails when production HTML references a missing CSS or JavaScript file. The URL check fails on non-successful asset responses or incorrect CSS/JavaScript content types. Both checks also require the server-rendered reach section, QR control, map, state browser, and latest-story action. The URL result reports whether the Worker supplied a Content Security Policy.

@@ -9,11 +9,11 @@ Reviewed November 5, 2026 using the `web-ui-accessibility` skill. Scope: the new
 
 ## Executed checks
 
-- `npm run check`: zero errors/warnings, two unused-symbol hints outside the change.
-- `npm run validate:ui`: passed.
-- `npm run test:motion-toggle`: passed, including new observer tests for once-only entrances, reduced-motion and missing-IntersectionObserver fallbacks, and accessible text markup.
-- `npm run test:accessibility`, `npm run test:site-navigation`, `npm run test:branded-document`: passed.
-- `npm run build`: passed. Existing missing icon-directory and large-chunk notices remain.
+- `pnpm run check`: zero errors/warnings, two unused-symbol hints outside the change.
+- `pnpm run validate:ui`: passed.
+- `pnpm run test:motion-toggle`: passed, including new observer tests for once-only entrances, reduced-motion and missing-IntersectionObserver fallbacks, and accessible text markup.
+- `pnpm run test:accessibility`, `pnpm run test:site-navigation`, `pnpm run test:branded-document`: passed.
+- `pnpm run build`: passed. Existing missing icon-directory and large-chunk notices remain.
 - Managed production preview returned HTTP 200 with 3, 3, and 1 text-reveal instances on Home, About, and Stories respectively.
 - Browser DOM/computed-style checks: Home/About at 320, 390, 768, and 1280 CSS px had no document overflow; Stories checked at 320 and 1280. All new text/scroll content was fully visible when paused.
 - At 320 CSS px, all three routes tolerated 200% root text size together with line height 1.5, paragraph spacing 2em, letter spacing .12em and word spacing .16em without document overflow or new words crossing the viewport edge. Focused pause buttons were visible and retained focus after activation.

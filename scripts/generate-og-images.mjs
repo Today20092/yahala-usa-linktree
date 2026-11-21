@@ -1,5 +1,5 @@
 // Renders the per-page 1200x630 share images into public/og/. Output is committed;
-// run `npm run generate:og` after changing page copy or site.yaml.
+// run `pnpm run generate:og` after changing page copy or site.yaml.
 import { mkdir, readFile } from 'node:fs/promises'
 import sharp from 'sharp'
 import { parse } from 'yaml'

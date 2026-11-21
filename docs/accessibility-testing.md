@@ -46,7 +46,7 @@ or light accordingly (`tests/accessibility/theme.ts`). Removing the boot
 script's `dark` toggle from built `/about` makes `desktop-dark` fail. A new test
 covers the stored preference before first paint, the footer System/Light/Dark
 control by keyboard, persistence across routes, `color-scheme`, `theme-color`
-and live system changes. `npm run test:atlas-polish` checks every primitive
+and live system changes. `pnpm run test:atlas-polish` checks every primitive
 token pair in both themes. The full six-project matrix (150 tests), lint,
 Astro check, UI validation, build and preview smoke passed. The CSP nonce on
 the inline boot script was not verified on the preview Worker.
@@ -82,18 +82,18 @@ Target WCAG 2.2 AA and the usability/consistency checks in the shared `web-ui-ac
 Use Node 22.22.3 or newer in the Node 22 line (CI installs the latest Node 22), then:
 
 ```sh
-npm ci
-npx playwright install chromium
+pnpm install --frozen-lockfile
+pnpm exec playwright install chromium
 ```
 
-On a new Linux host use `npx playwright install --with-deps chromium`. Browser setup is a one-time cost per Playwright version. `package-lock.json` pins compatible versions. The Astro plugin supports `eslint-plugin-jsx-a11y-x`; it is selected because its ESLint 10 peer range matches the installed Astro lint plugin. No forced peer dependency resolution is used.
+On a new Linux host use `pnpm exec playwright install --with-deps chromium`. Browser setup is a one-time cost per Playwright version. `package-lock.json` pins compatible versions. The Astro plugin supports `eslint-plugin-jsx-a11y-x`; it is selected because its ESLint 10 peer range matches the installed Astro lint plugin. No forced peer dependency resolution is used.
 
 ## Fast workflow
 
-1. While editing, run `npm run lint:a11y`. It caches source checks for `.astro` and React `.jsx`/`.tsx`; the cache lives under `.cache/` and never ships. The local Radio component is explicitly recognized as a form control.
-2. For a changed interaction, build current output once, then run the relevant test, for example `npm run test:a11y -- --grep contact`. These tests use the real built React/Astro UI, not source-pattern matching.
-3. Before handoff run `npm run a11y`: lint, build once, then the default browser gate. If that exact output was already built and unchanged, run `npm run test:a11y` to avoid another build. Also run the project's focused behavior regressions for changed components and `npm run validate:ui`.
-4. For shared layout/token changes or responsive/theme issues, run `npm run test:a11y:full` against the same build. Review incomplete axe results and the manual checklist below. Report actual commands/results and remaining gaps.
+1. While editing, run `pnpm run lint:a11y`. It caches source checks for `.astro` and React `.jsx`/`.tsx`; the cache lives under `.cache/` and never ships. The local Radio component is explicitly recognized as a form control.
+2. For a changed interaction, build current output once, then run the relevant test, for example `pnpm run test:a11y --grep contact`. These tests use the real built React/Astro UI, not source-pattern matching.
+3. Before handoff run `pnpm run a11y`: lint, build once, then the default browser gate. If that exact output was already built and unchanged, run `pnpm run test:a11y` to avoid another build. Also run the project's focused behavior regressions for changed components and `pnpm run validate:ui`.
+4. For shared layout/token changes or responsive/theme issues, run `pnpm run test:a11y:full` against the same build. Review incomplete axe results and the manual checklist below. Report actual commands/results and remaining gaps.
 
 The default browser gate has ten tests: all four public routes plus the contact interaction flow, in 320px/light and 1280px/dark projects. The extended matrix adds 320px/dark, 1280px/light, 390px/light, and 768px/dark. Both use Chromium with reduced motion, zero retries, two workers, and one local build server. Use Playwright's `--grep`/`--project` for focused diagnostics; avoid running the extended matrix after every small edit.
 
@@ -108,11 +108,11 @@ The browser runner starts an isolated Vite static preview on `127.0.0.1:4337`. V
 - Existing `test:accessibility` scripts retain focused QR, search, share, and motion seams. Use them for relevant changes; they complement the browser gate.
 - The browser gate also checks QR opening by Enter, initial dialog focus, Escape dismissal and return focus, plus the rendered reduced-motion bento state. It verifies each route's canonical URL so a homepage fallback cannot silently pass as another page.
 
-On failure open `artifacts/a11y-report/index.html` (or run `npx playwright show-report artifacts/a11y-report`). The report links screenshots, traces, and axe JSON. `artifacts/a11y-results/*/axe-review.json` also retains incomplete findings on successful scans. Reports/caches are ignored. CI runs cached lint, builds once, caches/installs Chromium, runs the default gate, and uploads failure artifacts. No additional runtime bundle is added to the public website.
+On failure open `artifacts/a11y-report/index.html` (or run `pnpm exec playwright show-report artifacts/a11y-report`). The report links screenshots, traces, and axe JSON. `artifacts/a11y-results/*/axe-review.json` also retains incomplete findings on successful scans. Reports/caches are ignored. CI runs cached lint, builds once, caches/installs Chromium, runs the default gate, and uploads failure artifacts. No additional runtime bundle is added to the public website.
 
 ## Local speed check
 
-Single Lighthouse runs vary by 0.1 or more, so do not judge speed from one run. `npm run perf:lighthouse` builds into a temporary folder (never `dist/`), runs Lighthouse on the four pages 5 times each (`-- --runs=3` or `LH_RUNS=3` to change), and prints the median and min-max of score, LCP, TBT, CLS, and transfer size. CI uses 3 runs per page via `lighthouserc.json`. It needs Chromium (`CHROME_PATH` or the Playwright install above).
+Single Lighthouse runs vary by 0.1 or more, so do not judge speed from one run. `pnpm run perf:lighthouse` builds into a temporary folder (never `dist/`), runs Lighthouse on the four pages 5 times each (`-- --runs=3` or `LH_RUNS=3` to change), and prints the median and min-max of score, LCP, TBT, CLS, and transfer size. CI uses 3 runs per page via `lighthouserc.json`. It needs Chromium (`CHROME_PATH` or the Playwright install above).
 
 ## Astro Audit during design
 
@@ -146,7 +146,7 @@ Local measurements and remaining gaps are recorded below after validation. These
 
 ## Validation notes — November 5, 2026
 
-Release verification reran `npm ci` successfully after the interrupted tool host
+Release verification reran `pnpm install --frozen-lockfile` successfully after the interrupted tool host
 was recovered, and the complete 30-test matrix passed on the integrated catalog.
 CI now runs `test:a11y:full` so the existing automatic dependency merge guard
 covers every `test:*` entry. The earlier installation and CI limitations below
@@ -156,7 +156,7 @@ The initial browser gate caught low contrast in bar-list labels and accessible n
 
 Cached source lint passed in 1.06 seconds. The final default suite passed ten tests in 13.7 seconds; the broader matrix passed thirty in 37.9 seconds on this Windows machine before the final small map-region correction. Browser download, first dependency install and build costs are separate. Both suites use one in-process Vite preview with explicit cleanup to avoid slow Windows process-tree shutdown; the final default run verified that port 4337 was closed afterward. `vite.a11y.config.mjs` serves Astro directory indexes without an SPA homepage fallback. CI wiring is configured locally; no remote CI run or deployment was started.
 
-The lockfile installation attempt (`npm ci`) hit Windows `EPERM` on native modules held by running development processes. `npm install` restored the dependency tree successfully, with locked stale-directory cleanup warnings. A fresh-host `npm ci` remains unverified locally; CI uses that command. The installed lint, build and browser checks were subsequently run successfully. npm's audit also reported an existing critical MapLibre 5.x advisory requiring a major-version migration; this accessibility setup does not perform that unrelated upgrade.
+The lockfile installation attempt (`pnpm install --frozen-lockfile`) hit Windows `EPERM` on native modules held by running development processes. `pnpm install` restored the dependency tree successfully, with locked stale-directory cleanup warnings. A fresh-host `pnpm install --frozen-lockfile` remains unverified locally; CI uses that command. The installed lint, build and browser checks were subsequently run successfully. npm's audit also reported an existing critical MapLibre 5.x advisory requiring a major-version migration; this accessibility setup does not perform that unrelated upgrade.
 
 Axe incomplete findings are retained in the reports. Gradient/overlap and image-backed text can prevent automatic contrast determination; assess their actual visible regions manually. The radios deliberately reference their visible titles and separate descriptions; verify their spoken names with a screen reader. The QR `aria-controls` target exists in the DOM and the Enter/Escape/return-focus test exercises it; axe can still mark the hidden dialog relationship incomplete. These items are not included in a claim of complete conformance.
 
@@ -166,7 +166,7 @@ Real screen-reader evaluation, actual 400% browser zoom, physical Android/Brave,
 
 Scope: homepage composition and map supporting content, plus the shared header width and bilingual accessible name. The existing shadcn Button variants and Cnippet-derived searchable selection and BarList remain the UI reference. No new registry code or dependencies were added.
 
-Executed on macOS with Node 22.23.5: npm ci; Astro/TypeScript check (0 errors, 2 existing unused-code hints); accessibility lint; UI consistency; production build; navigation, reach-chart, visited-map, story-coverage and accessibility regressions; built-output smoke; and preview Worker dry-run packaging. Impeccable layout detection returned no findings. Existing icon-directory, chunk-size and Wrangler module-rule notices remain.
+Executed on macOS with Node 22.23.5: pnpm install --frozen-lockfile; Astro/TypeScript check (0 errors, 2 existing unused-code hints); accessibility lint; UI consistency; production build; navigation, reach-chart, visited-map, story-coverage and accessibility regressions; built-output smoke; and preview Worker dry-run packaging. Impeccable layout detection returned no findings. Existing icon-directory, chunk-size and Wrangler module-rule notices remain.
 
 The full Chromium matrix passed 78/78 tests in 1.3 minutes. After the final header-name correction, the eight route landmark/name/contrast/reflow cases passed again in mobile-light and desktop-dark. Port 4337 was occupied by another app: an ignored config/setup copy ran the same suite against an isolated Vite server at 4338. The server closed after each run. Local reports are under .cache/artifacts/a11y-results and .cache/artifacts/a11y-report.
 

@@ -15,7 +15,7 @@
 
 Fetch with `git fetch origin` before choosing a base or integrating changes. Use `git pull --ff-only` when the current branch can advance without divergence. Inspect divergent commits and preserve wanted work when merging.
 
-Run `npm ci`, then the checks in [CI](../.github/workflows/ci.yml), including type checking, data/UI validation, workflow checks, regression tests, build, and built-asset smoke verification. Add focused behavior checks for the change and record omissions. See [the accessibility workflow](accessibility-testing.md) for UI changes.
+Run `pnpm install --frozen-lockfile`, then the checks in [CI](../.github/workflows/ci.yml), including type checking, data/UI validation, workflow checks, regression tests, build, and built-asset smoke verification. Add focused behavior checks for the change and record omissions. See [the accessibility workflow](accessibility-testing.md) for UI changes.
 
 A Cloudflare preview is optional and can be deployed directly from the feature branch with the pinned configuration in [AGENTS.md](../AGENTS.md). It does not require an intermediate Git branch.
 

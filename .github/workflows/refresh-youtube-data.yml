@@ -26,12 +26,14 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
       - name: Set up Node
         uses: actions/setup-node@v7
         with:
           node-version: 22
           check-latest: true
-          cache: npm
+          cache: pnpm
       - name: Set up Python
         uses: actions/setup-python@v7
         with:
@@ -41,22 +43,22 @@ jobs:
           python -m pip install --user --upgrade yt-dlp
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Refresh YouTube catalog
         run: |
-          npm run update:youtube -- --refresh-top-videos
-          npm run update:visited-videos
-          npm run validate:data
+          pnpm run update:youtube --refresh-top-videos
+          pnpm run update:visited-videos
+          pnpm run validate:data
       - name: Verify refreshed catalog
         run: |
-          npm run test:branch-workflow
-          npm run validate:data
-          npm run validate:ui
-          npm run test:locations
-          npm run test:youtube-catalog
-          npm run test:visited-map
-          npm run build
-          npm run smoke:preview -- dist
+          pnpm run test:branch-workflow
+          pnpm run validate:data
+          pnpm run validate:ui
+          pnpm run test:locations
+          pnpm run test:youtube-catalog
+          pnpm run test:visited-map
+          pnpm run build
+          pnpm run smoke:preview dist
       - name: Open catalog update pull request
         id: catalog-pr
         uses: peter-evans/create-pull-request@v8

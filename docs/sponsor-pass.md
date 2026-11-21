@@ -18,17 +18,17 @@ Implemented November 5, 2026, against the existing working tree. The current lay
 
 Local environment: Windows, Node 26.3.0. CI's Node 22 environment and remote CI were not run.
 
-- `npm ci`: passed after stopping the managed development and preview servers that held Windows native-module locks. Both servers were restored afterward.
-- `npm run check`: passed, zero errors and warnings, two existing unused-code hints.
-- `npm run build`: passed for all four routes. Existing optional local-icon-directory and large-chunk warnings remain.
-- `npm run lint:a11y`, `npm run validate:ui`, and `npm run validate:data`: passed. Data validation still reports existing missing-location/state-only informational notices.
-- `npx --yes tsx scripts/test-partnership.tsx` and `npx --yes tsx scripts/test-partnership-delivery.tsx`: passed, including server validation, honeypot, verification, destination control, and delivery failure behavior.
-- `npm run test:a11y:full`: all 48 tests passed in 41.8 seconds across six viewport/color-preference configurations, including 320px reflow. Tests cover required fields, keyboard choices/focus, field preservation, service/validation/verification/network failures, security-script retry, sending feedback, duplicate activation, success reset, enlarged text/spacing, forced-colors visibility, curated titles, corrected locations, consistent view proof, QR keyboard/focus behavior, and reduced motion on the current story cards. Verification and delivery are mocked; no real email is sent.
+- `pnpm install --frozen-lockfile`: passed after stopping the managed development and preview servers that held Windows native-module locks. Both servers were restored afterward.
+- `pnpm run check`: passed, zero errors and warnings, two existing unused-code hints.
+- `pnpm run build`: passed for all four routes. Existing optional local-icon-directory and large-chunk warnings remain.
+- `pnpm run lint:a11y`, `pnpm run validate:ui`, and `pnpm run validate:data`: passed. Data validation still reports existing missing-location/state-only informational notices.
+- `pnpm dlx tsx scripts/test-partnership.tsx` and `pnpm dlx tsx scripts/test-partnership-delivery.tsx`: passed, including server validation, honeypot, verification, destination control, and delivery failure behavior.
+- `pnpm run test:a11y:full`: all 48 tests passed in 41.8 seconds across six viewport/color-preference configurations, including 320px reflow. Tests cover required fields, keyboard choices/focus, field preservation, service/validation/verification/network failures, security-script retry, sending feedback, duplicate activation, success reset, enlarged text/spacing, forced-colors visibility, curated titles, corrected locations, consistent view proof, QR keyboard/focus behavior, and reduced motion on the current story cards. Verification and delivery are mocked; no real email is sent.
 - Focused regressions passed: `test:visited-map`, `test:youtube-catalog`, `test:site-navigation`, `test:preview-smoke`, `test:reach-chart`, `test:atlas-polish`, `test:story-coverage`, `test:editorial-motion`, `test:video-recency`, `test:branded-document`, and `test:accessibility`.
 - Mechanical design detector over pages/components returned `[]`. Source whitespace check passed.
 - Inspected rendered screenshots of Home at mobile and desktop widths, mobile Contact, and desktop About. The form error text and homepage action hover initially failed rendered contrast checks; both were corrected before the passing run.
 - Managed development readiness returned HTTP 200 with `{"ok":true}` on localhost and the Tailscale address. All four built-preview routes returned HTTP 200. Development and preview logs were inspected.
-- `npm run smoke:preview -- dist` and `npm run smoke:preview -- http://localhost:4322`: passed for nine built assets and expected page journeys. CSP is not applied by the local static preview; the Cloudflare Worker supplies deployment headers separately.
+- `pnpm run smoke:preview dist` and `pnpm run smoke:preview http://localhost:4322`: passed for nine built assets and expected page journeys. CSP is not applied by the local static preview; the Cloudflare Worker supplies deployment headers separately.
 
 ## Remaining limits
 

@@ -4,7 +4,7 @@ import path from 'node:path'
 const target = process.argv[2]
 
 if (!target) {
-  console.error('Usage: npm run smoke:preview -- <dist-directory|preview-url>')
+  console.error('Usage: pnpm run smoke:preview <dist-directory|preview-url>')
   process.exit(1)
 }
 

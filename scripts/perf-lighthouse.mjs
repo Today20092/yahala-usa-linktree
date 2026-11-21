@@ -1,5 +1,5 @@
 // Local Lighthouse run with the same noise protection as CI: N runs per page, report the median.
-// Usage: npm run perf:lighthouse [-- --runs=5]   (or LH_RUNS=5)   |   node scripts/perf-lighthouse.mjs --self-test
+// Usage: pnpm run perf:lighthouse [-- --runs=5]   (or LH_RUNS=5)   |   node scripts/perf-lighthouse.mjs --self-test
 import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
 import fs from 'node:fs'
@@ -53,7 +53,7 @@ function findChrome() {
 const chrome = findChrome()
 if (!chrome) {
   console.error(
-    'Chrome not found. Set CHROME_PATH, or run `npx playwright install chromium`.',
+    'Chrome not found. Set CHROME_PATH, or run `pnpm exec playwright install chromium`.',
   )
   process.exit(1)
 }
