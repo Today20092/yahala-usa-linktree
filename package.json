@@ -45,21 +45,21 @@
     "check": "astro check"
   },
   "dependencies": {
-    "@astrojs/react": "^7.1.8",
+    "@astrojs/react": "^7.1.9",
     "@base-ui/react": "^1.9.0",
     "@fontsource-variable/geist": "^5.3.0",
     "@iconify-json/heroicons": "^1.2.3",
     "@iconify-json/simple-icons": "^1.2.102",
     "@tailwindcss/vite": "^4.3.5",
-    "astro": "^7.4.11",
+    "astro": "^7.4.12",
     "astro-icon": "^1.2.0",
     "astro-seo": "^1.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",
-    "lucide-react": "^1.72.0",
+    "lucide-react": "^1.73.0",
     "maplibre-gl": "^6.18.0",
-    "motion": "^14.13.0",
+    "motion": "^14.14.0",
     "qrcode": "^1.5.4",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
@@ -73,13 +73,13 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
     "@axe-core/playwright": "^4.14.0",
-    "@playwright/test": "^1.65.0",
+    "@playwright/test": "^1.65.1",
     "@types/geojson": "^7946.0.16",
     "@types/qrcode": "^1.5.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "esbuild": "0.28.2",
-    "eslint": "^10.14.0",
+    "eslint": "^10.15.0",
     "eslint-plugin-astro": "^3.2.1",
     "eslint-plugin-jsx-a11y-x": "^0.2.0",
     "prettier": "^3.10.1",
@@ -89,7 +89,7 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.2",
     "vite": "8.3.8",
-    "wrangler": "^4.161.0"
+    "wrangler": "^4.162.0"
   },
   "packageManager": "pnpm@11.21.0"
 }
