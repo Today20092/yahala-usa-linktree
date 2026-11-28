@@ -913,5 +913,12 @@
     "longitude": -83.0062746,
     "city": "Warren",
     "state": "Michigan"
+  },
+  "Near Paterson, New Jersey": {
+    "query": "Near Paterson, New Jersey",
+    "latitude": 40.7671361,
+    "longitude": -74.0431611,
+    "city": "North Bergen",
+    "state": "New Jersey"
   }
 }

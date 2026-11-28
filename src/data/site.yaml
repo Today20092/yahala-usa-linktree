@@ -3,11 +3,10 @@ site:
   pageDescription: Ya Hala with Haithum shares Arab American field stories, community visits, and latest videos across the United States.
   siteName: Ya Hala with Haithum
   profileName: Haithem Alqahaf
-  twitterHandle: '@yahala_usa'
+  twitterHandle: "@yahala_usa"
   heroImageAlt: Ya Hala with Haithum ياهلا مع هيثم social cover
   profileImage: yahala-channel-logo.png
   ogImage: og-image.png
-  # Per-page share images from `pnpm run generate:og`; pages fall back to ogImage.
   ogImages:
     index: og/index.png
     about: og/about.png
@@ -39,21 +38,11 @@ about:
       description: I choose businesses that offer quality products or services and are halal or otherwise consistent with Islamic principles.
   viewerCtaLabel: Explore the stories
   partnerCtaLabel: Partner with us
-
 partnership:
-  # Set the inbox that should receive partnership inquiries.
-  email: 'yahalaflorida@gmail.com'
-  # Public Cloudflare Turnstile site key (not the secret). Required for the
-  # form to send; missing configuration shows an in-page unavailable message.
-  turnstileSiteKey: '0x4AAAAAAF1b4faVt03avKGw'
-
+  email: yahalaflorida@gmail.com
+  turnstileSiteKey: 0x4AAAAAAF1b4faVt03avKGw
 analytics:
-  # Manual Cloudflare Web Analytics token; empty disables only our own snippet.
-  # yahalausa.net already uses automatic injection in Haithum's Cloudflare
-  # account (verified 2026-11-05), excluding EU visitors. Keep this empty while
-  # automatic injection is enabled. PUBLIC_CF_BEACON_TOKEN overrides per build;
-  # preview hosts need a separate analytics site/token to keep traffic separate.
-  cloudflareBeaconToken: ''
+  cloudflareBeaconToken: ""
 
 socialLinks:
   - id: youtube
@@ -111,8 +100,8 @@ youtubeChannels:
       darkCardBackground: var(--card)
       cardTint: var(--muted)
       darkCardTint: var(--muted)
-      logoBackgroundColor: '#ffffff'
-      darkLogoBackgroundColor: '#ffffff'
+      logoBackgroundColor: "#ffffff"
+      darkLogoBackgroundColor: "#ffffff"
       logoFit: contain
       logoPaddingClass: p-1.5
 videoSearch:
@@ -673,14 +662,18 @@ visitedPlaces:
       state: Michigan
       latitude: 42.4932575
       longitude: -83.0062746
+    - city: North Bergen
+      state: New Jersey
+      latitude: 40.7671361
+      longitude: -74.0431611
 
 socialReach:
-  updatedAt: '2026-06-22'
+  updatedAt: "2026-06-22"
   items:
     - platform: YouTube
       metric: Views
       value: 35120264
-      updatedAt: '2026-11-11'
+      updatedAt: 2026-11-11
     - platform: TikTok
       metric: Views
       value: 28166560

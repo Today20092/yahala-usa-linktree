@@ -2,6 +2,12 @@
 # State-only videos appear in every visited city for that state.
 # City videos appear only in the matching city drawer.
 videos:
+  - videoId: Scs_GLwk0Is
+    state: "North Carolina"
+    city: "Raleigh"
+  - videoId: XATNRKFWXbk
+    state: "New Jersey"
+    city: "North Bergen"
   - videoId: SG-LUadJN6g
     state: "Michigan"
     city: "Dearborn"
@@ -78,7 +84,7 @@ videos:
     state: "Michigan"
     city: "Dearborn"
   - videoId: kllekzPuZkE
-    state: ""
+    state: "Indiana"
     city: ""
   - videoId: r0DeNDBfx_I
     state: "Illinois"
